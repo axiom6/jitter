@@ -1,0 +1,48 @@
+
+body {
+  font-size: 1em;
+  font-weight: 400;
+  word-spacing: normal;
+  letter-spacing: normal;
+  text-transform: none;
+  font-family: Verdana, Myriad Web, Syntax, sans-serif;
+  font-size-adjust: .58;
+  color: #000;
+  background: #FFF;
+  line-height: 1.58em;
+  border-width: 0;
+  width: auto;
+  margin: 1.58em 5% 1.58em 8%;
+  padding: 0
+}
+
+#adsense {
+  margin-top: 1em;
+}
+
+path {
+  stroke: #000;
+  stroke-width: 1.5;
+  cursor: pointer;
+}
+
+text {
+  font: 11px sans-serif;
+  cursor: pointer;
+}
+
+body {
+  width: 880px;
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+  margin: .5em 0;
+}
+
+p#intro {
+  text-align: center;
+  margin: 1em 0;
+}
+
