@@ -1,52 +1,77 @@
 
-var   width  = 840;
-var   height = 840;
-var   radius = width / 2;
-var   x = d3.scaleLinear().range([0, 2 * Math.PI]);
-var   y = d3.scalePow().exponent(1.3).domain([0, 1]).range([0, radius]);
-var   padding = 5;
-var   duration = 1000;
+var width  = 840;
+var height = 840;
+//r radius = width / 2;
+var radius = (Math.min(width, height) / 2) - 10;
+var x      = d3.scaleLinear().range([0, 2 * Math.PI]);
+var y      = d3.scaleSqrt().range([0, radius]);
+//r y       = d3.scalePow().exponent(1.3).domain([0, 1]).range([0, radius]);
+var padding = 5;
+//r duration = 1000;
 
+var color = d3.scaleOrdinal(d3.schemeCategory20);
+var formatNumber = d3.format(",d");
+
+var partition = d3.partition();
+
+var arc = d3.arc()
+  .startAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x0))); })
+  .endAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x1))); })
+  .innerRadius(function(d) { return Math.max(0, y(d.y0)); })
+  .outerRadius(function(d) { return Math.max(0, y(d.y1)); });
+
+/*
+var arc = d3.arc()
+  .startAngle(  function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x))); })
+  .endAngle(    function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x + d.dx))); })
+  .innerRadius( function(d) { return Math.max(0, d.y ? y(d.y) : d.y); })
+  .outerRadius( function(d) { return Math.max(0, y(d.y + d.dy)); });
+*/
 var div = d3.select("#vis");
-
 div.select("img").remove();
 
 var vis = div.append("svg")
   .attr("width",  width  + padding * 2)
   .attr("height", height + padding * 2)
   .append("g")
-  .attr("transform", "translate(" + [radius + padding, radius + padding] + ")");
+  .attr("transform", "translate(" + width / 2 + "," + (height / 2) + ")");
+//.attr("transform", "translate(" + [radius + padding, radius + padding] + ")");
 
-var partition = d3.partition();
-//  .size([2 * Math.PI, radius * radius]);
-
-var arc = d3.arc()
-  .startAngle(  function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x))); })
-  .endAngle(    function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x + d.dx))); })
-  .innerRadius( function(d) { return Math.max(0, d.y ? y(d.y) : d.y); })
-  .outerRadius( function(d) { return Math.max(0, y(d.y + d.dy)); });
-
-d3.json("json/flavor.json", function( error, json ) {
+d3.json("json/flare.json", function( error, flare ) {
 
   if (error) throw error;
 
-  var root = d3.hierarchy(json)
+  var root = d3.hierarchy(flare)
     .sum( function(d) { return d.size; });
+  //console.log( "root", root );
 
-  console.log( "root", root );
+  var nodes = partition(root).descendants();
 
-  var rootp = partition(root);
-  var nodes = rootp.descendants();
+  var path = vis.selectAll("path");
 
-  console.log( "nodes", nodes );
+  path
+    .data( nodes )
+    .enter().append("path")
+    .attr("d", arc)
+    .style("fill", function(d) { return color((d.children ? d : d.parent).data.name); })
+  //.on("click", click)
+    .append("title")
+    .text(function(d) { return d.data.name + "\n" + formatNumber(d.value); });
+});
 
-  var path = vis.selectAll("path").data(nodes);
-  path.enter().append("path")
-    .attr( "id", function(d, i) { return "path-" + i; } )
+d3.select(self.frameElement).style("height", height + "px");
+
+/*
+  path
+    .data( nodes )
+    .enter().append("path")
+  //.attr( "id", function(d, i) { return "path-" + i; } )
     .attr( "d", arc)
-    .attr( "fill-rule", "evenodd")
-    .style("fill",  colour )
-    .on(   "click", click  );
+ // .attr( "fill-rule", "evenodd")
+ //.style("fill",  colour );
+    .style("fill", function(d) { return color((d.children ? d : d.parent).data.name); });
+
+//  .on(   "click", click  );
 
   var text = vis.selectAll("text").data(nodes);
 
@@ -73,6 +98,7 @@ d3.json("json/flavor.json", function( error, json ) {
     .attr("x", 0)
     .attr("dy", "1em")
     .text(function(d) { return d.depth ? d.name.split(" ")[1] || "" : ""; });
+
 
   function click(d) {
     path.transition()
@@ -144,5 +170,6 @@ function maxY(d) {
 
 // http://www.w3.org/WAI/ER/WD-AERT/#color-contrast
 function brightness(rgb) {
-  return rgb.r * .299 + rgb.g * .587 + rgb.b * .114;
-}
+  return rgb.r * .299 + rgb.g * .587 + rgb.b * .114; }
+
+ */
