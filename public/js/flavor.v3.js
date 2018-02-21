@@ -1,55 +1,44 @@
 
-var   width  = 840;
-var   height = 840;
-var   radius = width / 2;
-var   x = d3.scaleLinear().range([0, 2 * Math.PI]);
-var   y = d3.scalePow().exponent(1.3).domain([0, 1]).range([0, radius]);
-var   padding = 5;
-var   duration = 1000;
+var width = 840,
+  height = width,
+  radius = width / 2,
+  x = d3.scale.linear().range([0, 2 * Math.PI]),
+  y = d3.scale.pow().exponent(1.3).domain([0, 1]).range([0, radius]),
+  padding = 5,
+  duration = 1000;
 
 var div = d3.select("#vis");
 
 div.select("img").remove();
 
 var vis = div.append("svg")
-  .attr("width",  width  + padding * 2)
+  .attr("width", width + padding * 2)
   .attr("height", height + padding * 2)
   .append("g")
   .attr("transform", "translate(" + [radius + padding, radius + padding] + ")");
 
-var partition = d3.partition();
-//  .size([2 * Math.PI, radius * radius]);
+var partition = d3.layout.partition()
+  .sort(null)
+  .value(function(d) { return 5.8 - d.depth; });
 
-var arc = d3.arc()
-  .startAngle(  function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x))); })
-  .endAngle(    function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x + d.dx))); })
-  .innerRadius( function(d) { return Math.max(0, d.y ? y(d.y) : d.y); })
-  .outerRadius( function(d) { return Math.max(0, y(d.y + d.dy)); });
+var arc = d3.svg.arc()
+  .startAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x))); })
+  .endAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x + d.dx))); })
+  .innerRadius(function(d) { return Math.max(0, d.y ? y(d.y) : d.y); })
+  .outerRadius(function(d) { return Math.max(0, y(d.y + d.dy)); });
 
-d3.json("json/flavor.json", function( error, json ) {
-
-  if (error) throw error;
-
-  var root = d3.hierarchy(json)
-    .sum( function(d) { return d.size; });
-
-  console.log( "root", root );
-
-  var rootp = partition(root);
-  var nodes = rootp.descendants();
-
-  console.log( "nodes", nodes );
+d3.json("json/flavor.json", function(error, json) {
+  var nodes = partition.nodes({children: json});
 
   var path = vis.selectAll("path").data(nodes);
   path.enter().append("path")
-    .attr( "id", function(d, i) { return "path-" + i; } )
-    .attr( "d", arc)
-    .attr( "fill-rule", "evenodd")
-    .style("fill",  colour )
-    .on(   "click", click  );
+    .attr("id", function(d, i) { return "path-" + i; })
+    .attr("d", arc)
+    .attr("fill-rule", "evenodd")
+    .style("fill", colour)
+    .on("click", click);
 
   var text = vis.selectAll("text").data(nodes);
-
   var textEnter = text.enter().append("text")
     .style("fill-opacity", 1)
     .style("fill", function(d) {
@@ -132,7 +121,7 @@ function arcTween(d) {
   var my = maxY(d),
     xd = d3.interpolate(x.domain(), [d.x, d.x + d.dx]),
     yd = d3.interpolate(y.domain(), [d.y, my]),
-    yr = d3.interpolate(y.range(),  [d.y ? 20 : 0, radius]);
+    yr = d3.interpolate(y.range(), [d.y ? 20 : 0, radius]);
   return function(d) {
     return function(t) { x.domain(xd(t)); y.domain(yd(t)).range(yr(t)); return arc(d); };
   };
