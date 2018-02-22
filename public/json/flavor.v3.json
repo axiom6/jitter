@@ -1,6 +1,4 @@
-{
-  "name": "Flavors",
-  "children": [
+[
     {
       "name": "Aromas",
       "children": [
@@ -430,5 +428,4 @@
       ]
     }
   ]
-}
 
