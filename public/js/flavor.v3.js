@@ -27,7 +27,7 @@ var arc = d3.svg.arc()
   .innerRadius(function(d) { return Math.max(0, d.y ? y(d.y) : d.y); })
   .outerRadius(function(d) { return Math.max(0, y(d.y + d.dy)); });
 
-d3.json("json/flavor.v3.json", function(error, json) {
+d3.json("json/jitter.v3.json", function(error, json) {
   var nodes = partition.nodes({children: json});
   console.log( "nodes", nodes );
 
@@ -106,15 +106,19 @@ function isParentOf(p, c) {
 }
 
 function colour(d) {
-  if (d.children) {
-    // There is a maximum of two children!
+  if( d.fill ) {
+    return d.fill; }
+  else   if( d.colour ) {
+    return d.colour; }
+  else if( d.children ) {
     var colours = d.children.map(colour),
       a = d3.hsl(colours[0]),
       b = d3.hsl(colours[1]);
     // L*a*b* might be better here...
     return d3.hsl((a.h + b.h) / 2, a.s * 1.2, a.l / 1.2);
   }
-  return d.colour || "#fff";
+  else {
+    return "#fff"; }
 }
 
 // Interpolate the scales!

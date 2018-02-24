@@ -21,7 +21,7 @@ var arc = d3.svg.arc()
   .innerRadius(function(d) { return Math.sqrt(d.y); })
   .outerRadius(function(d) { return Math.sqrt(d.y + d.dy); });
 
-d3.json("json/flare.json", function(error, root) {
+d3.json("flare.json", function(error, root) {
   if (error) throw error;
 
   var path = svg.datum(root).selectAll("path")

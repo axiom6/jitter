@@ -9,7 +9,7 @@
   </style>
 </head>
 <body>
-<script src="js/d3.js"></script>
+<script src="d3.js"></script>
 <script>
 
   var width = 960,
@@ -40,21 +40,20 @@
     .append("g")
     .attr("transform", "translate(" + width / 2 + "," + (height / 2) + ")");
 
-  d3.json("json/flavor.json", function(error, flavor ) {
+  d3.json("json/flavor.v4.json", function( error, flavor ) {
 
-    if (error) throw error;
+    if( error ) throw error;
 
-    var root = d3.hierarchy(flavor);
-    root.sum(function(d) { return d.sum ? d.sum : 3000; });
+    var root  = d3.hierarchy( flavor );
 
     var nodes = partition(root).descendants();
 
-    var path = vis.selectAll("path");
+    var path  = vis.selectAll("path");
 
     path
       .data( nodes )
       .enter().append("path")
-      .attr("d", arc)
+      .attr("d", arc )
       .style("fill", function(d) { return colour(d); } )
       .on("click", click)
       .append("title")
@@ -75,15 +74,16 @@
   }
 
   function colour(d) {
-    if (d.children) {
-      // There is a maximum of two children!
+    if( d.colour )  {
+      return d.colour; }
+    else if( d.children) {   // There is a maximum of two children!
       var colours = d.children.map(colour),
         a = d3.hsl(colours[0]),
         b = d3.hsl(colours[1]);
-      // L*a*b* might be better here...
-      return d3.hsl((a.h + b.h) / 2, a.s * 1.2, a.l / 1.2);
-    }
-    return d.colour || "#fff";
+      return d3.hsl((a.h + b.h) / 2, a.s * 1.2, a.l / 1.2); }  // L*a*b* might be better here...
+    else {
+      return "#fff"; }
+
   }
 
   d3.select(self.frameElement).style("height", height + "px");

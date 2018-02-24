@@ -3,11 +3,10 @@ var width  = 840;
 var height = 840;
 var radius = width / 2;
 var x      = d3.scaleLinear().range([0, 2 * Math.PI]);
-var y       = d3.scalePow().exponent(1.3).domain([0, 1]).range([0, radius]);
+var y      = d3.scalePow().exponent(1.3).domain([0, 1]).range([0, radius]);
 var padding = 5;
 //r duration = 1000;
 
-var color = d3.scaleOrdinal(d3.schemeCategory20);
 var formatNumber = d3.format(",d");
 
 var partition = d3.partition();
@@ -18,13 +17,6 @@ var arc = d3.arc()
   .innerRadius( function(d) { return Math.max(0, y(d.y0)); })
   .outerRadius( function(d) { return Math.max(0, y(d.y1)); });
 
-/*
-var arc = d3.arc()
-  .startAngle(  function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x0))); })
-  .endAngle(    function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x0 + d.dx))); })
-  .innerRadius( function(d) { return Math.max(0, d.y ? y(d.y) : d.y); })
-  .outerRadius( function(d) { return Math.max(0, y(d.y + d.dy)); });
- */
 var div = d3.select("#vis");
 div.select("img").remove();
 
@@ -32,45 +24,31 @@ var vis = div.append("svg")
   .attr("width",  width  + padding * 2)
   .attr("height", height + padding * 2)
   .append("g")
-  .attr("transform", "translate(" + width / 2 + "," + (height / 2) + ")");
-//.attr("transform", "translate(" + [radius + padding, radius + padding] + ")");
+  .attr("transform", "translate(" + [radius + padding, radius + padding] + ")");
 
-d3.json("json/flavor.json", function( error, flavor ) {
+d3.json("json/flavor.v4.json", function( error, flavor ) {
 
-  if (error) throw error;
+  if( error ) throw error;
 
-  var root = d3.hierarchy(flavor);
-  //  .sum( function(d) { return d.size; });
-  //console.log( "root", root );
-
+  var root  = d3.hierarchy(flavor);
   var nodes = partition(root).descendants();
-  console.log( "nodes", nodes );
-
-  var path = vis.selectAll("path");
+  var path  = vis.selectAll("path");
 
   path
     .data( nodes )
     .enter().append("path")
-    .attr("d", arc)
-    .style("fill", function(d) { return color((d.children ? d : d.parent).data.name); })
-  //.on("click", click)
-    .append("title")
+    .attr(   "id", function(d,i) { return "path-" + i; } )
+    .attr(   "d", arc )
+    .attr(   "fill-rule", "evenodd" )
+    .style(  "fill", function(d) { return colour(d) } )
+    .on(     "click", click )
+    .append( "title" )
     .text(function(d) { return d.data.name + "\n" + formatNumber(d.value); });
 });
 
 d3.select(self.frameElement).style("height", height + "px");
 
-/*
-  path
-    .data( nodes )
-    .enter().append("path")
-  //.attr( "id", function(d, i) { return "path-" + i; } )
-    .attr( "d", arc)
- // .attr( "fill-rule", "evenodd")
- //.style("fill",  colour );
-    .style("fill", function(d) { return color((d.children ? d : d.parent).data.name); });
 
-//  .on(   "click", click  );
 
   var text = vis.selectAll("text").data(nodes);
 
@@ -97,7 +75,6 @@ d3.select(self.frameElement).style("height", height + "px");
     .attr("x", 0)
     .attr("dy", "1em")
     .text(function(d) { return d.depth ? d.name.split(" ")[1] || "" : ""; });
-
 
   function click(d) {
     path.transition()
@@ -128,7 +105,6 @@ d3.select(self.frameElement).style("height", height + "px");
         d3.select(this).style("visibility", isParentOf(d, e) ? null : "hidden");
       });
   }
-});
 
 function isParentOf(p, c) {
   if (p === c) return true;
@@ -141,15 +117,15 @@ function isParentOf(p, c) {
 }
 
 function colour(d) {
-  if (d.children) {
-    // There is a maximum of two children!
+  if( d.colour )  {
+    return d.colour; }
+  else if( d.children) {   // There is a maximum of two children!
     var colours = d.children.map(colour),
       a = d3.hsl(colours[0]),
       b = d3.hsl(colours[1]);
-    // L*a*b* might be better here...
-    return d3.hsl((a.h + b.h) / 2, a.s * 1.2, a.l / 1.2);
-  }
-  return d.colour || "#fff";
+    return d3.hsl((a.h + b.h) / 2, a.s * 1.2, a.l / 1.2); }  // L*a*b* might be better here...
+  else {
+    return "#fff"; }
 }
 
 // Interpolate the scales!
@@ -170,5 +146,3 @@ function maxY(d) {
 // http://www.w3.org/WAI/ER/WD-AERT/#color-contrast
 function brightness(rgb) {
   return rgb.r * .299 + rgb.g * .587 + rgb.b * .114; }
-
- */

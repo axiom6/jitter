@@ -1,0 +1,593 @@
+[
+  {
+    "name": "Florals",
+    "fill":"MediumSeaGreen",
+    "children": [
+      {
+        "name": "Honeysuckle",
+        "fill": "MediumSeaGreen",
+        "children": []
+      },
+      {
+        "name": "Lavender",
+        "fill": "MediumSeaGreen",
+        "children": []
+      },
+      {
+        "name": "Rose",
+        "fill": "MediumSeaGreen",
+        "children": []
+      },
+      {
+        "name": "Saffron",
+        "fill": "MediumSeaGreen",
+        "children": []
+      },
+      {
+        "name": "Tea",
+        "fill": "MediumSeaGreen",
+        "children": [
+          {
+            "name": "Dulong",
+            "fill": "MediumSeaGreen",
+            "children": []
+          },
+          {
+            "name": "Jasmine",
+            "fill": "MediumSeaGreen",
+            "children": []
+          },
+          {
+            "name": "Herbal",
+            "fill": "MediumSeaGreen",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Medicinal",
+    "fill":"LightSteelBlue",
+    "children": [
+      {
+        "name": "Peaty",
+        "fill":"LightSteelBlue",
+        "children": []
+      },
+      {
+        "name": "Phenol",
+        "fill":"LightSteelBlue",
+        "children": []
+      },
+      {
+        "name": "Rubbery",
+        "fill":"LightSteelBlue",
+        "children": []
+      },
+      {
+        "name": "Papery",
+        "fill":"LightSteelBlue",
+        "children": []
+      },
+      {
+        "name": "Menthol",
+        "fill":"LightSteelBlue",
+        "children": []
+      },
+      {
+        "name": "Bitter",
+        "fill":"LightSteelBlue",
+        "children": []
+      }
+    ]
+  },
+  {
+    "name": "Herbacious",
+    "fill":"CadetBlue",
+    "children": [
+      {
+        "name": "Sage",
+        "fill":"CadetBlue",
+        "children": []
+      },
+      {
+        "name": "Thyme",
+        "fill":"CadetBlue",
+        "children": []
+      },
+      {
+        "name": "Hopps",
+        "fill":"CadetBlue",
+        "children": []
+      },
+      {
+        "name": "Begamont",
+        "fill":"CadetBlue",
+        "children": []
+      },
+      {
+        "name": "Oregano",
+        "fill":"CadetBlue",
+        "children": []
+      },
+      {
+        "name": "Rosemary",
+        "fill":"CadetBlue",
+        "children": []
+      }
+    ]
+  },
+  {
+    "name": "Dark Rich",
+    "fill":"RosyBrown",
+    "comment":"Sweet",
+    "children": [
+      {
+        "name": "Savory.Umami",
+        "fill":"RosyBrown",
+        "children": [
+          {
+            "name": "Meaty",
+            "fill":"RosyBrown",
+            "children": []
+          },
+          {
+            "name": "Tomato",
+            "fill":"RosyBrown",
+            "children": []
+          },
+          {
+            "name": "Fishy",
+            "fill":"RosyBrown",
+            "children": []
+          },
+          {
+            "name": "Umami",
+            "fill":"RosyBrown",
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "Spices",
+        "fill":"RosyBrown",
+        "children": [
+          {
+            "name": "Brown.Spice",
+            "fill":"RosyBrown",
+            "children": []
+          },
+          {
+            "name": "Cumin",
+            "fill":"RosyBrown",
+            "children": []
+          },
+          {
+            "name": "Curruander",
+            "fill":"RosyBrown",
+            "children": []
+          },
+          {
+            "name": "Ginger",
+            "fill":"RosyBrown",
+            "children": []
+          },
+          {
+            "name": "Curry",
+            "fill":"RosyBrown",
+            "children": []
+          },
+          {
+            "name": "Black.Pepper",
+            "fill":"RosyBrown",
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "Nutty Chocolate",
+        "fill":"RosyBrown",
+        "children": [
+          {
+            "name": "Mexican.Chocolate",
+            "fill":"RosyBrown",
+            "children": []
+          },
+          {
+            "name": "Hazelnut",
+            "fill":"RosyBrown",
+            "children": []
+          },
+          {
+            "name": "Coloanib",
+            "fill":"RosyBrown",
+            "children": []
+          },
+          {
+            "name": "Almond",
+            "fill":"RosyBrown",
+            "children": []
+          },
+          {
+            "name": "Milk.Chocolate",
+            "fill":"RosyBrown",
+            "children": []
+          },
+          {
+            "name": "Milk.Chocolate",
+            "fill":"RosyBrown",
+            "children": []
+          },
+          {
+            "name": "Peanut.Butter",
+            "fill":"RosyBrown",
+            "children": []
+          },
+          {
+            "name": "Walnuts",
+            "fill":"RosyBrown",
+            "children": []
+          },
+          {
+            "name": "Molassas",
+            "fill":"RosyBrown",
+            "children": []
+          },
+          {
+            "name": "Cocao",
+            "fill":"RosyBrown",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Roasted",
+    "fill":"Chocolate",
+    "children": [
+      {
+        "name": "Carbon",
+        "fill":"Chocolate",
+        "children": []
+      },
+      {
+        "name": "Smokey",
+        "fill":"Chocolate",
+        "children": [
+          {
+            "name": "Tobacco",
+            "fill":"Chocolate",
+            "children": []
+          },
+          {
+            "name": "Cigar Smoke",
+            "fill":"Chocolate",
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "Toast",
+        "fill":"Chocolate",
+        "children": []
+      },
+      {
+        "name": "Popcorn",
+        "fill":"Chocolate",
+        "children": []
+      }
+    ]
+  },
+  {
+    "name": "Earthy",
+    "fill":"Sienna",
+    "children": [
+      {
+        "name": "Hay",
+        "fill":"Sienna",
+        "children": []
+      },
+      {
+        "name": "Wood",
+        "fill":"Sienna",
+        "children": []
+      },
+      {
+        "name": "Dirt",
+        "fill":"Sienna",
+        "children": []
+      },
+      {
+        "name": "Soil",
+        "fill":"Sienna",
+        "children": []
+      },
+      {
+        "name": "Leather",
+        "fill":"Sienna",
+        "children": []
+      }
+    ]
+  },
+  {
+    "name": "Grains Cereal",
+    "fill":"BurlyWood",
+    "children": [
+      {
+        "name": "Rice",
+        "fill":"BurlyWood",
+        "children": []
+      },
+      {
+        "name": "Wheat",
+        "fill":"BurlyWood",
+        "children": []
+      }
+    ]
+  },
+  {
+    "name": "Vegetal",
+    "fill":"Wheat",
+    "children": [
+      {
+        "name": "Cucumber",
+        "fill":"Wheat",
+        "children": []
+      },
+      {
+        "name": "Pea.Pod",
+        "fill":"Wheat",
+        "children": []
+      },
+      {
+        "name": "Under.Ripe",
+        "fill":"Wheat",
+        "children": []
+      },
+      {
+        "name": "Fresh",
+        "fill":"Wheat",
+        "children": []
+      },
+      {
+        "name": "Squash",
+        "fill":"Wheat",
+        "children": []
+      },
+      {
+        "name": "Leafy.Greens",
+        "fill":"Wheat",
+        "children": []
+      },
+      {
+        "name": "Grassy",
+        "fill":"Wheat",
+        "children": []
+      }
+    ]
+  },
+  {
+    "name": "Fruit",
+    "fill":"Khaki",
+    "children": [
+      {
+            "name": "Citrus",
+            "fill":"Khaki",
+            "children": [
+              {
+                "name": "Lemonade",
+                "fill":"Khaki",
+                "children": []
+              },
+              {
+                "name": "Grapefruit",
+                "fill":"Khaki",
+                "children": []
+              },
+              {
+                "name": "Orange",
+                "fill":"Khaki",
+                "children": []
+              }
+            ]
+      },
+      {
+            "name": "Berry",
+            "fill":"Khaki",
+            "children": [
+              {
+                "name": "Strawberry",
+                "fill":"Khaki",
+                "children": []
+              },
+              {
+                "name": "Blackberry",
+                "fill":"Khaki",
+                "children": []
+              },
+              {
+                "name": "Blueberry",
+                "fill":"Khaki",
+                "children": []
+              },
+              {
+                "name": "Currant",
+                "fill":"Khaki",
+                "children": []
+              },
+              {
+                "name": "White.Grape",
+                "fill":"Khaki",
+                "children": []
+              }
+            ]
+      },
+      {
+            "name": "Dried",
+            "fill":"Khaki",
+            "children": [
+              {
+                "name": "Prune",
+                "fill":"Khaki",
+                "children": []
+              },
+              {
+                "name": "Raison",
+                "fill":"Khaki",
+                "children": []
+              }
+            ]
+      },
+      {
+            "name": "Tropical",
+            "fill":"Khaki",
+            "children": [
+
+              {
+                "name": "Banana",
+                "fill":"Khaki",
+                "children": []
+              },
+              {
+                "name": "Papaya",
+                "fill":"Khaki",
+                "children": []
+              },
+              {
+                "name": "Pinapple",
+                "fill":"Khaki",
+                "children": []
+              }
+            ]
+      },
+      {
+            "name": "Stone",
+            "fill":"Khaki",
+            "children": [
+              {
+                "name": "Cherry",
+                "fill":"Khaki",
+                "children": []
+              },
+              {
+                "name": "Peach",
+                "fill":"Khaki",
+                "children": []
+              },
+              {
+                "name": "Nectarine",
+                "fill":"Khaki",
+                "children": []
+              },
+              {
+                "name": "Lychee",
+                "fill":"Khaki",
+                "children": []
+              },
+              {
+                "name": "Mango",
+                "fill":"Khaki",
+                "children": []
+              }
+            ]
+      },
+      {
+            "name": "Melon",
+            "fill":"Khaki",
+            "children": [
+              {
+                "name": "Watermelon",
+                "fill":"Khaki",
+                "children": []
+              },
+              {
+                "name": "Honeydew",
+                "fill":"Khaki",
+                "children": []
+              },
+              {
+                "name": "Cantalope",
+                "fill":"Khaki",
+                "children": []
+              }
+            ]
+      },
+      {
+        "name": "Other",
+        "fill":"Khaki",
+        "children": [
+          {
+            "name": "Apple",
+            "fill":"Khaki",
+            "children": []
+          },
+          {
+            "name": "Pear",
+            "fill":"Khaki",
+            "children": []
+          },
+          {
+            "name": "Cantalope",
+            "fill":"Khaki",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Sour",
+    "fill":"Khaki",
+    "children": [
+      {
+        "name": "Citric.Acid",
+        "fill":"Khaki",
+        "children": []
+      },
+      {
+        "name": "Lemon.Lime",
+        "fill":"Khaki",
+        "children": []
+      },
+      {
+        "name": "Cranberry",
+        "fill":"Khaki",
+        "children": []
+      }
+    ]
+  },
+  {
+    "name": "Fermented",
+    "fill":"Khaki",
+    "children": [
+      {
+        "name": "Fermented",
+        "fill":"Khaki",
+        "children": []
+      },
+      {
+        "name": "Overripe",
+        "fill":"Khaki",
+        "children": []
+      },
+      {
+        "name": "Whisky",
+        "fill":"Khaki",
+        "children": []
+      },
+      {
+        "name": "Wine",
+        "fill":"Khaki",
+        "children": []
+      },
+      {
+        "name": "Vinegar",
+        "fill":"Khaki",
+        "children": []
+      }
+    ]
+  }
+]
+
