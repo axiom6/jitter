@@ -1,0 +1,110 @@
+Floral          #f9008e
+  Black Tea     #85847d
+  Floral        #fa408f
+    Chamonmile  #ff8036
+    Rose        #ee63a7
+    Jasmine     #fffeea
+Fruity          #fb0030
+  Berry         #fc1949
+    Blackberry  #0b0819
+    Raspberry   #ee1b88
+    Blueberry   #6267ab
+    Strawberry  #fc1343
+  Dried Fruit   #e13d52
+    Raison      #a71478
+    Prune       #89518e
+  Other Fruit   #fe814e
+    Coconut     #ec8e34
+    Cherry      #f4005a
+    Pomegranate #fc3160
+    Pineapple   #ff902d
+    Grape       #99c83b
+    Apple       #57c372
+    Peach       #fc7d57
+    Pear        #85ac2a
+  Citrus Fruit  #ff8929
+    Grapefruit  #fd5264
+    Orange      #ff7630
+    Lemon       #f7db1d
+    Lime        #89c557
+Sour Fermented  #f6cf22
+  Sour          #e3da35
+    Sour Aromatice     #c28f29
+    Acetic Acid        #9ac88c
+    Butyric Acid       #d8c720
+    Isovaleric Acid    #82c45b
+    Citric Acid        #e8d924
+    Malic Acid         #b4c62e
+  Alcholol Fermented   #85a223
+    Winey              #af0071
+    Whiskey            #bb3456
+    Fermented          #d9aa1e
+    Overripe           #80702d
+Green Vegetative       #04813c
+  Olive Oil            #9fb22f
+  Raw                  #678d3b
+  Green Vegetative     #008453
+    Under Ripe         #a6cc4c
+    Peapod             #1c874c
+    Fresh              #00af8f
+    Dark Green         #00623d
+    Vegetative         #00b66b
+    Hay-Like           #a0a12a
+    Herbal-Like        #6cc65b
+  Beany                #66a094
+Other                  #00a700
+  Papery Musty         #95bbcb
+    Stale              #637e6b
+    Carboard           #dec44b
+    Papery             #ffffff
+    Woody              #765c29
+    Moldy/Damp         #a1ae77
+    Musty/Dusty        #d0ab6c
+    Musty/Earthly      #979748
+    Animalic           #a0a378
+    Meaty Brothy       #d37f7a
+    Phenolic           #f27979
+  Chemical             #3dc6da
+    Bitter             #56cabe
+    Salty              #f5fcfe
+    Medicinal          #4ea9c3
+    Petroleum          #00aa8d
+    Skunky             #558395
+    Rubber             #001630
+Roasted                #de2e31
+  Pipe Tobacco         #a79663
+  Tobacco              #d68481
+  Burnt                #bc7e50
+    Acrid              #b2a26b
+    Ashy               #90a993
+    Smoky              #ae7e37
+    Brown, Roast       #885626
+  Cereal               #f2c83c
+    Grain              #d6a38a
+    Malt               #f19968
+Spices                 #c40045
+  Pungent              #764564
+  Pepper               #eb0239
+  Brown Spice          #c7384e
+    Anise              #cda027
+    Nutmeg             #ae0d20
+    Cinnamon           #ee9239
+    Clove              #bc776e
+Nutty Cocoa            #9d7b7a
+  Nutty                #ba9188
+    Peanuts            #eab722
+    Hazelnut           #995f28
+    Almond             #dea79c
+  Cocoa                #bb702b
+    Chocolate          #712523
+    Dark Chocolate     #4d261f
+Sweet                  #fe612f
+  Brown Sugar          #d67982
+    Molasses           #260007
+    Maple Syrup        #e25a2f
+    Caramelized        #e7a233
+    Honey              #ff7b37
+  Vanilla              #ff9780
+  Vanillin             #fe7b89
+  Overall Sweet        #e76c7c
+  Sweet Aromatics      #d8366e
