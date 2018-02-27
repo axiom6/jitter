@@ -27,7 +27,7 @@ var arc = d3.svg.arc()
   .innerRadius(function(d) { return Math.max(0, d.y ? y(d.y) : d.y); })
   .outerRadius(function(d) { return Math.max(0, y(d.y + d.dy)); });
 
-d3.json("json/sca.json", function(error, json) {
+d3.json("json/jitter.json", function(error, json) {
   var nodes = partition.nodes({children: json});
   //console.log( "nodes", nodes );
 
