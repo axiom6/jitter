@@ -1,6 +1,0 @@
-{ "name":"Floral", "fill":"#f9008e", "children":[
-  { "name":"Black Tea", "fill":"#85847d" },
-  { "name":"Floral", "fill":"#fa408f", "children":[
-    { "name":"Chamonmile", "fill":"#ff8036" },
-    { "name":"Rose", "fill":"#ee63a7" },
-    { "name":"Jasmine", "fill":"#fffeea" } ] } ] }

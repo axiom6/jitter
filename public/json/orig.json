@@ -4,13 +4,14 @@
       { "name": "Lavender", "fill": "#e6e6fa" },
       { "name": "Rose", "fill": "#ee63a7" },
       { "name": "Saffron", "fill": "#ffb036" },
-      { "name": "Oulong.Tea", "fill": "#aa8f04" },
-      { "name": "Jasmine.Tea", "fill": "#f8de7e" },
-      { "name": "Herbal.Tea", "fill": "#b0cb9d" } ] },
+      { "name": "Tea", "fill": "#85847d", "children": [
+          { "name": "Oulong", "fill": "#aa8f04" },
+          { "name": "Jasmine", "fill": "#f8de7e" },
+          { "name": "Herbal", "fill": "#b0cb9d" } ] } ] },
   { "name": "Medicinal", "fill":"#4ea9c3", "children": [
       { "name": "Peaty",  "fill":"#766d52" },
       { "name": "Phenol", "fill":"#f27979" },
-      { "name": "Rubbery", "fill":"#575757" },
+      { "name": "Rubbery", "fill":"#001630" },
       { "name": "Papery", "fill":"#ffffff" },
       { "name": "Menthol", "fill":"#109046" },
       { "name": "Bitter", "fill":"#56cabe" } ] },
@@ -21,33 +22,35 @@
       { "name": "Begamont", "fill":"#a4b335" },
       { "name": "Oregano", "fill":"#8d8940" },
       { "name": "Rosemary", "fill":"#98976d" } ] },
-  { "name": "Savory", "fill":"#d67315", "children": [
-      { "name": "Meaty", "fill":"#d37f7a" },
-      { "name": "Tomato", "fill":"#ff6347" },
-      { "name": "Fishy", "fill":"#ffd083" },
-      { "name": "Umami", "fill":"#a35307" } ] },
-  { "name": "Spices", "fill":"#c86d80", "children": [
-      { "name": "Brown.Spice", "fill":"#c7384e" },
-      { "name": "Cumin", "fill":"#984020" },
-      { "name": "Coriander", "fill":"#c8cfb4" },
-      { "name": "Ginger", "fill":"#d2a45d" },
-      { "name": "Curry", "fill":"#d8df31" },
-      { "name": "Black.Pepper", "fill":"#3b3831" } ]  },
-  { "name": "Nutty Chocolate", "fill":"#9d7b7a", "children": [
-      { "name": "Mexican.Chocolate", "fill":"#b36354" },
-      { "name": "Hazelnut", "fill":"#995f28" },
-      { "name": "Cocao.Nib", "fill":"#a16a4b" },
-      { "name": "Almond", "fill":"#dea79c" },
-      { "name": "Milk.Chocolate", "fill":"#934a1d" },
-      { "name": "Peanut.Butter", "fill":"#eab722" },
-      { "name": "Walnuts", "fill":"#c76d2e" },
-      { "name": "Molassas", "fill":"#9b7754" },
-      { "name": "Cocao", "fill":"#bb702b" } ]  },
+  { "name": "Dark Rich", "fill":"#bc8f8f", "children": [
+      { "name": "Savory.Umami", "fill":"#d67315", "children": [
+          { "name": "Meaty", "fill":"#d37f7a" },
+          { "name": "Tomato", "fill":"#ff6347" },
+          { "name": "Fishy", "fill":"#ffd083" },
+          { "name": "Umami", "fill":"#a35307" } ] },
+      { "name": "Spices", "fill":"#c40045", "children": [
+          { "name": "Brown.Spice", "fill":"#c7384e" },
+          { "name": "Cumin", "fill":"#984020" },
+          { "name": "Coriander", "fill":"#c8cfb4" },
+          { "name": "Ginger", "fill":"#d2a45d" },
+          { "name": "Curry", "fill":"#d8df31" },
+          { "name": "Black.Pepper", "fill":"#3b3831" } ]  },
+      { "name": "Nutty Chocolate", "fill":"#9d7b7a", "children": [
+          { "name": "Mexican.Chocolate", "fill":"#b36354" },
+          { "name": "Hazelnut", "fill":"#995f28" },
+          { "name": "Cocao.Nib", "fill":"#a16a4b" },
+          { "name": "Almond", "fill":"#dea79c" },
+          { "name": "Milk.Chocolate", "fill":"#712523" },
+          { "name": "Peanut.Butter", "fill":"#eab722" },
+          { "name": "Walnuts", "fill":"#c76d2e" },
+          { "name": "Molassas", "fill":"#260007" },
+          { "name": "Cocao", "fill":"#bb702b" } ] } ]  },
   { "name": "Roasted", "fill":"#de2e31", "children": [
       { "name": "Popcorn", "fill":"#ebe5c2" },
       { "name": "Toast", "fill":"#9f715f" },
-      { "name": "Tobacco", "fill":"#d68481" },
-      { "name": "Cigar.Smoke", "fill":"#a79663" },
+      { "name": "Smokey", "fill":"#ae7e37", "children": [
+          { "name": "Tobacco", "fill":"#d68481" },
+          { "name": "Cigar.Smoke", "fill":"#a79663" } ] },
       { "name": "Carbon", "fill":"#333333" } ] },
   { "name": "Earthy", "fill":"#979748", "children": [
       { "name": "Leather", "fill":"#a46730" },
@@ -66,6 +69,7 @@
       { "name": "Under.Ripe", "fill":"#a6cc4c" },
       { "name": "Pea.Pod", "fill":"#1c874c" },
       { "name": "Cucumber", "fill":"#73AF59" } ] },
+  { "name": "Fruit", "fill":"#fb0030", "children": [
     { "name": "Other", "fill":"#fe614e", "children": [
       { "name": "Apple", "fill":"#57c372" },
       { "name": "Pear", "fill":"#85ac2a" } ] },
@@ -82,7 +86,7 @@
       { "name": "Papaya", "fill":"#fea50d" },
       { "name": "Mango", "fill":"#f9ca00" },
       { "name": "Pinapple", "fill":"#ff902d" } ] },
-    { "name": "Dried", "fill":"#6f3c56", "children": [
+    { "name": "Dried", "fill":"#e13d52", "children": [
       { "name": "Prune", "fill":"#89518e" },
       { "name": "Raison", "fill":"#a71478" } ] },
     { "name": "Berry", "fill":"#fc1949", "children": [
@@ -90,14 +94,14 @@
       { "name": "White.Grape", "fill":"#99c83b" },
       { "name": "Blueberry", "fill":"#6267ab" },
       { "name": "Cherry", "fill":"#f4005a" },
-      { "name": "Blackberry", "fill":"#531850" },
+      { "name": "Blackberry", "fill":"#0b0819" },
       { "name": "Strawberry", "fill":"#fc1343" } ] },
     { "name": "Citrus", "fill":"#ffb929", "children": [
       { "name": "Orange", "fill":"#ff7630" },
       { "name": "Grapefruit", "fill":"#fd5264" },
-      { "name": "Lemonade", "fill":"#f7db1d" } ] },
+      { "name": "Lemonade", "fill":"#f7db1d" } ] }  ] },
   { "name": "Sour", "fill":"#e3da35", "children": [
-      { "name": "Cranberry", "fill":"#da2378" },
+      { "name": "Cranberry", "fill":"#8d2250" },
       { "name": "Lemon.Lime", "fill":"#c9ff00" },
       { "name": "Citric.Acid", "fill":"#e8d924" } ]  },
   { "name": "Fermented", "fill":"#b5a223", "children": [
