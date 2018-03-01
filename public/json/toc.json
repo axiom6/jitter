@@ -1,0 +1,50 @@
+[
+  { "name": "Overview" },
+  { "name": "Flavor", "children": [
+    { "name": "Jitter",     "json":"flavor.jitter" },
+    { "name": "Wheel",      "json":"flavor.wheel"  },
+    { "name": "Speciality", "json":"flavor.sca"    },
+    { "name": "Davies",     "json":"flavor.davies" } ] },
+  { "name": "Roast", "children": [
+    { "name": "Very Light"   },
+    { "name": "Light"        },
+    { "name": "Medium Light" },
+    { "name": "Medium"       },
+    { "name": "Medium Dark"  },
+    { "name": "Dark"         },
+    { "name": "Very Dark"    } ] },
+  { "name": "Drink", "children": [
+    { "name": "Very Light"   },
+    { "name": "Light"        },
+    { "name": "Medium Light" },
+    { "name": "Medium"       },
+    { "name": "Medium Dark"  },
+    { "name": "Dark"         },
+    { "name": "Very Dark"    } ] },
+  { "name": "Body", "children": [
+    { "name": "Heavy",    "weight":"Thick",   "texture":"Chewy"  },
+    { "name": "Deep",     "weight":"Coating", "texture":"Full"   },
+    { "name": "Syrupy",   "weight":"Creamy",  "texture":"Sticky" },
+    { "name": "Medium",   "weight":"Milky",   "texture":"Round"  },
+    { "name": "Tea.Like", "weight":"Silky",   "texture":"Slick"  },
+    { "name": "Light",    "weight":"Watery",  "texture":"Thin"   } ] },
+  { "name": "Brew", "children": [
+    { "name": "Auto.Drip",    "icon":"AutoDrip.png"    },
+    { "name": "Pour.Over",    "icon":"PourOver.png"    },
+    { "name": "Expresso",     "icon":"Expresso.png"    },
+    { "name": "Aero.Press",   "icon":"AeroPress.png"   },
+    { "name": "Siphon.Pot",   "icon":"SiphonPot.png"   },
+    { "name": "Cold-Brew",    "icon":"ColdBrew.png"    },
+    { "name": "French.Press", "icon":"FrenchPress.png" } ] },
+  { "name": "Aroma", "children": [
+    { "name": "Aroma", "json":"aroma" } ] },
+  { "name": "My Choices", "children": [
+    { "name": "Flavor" },
+    { "name": "Roast"  },
+    { "name": "Body"   },
+    { "name": "Drink"  },
+    { "name": "Brew"   },
+    { "name": "Aroma"  } ] },
+  { "name": "My Coffees" },
+  { "name": "My Order"   }
+]
