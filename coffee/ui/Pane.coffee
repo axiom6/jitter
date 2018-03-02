@@ -19,7 +19,7 @@ class Pane
     @hscale    = @view.hscale
     @margin    = @view.margin
     @speed     = @view.speed
-    @page      = null # set by UI.createPages()
+    @page      = null # set by UI.Page.ready()
 
   ready:() ->
     @htmlId = @ui.htmlId( @name, 'Pane' )
@@ -27,8 +27,8 @@ class Pane
     @view.$view.append( @$ )
     @hide()
     @adjacentPanes()
-    #select = UI.Build.select( @name, 'Pane.ready', UI.Build.SelectAllPanes )
-    #@reset(select)
+    select = UI.select( @name, 'Pane.ready', UI.SelectAllPanes )
+    @reset(select)
     @show()
 
   geom:() ->
@@ -85,14 +85,16 @@ class Pane
   createHtml:() ->
     """<div id="#{@htmlId}" class="#{@css}"></div>"""
 
-  reset:(select) ->
+  reset:( select ) ->
+    #pos =  { left:@xs(@left), top:@ys(@top), width:@xs(@width), height:@ys(@height) }
+    #Util.log("Pane.reset() pos", pos )
     @$.css( { left:@xs(@left), top:@ys(@top), width:@xs(@width), height:@ys(@height) } )
-    @pageContent(select)
+    @pageContent( select )
     return
 
   css:(  left, top, width, height, select ) ->
     @$.css( { left:@pc(left), top:@pc(top), width:@pc(width), height:@pc(height) } )
-    @pageContent(select)
+    @pageContent( select )
     return
 
   animate:( left, top, width, height, select, aniLinks=false, callback=null ) ->
@@ -100,12 +102,12 @@ class Pane
     return
 
   animateCall:( callback, select ) =>
-    @pageContent(select)
+    @pageContent( select )
     callback(@) if callback?
     return
 
   pageContent:( select ) ->
-    @page.paneContent( select ) if @page?
+    @page.selectContent( select ) if @page?
     return
 
 

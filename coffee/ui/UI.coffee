@@ -15,25 +15,24 @@ class UI
   UI.margin       =  { width:1, height:1, west :5, north :5, east :2, south :2, wStudy:0.5, hStudy:0.5 }
   UI.MaxTocLevel  = 12
 
-  UI.SelectPlane     = 'SelectPlane'
-  UI.SelectAllPanes  = 'SelectAllPanes'
   UI.SelectOverview  = 'SelectOverview'
   UI.SelectPractice  = 'SelectPractice'
   UI.SelectStudy     = 'SelectStudy'
 
-  constructor:( @stream ) ->
+  constructor:( @stream, @page ) ->
     callback = (data) =>
-      @spec  = data
+      @spec  =  data
       @tocs  = new UI.Tocs( @, @stream, @spec )
       @view  = new UI.View( @, @stream, @spec )
-      @ready()
+      @ready( @page, @spec )
     UI.readJSON( "json/toc.json", callback )
     UI.ui = @
 
-  ready:() ->
+  ready:( @page, @spec ) ->
     $('#'+Util.htmlId('App')).html( @html() )
     @tocs.ready()
     @view.ready()
+    @page.ready( @view, @spec )
     return
 
   html:() ->

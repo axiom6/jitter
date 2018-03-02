@@ -23,9 +23,6 @@
       this.sizeCallback = null;
       this.paneCallback = null;
       this.lastPaneName = '';
-      this.lastStudyName = '';
-      this.lastTopicName = '';
-      this.lastItemsName = '';
       this.emptyPane = UI.$empty;
       this.allCells = [1, this.ncol, 1, this.nrow];
       this.select = UI.select("View", "Select");
@@ -277,17 +274,17 @@
       intent = select.intent;
       this.select = select;
       switch (intent) {
-        case UI.SelectPlane:
-          this.expandAllPanes();
-          break;
-        case UI.SelectAllPanes:
-          this.expandAllPanes();
-          break;
         case UI.SelectOverview:
-          this.expandOverview();
+          this.expandAllPanes();
+          break;
+        case UI.SelectPractice:
+          this.expandPane(this.getPaneOrGroup(name));
+          break;
+        case UI.SelectStudy:
+          this.expandPane(this.getPaneOrGroup(name));
           break;
         default:
-          Util.error('UI.View.select() name not processed for intent', name, select.intent);
+          Util.error('UI.View.onSelect() name not processed for intent', name, select.intent);
       }
     };
 
@@ -316,7 +313,6 @@
       pane.animate(this.margin.west, this.margin.north, 100 * this.wview, 100 * this.hview, this.select, true, paneCallback);
       this.show();
       this.lastPaneName = pane.name;
-      this.lastStudyName = 'None';
     };
 
     View.prototype.getPaneOrGroup = function(keyOrPane, issueError) {

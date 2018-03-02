@@ -18,9 +18,6 @@ class View
     @sizeCallback  = null
     @paneCallback  = null
     @lastPaneName  = ''
-    @lastStudyName = ''
-    @lastTopicName = ''
-    @lastItemsName = ''
     @emptyPane     = UI.$empty
     @allCells = [ 1, @ncol, 1, @nrow ]
     @select   = UI.select( "View", "Select" )
@@ -137,10 +134,10 @@ class View
     intent  = select.intent
     @select = select
     switch intent
-      when UI.SelectPlane     then @expandAllPanes()
-      when UI.SelectAllPanes  then @expandAllPanes()
-      when UI.SelectOverview  then @expandOverview()
-      else Util.error( 'UI.View.select() name not processed for intent', name, select.intent )
+      when UI.SelectOverview  then @expandAllPanes()
+      when UI.SelectPractice  then @expandPane( @getPaneOrGroup(name) )
+      when UI.SelectStudy     then @expandPane( @getPaneOrGroup(name) )
+      else Util.error( 'UI.View.onSelect() name not processed for intent', name, select.intent )
     return
 
   inPlane:() ->
@@ -152,7 +149,6 @@ class View
     @showAll()
 
   expandPane:( pane,  callback=null ) ->  # , study=null
-    #return if pane is @lastPaneName and @lastStudyName is 'None'
     paneCallback = if callback? then callback else @paneCallback
     pane = @getPaneOrGroup( pane, false ) # don't issue errors
     return unless pane?
@@ -161,7 +157,6 @@ class View
     pane.animate( @margin.west, @margin.north, 100*@wview, 100*@hview, @select, true, paneCallback )
     @show()
     @lastPaneName   = pane.name
-    @lastStudyName  = 'None'
     return
 
   getPaneOrGroup:( keyOrPane, issueError=true  ) ->

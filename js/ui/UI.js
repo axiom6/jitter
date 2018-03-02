@@ -24,35 +24,35 @@ UI = (function() {
 
   UI.MaxTocLevel = 12;
 
-  UI.SelectPlane = 'SelectPlane';
-
-  UI.SelectAllPanes = 'SelectAllPanes';
-
   UI.SelectOverview = 'SelectOverview';
 
   UI.SelectPractice = 'SelectPractice';
 
   UI.SelectStudy = 'SelectStudy';
 
-  function UI(stream) {
+  function UI(stream, page) {
     var callback,
       _this = this;
     this.stream = stream;
+    this.page = page;
     this.resize = __bind(this.resize, this);
     callback = function(data) {
       _this.spec = data;
       _this.tocs = new UI.Tocs(_this, _this.stream, _this.spec);
       _this.view = new UI.View(_this, _this.stream, _this.spec);
-      return _this.ready();
+      return _this.ready(_this.page, _this.spec);
     };
     UI.readJSON("json/toc.json", callback);
     UI.ui = this;
   }
 
-  UI.prototype.ready = function() {
+  UI.prototype.ready = function(page, spec) {
+    this.page = page;
+    this.spec = spec;
     $('#' + Util.htmlId('App')).html(this.html());
     this.tocs.ready();
     this.view.ready();
+    this.page.ready(this.view, this.spec);
   };
 
   UI.prototype.html = function() {

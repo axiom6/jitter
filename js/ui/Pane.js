@@ -28,11 +28,14 @@
     }
 
     Pane.prototype.ready = function() {
+      var select;
       this.htmlId = this.ui.htmlId(this.name, 'Pane');
       this.$ = $(this.createHtml());
       this.view.$view.append(this.$);
       this.hide();
       this.adjacentPanes();
+      select = UI.select(this.name, 'Pane.ready', UI.SelectAllPanes);
+      this.reset(select);
       return this.show();
     };
 
@@ -257,7 +260,7 @@
 
     Pane.prototype.pageContent = function(select) {
       if (this.page != null) {
-        this.page.paneContent(select);
+        this.page.selectContent(select);
       }
     };
 

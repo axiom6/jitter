@@ -9,7 +9,8 @@ class Jitter
       subjects = ['Select','Content','Connect','Test','Plane','About','Slide','Image',
         'Cursor','Navigate','Settings','Submit','Toggle']
       stream   = new Util.Stream( subjects )
-      ui       = new UI( stream )
+      page     = new UI.Page( stream )
+      ui       = new UI(      stream, page )
       Util.noop( ui )
       return
 
