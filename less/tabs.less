@@ -1,0 +1,11 @@
+
+
+@import "btn.less";
+
+.tabs                 { overflow:hidden; }
+.tabs > ul            { display:inline; list-style:none; list-style-image:none; font-size:1.0em;  margin:0; padding-left:0; }
+.tabs > ul > li       { display:inline;  .mixin-margins(0,0,4px,0); .mixin-paddings(8px,4px,8px,4px); .tocs-font;
+                        .mixin-round-top(14px);  .mixin-user-select(none); background:@back20; color:#FFF; }
+.tabs > ul > li:hover { .mixin-hover; }
+.tabs > ul > .ton     { background:@back40; color:yellow; }
+.tabs > .ctn          { background:@back40; position:absolute; left:0; top:21px; right:0; bottom:0; .mixin-round-bottom(24px) }

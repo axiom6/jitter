@@ -1,0 +1,69 @@
+
+
+  "Overview": { "cells":[1,36,1,36] },
+
+Roast
+  Very Light
+  Light
+  Medium Light
+  Medium
+  Medium Dark
+  Dark
+  Very Dark
+
+Drink
+  Black Like a Boss
+  Dash of Sugar, No Milk
+  Little of Both
+  Regular  - Ya Know 2 Cream, 2 Sugar !
+  Alternative Milk
+  In Your Own Words
+
+Body
+  Thick   Heavy    Chewy
+  Coating Deep     Full
+  Creamy  Syrupy   Sticky
+  Milky   Medium   Round
+  Silky   Tea-Like Slick
+  Watery  Light    Thin
+
+Brew
+  Auto-Drip
+  Pour-Over
+  Expresso
+  Aero-Press
+  Siphon-Pot
+  Cold-Brew
+  French-Press
+
+Aromas
+  Enzymatic
+    Herb
+    Fruit
+    Flowery
+    Aliceons
+    Leguious
+    Berry
+    Citrus
+    Fragrant
+    Floral
+  Sugar Browning
+    Nutty
+    Carmel
+    Chocolate
+    Nut Like
+    Malt Like
+    Candy Like
+    Syrup
+    Cocoa
+    Vanilla
+  Dry Distilion
+    Carbony
+    Spicy
+    Resinous
+    Ashy
+    Smoky
+    Warming
+    Pungent
+    Torpeny
+    Medicinal

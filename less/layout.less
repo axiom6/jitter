@@ -1,0 +1,48 @@
+
+@import "table.less";
+
+
+
+.tocs-font{ font-family:Arial, Helvetica, sans-serif; }
+
+
+.body { overflow:hidden; }
+
+// Header
+.logo { position:absolute; left:    0; top:0;      width:@west; height:@north; .gradient-nw( @layout-dark,@layout-lite); }
+.corp { position:absolute; left:@west; top:0;      right:@east; height:@north; .gradient-top(@layout-dark,@layout-lite); }
+.find { position:absolute; right:   0; top:0;      width:@east; height:@north; .gradient-ne( @layout-dark,@layout-lite); }
+
+// Middle
+.tocs { position:absolute; left:    0; top:@north; width:@west; bottom:@south; .gradient-left(@layout-dark,@layout-lite);   .tocs-font; }
+.view { position:absolute; left:@west; top:@north; right:0;     height:100%;    background:@layout-view; overflow:visible;   }
+.page { position:absolute; left:@west; top:@north; right:@east; bottom:@south; .gradient-center(@layout-view,@layout-lite); display: none; }
+.back { position:absolute; left:@west; top:@north; right:0;     height:100%;    background:@layout-view; overflow:visible;   }
+.side { position:absolute; right:   0; top:@north; width:@east; bottom:@south; .gradient-right(@layout-dark,@layout-lite);  .tocs-font; }
+
+// Bottom
+.pref { position:absolute; left:    0; bottom:  0; width:@west; height:@south; .gradient-sw(@layout-dark,@layout-lite); }
+.foot { position:absolute; left:@west; bottom:  0; right:@east; height:@south; .gradient-bottom(@layout-dark,@layout-lite); }
+.trak { position:absolute; right:   0; bottom:  0; width:@east; height:@south; .gradient-se(@layout-dark,@layout-lite); }
+
+
+.menu { position:absolute; left:@west; top:0;      right:0;     height:@north; .gradient-top( @layout-dark,@layout-lite);   }
+.ax-nav  { position:absolute; left:    0; top:@north; width:@west; bottom:@south; .gradient-left(@layout-dark,@layout-lite);   }
+
+#logo .text { position:relative; left:10px; top:24px; color:#AAAAAA; font-size:16pt; font-weight:bold; }
+.status { .mixin-paddings(8px,2px,8px,2px);  color:white; font-size:9pt; }
+#corp #title { position:absolute; left:@north * 2.5;  top:@north * 0.25; width:auto; height:@north * 0.5;
+   font-family:Arial, Helvetica, sans-serif; font-size:@north * 0.25; font-weight:bold;  }
+
+@navb-height:28px;
+@menu-height:28px;
+@ul-height: (@menu-height * 0.25) - 1px;
+@li-height: (@menu-height * 0.25) - 2px;
+@menu-half:  @menu-height * 0.5;
+
+.junk { height:@menu-height; top:@li-height; bottom:@ul-height; width:@menu-half; }
+
+
+
+
+
