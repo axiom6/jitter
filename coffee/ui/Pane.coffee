@@ -27,7 +27,7 @@ class Pane
     @view.$view.append( @$ )
     @hide()
     @adjacentPanes()
-    select = UI.select( @name, 'Pane.ready', UI.SelectAllPanes )
+    select = UI.select( @name, 'Pane', UI.SelectOverview )
     @reset(select)
     @show()
 
@@ -50,8 +50,6 @@ class Pane
     geo = { w:w, h:h, wi:wi, hi:hi, wp:wp, hp:hp, wv:wv, hv:hv, r:r, x0:x0, y0:y0, sx:sx, sy:sy, s:s, ex:ex }
     #Util.log( 'Pane.geom()', geo )
     geo
-
-  #Util.log( "Pane.geom()", { wp:wp, wi:@$.innerWidth(), w:w } )
 
   show:()  -> @$.show()
   hide:()  -> @$.hide()
@@ -86,8 +84,6 @@ class Pane
     """<div id="#{@htmlId}" class="#{@css}"></div>"""
 
   reset:( select ) ->
-    #pos =  { left:@xs(@left), top:@ys(@top), width:@xs(@width), height:@ys(@height) }
-    #Util.log("Pane.reset() pos", pos )
     @$.css( { left:@xs(@left), top:@ys(@top), width:@xs(@width), height:@ys(@height) } )
     @pageContent( select )
     return
@@ -107,9 +103,5 @@ class Pane
     return
 
   pageContent:( select ) ->
-    @page.selectContent( select ) if @page?
+    @page.onSelect( @, select ) if @page?
     return
-
-
-
-

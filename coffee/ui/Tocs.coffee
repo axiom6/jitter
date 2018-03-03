@@ -20,10 +20,10 @@ class Tocs
     stack[0]  = spec0
     specs     = []
     specs.push( spec0 )
-    for own keyPrac, objPrac of practices
-      practice = Object.assign( {}, objPrac ) # Need to clone row because rows are reused for each plane
-      @enrichSpec( keyPrac, practice, specs, 1, spec0, true,  true )
-      for own keyStudy, study of practice when UI.isChild(keyStudy)
+    for own keyPrac, practice of practices
+      hasChild = if keyPrac is "Overview" then false else practice.toc
+      @enrichSpec( keyPrac, practice, specs, 1, spec0, hasChild,  true )
+      for own keyStudy, study of practice when hasChild and UI.isChild(keyStudy)
         practice.hasChild = true
         @enrichSpec( keyStudy, study, specs, 2, practice, false, false )
     specN = { level:0, name:"End" }
@@ -59,9 +59,11 @@ class Tocs
 
   intent:( spec ) ->
     switch spec.level
-      when 1 then UI.SelectPractice
-      when 2 then UI.SelectStudy
-      else        UI.SelectPractice
+      when 1 then @selectOverviewOrPractice( spec )
+      else UI.SelectStudy
+
+  selectOverviewOrPractice:( spec ) ->
+    if spec.name is 'Overview' then UI.SelectOverview else UI.SelectPractice
 
   subscribe:() ->
     @stream.subscribe( 'Select', (select) => @onSelect(select) )
@@ -132,8 +134,8 @@ class Tocs
     else                       """</li>"""
 
   onSelect:( select ) ->
+    UI.verifySelect( select, 'Tocs' )
     return if @ui.notInPlane()
-    Util.msg('UI.Tocs.onSelect', select )
     spec = @getSpec( select, true ) # spec null ok not all Tocs available for views
     @update( spec ) if spec?
     return

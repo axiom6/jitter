@@ -291,6 +291,7 @@ class Util
   @isDef:(d)         ->  d?
   @isNot:(d)         ->  not Util.isDef(d)
   @isStr:(s)         ->  s? and typeof(s)=="string" and s.length > 0
+  @isntStr:(s)       ->  not Util.isStr(s)
   @isNum:(n)         ->  n? and typeof(n)=="number" and not isNaN(n)
   @isObj:(o)         ->  o? and typeof(o)=="object"
   @isVal:(v)         ->  typeof(v)=="number" or typeof(v)=="string" or typeof(v)=="boolean"

@@ -428,6 +428,10 @@ Util = (function() {
     return (s != null) && typeof s === "string" && s.length > 0;
   };
 
+  Util.isntStr = function(s) {
+    return !Util.isStr(s);
+  };
+
   Util.isNum = function(n) {
     return (n != null) && typeof n === "number" && !isNaN(n);
   };

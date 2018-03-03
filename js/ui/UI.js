@@ -30,6 +30,8 @@ UI = (function() {
 
   UI.SelectStudy = 'SelectStudy';
 
+  UI.intents = [UI.SelectOverview, UI.SelectPractice, UI.SelectStudy];
+
   function UI(stream, page) {
     var callback,
       _this = this;
@@ -124,19 +126,35 @@ UI = (function() {
   UI.isChild = function(key) {
     var a;
     a = key.charAt(0);
-    return a === a.toUpperCase();
+    return a === a.toUpperCase() && a !== '$';
   };
 
   UI.select = function(name, source, intent) {
-    if (intent == null) {
-      intent = "SelectAll";
-    }
-    return {
+    var obj;
+    obj = {
       name: name,
       source: source,
       intent: intent
     };
+    UI.verifySelect(obj);
+    return obj;
   };
+
+  UI.verifySelect = function(select, source) {
+    var verify;
+    verify = Util.isStr(select.name) && Util.isStr(select.source) && Util.inArray(UI.intents, select.intent);
+    if (!verify) {
+      Util.trace('UI.verifySelect()', select, source);
+    }
+    return verify;
+  };
+
+  /*
+  Error: Page.selectContent() unknown select { name:"", source:Tocs, intent:undefined }
+  Error: UI.Tocs.getSpec(id) spec null for select { name:"", source:Tocs, intent:undefined }
+  Error: UI.View.onSelect() name not processed for intent "" undefined
+  */
+
 
   UI.isEmpty = function($elem) {
     return ($elem != null) && ($elem.length != null) && $elem.length === 0;

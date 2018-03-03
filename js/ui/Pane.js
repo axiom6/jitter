@@ -34,7 +34,7 @@
       this.view.$view.append(this.$);
       this.hide();
       this.adjacentPanes();
-      select = UI.select(this.name, 'Pane.ready', UI.SelectAllPanes);
+      select = UI.select(this.name, 'Pane', UI.SelectOverview);
       this.reset(select);
       return this.show();
     };
@@ -260,7 +260,7 @@
 
     Pane.prototype.pageContent = function(select) {
       if (this.page != null) {
-        this.page.selectContent(select);
+        this.page.onSelect(this, select);
       }
     };
 

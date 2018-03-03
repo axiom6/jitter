@@ -25,7 +25,7 @@
       this.lastPaneName = '';
       this.emptyPane = UI.$empty;
       this.allCells = [1, this.ncol, 1, this.nrow];
-      this.select = UI.select("View", "Select");
+      this.select = UI.select("Overview", "View", UI.SelectOverview);
     }
 
     View.prototype.ready = function() {
@@ -220,7 +220,7 @@
       var saveId;
       saveId = this.lastPaneName;
       this.lastPaneName = '';
-      this.onSelect(UI.select(saveId, 'View', 'Select'));
+      this.onSelect(UI.select(saveId, 'View', UI.SelectPractice));
       this.lastPaneName = saveId;
     };
 
@@ -266,10 +266,10 @@
 
     View.prototype.onSelect = function(select) {
       var intent, name;
+      UI.verifySelect(select, 'View');
       if (this.ui.notInPlane()) {
         return;
       }
-      Util.msg('UI.view.select', select);
       name = select.name;
       intent = select.intent;
       this.select = select;
@@ -294,7 +294,7 @@
 
     View.prototype.expandAllPanes = function() {
       this.hideAll();
-      this.reset(this.reset);
+      this.reset(this.select);
       return this.showAll();
     };
 
@@ -352,7 +352,7 @@
       for (keyPractice in practices) {
         if (!__hasProp.call(practices, keyPractice)) continue;
         practice = practices[keyPractice];
-        if (!(practice.cells != null)) {
+        if (!(keyPractice !== 'Overview' && (practice.cells != null))) {
           continue;
         }
         pane = new UI.Pane(this.ui, this.stream, this, practice);

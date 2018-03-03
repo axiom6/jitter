@@ -18,7 +18,7 @@
     }
 
     Tocs.prototype.createTocsSpecs = function(practices) {
-      var keyPrac, keyStudy, objPrac, practice, spec0, specN, specs, stack, study;
+      var hasChild, keyPrac, keyStudy, practice, spec0, specN, specs, stack, study;
       spec0 = {
         level: 0,
         name: "Beg"
@@ -29,13 +29,13 @@
       specs.push(spec0);
       for (keyPrac in practices) {
         if (!__hasProp.call(practices, keyPrac)) continue;
-        objPrac = practices[keyPrac];
-        practice = Object.assign({}, objPrac);
-        this.enrichSpec(keyPrac, practice, specs, 1, spec0, true, true);
+        practice = practices[keyPrac];
+        hasChild = keyPrac === "Overview" ? false : practice.toc;
+        this.enrichSpec(keyPrac, practice, specs, 1, spec0, hasChild, true);
         for (keyStudy in practice) {
           if (!__hasProp.call(practice, keyStudy)) continue;
           study = practice[keyStudy];
-          if (!(UI.isChild(keyStudy))) {
+          if (!(hasChild && UI.isChild(keyStudy))) {
             continue;
           }
           practice.hasChild = true;
@@ -91,11 +91,17 @@
     Tocs.prototype.intent = function(spec) {
       switch (spec.level) {
         case 1:
-          return UI.SelectPractice;
-        case 2:
-          return UI.SelectStudy;
+          return this.selectOverviewOrPractice(spec);
         default:
-          return UI.SelectPractice;
+          return UI.SelectStudy;
+      }
+    };
+
+    Tocs.prototype.selectOverviewOrPractice = function(spec) {
+      if (spec.name === 'Overview') {
+        return UI.SelectOverview;
+      } else {
+        return UI.SelectPractice;
       }
     };
 
@@ -218,10 +224,10 @@
 
     Tocs.prototype.onSelect = function(select) {
       var spec;
+      UI.verifySelect(select, 'Tocs');
       if (this.ui.notInPlane()) {
         return;
       }
-      Util.msg('UI.Tocs.onSelect', select);
       spec = this.getSpec(select, true);
       if (spec != null) {
         this.update(spec);

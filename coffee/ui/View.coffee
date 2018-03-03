@@ -20,7 +20,7 @@ class View
     @lastPaneName  = ''
     @emptyPane     = UI.$empty
     @allCells = [ 1, @ncol, 1, @nrow ]
-    @select   = UI.select( "View", "Select" )
+    @select   = UI.select( "Overview", "View", UI.SelectOverview )
 
   ready:() ->
     parent = $('#'+@ui.getHtmlId('View') ) # parent is outside of planes
@@ -95,13 +95,13 @@ class View
   reset:( select ) ->
     @select.name   = select.name
     @select.intent = select.intent
-    pane. reset(@select) for pane  in @panes
+    pane.reset(@select) for pane  in @panes
     return
 
   resize:() =>
     saveId  = @lastPaneName
     @lastPaneName = ''
-    @onSelect( UI.select( saveId, 'View', 'Select' ) )
+    @onSelect( UI.select( saveId, 'View', UI.SelectPractice ) )
     @lastPaneName  = saveId
     return
 
@@ -118,7 +118,6 @@ class View
     @$view.hide()
     return
 
-
   showAll:() ->
     return if not @inPlane()
     @$view.hide()
@@ -128,8 +127,8 @@ class View
     return
 
   onSelect:( select ) ->
+    UI.verifySelect( select, 'View' )
     return if @ui.notInPlane()
-    Util.msg( 'UI.view.select', select )
     name    = select.name
     intent  = select.intent
     @select = select
@@ -145,7 +144,7 @@ class View
 
   expandAllPanes:() ->
     @hideAll()
-    @reset( @reset )
+    @reset( @select )
     @showAll()
 
   expandPane:( pane,  callback=null ) ->  # , study=null
@@ -172,7 +171,7 @@ class View
 
   createPanes:( practices ) ->
     panes = []
-    for own keyPractice, practice of practices when practice.cells?
+    for own keyPractice, practice of practices when keyPractice isnt 'Overview' and practice.cells?
       pane = new UI.Pane( @ui, @stream, @, practice )
       panes.push( pane )
       practice.pane = pane

@@ -42,9 +42,8 @@ class Stream
     element  = @domElement( jQuerySelector, htmlId )
     return if @notElement( element, name )
     onEvent  = ( event ) =>
-      @processEvent(  event )
-      object  = if topic? then topic else event.target.value
-      subject.next( object )
+      @processEvent( event )
+      subject.next(  topic )
     element.addEventListener( eventType, onEvent )
     return
 

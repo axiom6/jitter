@@ -78,10 +78,8 @@
         return;
       }
       onEvent = function(event) {
-        var object;
         _this.processEvent(event);
-        object = topic != null ? topic : event.target.value;
-        return subject.next(object);
+        return subject.next(topic);
       };
       element.addEventListener(eventType, onEvent);
     };

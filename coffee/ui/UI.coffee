@@ -19,6 +19,8 @@ class UI
   UI.SelectPractice  = 'SelectPractice'
   UI.SelectStudy     = 'SelectStudy'
 
+  UI.intents = [UI.SelectOverview,UI.SelectPractice,UI.SelectStudy]
+
   constructor:( @stream, @page ) ->
     callback = (data) =>
       @spec  =  data
@@ -89,10 +91,24 @@ class UI
 
   @isChild:( key ) ->
     a = key.charAt(0)
-    a is a.toUpperCase()
+    a is a.toUpperCase() and a isnt '$'
 
-  @select:( name, source,        intent="SelectAll" ) ->
-    {  name:name, source:source, intent:intent              }
+  @select:( name, source, intent ) ->
+    obj = {  name:name, source:source, intent:intent }
+    UI.verifySelect( obj )
+    obj
+
+  @verifySelect:( select, source ) ->
+    verify = Util.isStr(select.name) and Util.isStr(select.source) and Util.inArray(UI.intents,select.intent)
+    Util.trace('UI.verifySelect()', select, source ) if not verify
+    verify
+
+  ###
+  Error: Page.selectContent() unknown select { name:"", source:Tocs, intent:undefined }
+  Error: UI.Tocs.getSpec(id) spec null for select { name:"", source:Tocs, intent:undefined }
+  Error: UI.View.onSelect() name not processed for intent "" undefined
+  ###
+
 
   @isEmpty:( $elem ) -> $elem? and $elem.length? and $elem.length is 0
 
