@@ -77,8 +77,15 @@ class UI
   getHtmlId:( name, ext='' ) ->
     Util.getHtmlId( name, "", ext )
 
+  @baseUrl:( isLocal ) ->
+    if isLocal
+      "http://localhost:63342/jitter/public/"
+    else
+      "https://jitter-48413.firebaseapp.com/"
+
+
   @readJSON:( url, callback ) ->
-    urlLocal  = "http://localhost:63342/jitter/" + url
+    urlLocal  = "http://localhost:63342/jitter/public/" + url
     settings  = { url:urlLocal, type:'GET', dataType:'json', processData:false, contentType:'application/json', accepts:'application/json' }
     settings.success = ( data,  status, jqXHR ) =>
       Util.noop( status, jqXHR  )
