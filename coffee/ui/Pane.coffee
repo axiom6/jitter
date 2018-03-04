@@ -20,6 +20,7 @@ class Pane
     @margin    = @view.margin
     @speed     = @view.speed
     @page      = null # set by UI.Page.ready()
+    @geo       = null # reset by geom() when pageContent() dispatches to page
 
   ready:() ->
     @htmlId = @ui.htmlId( @name, 'Pane' )
@@ -103,5 +104,6 @@ class Pane
     return
 
   pageContent:( select ) ->
+    @geo = @geom()
     @page.onSelect( @, select ) if @page?
     return

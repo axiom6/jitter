@@ -25,6 +25,7 @@
       this.margin = this.view.margin;
       this.speed = this.view.speed;
       this.page = null;
+      this.geo = null;
     }
 
     Pane.prototype.ready = function() {
@@ -259,6 +260,7 @@
     };
 
     Pane.prototype.pageContent = function(select) {
+      this.geo = this.geom();
       if (this.page != null) {
         this.page.onSelect(this, select);
       }

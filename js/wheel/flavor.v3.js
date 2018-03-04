@@ -1,11 +1,11 @@
 
-var width = 840,
-  height = width,
-  radius = width / 2,
-  x = d3.scale.linear().range([0, 2 * Math.PI]),
-  y = d3.scale.pow().exponent(1.3).domain([0, 1]).range([0, radius]),
-  padding = 5,
-  duration = 1000;
+var width = 1330;
+var height  = 660;
+var radius = Math.min(width,height) / 2;
+var x = d3.scale.linear().range([0, 2 * Math.PI]);
+var y = d3.scale.pow().exponent(1.3).domain([0, 1]).range([0, radius]);
+var padding = 5;
+var duration = 1000;
 
 var div = d3.select( '#'+ UI.plotId );
 
@@ -15,7 +15,7 @@ var vis = div.append("svg")
   .attr("width", width + padding * 2)
   .attr("height", height + padding * 2)
   .append("g")
-  .attr("transform", "translate(" + [radius + padding, radius + padding] + ")");
+  .attr("transform", "translate(" + [ width/2+padding, height/2+padding] + ")");
 
 var partition = d3.layout.partition()
   .sort(null)
