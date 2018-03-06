@@ -1,4 +1,4 @@
-[
+{ "name":"flavor.sca", "children": [
   { "name":"Floral", "fill":"#f9008e", "children":[
     { "name":"Black.Tea", "fill":"#85847d" },
     { "name":"Floral", "fill":"#fa408f", "children":[
@@ -109,5 +109,5 @@
   { "name":"Vanillin", "fill":"#fe7b89" },
   { "name":"Overall.Sweet", "fill":"#e76c7c" },
   { "name":"Sweet.Aromatics", "fill":"#d8366e" } ] }
-]
+] }
 

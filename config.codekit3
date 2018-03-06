@@ -260,6 +260,17 @@
 		"sC": 0,
 		"tS": 0
 		},
+	"\/coffee\/vis\/Wheel.v3.coffee": {
+		"ft": 32,
+		"ma": 0,
+		"mi": 0,
+		"oA": 0,
+		"oAP": "\/public\/js\/vis\/Wheel.v3.js",
+		"oF": 0,
+		"oS": 0,
+		"sC": 0,
+		"tS": 0
+		},
 	"\/doc\/aaa\/firebase.html": {
 		"cB": 0,
 		"ft": 8192,
@@ -1455,36 +1466,6 @@
 		"sC": 3,
 		"tS": 0
 		},
-	"\/public\/js\/lib\/d3.min.js": {
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "\/public\/js\/lib\/d3.min-min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 0
-		},
-	"\/public\/js\/lib\/d3.v3.5.17.js": {
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "\/public\/js\/lib\/d3.v3.5.17-min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 0
-		},
-	"\/public\/js\/lib\/d3.v3.5.17.min.js": {
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "\/public\/js\/lib\/d3.v3.5.17.min-min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 0
-		},
 	"\/public\/js\/lib\/jquery-3.3.1.js": {
 		"ft": 64,
 		"ma": 0,
@@ -1678,6 +1659,13 @@
 		"oF": 0,
 		"oO": 0,
 		"oS": 1
+		},
+	"\/public\/sun.html": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 0,
+		"oAP": "\/public\/sun.html",
+		"oF": 0
 		},
 	"\/README.md": {
 		"cB": 0,

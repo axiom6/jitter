@@ -1,4 +1,4 @@
-[
+{ "name":"aroma", "children": [
   { "name": "Enzymatic", "children": [
       { "name": "Flowery", "children": [
           { "name": "Floral", "children": [
@@ -64,4 +64,5 @@
               { "name": "Pipe Tobacco", "fill": "#3a5988" } ] },
           { "name": "Ashy", "children": [
               { "name": "Burnt", "fill": "#4a5072" },
-              { "name": "Charred", "fill": "#393e64" } ] } ] } ] } ]
+              { "name": "Charred", "fill": "#393e64" } ] } ] } ] }
+] }

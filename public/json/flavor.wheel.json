@@ -1,4 +1,4 @@
-[
+{ "name":"flavor.wheel", "children": [
   { "name": "Florals", "fill":"#f9008e", "children": [
       { "name": "Honeysuckle", "fill": "#eae86f" },
       { "name": "Lavender", "fill": "#e6e6fa" },
@@ -110,5 +110,5 @@
       { "name": "Whisky", "fill":"#bb3456" },
       { "name": "Overripe", "fill":"#80702d" },
       { "name": "Fermented", "fill":"#d9aa1e" } ] }
-]
+] }
 
