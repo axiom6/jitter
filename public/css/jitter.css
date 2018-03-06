@@ -566,13 +566,13 @@ body {
   position: absolute;
   left: 0;
   top: 0;
-  width: 140px;
+  width: 110px;
   height: 50px;
   background: #7eb4b4;
 }
 .corp {
   position: absolute;
-  left: 140px;
+  left: 110px;
   top: 0;
   right: 50px;
   height: 50px;
@@ -593,7 +593,7 @@ body {
   position: absolute;
   left: 0;
   top: 50px;
-  width: 140px;
+  width: 110px;
   bottom: 50px;
   background-image: -moz-linear-gradient(left, #7eb4b4, #9ec7c7);
   background-image: -o-linear-gradient(left, #7eb4b4, #9ec7c7);
@@ -603,7 +603,7 @@ body {
 }
 .view {
   position: absolute;
-  left: 140px;
+  left: 110px;
   top: 50px;
   right: 0;
   height: 100%;
@@ -612,7 +612,7 @@ body {
 }
 .page {
   position: absolute;
-  left: 140px;
+  left: 110px;
   top: 50px;
   right: 50px;
   bottom: 50px;
@@ -624,7 +624,7 @@ body {
 }
 .back {
   position: absolute;
-  left: 140px;
+  left: 110px;
   top: 50px;
   right: 0;
   height: 100%;
@@ -647,13 +647,13 @@ body {
   position: absolute;
   left: 0;
   bottom: 0;
-  width: 140px;
+  width: 110px;
   height: 50px;
   background: #7eb4b4;
 }
 .foot {
   position: absolute;
-  left: 140px;
+  left: 110px;
   bottom: 0;
   right: 50px;
   height: 50px;
@@ -672,7 +672,7 @@ body {
 }
 .menu {
   position: absolute;
-  left: 140px;
+  left: 110px;
   top: 0;
   right: 0;
   height: 50px;
@@ -685,7 +685,7 @@ body {
   position: absolute;
   left: 0;
   top: 50px;
-  width: 140px;
+  width: 110px;
   bottom: 50px;
   background-image: -moz-linear-gradient(left, #7eb4b4, #9ec7c7);
   background-image: -o-linear-gradient(left, #7eb4b4, #9ec7c7);
@@ -2408,7 +2408,7 @@ nav > ul > li > ul > li > ul > li > ul > li {
   position: absolute;
   left: 0;
   top: 0;
-  width: 140px;
+  width: 110px;
   height: 50px;
   background-image: -moz-linear-gradient(left, #254141, #386161);
   background-image: -o-linear-gradient(left, #254141, #386161);
@@ -2419,7 +2419,7 @@ nav > ul > li > ul > li > ul > li > ul > li {
 }
 .ikw-corp {
   position: absolute;
-  left: 140px;
+  left: 110px;
   top: 0;
   right: 50px;
   height: 50px;
@@ -2442,9 +2442,9 @@ nav > ul > li > ul > li > ul > li > ul > li {
 .ikw-tocs {
   position: absolute;
   left: 0;
-  top: 50px;
-  width: 140px;
-  bottom: 50px;
+  top: 0;
+  width: 110px;
+  bottom: 0;
   background-image: -moz-linear-gradient(left, #254141, #386161);
   background-image: -o-linear-gradient(left, #254141, #386161);
   background-image: -ms-linear-gradient(left, #254141, #386161);
@@ -2453,10 +2453,10 @@ nav > ul > li > ul > li > ul > li > ul > li {
 }
 .ikw-view {
   position: absolute;
-  left: 140px;
-  top: 50px;
-  right: 50px;
-  bottom: 50px;
+  left: 110px;
+  top: 0;
+  right: 0;
+  bottom: 0;
   background-color: #1c3030;
   z-index: 1;
   font-family: Arial, Helvetica, sans-serif;
@@ -2464,7 +2464,7 @@ nav > ul > li > ul > li > ul > li > ul > li {
 .ikw-side {
   position: absolute;
   right: 0;
-  top: 50px;
+  top: 0;
   width: 50px;
   bottom: 50px;
   background-image: -moz-linear-gradient(right, #254141, #386161);
@@ -2477,7 +2477,7 @@ nav > ul > li > ul > li > ul > li > ul > li {
   position: absolute;
   left: 0;
   bottom: 0;
-  width: 140px;
+  width: 110px;
   height: 50px;
   background-image: -moz-linear-gradient(left, #254141, #386161);
   background-image: -o-linear-gradient(left, #254141, #386161);
@@ -2486,7 +2486,7 @@ nav > ul > li > ul > li > ul > li > ul > li {
 }
 .ikw-foot {
   position: absolute;
-  left: 140px;
+  left: 110px;
   bottom: 0;
   right: 50px;
   height: 50px;

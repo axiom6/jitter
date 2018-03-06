@@ -22,8 +22,8 @@
         name = study != null ? study.name : "Jitter";
         url = study != null ? "json/" + study.json + ".json" : "json/flavor.jitter.json";
         divId = Util.getHtmlId("Wheel", name);
-        pane.$.append(`<h1>${spec.name} ${name}</h1>`);
-        pane.$.append(`<div id="${divId}">&nbsp;</div>`);
+        pane.$.append(`<div ${Jitter.rel(0, 0, 100, 100)} id="${divId}"></div>`);
+        pane.$.append(`<h1  ${Jitter.abs(0, 0, 100, 10)}>${name}</h1>`);
         this.wheel.create(pane, spec, divId, url);
       }
 

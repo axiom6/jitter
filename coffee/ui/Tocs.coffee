@@ -1,10 +1,6 @@
 
-#$  = require( 'jquery'   )
-#UI = require( 'js/ui/UI' )
-
 class Tocs
 
-  #module.exports = Tocs # Util.Export( Tocs, 'ui/Tocs' )
   UI.Tocs = Tocs
 
   constructor:( @ui, @stream, @practices ) ->

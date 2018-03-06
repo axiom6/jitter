@@ -25,7 +25,7 @@ class Aroma
   create:( pane, spec ) ->
     divId = Util.htmlId( "Wheel", "Aroma" )
     url   = "json/aroma.json"
-    pane.$.append( """<h1>#{spec.name}</h1>""" )
-    pane.$.append( """<div id="#{divId}">&nbsp;</div>"""  )
+    pane.$.append( """<div #{Jitter.rel(0, 0,100,100)} id="#{divId}"></div>""" )
+    pane.$.append( """<h1  #{Jitter.abs(0, 0,100, 10)}>#{spec.name}</h1>""" )
     @wheel.create( pane, spec, divId, url )
     return

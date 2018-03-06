@@ -12,8 +12,8 @@ class Wheel
 
     Util.noop( pane, spec )
     @url    = url
-    @width  = 1330
-    @height = 660
+    @width  = pane.geo.w
+    @height = pane.geo.h
     @radius = Math.min(@width, @height) / 2
     @xx     = d3.scaleLinear().range([ 0, 2*Math.PI ] )
     #yy     = d3.scaleSqrt()  .range([ 0, @radius   ] )

@@ -1,10 +1,6 @@
 
-#$  = require('jquery')
-#UI = require( 'js/ui/UI' )
-
 class View
 
-  #module.exports = View
   UI.View = View
 
   constructor:( @ui, @stream, @practices ) ->

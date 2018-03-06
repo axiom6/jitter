@@ -1,10 +1,6 @@
 
-#$   = require( 'jquery'      )
-#UI  = require( 'js/ui/UI'    )
-
 class Pane
 
-  #module.exports = Pane
   UI.Pane = Pane
 
   constructor:( @ui, @stream, @view, @spec ) ->

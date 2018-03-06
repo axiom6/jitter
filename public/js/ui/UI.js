@@ -1,4 +1,3 @@
-// $ = require('jquery')
 var UI;
 
 UI = (function() {
@@ -28,7 +27,7 @@ UI = (function() {
     }
 
     html() {
-      return `<div   class="ikw-logo" id="${this.htmlId('Logo')}"></div>\n<div   class="ikw-corp" id="${this.htmlId('Corp')}">\n  <div id="${this.htmlId('Navb')}"></div>\n</div>\n<div   class="ikw-find" id="${this.htmlId('Find')}"></div>\n<div   class="ikw-tocs tocs" id="${this.htmlId('Tocs')}"></div>\n<div   class="ikw-view" id="${this.htmlId('View')}">\n  <i id="${this.htmlId('Togg')}" class="fa fa-compress ikw-togg"></i>\n</div>\n<div class="ikw-side" id="${this.htmlId('Side')}"></div>\n<div class="ikw-pref" id="${this.htmlId('Pref')}"><a id="${this.htmlId('ImageLink')}"></a></div>\n<div class="ikw-foot" id="${this.htmlId('Foot')}"></div>\n<div class="ikw-trak" id="${this.htmlId('Trak')}"></div>`;
+      return `<div class="ikw-tocs tocs" id="${this.htmlId('Tocs')}"></div>\n<div class="ikw-view"      id="${this.htmlId('View')}"></div>`;
     }
 
     show() {
@@ -164,11 +163,6 @@ UI = (function() {
 
   };
 
-  //Util.UI        = UI
-  //module.exports = UI
-  //UI.Tocs        = require( 'js/ui/Tocs'    )
-  //UI.View        = require( 'js/ui/View'    )
-  //UI.Pane        = require( 'js/ui/Pane'    )
   UI.$empty = $(); // Empty jQuery singleton for intialization
 
   UI.None = "None";
@@ -180,8 +174,8 @@ UI = (function() {
   UI.margin = {
     width: 1,
     height: 1,
-    west: 5,
-    north: 5,
+    west: 2,
+    north: 1,
     east: 2,
     south: 2,
     wStudy: 0.5,

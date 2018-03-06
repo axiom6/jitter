@@ -17,8 +17,8 @@
       create(pane, spec, divId, url) {
         Util.noop(pane, spec);
         this.url = url;
-        this.width = 1330;
-        this.height = 660;
+        this.width = pane.geo.w;
+        this.height = pane.geo.h;
         this.radius = Math.min(this.width, this.height) / 2;
         this.xx = d3.scaleLinear().range([0, 2 * Math.PI]);
         //yy     = d3.scaleSqrt()  .range([ 0, @radius   ] )

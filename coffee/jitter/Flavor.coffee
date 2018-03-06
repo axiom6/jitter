@@ -18,8 +18,8 @@ class Flavor
     name  =  if study? then study.name                  else "Jitter"
     url   =  if study? then  "json/"+study.json+".json" else "json/flavor.jitter.json"
     divId =  Util.getHtmlId( "Wheel", name )
-    pane.$.append( """<h1>#{spec.name} #{name}</h1>""" )
-    pane.$.append( """<div id="#{divId}">&nbsp;</div>"""  )
+    pane.$.append( """<div #{Jitter.rel(0, 0,100,100)} id="#{divId}"></div>""" )
+    pane.$.append( """<h1  #{Jitter.abs(0, 0,100, 10)}>#{name}</h1>""" )
     @wheel.create( pane, spec, divId, url )
     return
 

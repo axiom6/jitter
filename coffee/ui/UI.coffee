@@ -1,18 +1,11 @@
 
-# $ = require('jquery')
-
 class UI
 
-  #Util.UI        = UI
-  #module.exports = UI
-  #UI.Tocs        = require( 'js/ui/Tocs'    )
-  #UI.View        = require( 'js/ui/View'    )
-  #UI.Pane        = require( 'js/ui/Pane'    )
   UI.$empty       = $() # Empty jQuery singleton for intialization
   UI.None         = "None"
   UI.ncol         = 36
   UI.nrow         = 24
-  UI.margin       =  { width:1, height:1, west :5, north :5, east :2, south :2, wStudy:0.5, hStudy:0.5 }
+  UI.margin       =  { width:1, height:1, west :2, north :1, east :2, south :2, wStudy:0.5, hStudy:0.5 }
   UI.MaxTocLevel  = 12
 
   UI.SelectOverview  = 'SelectOverview'
@@ -39,19 +32,8 @@ class UI
 
   html:() ->
     """
-      <div   class="ikw-logo" id="#{@htmlId('Logo')}"></div>
-      <div   class="ikw-corp" id="#{@htmlId('Corp')}">
-        <div id="#{@htmlId('Navb')}"></div>
-      </div>
-      <div   class="ikw-find" id="#{@htmlId('Find')}"></div>
-      <div   class="ikw-tocs tocs" id="#{@htmlId('Tocs')}"></div>
-      <div   class="ikw-view" id="#{@htmlId('View')}">
-        <i id="#{@htmlId('Togg')}" class="fa fa-compress ikw-togg"></i>
-      </div>
-      <div class="ikw-side" id="#{@htmlId('Side')}"></div>
-      <div class="ikw-pref" id="#{@htmlId('Pref')}"><a id="#{@htmlId('ImageLink')}"></a></div>
-      <div class="ikw-foot" id="#{@htmlId('Foot')}"></div>
-      <div class="ikw-trak" id="#{@htmlId('Trak')}"></div>
+      <div class="ikw-tocs tocs" id="#{@htmlId('Tocs')}"></div>
+      <div class="ikw-view"      id="#{@htmlId('View')}"></div>
     """
 
   show:() ->
