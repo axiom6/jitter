@@ -568,10 +568,7 @@ body {
   top: 0;
   width: 140px;
   height: 50px;
-  background-image: -moz-radial-gradient(right bottom, farthest-side, #9ec7c7, #7eb4b4);
-  background-image: -o-radial-gradient(right bottom, ellipse farthest-side x, #9ec7c7, #7eb4b4);
-  background-image: -ms-radial-gradient(right bottom, ellipse farthest-side x, #9ec7c7, #7eb4b4);
-  background-image: -webkit-radial-gradient(right bottom, 0, right bottom, 141, from(#9ec7c7), to(#7eb4b4));
+  background: #7eb4b4;
 }
 .corp {
   position: absolute;
@@ -590,10 +587,7 @@ body {
   top: 0;
   width: 50px;
   height: 50px;
-  background-image: -moz-radial-gradient(left bottom, farthest-side, #9ec7c7, #7eb4b4);
-  background-image: -o-radial-gradient(left bottom, ellipse farthest-side x, #9ec7c7, #7eb4b4);
-  background-image: -ms-radial-gradient(left bottom, ellipse farthest-side x, #9ec7c7, #7eb4b4);
-  background-image: -webkit-radial-gradient(left bottom, 0, left bottom, 141, from(#9ec7c7), to(#7eb4b4));
+  background: #7eb4b4;
 }
 .tocs {
   position: absolute;
@@ -655,10 +649,7 @@ body {
   bottom: 0;
   width: 140px;
   height: 50px;
-  background-image: -moz-radial-gradient(right top, farthest-side, #9ec7c7, #7eb4b4);
-  background-image: -o-radial-gradient(right top, ellipse farthest-side x, #9ec7c7, #7eb4b4);
-  background-image: -ms-radial-gradient(right top, ellipse farthest-side x, #9ec7c7, #7eb4b4);
-  background-image: -webkit-radial-gradient(right top, 0, right top, 141, from(#9ec7c7), to(#7eb4b4));
+  background: #7eb4b4;
 }
 .foot {
   position: absolute;
@@ -677,10 +668,7 @@ body {
   bottom: 0;
   width: 50px;
   height: 50px;
-  background-image: -moz-radial-gradient(left top, farthest-side, #9ec7c7, #7eb4b4);
-  background-image: -o-radial-gradient(left top, ellipse farthest-side x, #9ec7c7, #7eb4b4);
-  background-image: -ms-radial-gradient(left top, ellipse farthest-side x, #9ec7c7, #7eb4b4);
-  background-image: -webkit-radial-gradient(left top, 0, left top, 141, from(#9ec7c7), to(#7eb4b4));
+  background: #7eb4b4;
 }
 .menu {
   position: absolute;
@@ -2422,10 +2410,10 @@ nav > ul > li > ul > li > ul > li > ul > li {
   top: 0;
   width: 140px;
   height: 50px;
-  background-image: -moz-radial-gradient(right bottom, farthest-side, #386161, #254141);
-  background-image: -o-radial-gradient(right bottom, ellipse farthest-side x, #386161, #254141);
-  background-image: -ms-radial-gradient(right bottom, ellipse farthest-side x, #386161, #254141);
-  background-image: -webkit-radial-gradient(right bottom, 0, right bottom, 141, from(#386161), to(#254141));
+  background-image: -moz-linear-gradient(left, #254141, #386161);
+  background-image: -o-linear-gradient(left, #254141, #386161);
+  background-image: -ms-linear-gradient(left, #254141, #386161);
+  background-image: -webkit-gradient(linear, left center, right center, from(#254141), to(#386161));
   color: white;
   font-size: 1.3em;
 }
@@ -2446,10 +2434,10 @@ nav > ul > li > ul > li > ul > li > ul > li {
   top: 0;
   width: 50px;
   height: 50px;
-  background-image: -moz-radial-gradient(left bottom, farthest-side, #386161, #254141);
-  background-image: -o-radial-gradient(left bottom, ellipse farthest-side x, #386161, #254141);
-  background-image: -ms-radial-gradient(left bottom, ellipse farthest-side x, #386161, #254141);
-  background-image: -webkit-radial-gradient(left bottom, 0, left bottom, 141, from(#386161), to(#254141));
+  background-image: -moz-linear-gradient(right, #254141, #386161);
+  background-image: -o-linear-gradient(right, #254141, #386161);
+  background-image: -ms-linear-gradient(right, #254141, #386161);
+  background-image: -webkit-gradient(linear, right center, left center, from(#254141), to(#386161));
 }
 .ikw-tocs {
   position: absolute;
@@ -2491,10 +2479,10 @@ nav > ul > li > ul > li > ul > li > ul > li {
   bottom: 0;
   width: 140px;
   height: 50px;
-  background-image: -moz-radial-gradient(right top, farthest-side, #386161, #254141);
-  background-image: -o-radial-gradient(right top, ellipse farthest-side x, #386161, #254141);
-  background-image: -ms-radial-gradient(right top, ellipse farthest-side x, #386161, #254141);
-  background-image: -webkit-radial-gradient(right top, 0, right top, 141, from(#386161), to(#254141));
+  background-image: -moz-linear-gradient(left, #254141, #386161);
+  background-image: -o-linear-gradient(left, #254141, #386161);
+  background-image: -ms-linear-gradient(left, #254141, #386161);
+  background-image: -webkit-gradient(linear, left center, right center, from(#254141), to(#386161));
 }
 .ikw-foot {
   position: absolute;
@@ -2513,10 +2501,10 @@ nav > ul > li > ul > li > ul > li > ul > li {
   bottom: 0;
   width: 50px;
   height: 50px;
-  background-image: -moz-radial-gradient(left top, farthest-side, #386161, #254141);
-  background-image: -o-radial-gradient(left top, ellipse farthest-side x, #386161, #254141);
-  background-image: -ms-radial-gradient(left top, ellipse farthest-side x, #386161, #254141);
-  background-image: -webkit-radial-gradient(left top, 0, left top, 141, from(#386161), to(#254141));
+  background-image: -moz-linear-gradient(right, #254141, #386161);
+  background-image: -o-linear-gradient(right, #254141, #386161);
+  background-image: -ms-linear-gradient(right, #254141, #386161);
+  background-image: -webkit-gradient(linear, right center, left center, from(#254141), to(#386161));
 }
 .ikw-view-plane {
   width: 100%;

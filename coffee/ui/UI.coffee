@@ -77,22 +77,21 @@ class UI
   getHtmlId:( name, ext='' ) ->
     Util.getHtmlId( name, "", ext )
 
-  @baseUrl:( isLocal ) ->
-    if isLocal
+  @baseUrl:( ) ->
+    if window.location.href.includes('localhost')
       "http://localhost:63342/jitter/public/"
     else
       "https://jitter-48413.firebaseapp.com/"
 
-
   @readJSON:( url, callback ) ->
-    urlLocal  = "http://localhost:63342/jitter/public/" + url
-    settings  = { url:urlLocal, type:'GET', dataType:'json', processData:false, contentType:'application/json', accepts:'application/json' }
+    url = UI.baseUrl() + url
+    settings  = { url:url, type:'GET', dataType:'json', processData:false, contentType:'application/json', accepts:'application/json' }
     settings.success = ( data,  status, jqXHR ) =>
       Util.noop( status, jqXHR  )
       callback( data )
     settings.error   = ( jqXHR, status, error ) =>
       Util.noop( jqXHR )
-      Util.error( "UI.readJSON()", { url:urlLocal, status:status, error:error } )
+      Util.error( "UI.readJSON()", { url:url, status:status, error:error } )
     $.ajax( settings )
     return
 
