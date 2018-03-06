@@ -17,8 +17,8 @@
     "Black":          { "name": "Black"             },
     "Sugar":          { "name": "Sugar"             },
     "Cream":          { "name": "Cream"             },
-    "CreamSugar1":    { "name": "CreamSugar1" },
-    "CreamSugar2":    { "name": "CreamSugar2" },
+    "CreamSugar1":    { "name": "1 Cream  and 1 Sugar"  },
+    "CreamSugar2":    { "name": "2 Creams and 2 Sugars" },
     "Alternative":    { "name": "Alternative"       },
     "InYourOwnWords": { "name": "In Your Own Words" } },
   "Body": { "name":"Body", "cells":[1,12,13,12], "toc":false,
@@ -36,15 +36,6 @@
     "SyphonPot":   { "name": "Siphon Pot",   "icon":"SyphonPot.png"   },
     "ColdBrew":    { "name": "Cold Brew",    "icon":"ColdBrew.png"    },
     "FrenchPress": { "name": "French Press", "icon":"FrenchPress.png" } },
-  "Aroma":  { "name":"Aroma",  "cells":[25,12,13,12], "toc":false, "json":"aroma" },
-  "Choice": { "name":"Choice", "cells":[ 1,12,25,12], "toc":false,
-    "Flavor": { "name": "Flavor" },
-    "Roast":  { "name": "Roast"  },
-    "Body":   { "name": "Body"   },
-    "Drink":  { "name": "Drink"  },
-    "Brew":   { "name": "Brew"   },
-    "Aroma3": { "name": "Aroma"  } },
-  "Coffee": { "name":"Coffee", "cells":[13,12,25,12], "toc":false },
-  "Order" : { "name":"Order",  "cells":[25,12,25,12], "toc":false }
+  "Aroma":  { "name":"Aroma",  "cells":[25,12,13,12], "toc":false, "json":"aroma" }
 }
 

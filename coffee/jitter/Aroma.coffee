@@ -4,6 +4,7 @@ class Aroma
   Jitter.Aroma = Aroma
 
   constructor:( @stream ) ->
+    @wheel = new Vis.Wheel()
 
   ready:( pane, spec ) ->
     src = "img/aroma/AromaReady.png"
@@ -19,4 +20,12 @@ class Aroma
     pane.$.append( """<h1>#{spec.name}</h1>""" )
     pane.$.append( """<div id="#{UI.plotId}">&nbsp;</div>""" )
     Util.loadScript( "js/wheel/flavor.v3.js" )
+    return
+
+  create:( pane, spec ) ->
+    divId = Util.htmlId( "Wheel", "Aroma" )
+    url   = "json/aroma.json"
+    pane.$.append( """<h1>#{spec.name}</h1>""" )
+    pane.$.append( """<div id="#{divId}">&nbsp;</div>"""  )
+    @wheel.create( pane, spec, divId, url )
     return

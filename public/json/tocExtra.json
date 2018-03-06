@@ -1,0 +1,11 @@
+{
+  "Choice": { "name":"Choice", "cells":[ 1,12,25,12], "toc":false,
+    "Flavor": { "name": "Flavor" },
+    "Roast":  { "name": "Roast"  },
+    "Body":   { "name": "Body"   },
+    "Drink":  { "name": "Drink"  },
+    "Brew":   { "name": "Brew"   },
+    "Aroma3": { "name": "Aroma"  } },
+  "Coffee": { "name":"Coffee", "cells":[13,12,25,12], "toc":false },
+  "Order" : { "name":"Order",  "cells":[25,12,25,12], "toc":false }
+}

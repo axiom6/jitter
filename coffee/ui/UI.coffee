@@ -11,7 +11,7 @@ class UI
   UI.$empty       = $() # Empty jQuery singleton for intialization
   UI.None         = "None"
   UI.ncol         = 36
-  UI.nrow         = 36
+  UI.nrow         = 24
   UI.margin       =  { width:1, height:1, west :5, north :5, east :2, south :2, wStudy:0.5, hStudy:0.5 }
   UI.MaxTocLevel  = 12
 
@@ -100,8 +100,8 @@ class UI
     a = key.charAt(0)
     a is a.toUpperCase() and a isnt '$'
 
-  @select:( name, source, intent ) ->
-    obj = {  name:name, source:source, intent:intent }
+  @select:( name, source, intent, study=null ) ->
+    obj = {  name:name, source:source, intent:intent, study:study }
     UI.verifySelect( obj )
     obj
 

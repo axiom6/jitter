@@ -52,18 +52,17 @@ class Tocs
     for spec in @specs when spec.level > 0
       spec.$elem       = if spec.hasChild then $('#'+spec.ulId) else $('#'+spec.liId)
       spec.$li         = $('#'+spec.liId )
-      select           = UI.select( spec.name, 'Tocs', @intent(spec) )
+      select           = @toSelect( spec )
       @stream.publish( 'Select', select, spec.$li, 'click', spec.liId  )
     @subscribe()
     return
 
-  intent:( spec ) ->
-    switch spec.level
-      when 1 then @selectOverviewOrPractice( spec )
-      else UI.SelectStudy
-
-  selectOverviewOrPractice:( spec ) ->
-    if spec.name is 'Overview' then UI.SelectOverview else UI.SelectPractice
+  toSelect:( spec ) ->
+    if spec.level is 2 # Study
+      UI.select(  spec.parent.name, 'Tocs', UI.SelectStudy, spec.parent[spec.name] )
+    else               # Practice and everything else for now
+      intent = if spec.name is 'Overview' then UI.SelectOverview else UI.SelectPractice
+      UI.select(  spec.name, 'Tocs', intent )
 
   subscribe:() ->
     @stream.subscribe( 'Select', (select) => @onSelect(select) )

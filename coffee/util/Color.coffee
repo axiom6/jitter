@@ -1,14 +1,14 @@
 
-class Vis
+class Color
 
-  module.exports = Vis
-  Vis.Palettes = require( 'js/d3d/Palettes' )
-  Vis.chroma   = require( 'chroma-js' )
+  #module.exports = Color
+  #Color.Palettes = require( 'js/d3d/Palettes' )
+  #Color.chroma   = require( 'chroma-js' )
 
   @rad:( deg ) -> deg * Math.PI / 180
   @deg:( rad ) -> rad * 180 / Math.PI
-  @sin:( deg ) -> Math.sin(Vis.rad(deg))
-  @cos:( deg ) -> Math.cos(Vis.rad(deg))
+  @sin:( deg ) -> Math.sin(Color.rad(deg))
+  @cos:( deg ) -> Math.cos(Color.rad(deg))
 
   @rot:( deg, ang ) ->
     a = deg+ang
@@ -16,7 +16,7 @@ class Vis
     a
 
   @toRadian:( h, hueIsRygb=false ) ->
-    hue    = if hueIsRygb then Vis.toHueRygb(h) else h
+    hue    = if hueIsRygb then Color.toHueRygb(h) else h
     radian = 2*π*(90-hue)/360  # Correction for MathBox polar coordinate system
     radian = 2*π + radian if radian < 0
     radian
@@ -24,27 +24,27 @@ class Vis
   @svgDeg:( deg ) -> 360-deg
   @svgRad:( rad ) -> 2*Math.PI-rad
 
-  @radSvg:( deg ) -> Vis.rad(360-deg)
-  @degSvg:( rad ) -> Vis.deg(2*Math.PI-rad)
-  @sinSvg:( deg ) -> Math.sin(Vis.radSvg(deg))
-  @cosSvg:( deg ) -> Math.cos(Vis.radSvg(deg))
+  @radSvg:( deg ) -> Color.rad(360-deg)
+  @degSvg:( rad ) -> Color.deg(2*Math.PI-rad)
+  @sinSvg:( deg ) -> Math.sin(Color.radSvg(deg))
+  @cosSvg:( deg ) -> Math.cos(Color.radSvg(deg))
 
   # => specified for methods to be used as callbacks
-  @chRgbHsl:( h, s, l ) => Vis.chroma.hsl( h, s, l ).rgb()
-  @chRgbHsv:( h, s, v ) => Vis.chroma.hsv( h, s, v ).rgb()
-  @chRgbLab:( L, a, b ) => Vis.chroma.lab( L, a, b ).rgb()
-  @chRgbLch:( L, c, h ) => Vis.chroma.lch( l, c, h ).rgb()
-  @chRgbHcl:( h, c, l ) => Vis.chroma.hsl( h, s, l ).rgb()
-  @chRgbCmyk:(c,m,y,k ) => Vis.chroma.hsl( c,m,y,k ).rgb()
-  @chRgbGl:(  R, G, B ) => Vis.chroma.gl(  R, G, B ).rgb()
+  @chRgbHsl:( h, s, l ) => Color.chroma.hsl( h, s, l ).rgb()
+  @chRgbHsv:( h, s, v ) => Color.chroma.hsv( h, s, v ).rgb()
+  @chRgbLab:( L, a, b ) => Color.chroma.lab( L, a, b ).rgb()
+  @chRgbLch:( L, c, h ) => Color.chroma.lch( l, c, h ).rgb()
+  @chRgbHcl:( h, c, l ) => Color.chroma.hsl( h, s, l ).rgb()
+  @chRgbCmyk:(c,m,y,k ) => Color.chroma.hsl( c,m,y,k ).rgb()
+  @chRgbGl:(  R, G, B ) => Color.chroma.gl(  R, G, B ).rgb()
   
   @toRgbRygb:(r,y,g,b ) => [Math.max(r,y,0),Math.max(g,y,0),Math.max(b,0)]
   @toRygbRgb:(r, g, b ) => [r,Math.max(r,g),g,b] # Needs Work
 
   @toRgbHsvSigmoidal:( H, C, V, toRygb=true ) ->
-    h = if toRygb then Vis.toHueRgb(H) else H
+    h = if toRygb then Color.toHueRgb(H) else H
     d = C * 0.01
-    c = Vis.sigmoidal( d, 2, 0.25 )
+    c = Color.sigmoidal( d, 2, 0.25 )
     v = V * 0.01
     i = Math.floor( h / 60 )
     f = h / 60 - i
@@ -61,7 +61,7 @@ class Vis
     [ r*v, g*v, b*v, 1 ]
 
   @toRgbHsv:( H, C, V, toRygb=true ) ->
-    h = if toRygb then Vis.toHueRgb(H) else H
+    h = if toRygb then Color.toHueRgb(H) else H
     c = C * 0.01
     v = V * 0.01
     i = Math.floor( h / 60 )
@@ -84,34 +84,34 @@ class Vis
     r = R/sum; g = G/sum; b = B/sum
     s = sum / 3
     c = if R is G and G is B then 0 else 1 - 3 * Math.min(r,g,b) # Center Grayscale
-    a = Vis.deg( Math.acos( ( r - 0.5*(g+b) ) / Math.sqrt((r-g)*(r-g)+(r-b)*(g-b)) ) )
+    a = Color.deg( Math.acos( ( r - 0.5*(g+b) ) / Math.sqrt((r-g)*(r-g)+(r-b)*(g-b)) ) )
     h = if b <= g then a else 360 - a
     h = 0 if c is 0
-    H = if toRygb then Vis.toHueRgb(h) else h
+    H = if toRygb then Color.toHueRgb(h) else h
     [ H, c*100, s/2.55 ]
 
   @toRgbCode:( code ) ->
-    str = Vis.Palettes.hex(code).replace("#","0x")
+    str = Color.Palettes.hex(code).replace("#","0x")
     hex = Number.parseInt( str, 16 )
-    rgb = Vis.hexRgb( hex )
+    rgb = Color.hexRgb( hex )
     s = 1 / 256
     [ rgb.r*s, rgb.g*s, rgb.b*s, 1 ]
 
   @toRgba:( studyPrac ) ->
     if      studyPrac.hsv? and studyPrac.hsv.length is 3
       [h,s,v] = studyPrac.hsv
-      Vis.toRgbHsvSigmoidal( h, s, v )
+      Color.toRgbHsvSigmoidal( h, s, v )
     else if studyPrac.fill.length <= 5
-      Vis.toRgbCode( studyPrac.fill )
+      Color.toRgbCode( studyPrac.fill )
     else
-      Util.error( 'Vis.toRgba() unknown fill code', studyPrac.name, studyPrac.fill )
+      Util.error( 'Color.toRgba() unknown fill code', studyPrac.name, studyPrac.fill )
       '#888888'
 
   @toHsvHex:( hexStr ) ->
     str = hexStr.replace("#","0x")
     hex = Number.parseInt( str, 16 )
-    rgb = Vis.hexRgb( hex )
-    hsv = Vis.toHcsRgb( rgb.r, rgb.g, rgb.b )
+    rgb = Color.hexRgb( hex )
+    hsv = Color.toHcsRgb( rgb.r, rgb.g, rgb.b )
     hsv
 
   @toHexRgb:( rgb ) -> rgb[0] * 4026 + rgb[1] * 256 + rgb[2]
@@ -119,34 +119,34 @@ class Vis
   @toCssHex:( hex ) -> """##{hex.toString(16)}""" # For orthogonality
 
   @toCssHsv1:( hsv ) ->
-    rgb = Vis.toRgbHsv( hsv[0], hsv[1], hsv[2] )
-    hex = Vis.toHexRgbSigmoidal( rgb )
+    rgb = Color.toRgbHsv( hsv[0], hsv[1], hsv[2] )
+    hex = Color.toHexRgbSigmoidal( rgb )
     css = """##{hex.toString()}"""
     css
 
   @toCssHsv2:( hsv ) ->
-    rgb = Vis.toRgbHsvSigmoidal( hsv[0], hsv[1], hsv[2] )
-    css = Vis.chroma.gl( rgb[0], rgb[1], rgb[2] ).hex()
+    rgb = Color.toRgbHsvSigmoidal( hsv[0], hsv[1], hsv[2] )
+    css = Color.chroma.gl( rgb[0], rgb[1], rgb[2] ).hex()
     css
 
   @toHsvCode:( code ) ->
-    rgb = Vis.toRgbCode(code)
-    hsv = Vis.toHcsRgb( rgb[0], rgb[1], rgb[2], true )
+    rgb = Color.toRgbCode(code)
+    hsv = Color.toHcsRgb( rgb[0], rgb[1], rgb[2], true )
     hsv[i] = Math.round(hsv[i]) for i in [0...3]
     hsv
 
   @chRgbHsvStr:( hsv ) ->
-    h   = Vis.toHueRgb(hsv[0])
-    rgb = Vis.chRgbHsv( h, hsv[1]*0.01, hsv[2]*0.01 )
+    h   = Color.toHueRgb(hsv[0])
+    rgb = Color.chRgbHsv( h, hsv[1]*0.01, hsv[2]*0.01 )
     rgb[i] = Math.round(rgb[i]) for i in [0...3]
     """rgba(#{rgb[0]},#{rgb[1]},#{rgb[2]},1)"""
 
   @toRgbHsvStr:( hsv ) ->
-    rgba      = Vis.toRgbHsvSigmoidal( hsv[0], hsv[1], hsv[2]*255, true )
+    rgba      = Color.toRgbHsvSigmoidal( hsv[0], hsv[1], hsv[2]*255, true )
     rgba[i]   = Math.round(rgba[i]) for i in [0...3]
     [r,g,b,a] = rgba
     str = """rgba(#{r},#{g},#{b},#{a})"""
-    #Util.log( "Vis.toRgbHsvStr()", {h:hsv[0],s:hsv[1],v:hsv[2]}, str )
+    #Util.log( "Color.toRgbHsvStr()", {h:hsv[0],s:hsv[1],v:hsv[2]}, str )
     str
 
   @sigmoidal:( x, k, x0=0.5, L=1 ) ->
@@ -158,11 +158,11 @@ class Vis
     """rgba(#{n(r)},#{n(g)},#{n(b)},#{n(a)})"""
 
   @toRgbHcs:( H, C, S, toRygb=true ) =>
-    h = if toRygb then Vis.toHueRgb(H) else H
+    h = if toRygb then Color.toHueRgb(H) else H
     c = C*0.01
     s = S*0.01
     x =        1 - c
-    y = (a) => 1 + c * Vis.cos(h-a) / Vis.cos(a+60-h)
+    y = (a) => 1 + c * Color.cos(h-a) / Color.cos(a+60-h)
     z = (a) => 3 - x - y(a)
     [r,g,b] = [ 0,      0,      0      ]
     [r,g,b] = [ y(0),   z(0),   x      ]  if   0 <= h and h < 120
@@ -173,12 +173,12 @@ class Vis
     [ r*v, g*v, b*v, 1 ]
 
   @toRgbSphere:( hue, phi, rad ) ->
-    Vis.toRgbHsv( Vis.rot(hue,90), 100*Vis.sin(phi), 100*rad )
+    Color.toRgbHsv( Color.rot(hue,90), 100*Color.sin(phi), 100*rad )
 
   @toHclRygb:( r, y, g, b ) =>
     L   = ( r + y + g + b ) / 4
     C   = ( Math.abs(r-y) + Math.abs(y-g) + Math.abs(g-b) + Math.abs(b-r) ) / 4
-    H   = Vis.angle( r-g, y-b, 0 )
+    H   = Color.angle( r-g, y-b, 0 )
     [H,C,L]
 
   @sScale:( hue, c, s ) ->
@@ -194,8 +194,8 @@ class Vis
     ss   = sScale( hue, c, s )
     m60  = hue %  60
     m120 = hue % 120
-    cosu = (1-Vis.cos(   m60))*100.00
-    cosd = (1-Vis.cos(60-m60))*100.00
+    cosu = (1-Color.cos(   m60))*100.00
+    cosd = (1-Color.cos(60-m60))*100.00
     cf = if m120 < 60 then cosu else cosd
     ss - cf
 
@@ -241,16 +241,16 @@ class Vis
 
   # Need to fully determine if these isZero checks are really necessary. Also need to account for SVG angles
   @angle:( x, y ) ->
-    ang = Vis.deg(Math.atan2(y,x)) if not @isZero(x) and not @isZero(y)
+    ang = Color.deg(Math.atan2(y,x)) if not @isZero(x) and not @isZero(y)
     ang =   0 if @isZero(x) and @isZero(y)
     ang =   0 if x > 0      and @isZero(y)
     ang =  90 if @isZero(x) and y > 0
     ang = 180 if x < 0      and @isZero(y)
     ang = 270 if @isZero(x) and y < 0
-    ang = Vis.deg(Math.atan2(y,x))
+    ang = Color.deg(Math.atan2(y,x))
     ang = if ang < 0 then 360+ang else ang
 
-  @angleSvg:( x, y ) -> Vis.angle( x, -y )
+  @angleSvg:( x, y ) -> Color.angle( x, -y )
 
   @minRgb:( rgb ) -> Math.min( rgb.r,  rgb.g,  rgb.b )
   @maxRgb:( rgb ) -> Math.max( rgb.r,  rgb.g,  rgb.b )
@@ -259,57 +259,57 @@ class Vis
   @hexCss:( hex ) -> """##{hex.toString(16)}""" # For orthogonality
   @rgbCss:( rgb ) -> """rgb(#{rgb.r},#{rgb.g},#{rgb.b})"""
   @hslCss:( hsl ) -> """hsl(#{hsl.h},#{hsl.s*100}%,#{hsl.l*100}%)"""
-  @hsiCss:( hsi ) -> Vis.hslCss( Vis.rgbToHsl( Vis.hsiToRgb(hsi) ) )
-  @hsvCss:( hsv ) -> Vis.hslCss( Vis.rgbToHsl( Vis.hsvToRgb(hsv) ) )
+  @hsiCss:( hsi ) -> Color.hslCss( Color.rgbToHsl( Color.hsiToRgb(hsi) ) )
+  @hsvCss:( hsv ) -> Color.hslCss( Color.rgbToHsl( Color.hsvToRgb(hsv) ) )
 
   @roundRgb:( rgb, f=1.0 ) -> { r:Math.round(rgb.r*f), g:Math.round(rgb.g*f), b:Math.round(rgb.b*f) }
-  @roundHsl:( hsl ) -> { h:Math.round(hsl.h), s:Vis.dec(hsl.s), l:Vis.dec(hsl.l)    }
-  @roundHsi:( hsi ) -> { h:Math.round(hsi.h), s:Vis.dec(hsi.s), i:Math.round(hsi.i) }
-  @roundHsv:( hsv ) -> { h:Math.round(hsv.h), s:Vis.dec(hsv.s), v:Vis.dec(hsv.v)    }
-  @fixedDec:( rgb ) -> { r:Vis.dec(rgb.r),    g:Vis.dec(rgb.g), b:Vis.dec(rgb.b)    }
+  @roundHsl:( hsl ) -> { h:Math.round(hsl.h), s:Color.dec(hsl.s), l:Color.dec(hsl.l)    }
+  @roundHsi:( hsi ) -> { h:Math.round(hsi.h), s:Color.dec(hsi.s), i:Math.round(hsi.i) }
+  @roundHsv:( hsv ) -> { h:Math.round(hsv.h), s:Color.dec(hsv.s), v:Color.dec(hsv.v)    }
+  @fixedDec:( rgb ) -> { r:Color.dec(rgb.r),    g:Color.dec(rgb.g), b:Color.dec(rgb.b)    }
 
-  @hexRgb:( hex ) -> Vis.roundRgb( { r:(hex & 0xFF0000) >> 16, g:(hex & 0x00FF00) >> 8, b:hex & 0x0000FF } )
+  @hexRgb:( hex ) -> Color.roundRgb( { r:(hex & 0xFF0000) >> 16, g:(hex & 0x00FF00) >> 8, b:hex & 0x0000FF } )
   @rgbHex:( rgb ) -> rgb.r * 4096 + rgb.g * 256 + rgb.b
   @cssRgb:( str ) ->
     rgb = { r:0, g:0, b:0 }
     if str[0]=='#'
       hex = parseInt( str.substr(1), 16 )
-      rgb = Vis.hexRgb(hex)
+      rgb = Color.hexRgb(hex)
     else if str.slice(0,3)=='rgb'
       toks = str.split(/[\s,\(\)]+/)
-      rgb  = Vis.roundRgb( { r:parseInt(toks[1]), g:parseInt(toks[2]), b:parseInt(toks[3]) } )
+      rgb  = Color.roundRgb( { r:parseInt(toks[1]), g:parseInt(toks[2]), b:parseInt(toks[3]) } )
     else if str.slice(0,3)=='hsl'
       toks = str.split(/[\s,\(\)]+/)
       hsl  = { h:parseInt(toks[1]), s:parseInt(toks[2]), l:parseInt(toks[3]) }
-      rgb  = Vis.hslToRgb(hsl)
+      rgb  = Color.hslToRgb(hsl)
     else
-      Util.error( 'Vis.cssRgb() unknown CSS color', str )
+      Util.error( 'Color.cssRgb() unknown CSS color', str )
     rgb
 
-  # Util.dbg( 'Vis.cssRgb', toks.length, { r:toks[1], g:toks[2], b:toks[3] } )
+  # Util.dbg( 'Color.cssRgb', toks.length, { r:toks[1], g:toks[2], b:toks[3] } )
 
   @rgbToHsi:( rgb ) ->
-    sum = Vis.sumRgb( rgb )
+    sum = Color.sumRgb( rgb )
     r = rgb.r/sum; g = rgb.g/sum; b = rgb.b/sum
     i = sum / 3
     s = 1 - 3 * Math.min(r,g,b)
-    a = Vis.deg( Math.acos( ( r - 0.5*(g+b) ) / Math.sqrt((r-g)*(r-g)+(r-b)*(g-b)) ) )
+    a = Color.deg( Math.acos( ( r - 0.5*(g+b) ) / Math.sqrt((r-g)*(r-g)+(r-b)*(g-b)) ) )
     h = if b <= g then a else 360 - a
-    Vis.roundHsi( { h:h, s:s, i:i } )
+    Color.roundHsi( { h:h, s:s, i:i } )
 
   @hsiToRgb:( hsi ) ->
     h = hsi.h; s = hsi.s; i = hsi.i
     x =        1 - s
-    y = (a) -> 1 + s * Vis.cos(h-a) / Vis.cos(a+60-h)
+    y = (a) -> 1 + s * Color.cos(h-a) / Color.cos(a+60-h)
     z = (a) -> 3 - x - y(a)
     rgb = { r:0,      g:0,      b:0      }
     rgb = { r:y(0),   g:z(0),   b:x      }  if   0 <= h && h < 120
     rgb = { r:x,      g:y(120), b:z(120) }  if 120 <= h && h < 240
     rgb = { r:z(240), g:x,      b:y(240) }  if 240 <= h && h < 360
-    max = Vis.maxRgb(rgb) * i
+    max = Color.maxRgb(rgb) * i
     fac = if max > 255 then i*255/max else i
-    #Util.dbg('Vis.hsiToRgb', hsi, Vis.roundRgb(rgb,fac), Vis.fixedDec(rgb), Vis.dec(max) )
-    Vis.roundRgb( rgb, fac )
+    #Util.dbg('Color.hsiToRgb', hsi, Color.roundRgb(rgb,fac), Color.fixedDec(rgb), Color.dec(max) )
+    Color.roundRgb( rgb, fac )
 
   @hsvToRgb:( hsv ) ->
     i = Math.floor( hsv.h / 60 )
@@ -325,13 +325,13 @@ class Vis
       when 3 then { r:p, g:q, b:v }
       when 4 then { r:t, g:p, b:v }
       when 5 then { r:v, g:p, b:q }
-      else Util.error('Vis.hsvToRgb()'); { r:v, g:t, b:p } # Should never happend
-    Vis.roundRgb( rgb, 255 )
+      else Util.error('Color.hsvToRgb()'); { r:v, g:t, b:p } # Should never happend
+    Color.roundRgb( rgb, 255 )
 
   @rgbToHsv:( rgb ) ->
-    rgb = Vis.rgbRound( rgb, 1/255 )
-    max = Vis.maxRgb( rgb )
-    min = Vis.maxRgb( rgb )
+    rgb = Color.rgbRound( rgb, 1/255 )
+    max = Color.maxRgb( rgb )
+    min = Color.maxRgb( rgb )
     v   = max
     d   = max - min
     s   = if max == 0 then 0 else d / max
@@ -342,8 +342,8 @@ class Vis
           ( rgb.g - rgb.b ) / d + if g < b then 6 else 0
         when g then  ( rgb.b - rgb.r ) / d + 2
         when b then  ( rgb.r - rgb.g ) / d + 4
-        else Util.error('Vis.rgbToHsv')
-    { h:Math.round(h*60), s:Vis.dec(s), v:Vis.dec(v) }
+        else Util.error('Color.rgbToHsv')
+    { h:Math.round(h*60), s:Color.dec(s), v:Color.dec(v) }
 
   @hslToRgb:( hsl ) ->
     h = hsl.h; s = hsl.s; l = hsl.l
@@ -351,9 +351,9 @@ class Vis
     if s != 0
       q = if l < 0.5 then l * (1 + s) else l + s - l * s
       p = 2 * l - q;
-      r = Vis.hue2rgb(p, q, h+1/3 )
-      g = Vis.hue2rgb(p, q, h     )
-      b = Vis.hue2rgb(p, q, h-1/3 )
+      r = Color.hue2rgb(p, q, h+1/3 )
+      g = Color.hue2rgb(p, q, h     )
+      b = Color.hue2rgb(p, q, h-1/3 )
     { r:Math.round(r*255), g:Math.round(g*255), b:Math.round(b*255) }
 
   @hue2rgb:( p, q, t ) ->
@@ -382,8 +382,8 @@ class Vis
           ( g - b ) / d + if g < b then 6 else 0
         when g then ( b - r ) / d + 2
         when b then ( r - g ) / d + 4
-        else Util.error('Vis.@rgbToHsl()'); 0
-    { h:Math.round(h*60), s:Vis.dec(s), l:Vis.dec(l) }
+        else Util.error('Color.@rgbToHsl()'); 0
+    { h:Math.round(h*60), s:Color.dec(s), l:Color.dec(l) }
 
   @FontAwesomeUnicodes: {
     "fa-calendar-o":"\uf133"
@@ -523,20 +523,20 @@ class Vis
   #Util.log( 'Awesome', key, "#{uc}" )
 
   @unicode:( icon ) ->
-    uc = Vis.FontAwesomeUnicodes[icon]
+    uc = Color.FontAwesomeUnicodes[icon]
     if not uc?
-      #uc = Vis.uniawe( icon )
+      #uc = Color.uniawe( icon )
       #if not uc?
-        Util.error( 'Vis.unicode() missing icon in Vis.FontAwesomeUnicodes for', icon )
+        Util.error( 'Color.unicode() missing icon in Color.FontAwesomeUnicodes for', icon )
         uc = "\uf111" # Circle
     uc
 
   @unichar:( icon ) ->
-    uc = Vis.FontAwesomeUnicodes[icon]
+    uc = Color.FontAwesomeUnicodes[icon]
     uc = if not uc? then "\uf111" else uc
     un = Number.parseInt( '0xf0ad', 16 )
     us = String.fromCharCode( un )
-    Util.log( 'Vis.unichar', { icon:icon, uc:uc, un:un, us:us } )
+    Util.log( 'Color.unichar', { icon:icon, uc:uc, un:un, us:us } )
     "\uF000"
 
   @uniawe:( icon ) ->

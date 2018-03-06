@@ -4,6 +4,7 @@ class Flavor
   Jitter.Flavor = Flavor
 
   constructor:( @stream ) ->
+    @wheel = new Vis.Wheel()
 
   ready:( pane, spec ) ->
     src = "img/flavor/FlavorReady.png"
@@ -13,10 +14,12 @@ class Flavor
     pane.$.append( $e )
     return
 
-  create:( pane, spec ) ->
-    UI.plotId = "FlavorVisual"
-    UI.jsonD3 = "json/flavor.jitter.json"
-    pane.$.append( """<h1>#{spec.name}</h1>""" )
-    pane.$.append( """<div id="#{UI.plotId}">&nbsp;</div>"""  )
-    Util.loadScript( "js/wheel/flavor.v3.js" )
+  create:( pane, spec, study ) ->
+    name  =  if study? then study.name                  else "Jitter"
+    url   =  if study? then  "json/"+study.json+".json" else "json/flavor.jitter.json"
+    divId =  Util.getHtmlId( "Wheel", name )
+    pane.$.append( """<h1>#{spec.name} #{name}</h1>""" )
+    pane.$.append( """<div id="#{divId}">&nbsp;</div>"""  )
+    @wheel.create( pane, spec, divId, url )
     return
+

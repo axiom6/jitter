@@ -43,7 +43,7 @@ class Page
     switch select.intent
       when UI.SelectOverview  then @selectOverview(      )
       when UI.SelectPractice  then @selectPractice( pane )
-      when UI.SelectStudy     then @selectStudy(    pane )
+      when UI.SelectStudy     then @selectStudy(    pane, select.study )
       else Util.error( "Page.selectContent() unknown select", select )
     return
 
@@ -54,14 +54,14 @@ class Page
   selectPractice:(  pane  ) ->
     @createContent( pane, @spec[pane.name] )
 
-  selectStudy:( pane ) ->
-    Util.noop(  pane )
+  selectStudy:( pane, study ) ->
+    @createContent( pane, @spec[pane.name], study )
     return
 
-  createContent:( pane, spec ) ->
+  createContent:( pane, spec, study=null ) ->
     pane.$.empty()
     switch pane.name
-      when "Flavor" then @flavor.create( pane, spec )
+      when "Flavor" then @flavor.create( pane, spec, study )
       when "Roast"  then  @roast.create( pane, spec )
       when "Drink"  then  @drink.create( pane, spec )
       when "Body"   then   @body.create( pane, spec )

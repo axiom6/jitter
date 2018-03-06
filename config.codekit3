@@ -29,39 +29,6 @@
 		"oAP": "\/build\/.idea",
 		"oF": 0
 		},
-	"\/coffee\/d3d\/D3D.coffee": {
-		"ft": 32,
-		"ma": 0,
-		"mi": 0,
-		"oA": 0,
-		"oAP": "\/public\/js\/d3d\/D3D.js",
-		"oF": 0,
-		"oS": 1,
-		"sC": 0,
-		"tS": 1
-		},
-	"\/coffee\/d3d\/Radar.coffee": {
-		"ft": 32,
-		"ma": 0,
-		"mi": 0,
-		"oA": 0,
-		"oAP": "\/public\/js\/d3d\/Radar.js",
-		"oF": 0,
-		"oS": 0,
-		"sC": 0,
-		"tS": 1
-		},
-	"\/coffee\/d3d\/Wheel.coffee": {
-		"ft": 32,
-		"ma": 0,
-		"mi": 0,
-		"oA": 0,
-		"oAP": "\/public\/js\/d3d\/Wheel.js",
-		"oF": 0,
-		"oS": 0,
-		"sC": 0,
-		"tS": 1
-		},
 	"\/coffee\/jitter\/Aroma.coffee": {
 		"ft": 32,
 		"ma": 0,
@@ -71,7 +38,7 @@
 		"oF": 0,
 		"oS": 0,
 		"sC": 0,
-		"tS": 1
+		"tS": 0
 		},
 	"\/coffee\/jitter\/Body.coffee": {
 		"ft": 32,
@@ -82,7 +49,7 @@
 		"oF": 0,
 		"oS": 0,
 		"sC": 0,
-		"tS": 1
+		"tS": 0
 		},
 	"\/coffee\/jitter\/Brew.coffee": {
 		"ft": 32,
@@ -93,7 +60,7 @@
 		"oF": 0,
 		"oS": 0,
 		"sC": 0,
-		"tS": 1
+		"tS": 0
 		},
 	"\/coffee\/jitter\/Choice.coffee": {
 		"ft": 32,
@@ -104,7 +71,7 @@
 		"oF": 0,
 		"oS": 0,
 		"sC": 0,
-		"tS": 1
+		"tS": 0
 		},
 	"\/coffee\/jitter\/Coffee.coffee": {
 		"ft": 32,
@@ -115,7 +82,7 @@
 		"oF": 0,
 		"oS": 0,
 		"sC": 0,
-		"tS": 1
+		"tS": 0
 		},
 	"\/coffee\/jitter\/Drink.coffee": {
 		"ft": 32,
@@ -126,7 +93,7 @@
 		"oF": 0,
 		"oS": 0,
 		"sC": 0,
-		"tS": 1
+		"tS": 0
 		},
 	"\/coffee\/jitter\/Flavor.coffee": {
 		"ft": 32,
@@ -137,7 +104,7 @@
 		"oF": 0,
 		"oS": 0,
 		"sC": 0,
-		"tS": 1
+		"tS": 0
 		},
 	"\/coffee\/jitter\/Jitter.coffee": {
 		"ft": 32,
@@ -148,7 +115,7 @@
 		"oF": 0,
 		"oS": 1,
 		"sC": 0,
-		"tS": 1
+		"tS": 0
 		},
 	"\/coffee\/jitter\/Order.coffee": {
 		"ft": 32,
@@ -159,7 +126,7 @@
 		"oF": 0,
 		"oS": 0,
 		"sC": 0,
-		"tS": 1
+		"tS": 0
 		},
 	"\/coffee\/jitter\/Page.coffee": {
 		"ft": 32,
@@ -170,7 +137,7 @@
 		"oF": 0,
 		"oS": 0,
 		"sC": 0,
-		"tS": 1
+		"tS": 0
 		},
 	"\/coffee\/jitter\/Roast.coffee": {
 		"ft": 32,
@@ -181,7 +148,7 @@
 		"oF": 0,
 		"oS": 0,
 		"sC": 0,
-		"tS": 1
+		"tS": 0
 		},
 	"\/coffee\/ui\/Pane.coffee": {
 		"ft": 32,
@@ -192,7 +159,7 @@
 		"oF": 2,
 		"oS": 0,
 		"sC": 0,
-		"tS": 1
+		"tS": 0
 		},
 	"\/coffee\/ui\/Tocs.coffee": {
 		"ft": 32,
@@ -203,7 +170,7 @@
 		"oF": 0,
 		"oS": 0,
 		"sC": 0,
-		"tS": 1
+		"tS": 0
 		},
 	"\/coffee\/ui\/UI.coffee": {
 		"ft": 32,
@@ -214,7 +181,7 @@
 		"oF": 0,
 		"oS": 1,
 		"sC": 0,
-		"tS": 1
+		"tS": 0
 		},
 	"\/coffee\/ui\/View.coffee": {
 		"ft": 32,
@@ -225,7 +192,18 @@
 		"oF": 0,
 		"oS": 0,
 		"sC": 0,
-		"tS": 1
+		"tS": 0
+		},
+	"\/coffee\/util\/Color.coffee": {
+		"ft": 32,
+		"ma": 0,
+		"mi": 0,
+		"oA": 0,
+		"oAP": "\/public\/js\/util\/Color.js",
+		"oF": 0,
+		"oS": 0,
+		"sC": 0,
+		"tS": 0
 		},
 	"\/coffee\/util\/Database.coffee": {
 		"ft": 32,
@@ -236,7 +214,7 @@
 		"oF": 0,
 		"oS": 0,
 		"sC": 0,
-		"tS": 1
+		"tS": 0
 		},
 	"\/coffee\/util\/Stream.coffee": {
 		"ft": 32,
@@ -247,7 +225,7 @@
 		"oF": 0,
 		"oS": 0,
 		"sC": 0,
-		"tS": 1
+		"tS": 0
 		},
 	"\/coffee\/util\/Util.coffee": {
 		"ft": 32,
@@ -258,18 +236,29 @@
 		"oF": 0,
 		"oS": 1,
 		"sC": 0,
-		"tS": 1
+		"tS": 0
 		},
-	"\/coffee\/util\/Vis.coffee": {
+	"\/coffee\/vis\/Vis.coffee": {
 		"ft": 32,
 		"ma": 0,
 		"mi": 0,
 		"oA": 0,
-		"oAP": "\/public\/js\/util\/Vis.js",
+		"oAP": "\/public\/js\/vis\/Vis.js",
+		"oF": 0,
+		"oS": 1,
+		"sC": 0,
+		"tS": 0
+		},
+	"\/coffee\/vis\/Wheel.coffee": {
+		"ft": 32,
+		"ma": 0,
+		"mi": 0,
+		"oA": 0,
+		"oAP": "\/public\/js\/vis\/Wheel.js",
 		"oF": 0,
 		"oS": 0,
 		"sC": 0,
-		"tS": 1
+		"tS": 0
 		},
 	"\/doc\/aaa\/firebase.html": {
 		"cB": 0,
@@ -362,6 +351,69 @@
 		"oF": 0,
 		"oO": 0,
 		"oS": 1
+		},
+	"\/doc\/wheel\/coffee\/Flavor.coffee": {
+		"ft": 32,
+		"ma": 0,
+		"mi": 0,
+		"oA": 0,
+		"oAP": "\/doc\/wheel\/public\/js\/Flavor.js",
+		"oF": 0,
+		"oS": 0,
+		"sC": 0,
+		"tS": 0
+		},
+	"\/doc\/wheel\/coffee\/Flavor.js": {
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/doc\/wheel\/coffee\/Flavor-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
+	"\/doc\/wheel\/coffee\/flavor.v3.js": {
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/doc\/wheel\/coffee\/flavor.v3-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
+	"\/doc\/wheel\/coffee\/flavor.v4.js": {
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/doc\/wheel\/coffee\/flavor.v4-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
+	"\/doc\/wheel\/coffee\/Radar.coffee": {
+		"ft": 32,
+		"ma": 0,
+		"mi": 0,
+		"oA": 0,
+		"oAP": "\/doc\/wheel\/public\/js\/Radar.js",
+		"oF": 0,
+		"oS": 0,
+		"sC": 0,
+		"tS": 0
+		},
+	"\/doc\/wheel\/coffee\/WheelColor.coffee": {
+		"ft": 32,
+		"ma": 0,
+		"mi": 0,
+		"oA": 0,
+		"oAP": "\/doc\/wheel\/public\/js\/WheelColor.js",
+		"oF": 0,
+		"oS": 0,
+		"sC": 0,
+		"tS": 0
 		},
 	"\/doc\/wheel\/flare\/flare.css": {
 		"aP": 1,
@@ -1283,36 +1335,6 @@
 		"oAP": "\/public\/index.html",
 		"oF": 0
 		},
-	"\/public\/js\/d3d\/D3D.js": {
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "\/public\/js\/d3d\/D3D-min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 0
-		},
-	"\/public\/js\/d3d\/Radar.js": {
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "\/public\/js\/d3d\/Radar-min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 0
-		},
-	"\/public\/js\/d3d\/Wheel.js": {
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "\/public\/js\/d3d\/Wheel-min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 0
-		},
 	"\/public\/js\/jitter\/Aroma.js": {
 		"ft": 64,
 		"ma": 0,
@@ -1523,6 +1545,16 @@
 		"sC": 3,
 		"tS": 0
 		},
+	"\/public\/js\/util\/Color.js": {
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/public\/js\/util\/Color-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
 	"\/public\/js\/util\/Database.js": {
 		"ft": 64,
 		"ma": 0,
@@ -1563,22 +1595,22 @@
 		"sC": 3,
 		"tS": 0
 		},
-	"\/public\/js\/wheel\/flavor.v3.js": {
+	"\/public\/js\/vis\/Vis.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 0,
-		"oAP": "\/public\/js\/wheel\/flavor.v3-min.js",
+		"oAP": "\/public\/js\/vis\/Vis-min.js",
 		"oF": 0,
 		"sC": 3,
 		"tS": 0
 		},
-	"\/public\/js\/wheel\/flavor.v4.js": {
+	"\/public\/js\/vis\/Wheel.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 0,
-		"oAP": "\/public\/js\/wheel\/flavor.v4-min.js",
+		"oAP": "\/public\/js\/vis\/Wheel-min.js",
 		"oF": 0,
 		"sC": 3,
 		"tS": 0
@@ -1635,6 +1667,14 @@
 		"ft": 524288,
 		"oA": 1,
 		"oAP": "\/public\/json\/toc-min.json",
+		"oF": 0,
+		"oO": 0,
+		"oS": 1
+		},
+	"\/public\/json\/tocExtra.json": {
+		"ft": 524288,
+		"oA": 1,
+		"oAP": "\/public\/json\/tocExtra-min.json",
 		"oF": 0,
 		"oO": 0,
 		"oS": 1
@@ -3424,7 +3464,7 @@
 		"minifyOutput": 0,
 		"outputStyle": 0,
 		"syntaxCheckerStyle": 0,
-		"transpilerStyle": 1
+		"transpilerStyle": 0
 		},
 	"languageDefaultsCSS": {
 		"autoOutputAction": 0,

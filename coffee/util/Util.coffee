@@ -549,7 +549,7 @@ class Util
         object[keyField] = object['id'] if object['id']? and keyField isnt 'id'
         array.push( object )
     else
-      for own key, object of objects when where(object)
+      for own key, object of objects when where(key,object)
         object[keyField] = key
         array.push(object)
     array
