@@ -7,8 +7,12 @@
         this.stream = stream;
       }
 
-      ready(pane, spec) {
+      overview(pane, spec) {
         pane.$.append(`<h1>${spec.name}</h1>`);
+      }
+
+      ready(pane, spec) {
+        this.create(pane, spec);
       }
 
       create(pane, spec) {

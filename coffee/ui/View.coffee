@@ -75,7 +75,6 @@ class View
     @position( j,m,i,n, spec, xscale, yscale )
 
   position:( j,m,i,n, spec, xscale=1.0, yscale=1.0 ) ->
-    #Util.log('UI.View.position spec', spec.name,  )
     wStudy = if spec.name? then @margin.wStudy else 0
     hStudy = if spec.name? then @margin.hStudy else 0
     left   = xscale * ( @left(j)   + ( wStudy + @margin.west  + j * @margin.width  ) / @wscale )
@@ -106,7 +105,7 @@ class View
     return
 
   show:() ->
-    @$view.show() if @inPlane()
+    @$view.show()
     return
 
   hideAll:() ->
@@ -115,7 +114,6 @@ class View
     return
 
   showAll:() ->
-    return if not @inPlane()
     @$view.hide()
     @reset( @select )
     pane.  show() for pane  in @panes
@@ -124,19 +122,16 @@ class View
 
   onSelect:( select ) ->
     UI.verifySelect( select, 'View' )
-    return if @ui.notInPlane()
     name    = select.name
     intent  = select.intent
     @select = select
     switch intent
+      when UI.SelectReady     then @expandAllPanes()
       when UI.SelectOverview  then @expandAllPanes()
       when UI.SelectPractice  then @expandPane( @getPaneOrGroup(name) )
       when UI.SelectStudy     then @expandPane( @getPaneOrGroup(name) )
-      else Util.error( 'UI.View.onSelect() name not processed for intent', name, select.intent )
+      else Util.error( 'UI.View.onSelect() name not processed for intent', name, select )
     return
-
-  inPlane:() ->
-    true
 
   expandAllPanes:() ->
     @hideAll()
@@ -167,7 +162,7 @@ class View
 
   createPanes:( practices ) ->
     panes = []
-    for own keyPractice, practice of practices when keyPractice isnt 'Overview' and practice.cells?
+    for own keyPractice, practice of practices when practice.pane
       pane = new UI.Pane( @ui, @stream, @, practice )
       panes.push( pane )
       practice.pane = pane

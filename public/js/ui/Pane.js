@@ -1,6 +1,4 @@
 (function() {
-  //$   = require( 'jquery'      )
-  //UI  = require( 'js/ui/UI'    )
   var Pane;
 
   Pane = (function() {
@@ -207,7 +205,6 @@
 
     };
 
-    //module.exports = Pane
     UI.Pane = Pane;
 
     return Pane;

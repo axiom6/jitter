@@ -5,8 +5,12 @@ class Order
 
   constructor:( @stream ) ->
 
-  ready:( pane, spec ) ->
+  overview:( pane, spec ) ->
     pane.$.append( "<h1>#{spec.name}</h1>" )
+    return
+
+  ready:(    pane, spec ) ->
+    @create( pane, spec )
     return
 
   create:( pane, spec ) ->

@@ -6,13 +6,14 @@ class UI
   UI.ncol         = 36
   UI.nrow         = 24
   UI.margin       =  { width:1, height:1, west :2, north :1, east :2, south :2, wStudy:0.5, hStudy:0.5 }
-  UI.MaxTocLevel  = 12
 
+
+  UI.SelectReady     = 'SelectReady'
   UI.SelectOverview  = 'SelectOverview'
   UI.SelectPractice  = 'SelectPractice'
   UI.SelectStudy     = 'SelectStudy'
 
-  UI.intents = [UI.SelectOverview,UI.SelectPractice,UI.SelectStudy]
+  UI.intents = [UI.SelectReady,UI.SelectOverview,UI.SelectPractice,UI.SelectStudy]
 
   constructor:( @stream, @page ) ->
     callback = (data) =>
@@ -53,9 +54,6 @@ class UI
   htmlId:( name, type='', ext='' ) ->
     Util.htmlId( name, type, ext )
 
-  notInPlane:() ->
-    false
-
   getHtmlId:( name, ext='' ) ->
     Util.getHtmlId( name, "", ext )
 
@@ -90,13 +88,6 @@ class UI
     verify = Util.isStr(select.name) and Util.isStr(select.source) and Util.inArray(UI.intents,select.intent)
     Util.trace('UI.verifySelect()', select, source ) if not verify
     verify
-
-  ###
-  Error: Page.selectContent() unknown select { name:"", source:Tocs, intent:undefined }
-  Error: UI.Tocs.getSpec(id) spec null for select { name:"", source:Tocs, intent:undefined }
-  Error: UI.View.onSelect() name not processed for intent "" undefined
-  ###
-
 
   @isEmpty:( $elem ) -> $elem? and $elem.length? and $elem.length is 0
 

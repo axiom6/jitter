@@ -2,6 +2,7 @@
 class Tocs
 
   UI.Tocs = Tocs
+  Tocs.MaxTocLevel  = 12
 
   constructor:( @ui, @stream, @practices ) ->
     [@specs,@stack] = @createTocsSpecs( @practices )
@@ -12,7 +13,7 @@ class Tocs
 
   createTocsSpecs:( practices ) ->
     spec0     = { level:0, name:"Beg" }
-    stack     = new Array(UI.MaxTocLevel)
+    stack     = new Array(Tocs.MaxTocLevel)
     stack[0]  = spec0
     specs     = []
     specs.push( spec0 )
@@ -57,7 +58,9 @@ class Tocs
     if spec.level is 2 # Study
       UI.select(  spec.parent.name, 'Tocs', UI.SelectStudy, spec.parent[spec.name] )
     else               # Practice and everything else for now
-      intent = if spec.name is 'Overview' then UI.SelectOverview else UI.SelectPractice
+      intent = UI.SelectPractice
+      intent = UI.SelectOverview if spec.name is 'Overview'
+      intent = UI.SelectReady    if spec.name is 'Ready'
       UI.select(  spec.name, 'Tocs', intent )
 
   subscribe:() ->
@@ -130,7 +133,7 @@ class Tocs
 
   onSelect:( select ) ->
     UI.verifySelect( select, 'Tocs' )
-    return if @ui.notInPlane()
+    #return if @ui.notInPlane()
     spec = @getSpec( select, true ) # spec null ok not all Tocs available for views
     @update( spec ) if spec?
     return

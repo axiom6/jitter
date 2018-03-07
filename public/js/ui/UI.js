@@ -48,10 +48,6 @@ UI = (function() {
       return Util.htmlId(name, type, ext);
     }
 
-    notInPlane() {
-      return false;
-    }
-
     getHtmlId(name, ext = '') {
       return Util.getHtmlId(name, "", ext);
     }
@@ -117,11 +113,6 @@ UI = (function() {
       return verify;
     }
 
-    /*
-    Error: Page.selectContent() unknown select { name:"", source:Tocs, intent:undefined }
-    Error: UI.Tocs.getSpec(id) spec null for select { name:"", source:Tocs, intent:undefined }
-    Error: UI.View.onSelect() name not processed for intent "" undefined
-    */
     static isEmpty($elem) {
       return ($elem != null) && ($elem.length != null) && $elem.length === 0;
     }
@@ -182,7 +173,7 @@ UI = (function() {
     hStudy: 0.5
   };
 
-  UI.MaxTocLevel = 12;
+  UI.SelectReady = 'SelectReady';
 
   UI.SelectOverview = 'SelectOverview';
 
@@ -190,7 +181,7 @@ UI = (function() {
 
   UI.SelectStudy = 'SelectStudy';
 
-  UI.intents = [UI.SelectOverview, UI.SelectPractice, UI.SelectStudy];
+  UI.intents = [UI.SelectReady, UI.SelectOverview, UI.SelectPractice, UI.SelectStudy];
 
   return UI;
 

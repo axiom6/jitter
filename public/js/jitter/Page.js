@@ -28,6 +28,103 @@
         }
       }
 
+      overview(view, spec) {
+        var i, len, pane, ref;
+        this.view = view;
+        this.spec = spec;
+        ref = this.view.panes;
+        for (i = 0, len = ref.length; i < len; i++) {
+          pane = ref[i];
+          this.overviewContent(pane, spec[pane.name]);
+        }
+      }
+
+      onSelect(pane, select) {
+        UI.verifySelect(select, 'Page');
+        switch (select.intent) {
+          case UI.SelectReady:
+            this.selectReady();
+            break;
+          case UI.SelectOverview:
+            this.selectOverview();
+            break;
+          case UI.SelectPractice:
+            this.selectPractice(pane);
+            break;
+          case UI.SelectStudy:
+            this.selectStudy(pane, select.study);
+            break;
+          default:
+            Util.error("Page.selectContent() unknown select", select);
+        }
+      }
+
+      selectReady() {
+        var i, len, pane, ref, results;
+        ref = this.view.panes;
+        results = [];
+        for (i = 0, len = ref.length; i < len; i++) {
+          pane = ref[i];
+          results.push(this.readyContent(pane, this.spec[pane.name]));
+        }
+        return results;
+      }
+
+      selectOverview() {
+        var i, len, pane, ref, results;
+        ref = this.view.panes;
+        results = [];
+        for (i = 0, len = ref.length; i < len; i++) {
+          pane = ref[i];
+          results.push(this.overviewContent(pane, this.spec[pane.name]));
+        }
+        return results;
+      }
+
+      selectPractice(pane) {
+        return this.createContent(pane, this.spec[pane.name]);
+      }
+
+      selectStudy(pane, study) {
+        this.createContent(pane, this.spec[pane.name], study);
+      }
+
+      overviewContent(pane, spec) {
+        pane.page = this;
+        pane.$.empty();
+        switch (pane.name) {
+          case "Flavor":
+            this.flavor.overview(pane, spec);
+            break;
+          case "Roast":
+            this.roast.overview(pane, spec);
+            break;
+          case "Drink":
+            this.drink.overview(pane, spec);
+            break;
+          case "Body":
+            this.body.overview(pane, spec);
+            break;
+          case "Brew":
+            this.brew.overview(pane, spec);
+            break;
+          case "Aroma":
+            this.aroma.overview(pane, spec);
+            break;
+          case "Choice":
+            this.choice.overview(pane, spec);
+            break;
+          case "Coffee":
+            this.coffee.overview(pane, spec);
+            break;
+          case "Order":
+            this.order.overview(pane, spec);
+            break;
+          default:
+            Util.error("Page.overviewContent() unknown pane.name", pane.name);
+        }
+      }
+
       readyContent(pane, spec) {
         pane.page = this;
         pane.$.empty();
@@ -62,42 +159,6 @@
           default:
             Util.error("Page.readyContent() unknown pane.name", pane.name);
         }
-      }
-
-      onSelect(pane, select) {
-        UI.verifySelect(select, 'Page');
-        switch (select.intent) {
-          case UI.SelectOverview:
-            this.selectOverview();
-            break;
-          case UI.SelectPractice:
-            this.selectPractice(pane);
-            break;
-          case UI.SelectStudy:
-            this.selectStudy(pane, select.study);
-            break;
-          default:
-            Util.error("Page.selectContent() unknown select", select);
-        }
-      }
-
-      selectOverview() {
-        var i, len, pane, ref, results;
-        ref = this.view.panes;
-        results = [];
-        for (i = 0, len = ref.length; i < len; i++) {
-          pane = ref[i];
-          results.push(this.readyContent(pane, this.spec[pane.name]));
-        }
-        return results;
-      }
-
-      selectPractice(pane) {
-        return this.createContent(pane, this.spec[pane.name]);
-      }
-
-      selectStudy(pane, study) {
-        this.createContent(pane, this.spec[pane.name], study);
       }
 
       createContent(pane, spec, study = null) {

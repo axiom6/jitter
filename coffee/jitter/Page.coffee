@@ -22,6 +22,54 @@ class Page
       @readyContent( pane, spec[pane.name] )
     return
 
+  overview:( view, spec ) ->
+    @view = view
+    @spec = spec
+    for pane in @view.panes
+      @overviewContent( pane, spec[pane.name] )
+    return
+
+  onSelect:( pane, select ) ->
+    UI.verifySelect( select, 'Page' )
+    switch select.intent
+      when UI.SelectReady     then @selectReady(         )
+      when UI.SelectOverview  then @selectOverview(      )
+      when UI.SelectPractice  then @selectPractice( pane )
+      when UI.SelectStudy     then @selectStudy(    pane, select.study )
+      else Util.error( "Page.selectContent() unknown select", select )
+    return
+
+  selectReady:() ->
+    for pane in @view.panes
+      @readyContent( pane, @spec[pane.name] )
+
+  selectOverview:() ->
+    for pane in @view.panes
+      @overviewContent( pane, @spec[pane.name] )
+
+  selectPractice:(  pane  ) ->
+    @createContent( pane, @spec[pane.name] )
+
+  selectStudy:( pane, study ) ->
+    @createContent( pane, @spec[pane.name], study )
+    return
+
+  overviewContent:( pane, spec ) ->
+    pane.page = @
+    pane.$.empty()
+    switch pane.name
+      when "Flavor" then @flavor.overview( pane, spec )
+      when "Roast"  then  @roast.overview( pane, spec )
+      when "Drink"  then  @drink.overview( pane, spec )
+      when "Body"   then   @body.overview( pane, spec )
+      when "Brew"   then   @brew.overview( pane, spec )
+      when "Aroma"  then  @aroma.overview( pane, spec )
+      when "Choice" then @choice.overview( pane, spec )
+      when "Coffee" then @coffee.overview( pane, spec )
+      when "Order"  then  @order.overview( pane, spec )
+      else Util.error( "Page.overviewContent() unknown pane.name", pane.name )
+    return
+
   readyContent:( pane, spec ) ->
     pane.page = @
     pane.$.empty()
@@ -36,26 +84,6 @@ class Page
       when "Coffee" then @coffee.ready( pane, spec )
       when "Order"  then  @order.ready( pane, spec )
       else Util.error( "Page.readyContent() unknown pane.name", pane.name )
-    return
-
-  onSelect:( pane, select ) ->
-    UI.verifySelect( select, 'Page' )
-    switch select.intent
-      when UI.SelectOverview  then @selectOverview(      )
-      when UI.SelectPractice  then @selectPractice( pane )
-      when UI.SelectStudy     then @selectStudy(    pane, select.study )
-      else Util.error( "Page.selectContent() unknown select", select )
-    return
-
-  selectOverview:() ->
-    for pane in @view.panes
-      @readyContent( pane, @spec[pane.name] )
-
-  selectPractice:(  pane  ) ->
-    @createContent( pane, @spec[pane.name] )
-
-  selectStudy:( pane, study ) ->
-    @createContent( pane, @spec[pane.name], study )
     return
 
   createContent:( pane, spec, study=null ) ->

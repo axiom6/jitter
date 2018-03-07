@@ -1,6 +1,4 @@
 (function() {
-  //$  = require('jquery')
-  //UI = require( 'js/ui/UI' )
   var View,
     hasProp = {}.hasOwnProperty;
 
@@ -145,7 +143,6 @@
 
       position(j, m, i, n, spec, xscale = 1.0, yscale = 1.0) {
         var hStudy, height, left, top, wStudy, width;
-        //Util.log('UI.View.position spec', spec.name,  )
         wStudy = spec.name != null ? this.margin.wStudy : 0;
         hStudy = spec.name != null ? this.margin.hStudy : 0;
         left = xscale * (this.left(j) + (wStudy + this.margin.west + j * this.margin.width) / this.wscale);
@@ -185,9 +182,7 @@
       }
 
       show() {
-        if (this.inPlane()) {
-          this.$view.show();
-        }
+        this.$view.show();
       }
 
       hideAll() {
@@ -202,9 +197,6 @@
 
       showAll() {
         var k, len, pane, ref;
-        if (!this.inPlane()) {
-          return;
-        }
         this.$view.hide();
         this.reset(this.select);
         ref = this.panes;
@@ -222,13 +214,13 @@
       onSelect(select) {
         var intent, name;
         UI.verifySelect(select, 'View');
-        if (this.ui.notInPlane()) {
-          return;
-        }
         name = select.name;
         intent = select.intent;
         this.select = select;
         switch (intent) {
+          case UI.SelectReady:
+            this.expandAllPanes();
+            break;
           case UI.SelectOverview:
             this.expandAllPanes();
             break;
@@ -239,12 +231,8 @@
             this.expandPane(this.getPaneOrGroup(name));
             break;
           default:
-            Util.error('UI.View.onSelect() name not processed for intent', name, select.intent);
+            Util.error('UI.View.onSelect() name not processed for intent', name, select);
         }
-      }
-
-      inPlane() {
-        return true;
       }
 
       expandAllPanes() {
@@ -301,7 +289,7 @@
         for (keyPractice in practices) {
           if (!hasProp.call(practices, keyPractice)) continue;
           practice = practices[keyPractice];
-          if (!(keyPractice !== 'Overview' && (practice.cells != null))) {
+          if (!practice.pane) {
             continue;
           }
           pane = new UI.Pane(this.ui, this.stream, this, practice);
@@ -328,7 +316,6 @@
 
     };
 
-    //module.exports = View
     UI.View = View;
 
     return View;

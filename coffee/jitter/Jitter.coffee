@@ -1,13 +1,10 @@
 
 class Jitter
 
-  #module.exports = Jitter
-
   @init = () ->
 
     Util.ready ->
-      subjects = ['Select','Content','Connect','Test','Plane','About','Slide','Image',
-        'Cursor','Navigate','Settings','Submit','Toggle']
+      subjects = ['Select']
       stream   = new Util.Stream( subjects )
       page     = new Jitter.Page( stream )
       ui       = new UI(          stream, page )
@@ -23,7 +20,7 @@ class Jitter
     htm = """<div     style="position:absolute; left:#{x}%; top:#{y}%; width:#{w}%; height:#{h}%; display:table;">
          <div   style="display:table-cell; vertical-align:middle;">
            <img style="display:block; margin-left:auto; margin-right:auto; max-height:#{mh}px;" src="#{src}"/>"""
-    htm += """<div style="color:white; font-size:20px; padding-top:4px;">#{label}</div>"""  if Util.isStr(label)
+    htm += """<div style="color:white; font-size:14px; padding-top:4px;">#{label}</div>"""  if Util.isStr(label)
     htm += """</div></div>"""
     htm
 

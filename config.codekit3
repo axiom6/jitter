@@ -260,17 +260,6 @@
 		"sC": 0,
 		"tS": 0
 		},
-	"\/coffee\/vis\/Wheel.v3.coffee": {
-		"ft": 32,
-		"ma": 0,
-		"mi": 0,
-		"oA": 0,
-		"oAP": "\/public\/js\/vis\/Wheel.v3.js",
-		"oF": 0,
-		"oS": 0,
-		"sC": 0,
-		"tS": 0
-		},
 	"\/doc\/aaa\/firebase.html": {
 		"cB": 0,
 		"ft": 8192,
@@ -362,6 +351,17 @@
 		"oF": 0,
 		"oO": 0,
 		"oS": 1
+		},
+	"\/doc\/wheel\/coffee-wheel\/Wheel.v3.coffee": {
+		"ft": 32,
+		"ma": 0,
+		"mi": 0,
+		"oA": 0,
+		"oAP": "\/doc\/wheel\/coffee-wheel\/Wheel.v3.js",
+		"oF": 0,
+		"oS": 0,
+		"sC": 0,
+		"tS": 0
 		},
 	"\/doc\/wheel\/coffee\/Flavor.coffee": {
 		"ft": 32,
@@ -754,6 +754,16 @@
 		"sM": 0,
 		"sU": 0
 		},
+	"\/public\/css\/flavor-min.css": {
+		"aP": 1,
+		"bl": 0,
+		"ft": 16,
+		"ma": 0,
+		"oA": 0,
+		"oAP": "\/public\/css\/flavor-min-min.css",
+		"oF": 0,
+		"oS": 3
+		},
 	"\/public\/css\/flavor.css": {
 		"aP": 1,
 		"bl": 0,
@@ -870,11 +880,11 @@
 		"oT": 1,
 		"q": 100
 		},
-	"\/public\/img\/body\/BodyReady.jpg": {
+	"\/public\/img\/body\/Body.jpg": {
 		"ft": 16384,
 		"iS": 6641,
 		"oA": 0,
-		"oAP": "\/public\/img\/body\/BodyReady.jpg",
+		"oAP": "\/public\/img\/body\/Body.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
@@ -1160,6 +1170,17 @@
 		"opt": 0,
 		"q": 100
 		},
+	"\/public\/img\/roast\/Dark.png": {
+		"ft": 32768,
+		"iS": 70740,
+		"oA": 0,
+		"oAP": "\/public\/img\/roast\/Dark.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
 	"\/public\/img\/roast\/FiveRoasts.jpeg": {
 		"ft": 16384,
 		"iS": 109783,
@@ -1168,6 +1189,50 @@
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
+		"q": 100
+		},
+	"\/public\/img\/roast\/Light.png": {
+		"ft": 32768,
+		"iS": 81739,
+		"oA": 0,
+		"oAP": "\/public\/img\/roast\/Light.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/public\/img\/roast\/Medium.png": {
+		"ft": 32768,
+		"iS": 87144,
+		"oA": 0,
+		"oAP": "\/public\/img\/roast\/Medium.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/public\/img\/roast\/MediumDark.png": {
+		"ft": 32768,
+		"iS": 85154,
+		"oA": 0,
+		"oAP": "\/public\/img\/roast\/MediumDark.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/public\/img\/roast\/MediumLight.png": {
+		"ft": 32768,
+		"iS": 89054,
+		"oA": 0,
+		"oAP": "\/public\/img\/roast\/MediumLight.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
 		"q": 100
 		},
 	"\/public\/img\/svg\/AeroPress.svg": {

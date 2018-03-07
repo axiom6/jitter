@@ -1,6 +1,4 @@
 (function() {
-  //$  = require( 'jquery'   )
-  //UI = require( 'js/ui/UI' )
   var Tocs,
     hasProp = {}.hasOwnProperty;
 
@@ -23,7 +21,7 @@
           level: 0,
           name: "Beg"
         };
-        stack = new Array(UI.MaxTocLevel);
+        stack = new Array(Tocs.MaxTocLevel);
         stack[0] = spec0;
         specs = [];
         specs.push(spec0);
@@ -93,7 +91,13 @@
         if (spec.level === 2) { // Study
           return UI.select(spec.parent.name, 'Tocs', UI.SelectStudy, spec.parent[spec.name]);
         } else {
-          intent = spec.name === 'Overview' ? UI.SelectOverview : UI.SelectPractice;
+          intent = UI.SelectPractice;
+          if (spec.name === 'Overview') {
+            intent = UI.SelectOverview;
+          }
+          if (spec.name === 'Ready') {
+            intent = UI.SelectReady;
+          }
           return UI.select(spec.name, 'Tocs', intent);
         }
       }
@@ -212,9 +216,7 @@
       onSelect(select) {
         var spec;
         UI.verifySelect(select, 'Tocs');
-        if (this.ui.notInPlane()) {
-          return;
-        }
+        //return if @ui.notInPlane()
         spec = this.getSpec(select, true); // spec null ok not all Tocs available for views
         if (spec != null) {
           this.update(spec);
@@ -261,8 +263,9 @@
 
     };
 
-    //module.exports = Tocs # Util.Export( Tocs, 'ui/Tocs' )
     UI.Tocs = Tocs;
+
+    Tocs.MaxTocLevel = 12;
 
     return Tocs;
 
