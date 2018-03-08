@@ -1661,10 +1661,18 @@
 		"sC": 3,
 		"tS": 0
 		},
-	"\/public\/json\/aroma.json": {
+	"\/public\/json\/aroma3.json": {
 		"ft": 524288,
 		"oA": 1,
-		"oAP": "\/public\/json\/aroma-min.json",
+		"oAP": "\/public\/json\/aroma3-min.json",
+		"oF": 0,
+		"oO": 0,
+		"oS": 1
+		},
+	"\/public\/json\/aroma4.json": {
+		"ft": 524288,
+		"oA": 1,
+		"oAP": "\/public\/json\/aroma4-min.json",
 		"oF": 0,
 		"oO": 0,
 		"oS": 1
@@ -1724,13 +1732,6 @@
 		"oF": 0,
 		"oO": 0,
 		"oS": 1
-		},
-	"\/public\/sun.html": {
-		"cB": 0,
-		"ft": 8192,
-		"oA": 0,
-		"oAP": "\/public\/sun.html",
-		"oF": 0
 		},
 	"\/README.md": {
 		"cB": 0,

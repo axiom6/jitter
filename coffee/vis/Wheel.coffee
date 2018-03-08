@@ -27,7 +27,7 @@ class Wheel
       .attr("width",  @width  + @padding * 2 )
       .attr("height", @height + @padding * 2 )
       .append("g")
-      .attr("transform", "translate(" + [ @width/2+@padding, @height/2+@padding] + ")")
+        .attr("transform", "translate(" + [ @width/2+@padding, @height/2+@padding] + ")")
 
     @partition = d3.partition()
 
@@ -41,6 +41,7 @@ class Wheel
       throw error if error
       root = d3.hierarchy(json)
       root.sum(  (d) -> ( if d.value? then d.value else 1 ) )
+
       nodes = @partition(root).descendants()
       #console.log( 'nodes', nodes )
       @vis.selectAll("path")
@@ -54,6 +55,8 @@ class Wheel
         .append("title")
           .text( (d) => d.data.name + "\n" + @formatNumber(d.value) )
       @doText( nodes )
+
+      #@vis.append("text").text( spec.name ).attr("x",@width/2).attr("y",@height/2) # Needs Work
 
       d3.select( self.frameElement).style( "height", @height + "px" )
 

@@ -65,6 +65,7 @@
             return d.data.name + "\n" + this.formatNumber(d.value);
           });
           this.doText(nodes);
+          //@vis.append("text").text( spec.name ).attr("x",@width/2).attr("y",@height/2) # Needs Work
           return d3.select(self.frameElement).style("height", this.height + "px");
         });
       }

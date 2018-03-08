@@ -17,23 +17,7 @@
       }
 
       ready(pane, spec) {
-        var $e, array, i, j, len, ref, src, where, x, y;
-        $e = $(`<div   ${Jitter.rel(0, 0, 100, 100)}></div>`);
-        $e.append(`<h2 ${Jitter.abs(0, 0, 100, 10)}>${spec.name}</h2>`);
-        where = function(key) {
-          return UI.isChild(key);
-        };
-        array = Util.toArray(spec, where, 'id');
-        i = 0;
-        x = 0;
-        ref = [10, 23, 36, 49, 62, 75, 88];
-        for (j = 0, len = ref.length; j < len; j++) {
-          y = ref[j];
-          src = "img/roast/" + array[i].icon;
-          $e.append(`${Jitter.abi(x, y, 100, 13, src, 100)}`);
-          i = i + 1;
-        }
-        return pane.$.append($e);
+        return Jitter.ready(pane, spec, 'img/roast/');
       }
 
       create(pane, spec) {
