@@ -14,7 +14,7 @@ class Roast
     return
 
   ready:(    pane, spec ) ->
-    Jitter.ready( pane, spec, 'img/roast/' )
+    Jitter.horz( pane, spec, 'img/roast/', 1.0, 10, 0 )
 
   create:( pane, spec ) ->
     pane.$.append( "<h1>#{spec.name}</h1>" )

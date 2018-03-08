@@ -41,7 +41,7 @@
       { "name": "Almond", "fill":"#dea79c" },
       { "name": "Peanut.Butter", "fill":"#eab722" },
       { "name": "Walnuts", "fill":"#c76d2e" },
-      { "name": "Molassas", "fill":"b98236" } ]  },
+      { "name": "Molassas","fill":"#b98236" } ]  },
   { "name": "Chocolate", "fill":"#a97b4c", "children": [
       { "name": "Mexican.Chocolate", "fill":"#b36354" },
       { "name": "Cocao.Nib", "fill":"#a16a4b" },

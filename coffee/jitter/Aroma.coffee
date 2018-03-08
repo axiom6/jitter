@@ -20,7 +20,7 @@ class Aroma
     $h =    $( """<div #{Jitter.abs(0,10,100, 90)}></div>""" )
     url   = "json/aroma3.json"
     callback = (data) =>
-      htm = @html( data.children, 0 )
+      htm = @html( data.children, 16 )
       $h.append( htm )
       pane.$.append( $e )
       pane.$.append( $h )
@@ -30,10 +30,9 @@ class Aroma
   html:( children, pad ) ->
     htm = ""
     for obj in children
-      htm += """<div style="padding-left:#{pad}px; font-size:16px; line-height:20px; color:white; text-align:left">#{obj.name}</div>"""
+      htm += """<div style="padding-left:#{pad}px; font-size:14px; line-height:24px; color:white; text-align:left">#{obj.name}</div>"""
       htm += @html( obj.children, pad+12 ) if obj.children?
     htm
-
 
   create:( pane, spec ) ->
     divId = Util.htmlId( "Wheel", "Aroma" )

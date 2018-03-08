@@ -14,15 +14,18 @@
         return Util.noop(pane, spec, data);
       }
 
-      create(pane, spec, divId, url) {
-        Util.noop(pane, spec);
+      create(pane, spec, divId, url, scale = 1.0) {
+        Util.noop(spec);
         this.url = url;
         this.width = pane.geo.w;
         this.height = pane.geo.h;
-        this.radius = Math.min(this.width, this.height) / 2;
+        this.radius = Math.min(this.width, this.height) * scale / 2;
         this.xx = d3.scaleLinear().range([0, 2 * Math.PI]);
         //yy     = d3.scaleSqrt()  .range([ 0, @radius   ] )
-        this.yy = d3.scalePow().exponent(1.3).domain([0, 1]).range([0, this.radius]);
+        this.yy = d3.scalePow().exponent(1.3).domain([0, 1]).range([
+          0,
+          this.radius // 1.3
+        ]);
         this.formatNumber = d3.format(",d");
         this.padding = 5;
         this.duration = 1000;
@@ -45,8 +48,8 @@
           }
           root = d3.hierarchy(json);
           root.sum(function(d) {
-            if (d.value != null) {
-              return d.value;
+            if (d.children != null) {
+              return 0;
             } else {
               return 1;
             }
@@ -123,6 +126,7 @@
       }
 
       doText(nodes) {
+        var angle, xem;
         this.text = this.vis.selectAll('text').data(nodes);
         //.on('click', @click)
         this.textEnter = this.text.enter().append('text').style('fill-opacity', 1).style('fill', (d) => {
@@ -144,14 +148,28 @@
           rotate = angle + (multiline ? -.5 : 0);
           return 'rotate(' + rotate + ')translate(' + this.yy(d.y0) + this.padding + ')rotate(' + (angle > 90 ? -180 : 0) + ')';
         });
-        this.textEnter.append('tspan').attr('x', 0).text((d) => {
+        angle = (d) => {
+          return this.xx((d.x0 + d.x1) / 2) * 180 / Math.PI;
+        };
+        xem = (d) => {
+          if (angle(d) <= 180) {
+            return '1em';
+          } else {
+            return '-1em';
+          }
+        };
+        this.textEnter.append('tspan').attr('x', (d) => {
+          return xem(d);
+        }).text((d) => {
           if (d.depth) {
             return d.data.name.split(' ')[0];
           } else {
             return '';
           }
         });
-        this.textEnter.append('tspan').attr('x', 0).attr('dy', '1em').text((d) => {
+        this.textEnter.append('tspan').attr('x', (d) => {
+          return xem(d);
+        }).attr('dy', '1em').text((d) => {
           if ((d.depth != null) && (d.data.name != null)) {
             return d.data.name.split(' ')[1] || '';
           } else {

@@ -1733,6 +1733,14 @@
 		"oO": 0,
 		"oS": 1
 		},
+	"\/public\/json\/tocVert.json": {
+		"ft": 524288,
+		"oA": 1,
+		"oAP": "\/public\/json\/tocVert-min.json",
+		"oF": 0,
+		"oO": 0,
+		"oS": 1
+		},
 	"\/README.md": {
 		"cB": 0,
 		"cS": 0,

@@ -18,16 +18,10 @@
       }
 
       ready(pane, spec) {
-        Jitter.ready(pane, spec, 'img/brew/', 0.70);
+        Jitter.horz(pane, spec, 'img/brew/', 0.75, 10, 10);
       }
 
       create(pane, spec) {
-        /*
-        $e.append( """<div     #{Jitter.abs(x,y,w,h)}>
-                               #{Jitter.img(src)}
-                          <div #{Jitter.txt()}>#{brew.name}</div>
-                      </div>""" )
-         */
         var $e, brew, h, i, key, src, w, x, y;
         pane.$.append("<h1>Brew</h1>");
         $e = $(`<div ${Jitter.rel(0, 0, 100, 100)}></div>`);

@@ -14,7 +14,7 @@ class Brew
     return
 
   ready:(    pane, spec ) ->
-    Jitter.ready( pane, spec, 'img/brew/', 0.70 )
+    Jitter.horz( pane, spec, 'img/brew/', 0.75, 10, 10 )
     return
 
   create:( pane, spec ) ->
@@ -30,12 +30,8 @@ class Brew
       y = if i <= 4 then   10 else 50
       x = 12.5 if i is 5
       $e.append( """#{Jitter.abi(x,y,w,h,src,150,brew.name)}""" )
-      ###
-      $e.append( """<div     #{Jitter.abs(x,y,w,h)}>
-                             #{Jitter.img(src)}
-                        <div #{Jitter.txt()}>#{brew.name}</div>
-                    </div>""" )
-      ###
       i = i + 1
     pane.$.append( $e )
     return
+
+

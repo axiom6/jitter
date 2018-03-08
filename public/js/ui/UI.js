@@ -160,7 +160,7 @@ UI = (function() {
 
   UI.ncol = 36;
 
-  UI.nrow = 24;
+  UI.nrow = 36;
 
   UI.margin = {
     width: 1,

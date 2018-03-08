@@ -5,20 +5,20 @@
           { "name": "Fragrant" } ] },
       { "name": "Fruity", "children": [
           { "name": "Citrus" },
-          { "name": "Berry-like" } ] },
+          { "name": "Berry Like" } ] },
       { "name": "Herby", "children": [
           { "name": "Alliaceous" },
           { "name": "Leguminous"} ] } ] },
   { "name": "Sugar Browning", "children": [
       { "name": "Nutty", "children": [
-          { "name": "Nut-like" },
-          { "name": "Malt-like" } ] },
+          { "name": "Nut Like" },
+          { "name": "Malt Like" } ] },
       { "name": "Carmelly", "children": [
-          { "name": "Candy-like" },
-          { "name": "Syrup-like" } ] },
+          { "name": "Candy Like" },
+          { "name": "Syrup Like" } ] },
       { "name": "Chocolatey", "children": [
-          { "name": "Chocolate-like" },
-          { "name": "Vanilla-like" } ] } ] },
+          { "name": "Chocolate Like" },
+          { "name": "Vanilla-Like" } ] } ] },
   { "name": "Dry Distillation", "children": [
       { "name": "Resinous", "children": [
           { "name": "Turpeny" },

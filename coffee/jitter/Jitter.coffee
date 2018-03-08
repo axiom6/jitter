@@ -35,16 +35,34 @@ class Jitter
   @txt:( ) ->
     """style="color:white; text-align:center;"  """
 
-  @ready:( pane, spec, imgDir, hpc=1.00 ) ->
+  @horz:( pane, spec, imgDir, hpc=1.00, x0=0, y0=0 ) ->
+    th = if spec.name is 'Roast' then 18 else 13  # A hack
+    $e  = $( """<div   #{Jitter.rel(0, 0,100,100)}></div>""" )
+    $e.append(  """<h2 #{Jitter.abs(0,th, 10, 90)}>#{spec.name}</h2>""" )
+    where = (key) -> UI.isChild(key)
+    array = Util.toArray( spec, where, 'id')
+    n  =  array.length
+    i  =   0
+    x  =  x0
+    y  =  y0
+    dx = (100-x0) / n
+    for i in [0...n]
+      src = if array[i].icon? then imgDir + array[i].icon else null
+      $e.append( """#{Jitter.abi(x,y,dx,100*hpc,src,65*hpc,array[i].name)}"""  )
+      x =   x + dx
+    pane.$.append( $e )
+    return
+
+  @vert:( pane, spec, imgDir, hpc=1.00, x0=0, y0=0 ) ->
     $e = $( """<div   #{Jitter.rel(0,0,100,100)}></div>""" )
     $e.append( """<h2 #{Jitter.abs(0,0,100, 10)}>#{spec.name}</h2>""" )
     where = (key) -> UI.isChild(key)
     array = Util.toArray( spec, where, 'id')
     n  =  array.length
     i  =  0
-    x  =  0
-    y  = 10
-    dy = 90 / n
+    x  = x0
+    y  = y0
+    dy = (100-y0-5) / n
     for i in [0...n]
       src = if array[i].icon? then imgDir + array[i].icon else null
       $e.append( """#{Jitter.abi(x,y,100,dy*hpc,src,65*hpc,array[i].name)}"""  )

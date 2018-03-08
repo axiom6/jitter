@@ -25,7 +25,7 @@
         url = "json/aroma3.json";
         callback = (data) => {
           var htm;
-          htm = this.html(data.children, 0);
+          htm = this.html(data.children, 16);
           $h.append(htm);
           pane.$.append($e);
           return pane.$.append($h);
@@ -38,7 +38,7 @@
         htm = "";
         for (i = 0, len = children.length; i < len; i++) {
           obj = children[i];
-          htm += `<div style="padding-left:${pad}px; font-size:16px; line-height:20px; color:white; text-align:left">${obj.name}</div>`;
+          htm += `<div style="padding-left:${pad}px; font-size:14px; line-height:24px; color:white; text-align:left">${obj.name}</div>`;
           if (obj.children != null) {
             htm += this.html(obj.children, pad + 12);
           }

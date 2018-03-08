@@ -14,7 +14,7 @@ class Drink
     return
 
   ready:(    pane, spec ) ->
-    Jitter.ready( pane, spec, 'img/drink/', 0.75 )
+    Jitter.vert( pane, spec, 'img/drink/', 0.75, 0, 15 )
     return
 
   create:( pane, spec ) ->

@@ -8,20 +8,21 @@ class Wheel
   ready:(  pane, spec, data ) ->
     Util.noop( pane, spec, data )
 
-  create:( pane, spec, divId, url ) ->
+  create:( pane, spec, divId, url, scale=1.0 ) ->
 
-    Util.noop( pane, spec )
+    Util.noop( spec )
     @url    = url
     @width  = pane.geo.w
     @height = pane.geo.h
-    @radius = Math.min(@width, @height) / 2
+    @radius = Math.min( @width, @height ) * scale / 2
     @xx     = d3.scaleLinear().range([ 0, 2*Math.PI ] )
     #yy     = d3.scaleSqrt()  .range([ 0, @radius   ] )
-    @yy     = d3.scalePow().exponent(1.3).domain([0,1]).range([0,@radius])
+    @yy     = d3.scalePow().exponent(1.3).domain([0,1]).range([0,@radius]) # 1.3
     @formatNumber = d3.format(",d")
     @padding = 5
     @duration = 1000
     @div = d3.select('#' + divId )
+
 
     @vis = @div.append("svg")
       .attr("width",  @width  + @padding * 2 )
@@ -40,7 +41,7 @@ class Wheel
     d3.json @url, (error, json ) =>
       throw error if error
       root = d3.hierarchy(json)
-      root.sum(  (d) -> ( if d.value? then d.value else 1 ) )
+      root.sum(  (d) -> ( if d.children? then 0 else 1 ) )
 
       nodes = @partition(root).descendants()
       #console.log( 'nodes', nodes )
@@ -111,7 +112,10 @@ class Wheel
         rotate = angle + (if multiline then -.5 else 0)
         'rotate(' + rotate + ')translate(' + @yy(d.y0) + @padding + ')rotate(' + (if angle > 90 then -180 else 0) + ')' )
 
-    @textEnter.append('tspan').attr('x', 0).text( (d) => if d.depth then d.data.name.split(' ')[0] else '' )
-    @textEnter.append('tspan').attr('x', 0).attr('dy', '1em')
+    angle = (d) => @xx( (d.x0+d.x1)/2 ) * 180 / Math.PI
+    xem   = (d) => if angle(d) <= 180 then '1em' else '-1em'
+
+    @textEnter.append('tspan').attr( 'x', (d) => xem(d) ).text( (d) => if d.depth then d.data.name.split(' ')[0] else '' )
+    @textEnter.append('tspan').attr( 'x', (d) => xem(d) ).attr('dy', '1em')
       .text( (d) => if d.depth? and d.data.name? then d.data.name.split(' ')[1] or '' else '' )
     return

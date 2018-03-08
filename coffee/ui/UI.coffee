@@ -4,7 +4,7 @@ class UI
   UI.$empty       = $() # Empty jQuery singleton for intialization
   UI.None         = "None"
   UI.ncol         = 36
-  UI.nrow         = 24
+  UI.nrow         = 36
   UI.margin       =  { width:1, height:1, west :2, north :1, east :2, south :2, wStudy:0.5, hStudy:0.5 }
 
 

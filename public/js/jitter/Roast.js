@@ -17,7 +17,7 @@
       }
 
       ready(pane, spec) {
-        return Jitter.ready(pane, spec, 'img/roast/');
+        return Jitter.horz(pane, spec, 'img/roast/', 1.0, 10, 0);
       }
 
       create(pane, spec) {
