@@ -4,10 +4,13 @@
   Wheel = (function() {
     class Wheel {
       constructor() {
-        this.click = this.click.bind(this);
         this.isParentOf = this.isParentOf.bind(this);
         this.fill = this.fill.bind(this);
         this.doText = this.doText.bind(this);
+        // Distort the specified node to 80% of its parent.
+        this.magnify = this.magnify.bind(this);
+        this.zoomTween = this.zoomTween.bind(this);
+        this.zoom = this.zoom.bind(this);
       }
 
       ready(pane, spec, data) {
@@ -33,30 +36,29 @@
         this.vis = this.div.append("svg").attr("width", this.width + this.padding * 2).attr("height", this.height + this.padding * 2).append("g").attr("transform", "translate(" + [this.width / 2 + this.padding, this.height / 2 + this.padding] + ")");
         this.partition = d3.partition();
         this.arc = d3.arc().startAngle((d) => {
-          return Math.max(0, Math.min(2 * Math.PI, this.xx(d.x0)));
+          return Math.max(0, Math.min(2 * Math.PI, this.xx(this.x0(d))));
         }).endAngle((d) => {
-          return Math.max(0, Math.min(2 * Math.PI, this.xx(d.x1)));
+          return Math.max(0, Math.min(2 * Math.PI, this.xx(this.x1(d))));
         }).innerRadius((d) => {
           return Math.max(0, this.yy(d.y0));
         }).outerRadius((d) => {
           return Math.max(0, this.yy(d.y1));
         });
-        return d3.json(this.url, (error, json) => {
-          var nodes, root;
+        d3.json(this.url, (error, json) => {
           if (error) {
             throw error;
           }
-          root = d3.hierarchy(json);
-          root.sum(function(d) {
+          this.root = d3.hierarchy(json);
+          this.root.sum(function(d) {
             if (d.children != null) {
               return 0;
             } else {
               return 1;
             }
           });
-          nodes = this.partition(root).descendants();
-          //console.log( 'nodes', nodes )
-          this.vis.selectAll("path").data(nodes).enter().append("path").attr("id", function(d, i) {
+          this.nodes = this.partition(this.root).descendants();
+          //console.log( 'nodes', @nodes )
+          this.path = this.vis.selectAll("path").data(this.nodes).enter().append("path").attr("id", function(d, i) {
             if (d != null) {
               return "path-" + i;
             } else {
@@ -64,30 +66,36 @@
             }
           }).attr("d", this.arc).attr("fill-rule", "evenodd").style("fill", (d) => {
             return this.fill(d.data);
-          }).on("click", this.click).append("title").text((d) => {
+          }).on("click", this.zoomTween).append("title").text((d) => {
             return d.data.name + "\n" + this.formatNumber(d.value);
           });
-          this.doText(nodes);
-          //@vis.append("text").text( spec.name ).attr("x",@width/2).attr("y",@height/2) # Needs Work
-          return d3.select(self.frameElement).style("height", this.height + "px");
+          return this.doText(this.nodes);
         });
+        return d3.select(self.frameElement).style("height", this.height + "px");
+      }
+
+      x0(d) {
+        if (d.m0 != null) {
+          return d.m0;
+        } else {
+          return d.x0;
+        }
+      }
+
+      x1(d) {
+        if (d.m1 != null) {
+          return d.m1;
+        } else {
+          return d.x1;
+        }
+      }
+
+      sameNode(a, b) {
+        return a.data.name === b.data.name;
       }
 
       click(d) {
-        return this.vis.transition().duration(this.duration).tween("scale", () => {
-          var xd, yd, yr;
-          xd = d3.interpolate(this.xx.domain(), [d.x0, d.x1]);
-          yd = d3.interpolate(this.yy.domain(), [d.y0, 1]);
-          yr = d3.interpolate(this.yy.range(), [(d.y0 != null ? 20 : 0), this.radius]);
-          return (t) => {
-            this.xx.domain(xd(t));
-            return this.yy.domain(yd(t)).range(yr(t));
-          };
-        }).selectAll("path").attrTween("d", (d) => {
-          return () => {
-            return this.arc(d);
-          };
-        });
+        return console.log('click', d.data.name, parent.data.name);
       }
 
       // http://www.w3.org/WAI/ER/WD-AERT/#color-contrast
@@ -128,15 +136,14 @@
       doText(nodes) {
         var angle, xem;
         this.text = this.vis.selectAll('text').data(nodes);
-        //.on('click', @click)
-        this.textEnter = this.text.enter().append('text').style('fill-opacity', 1).style('fill', (d) => {
+        this.textEnter = this.text.enter().append('text').style('fill-opacity', 1).on('click', this.zoomTween).style('fill', (d) => {
           if (this.brightness(d3.rgb(this.fill(d.data))) < 125) {
             return '#eee';
           } else {
             return '#000';
           }
         }).attr('text-anchor', (d) => {
-          if (this.xx((d.x0 + d.x1) / 2) > Math.PI) {
+          if (this.xx((this.x0(d) + this.x1(d)) / 2) > Math.PI) {
             return 'end';
           } else {
             return 'start';
@@ -144,37 +151,96 @@
         }).attr('dy', '.2em').attr('transform', (d) => {
           var angle, multiline, rotate;
           multiline = (d.data.name || '').split(' ').length > 1;
-          angle = this.xx((d.x0 + d.x1) / 2) * 180 / Math.PI - 90;
+          angle = this.xx((this.x0(d) + this.x1(d)) / 2) * 180 / Math.PI - 90;
           rotate = angle + (multiline ? -.5 : 0);
           return 'rotate(' + rotate + ')translate(' + this.yy(d.y0) + this.padding + ')rotate(' + (angle > 90 ? -180 : 0) + ')';
         });
         angle = (d) => {
-          return this.xx((d.x0 + d.x1) / 2) * 180 / Math.PI;
+          return this.xx((this.x0(d) + this.x1(d)) / 2) * 180 / Math.PI;
         };
-        xem = (d) => {
+        xem = function(d) {
           if (angle(d) <= 180) {
             return '1em';
           } else {
             return '-1em';
           }
         };
-        this.textEnter.append('tspan').attr('x', (d) => {
+        this.textEnter.append('tspan').attr('x', function(d) {
           return xem(d);
-        }).text((d) => {
+        }).text(function(d) {
           if (d.depth) {
             return d.data.name.split(' ')[0];
           } else {
             return '';
           }
         });
-        this.textEnter.append('tspan').attr('x', (d) => {
+        this.textEnter.append('tspan').attr('x', function(d) {
           return xem(d);
-        }).attr('dy', '1em').text((d) => {
+        }).attr('dy', '1em').text(function(d) {
           if ((d.depth != null) && (d.data.name != null)) {
             return d.data.name.split(' ')[1] || '';
           } else {
             return '';
           }
+        });
+      }
+
+      magnify(d) {
+        var dd, ds, n, parent, rd, x0, x1;
+        parent = d.parent;
+        console.log('magnify', d.data.name, parent.data.name);
+        if ((parent != null) && (parent.children != null)) {
+          n = parent.children.length;
+          x0 = parent.children[0].x0;
+          x1 = parent.children[n - 1].x1;
+          rd = 0.5;
+          dd = (x1 - x0) * rd;
+          ds = (x1 - x0) * (1.0 - rd) / n;
+          //console.log( 'magnify parent', { name:parent.data.name, x0:x0, x1:x1, dd:dd, ds:ds } )
+          parent.children.forEach((sibling) => {
+            x1 += this.sameNode(d, sibling) ? dd : ds;
+            sibling.m0 = x0;
+            sibling.m1 = x1;
+            //console.log( 'magnify sibling', { name:sibling.data.name, m0:sibling.x0, m1:sibling.x1, x0:sibling.m0, x1:sibling.m1 } )
+            return x0 = x1;
+          });
+        }
+        this.vis.selectAll('path').transition().duration(this.duration).attr("d", this.arc); //.data(parent.children)
+        this.doText(this.nodes);
+      }
+
+      zoomTween(d) {
+        return this.vis.transition().duration(this.duration).tween("scale", () => {
+          var xd, yd, yr;
+          xd = d3.interpolate(this.xx.domain(), [this.x0(d), this.x1(d)]);
+          yd = d3.interpolate(this.yy.domain(), [d.y0, 1]);
+          yr = d3.interpolate(this.yy.range(), [(d.y0 != null ? 20 : 0), this.radius]);
+          return (t) => {
+            this.xx.domain(xd(t));
+            return this.yy.domain(yd(t)).range(yr(t));
+          };
+        //attrTween( "d", (a) => ( () => if a.data.name is d.data.name then @arc(a) ) )
+        }).selectAll("path").attrTween("d", (a) => {
+          return () => {
+            return this.arc(a);
+          };
+        });
+      }
+
+      zoom(d) {
+        return this.vis.transition().duration(this.duration).tween("scale", () => {
+          var xd, yd, yr;
+          xd = d3.interpolate(this.xx.domain(), [d.x0, d.x1]);
+          yd = d3.interpolate(this.yy.domain(), [d.y0, 1]);
+          yr = d3.interpolate(this.yy.range(), [(d.y0 != null ? 20 : 0), this.radius]);
+          return (t) => {
+            this.xx.domain(xd(t));
+            return this.yy.domain(yd(t)).range(yr(t));
+          };
+        }).selectAll("path").attrTween("d", (d) => {
+          return () => {
+            return this.arc(d);
+          };
         });
       }
 

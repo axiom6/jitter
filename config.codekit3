@@ -257,7 +257,7 @@
 		"oAP": "\/public\/js\/vis\/Wheel.js",
 		"oF": 0,
 		"oS": 0,
-		"sC": 0,
+		"sC": 1,
 		"tS": 0
 		},
 	"\/doc\/aaa\/firebase.html": {
@@ -460,6 +460,17 @@
 		"oF": 0,
 		"oO": 0,
 		"oS": 1
+		},
+	"\/doc\/wheel\/JitterDoneRight.png": {
+		"ft": 32768,
+		"iS": 397929,
+		"oA": 0,
+		"oAP": "\/doc\/wheel\/JitterDoneRight.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
 		},
 	"\/doc\/wheel\/sun\/d3.js": {
 		"ft": 64,
