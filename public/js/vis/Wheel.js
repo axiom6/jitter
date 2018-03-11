@@ -4,20 +4,14 @@
   Wheel = (function() {
     class Wheel {
       constructor() {
+        this.xc = this.xc.bind(this);
+        this.yc = this.yc.bind(this);
         this.isParentOf = this.isParentOf.bind(this);
         this.fill = this.fill.bind(this);
         this.doText = this.doText.bind(this);
-        // Distort the specified node to 80% of its parent.
         this.magnify = this.magnify.bind(this);
-        /*
-        @vis.selectAll('path') #.data(parent.children)
-        .transition()
-        .duration(@duration)
-        .attr(  "d", @arc )
-        @doText( @nodes )
-        */
+        this.textTransform = this.textTransform.bind(this);
         this.zoomTween = this.zoomTween.bind(this);
-        this.zoom = this.zoom.bind(this);
       }
 
       ready(pane, spec, data) {
@@ -31,7 +25,6 @@
         this.height = pane.geo.h;
         this.radius = Math.min(this.width, this.height) * scale / 2;
         this.xx = d3.scaleLinear().range([0, 2 * Math.PI]);
-        //yy     = d3.scaleSqrt()  .range([ 0, @radius   ] )
         this.yy = d3.scalePow().exponent(1.3).domain([0, 1]).range([
           0,
           this.radius // 1.3
@@ -47,9 +40,9 @@
         }).endAngle((d) => {
           return Math.max(0, Math.min(2 * Math.PI, this.xx(this.x1(d))));
         }).innerRadius((d) => {
-          return Math.max(0, this.yy(d.y0));
+          return Math.max(0, this.yy(this.y0(d)));
         }).outerRadius((d) => {
-          return Math.max(0, this.yy(d.y1));
+          return Math.max(0, this.yy(this.y1(d)));
         });
         d3.json(this.url, (error, json) => {
           if (error) {
@@ -64,7 +57,7 @@
             }
           });
           this.nodes = this.partition(this.root).descendants();
-          //console.log( 'nodes', @nodes )
+          //console.log( 'path nodes', @nodes )
           this.path = this.vis.selectAll("path").data(this.nodes).enter().append("path").attr("id", function(d, i) {
             if (d != null) {
               return "path-" + i;
@@ -97,6 +90,30 @@
         }
       }
 
+      y0(d) {
+        if (d.n0 != null) {
+          return d.n0;
+        } else {
+          return d.y0;
+        }
+      }
+
+      y1(d) {
+        if (d.n1 != null) {
+          return d.n1;
+        } else {
+          return d.y1;
+        }
+      }
+
+      xc(d) {
+        return (this.x0(d) + this.x1(d)) / 2;
+      }
+
+      yc(d) {
+        return (this.y0(d) + this.y1(d)) / 2;
+      }
+
       sameNode(a, b) {
         return (a != null ? a.data.name : void 0) === (b != null ? b.data.name : void 0);
       }
@@ -124,7 +141,6 @@
 
       fill(d) {
         var a, b, colours;
-        //console.log( 'fill', d, d.data )
         if (d.fill != null) {
           return d.fill;
         } else if (d.colour) {
@@ -143,27 +159,23 @@
       doText(nodes) {
         var angle, xem;
         this.text = this.vis.selectAll('text').data(nodes);
-        this.textEnter = this.text.enter().append('text').style('fill-opacity', 1).on('click', this.magnify).style('fill', (d) => {
+        this.textEnter = this.text.enter().append('text').on('click', this.magnify).style("font-size", "10pt").style('fill-opacity', 1).style('fill', (d) => {
           if (this.brightness(d3.rgb(this.fill(d.data))) < 125) {
             return '#eee';
           } else {
             return '#000';
           }
         }).attr('text-anchor', (d) => {
-          if (this.xx((this.x0(d) + this.x1(d)) / 2) > Math.PI) {
+          if (this.xx(this.xc(d)) > Math.PI) {
             return 'end';
           } else {
             return 'start';
           }
         }).attr('dy', '.2em').attr('transform', (d) => {
-          var angle, multiline, rotate;
-          multiline = (d.data.name || '').split(' ').length > 1;
-          angle = this.xx((this.x0(d) + this.x1(d)) / 2) * 180 / Math.PI - 90;
-          rotate = angle + (multiline ? -.5 : 0);
-          return 'rotate(' + rotate + ')translate(' + this.yy(d.y0) + this.padding + ')rotate(' + (angle > 90 ? -180 : 0) + ')';
+          return this.textTransform(d);
         });
         angle = (d) => {
-          return this.xx((this.x0(d) + this.x1(d)) / 2) * 180 / Math.PI;
+          return this.xx(this.xc(d)) * 180 / Math.PI;
         };
         xem = function(d) {
           if (angle(d) <= 180) {
@@ -195,52 +207,54 @@
       magnify(d) {
         var dd, ds, n, parent, x0, x1;
         parent = d.parent;
-        console.log('magnify', d.data.name, parent.data.name);
-        if ((parent != null) && (parent.children != null)) {
+        if ((parent != null) && (parent.children != null) && (d.children == null)) {
+          console.log('magnify', d.data.name, parent.data.name);
           n = parent.children.length;
           x0 = parent.children[0].x0;
           x1 = parent.children[n - 1].x1;
           dd = (d.x1 - d.x0) * 2;
           ds = (x1 - x0 - dd) / (n - 1);
           x1 = x0;
-          //console.log( 'magnify parent', { name:parent.data.name, x0:x0, x1:x1, dd:dd, ds:ds } )
           parent.children.forEach((sibling) => {
+            var y1;
             x1 = this.sameNode(d, sibling) ? x1 + dd : x1 + ds;
+            y1 = this.sameNode(d, sibling) ? d.y1 + (d.y1 - d.y0) * 0.7 : d.y1;
             sibling.m0 = sibling.m0 != null ? void 0 : x0;
             sibling.m1 = sibling.m1 != null ? void 0 : x1;
-            //console.log( 'magnify sibling', { name:sibling.data.name, m0:sibling.x0, m1:sibling.x1, x0:sibling.m0, x1:sibling.m1 } )
+            sibling.n0 = sibling.n0 != null ? void 0 : d.y0;
+            sibling.n1 = sibling.n1 != null ? void 0 : y1;
             return x0 = x1;
           });
-          this.vis.selectAll('path').data(this.nodes).filter((d) => {
-            return this.sameNode(d.parent, parent);
+          this.vis.selectAll('path').data(this.nodes).filter((p) => {
+            return this.sameNode(p.parent, parent);
           }).transition().duration(this.duration).attr("d", this.arc);
-          this.doText(this.nodes);
+          this.vis.selectAll('text').data(this.nodes).filter((t) => {
+            return this.sameNode(t.parent, parent);
+          }).transition().duration(this.duration).attr("transform", (t) => {
+            return this.textTransform(t);
+          }).style("font-size", (t) => {
+            if (this.sameNode(t, d) && (t.m0 != null)) {
+              return '18pt';
+            } else {
+              return '10pt';
+            }
+          });
         }
+      }
+
+      textTransform(d) {
+        var angle, multiline, rotate;
+        multiline = (d.data.name || '').split(' ').length > 1;
+        angle = this.xx(this.xc(d)) * 180 / Math.PI - 90;
+        rotate = angle + (multiline ? -.5 : 0);
+        return 'rotate(' + rotate + ')translate(' + this.yy(this.y0(d)) + this.padding + ')rotate(' + (angle > 90 ? -180 : 0) + ')';
       }
 
       zoomTween(d) {
         return this.vis.transition().duration(this.duration).tween("scale", () => {
           var xd, yd, yr;
           xd = d3.interpolate(this.xx.domain(), [this.x0(d), this.x1(d)]);
-          yd = d3.interpolate(this.yy.domain(), [d.y0, 1]);
-          yr = d3.interpolate(this.yy.range(), [(d.y0 != null ? 20 : 0), this.radius]);
-          return (t) => {
-            this.xx.domain(xd(t));
-            return this.yy.domain(yd(t)).range(yr(t));
-          };
-        //attrTween( "d", (a) => ( () => if a.data.name is d.data.name then @arc(a) ) )
-        }).selectAll("path").attrTween("d", (a) => {
-          return () => {
-            return this.arc(a);
-          };
-        });
-      }
-
-      zoom(d) {
-        return this.vis.transition().duration(this.duration).tween("scale", () => {
-          var xd, yd, yr;
-          xd = d3.interpolate(this.xx.domain(), [d.x0, d.x1]);
-          yd = d3.interpolate(this.yy.domain(), [d.y0, 1]);
+          yd = d3.interpolate(this.yy.domain(), [this.y0(d), 1]);
           yr = d3.interpolate(this.yy.range(), [(d.y0 != null ? 20 : 0), this.radius]);
           return (t) => {
             this.xx.domain(xd(t));

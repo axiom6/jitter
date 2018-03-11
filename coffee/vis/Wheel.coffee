@@ -16,7 +16,6 @@ class Wheel
     @height = pane.geo.h
     @radius = Math.min( @width, @height ) * scale / 2
     @xx     = d3.scaleLinear().range([ 0, 2*Math.PI ] )
-    #yy     = d3.scaleSqrt()  .range([ 0, @radius   ] )
     @yy     = d3.scalePow().exponent(1.3).domain([0, 1]).range([0, @radius]) # 1.3
     @formatNumber = d3.format(",d")
     @padding = 5
@@ -34,8 +33,8 @@ class Wheel
     @arc = d3.arc()
       .startAngle(  (d) => Math.max( 0, Math.min(2 * Math.PI, @xx( @x0(d) ))))
       .endAngle(    (d) => Math.max( 0, Math.min(2 * Math.PI, @xx( @x1(d) ))))
-      .innerRadius( (d) => Math.max( 0, @yy(d.y0) ) )
-      .outerRadius( (d) => Math.max( 0, @yy(d.y1) ) )
+      .innerRadius( (d) => Math.max( 0, @yy(@y0(d)) ) )
+      .outerRadius( (d) => Math.max( 0, @yy(@y1(d)) ) )
 
     d3.json @url, (error, json ) =>
       throw error if error
@@ -43,7 +42,7 @@ class Wheel
       @root.sum(  (d) -> ( if d.children? then 0 else 1 ) )
 
       @nodes = @partition(@root).descendants()
-      #console.log( 'nodes', @nodes )
+      #console.log( 'path nodes', @nodes )
       @path = @vis.selectAll("path")
         .data( @nodes )
         .enter().append("path")
@@ -58,11 +57,12 @@ class Wheel
 
     d3.select( self.frameElement).style( "height", @height + "px" )
 
-  x0:(d) ->
-    if d.m0? then d.m0 else d.x0
-
-  x1:(d) ->
-    if d.m1? then d.m1 else d.x1
+  x0:(d) -> if d.m0? then d.m0 else d.x0
+  x1:(d) -> if d.m1? then d.m1 else d.x1
+  y0:(d) -> if d.n0? then d.n0 else d.y0
+  y1:(d) -> if d.n1? then d.n1 else d.y1
+  xc:(d) => (@x0(d)+@x1(d))/2
+  yc:(d) => (@y0(d)+@y1(d))/2
 
   sameNode:( a, b ) ->
     a?.data.name is b?.data.name
@@ -82,7 +82,7 @@ class Wheel
     false
 
   fill:(d) =>
-    #console.log( 'fill', d, d.data )
+
     if d.fill?
       d.fill
     else if d.colour
@@ -100,17 +100,15 @@ class Wheel
 
     @text = @vis.selectAll('text').data(nodes)
 
-    @textEnter = @text.enter().append('text').style('fill-opacity', 1)
+    @textEnter = @text.enter().append('text')
       .on('click', @magnify )
+      .style("font-size", "10pt")
+      .style('fill-opacity', 1)
       .style('fill',       (d) => if @brightness( d3.rgb( @fill(d.data) ) ) < 125 then '#eee' else '#000' )
-      .attr('text-anchor', (d) => if @xx( (@x0(d)+@x1(d))/2 ) > Math.PI then 'end' else 'start' )
-      .attr('dy', '.2em').attr('transform', (d) =>
-        multiline = (d.data.name or '').split(' ').length > 1
-        angle  = @xx( (@x0(d)+@x1(d))/2 ) * 180 / Math.PI - 90
-        rotate = angle + (if multiline then -.5 else 0)
-        'rotate(' + rotate + ')translate(' + @yy(d.y0) + @padding + ')rotate(' + (if angle > 90 then -180 else 0) + ')' )
+      .attr('text-anchor', (d) => if @xx( @xc(d) ) > Math.PI then 'end' else 'start' )
+      .attr('dy', '.2em').attr('transform', (d) => @textTransform(d) )
 
-    angle = (d) => @xx( (@x0(d)+@x1(d))/2 ) * 180 / Math.PI
+    angle = (d) => @xx( @xc(d) ) * 180 / Math.PI
     xem   = (d) -> if angle(d) <= 180 then '1em' else '-1em'
 
     @textEnter.append('tspan').attr( 'x', (d) -> xem(d) ).text( (d) -> if d.depth then d.data.name.split(' ')[0] else '' )
@@ -118,57 +116,49 @@ class Wheel
       .text( (d) -> if d.depth? and d.data.name? then d.data.name.split(' ')[1] or '' else '' )
     return
 
-  # Distort the specified node to 80% of its parent.
   magnify:( d ) =>
     parent = d.parent
-    console.log( 'magnify', d.data.name,  parent.data.name )
-    if parent? and parent.children?
+    if parent? and parent.children? and not d.children?
+      console.log( 'magnify', d.data.name,  parent.data.name )
       n  = parent.children.length
       x0 = parent.children[0  ].x0
       x1 = parent.children[n-1].x1
-      dd = (d.x1- d.x0) * 2
+      dd = (d.x1-d.x0) * 2
       ds = (x1-x0-dd) / (n-1)
       x1 = x0
-      #console.log( 'magnify parent', { name:parent.data.name, x0:x0, x1:x1, dd:dd, ds:ds } )
       parent.children.forEach( (sibling) =>
-        x1 = if @sameNode(d, sibling) then x1+dd else x1+ds
+        x1 = if @sameNode( d, sibling ) then x1+dd       else x1+ds
+        y1 = if @sameNode( d, sibling ) then d.y1+(d.y1-d.y0)*0.7 else d.y1
         sibling.m0 = if sibling.m0? then undefined else x0
         sibling.m1 = if sibling.m1? then undefined else x1
-        #console.log( 'magnify sibling', { name:sibling.data.name, m0:sibling.x0, m1:sibling.x1, x0:sibling.m0, x1:sibling.m1 } )
+        sibling.n0 = if sibling.n0? then undefined else d.y0
+        sibling.n1 = if sibling.n1? then undefined else y1
         x0 = x1 )
       @vis.selectAll('path').data( @nodes )
-        .filter( (d) => @sameNode( d.parent, parent ) )
+        .filter( (p) => @sameNode( p.parent, parent ) )
         .transition()
         .duration(@duration)
         .attr(  "d", @arc )
-      @doText( @nodes )
+      @vis.selectAll('text').data( @nodes )
+        .filter( (t) => @sameNode( t.parent, parent ) )
+        .transition()
+        .duration(@duration)
+        .attr( "transform", (t) => @textTransform(t) )
+        .style("font-size", (t) => if @sameNode( t, d ) and t.m0? then '18pt' else '10pt' )
       return
-    ###
-    @vis.selectAll('path') #.data(parent.children)
-      .transition()
-      .duration(@duration)
-      .attr(  "d", @arc )
-    @doText( @nodes )
-    ###
 
-  zoomTween:(d) =>
+  textTransform:( d ) =>
+    multiline = (d.data.name or '').split(' ').length > 1
+    angle  = @xx( @xc(d) ) * 180 / Math.PI - 90
+    rotate = angle + (if multiline then -.5 else 0)
+    'rotate(' + rotate + ')translate(' + @yy(@y0(d)) + @padding + ')rotate(' + (if angle > 90 then -180 else 0) + ')'
+
+  zoomTween:( d ) =>
     @vis.transition()
       .duration(@duration)
       .tween( "scale", () =>
-        xd = d3.interpolate( @xx.domain(), [ @x0(d), @x1(d) ] )
-        yd = d3.interpolate( @yy.domain(), [ d.y0, 1 ]    )
-        yr = d3.interpolate( @yy.range(),  [ (if d.y0? then 20 else 0), @radius ] )
-        (t) => ( @xx.domain( xd(t)); @yy.domain(yd(t)).range(yr(t)) ) )
-      .selectAll("path")
-        #attrTween( "d", (a) => ( () => if a.data.name is d.data.name then @arc(a) ) )
-        .attrTween( "d", (a) => ( () => @arc(a) ) )
-
-  zoom:( d ) =>
-    @vis.transition()
-      .duration(@duration)
-      .tween( "scale", () =>
-        xd = d3.interpolate( @xx.domain(), [ d.x0, d.x1] )
-        yd = d3.interpolate( @yy.domain(), [ d.y0, 1] )
+        xd = d3.interpolate( @xx.domain(), [ @x0(d), @x1(d)] )
+        yd = d3.interpolate( @yy.domain(), [ @y0(d), 1] )
         yr = d3.interpolate( @yy.range(),  [ (if d.y0? then 20 else 0), @radius ] )
         (t) => ( @xx.domain(xd(t)); @yy.domain(yd(t)).range(yr(t)) ) )
     .selectAll("path")
