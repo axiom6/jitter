@@ -9,6 +9,13 @@
         this.doText = this.doText.bind(this);
         // Distort the specified node to 80% of its parent.
         this.magnify = this.magnify.bind(this);
+        /*
+        @vis.selectAll('path') #.data(parent.children)
+        .transition()
+        .duration(@duration)
+        .attr(  "d", @arc )
+        @doText( @nodes )
+        */
         this.zoomTween = this.zoomTween.bind(this);
         this.zoom = this.zoom.bind(this);
       }
@@ -66,8 +73,8 @@
             }
           }).attr("d", this.arc).attr("fill-rule", "evenodd").style("fill", (d) => {
             return this.fill(d.data);
-          }).on("click", this.zoomTween).append("title").text((d) => {
-            return d.data.name + "\n" + this.formatNumber(d.value);
+          }).on("click", this.magnify).append("title").text(function(d) {
+            return d.data.name;
           });
           return this.doText(this.nodes);
         });
@@ -91,7 +98,7 @@
       }
 
       sameNode(a, b) {
-        return a.data.name === b.data.name;
+        return (a != null ? a.data.name : void 0) === (b != null ? b.data.name : void 0);
       }
 
       click(d) {
@@ -136,7 +143,7 @@
       doText(nodes) {
         var angle, xem;
         this.text = this.vis.selectAll('text').data(nodes);
-        this.textEnter = this.text.enter().append('text').style('fill-opacity', 1).on('click', this.zoomTween).style('fill', (d) => {
+        this.textEnter = this.text.enter().append('text').style('fill-opacity', 1).on('click', this.magnify).style('fill', (d) => {
           if (this.brightness(d3.rgb(this.fill(d.data))) < 125) {
             return '#eee';
           } else {
@@ -186,27 +193,29 @@
       }
 
       magnify(d) {
-        var dd, ds, n, parent, rd, x0, x1;
+        var dd, ds, n, parent, x0, x1;
         parent = d.parent;
         console.log('magnify', d.data.name, parent.data.name);
         if ((parent != null) && (parent.children != null)) {
           n = parent.children.length;
           x0 = parent.children[0].x0;
           x1 = parent.children[n - 1].x1;
-          rd = 0.5;
-          dd = (x1 - x0) * rd;
-          ds = (x1 - x0) * (1.0 - rd) / n;
+          dd = (d.x1 - d.x0) * 2;
+          ds = (x1 - x0 - dd) / (n - 1);
+          x1 = x0;
           //console.log( 'magnify parent', { name:parent.data.name, x0:x0, x1:x1, dd:dd, ds:ds } )
           parent.children.forEach((sibling) => {
-            x1 += this.sameNode(d, sibling) ? dd : ds;
-            sibling.m0 = x0;
-            sibling.m1 = x1;
+            x1 = this.sameNode(d, sibling) ? x1 + dd : x1 + ds;
+            sibling.m0 = sibling.m0 != null ? void 0 : x0;
+            sibling.m1 = sibling.m1 != null ? void 0 : x1;
             //console.log( 'magnify sibling', { name:sibling.data.name, m0:sibling.x0, m1:sibling.x1, x0:sibling.m0, x1:sibling.m1 } )
             return x0 = x1;
           });
+          this.vis.selectAll('path').data(this.nodes).filter((d) => {
+            return this.sameNode(d.parent, parent);
+          }).transition().duration(this.duration).attr("d", this.arc);
+          this.doText(this.nodes);
         }
-        this.vis.selectAll('path').transition().duration(this.duration).attr("d", this.arc); //.data(parent.children)
-        this.doText(this.nodes);
       }
 
       zoomTween(d) {

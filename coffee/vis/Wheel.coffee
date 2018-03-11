@@ -47,13 +47,12 @@ class Wheel
       @path = @vis.selectAll("path")
         .data( @nodes )
         .enter().append("path")
-        .attr("id", (d, i) -> ( if d? then "path-" + i else "path-" + i ) )
+        .attr( "id", (d, i) -> ( if d? then "path-" + i else "path-" + i ) )
         .attr(  "d", @arc )
         .attr(  "fill-rule", "evenodd")
         .style( "fill",  (d) => @fill(d.data)  )
-        .on(    "click", @zoomTween )
-        .append("title")
-        .text( (d) => d.data.name + "\n" + @formatNumber(d.value) )
+        .on(    "click", @magnify )
+        .append("title").text( (d) -> d.data.name )
 
       @doText( @nodes )
 
@@ -66,7 +65,7 @@ class Wheel
     if d.m1? then d.m1 else d.x1
 
   sameNode:( a, b ) ->
-    a.data.name is b.data.name
+    a?.data.name is b?.data.name
 
   click:(d) ->
     console.log( 'click', d.data.name,  parent.data.name )
@@ -102,7 +101,7 @@ class Wheel
     @text = @vis.selectAll('text').data(nodes)
 
     @textEnter = @text.enter().append('text').style('fill-opacity', 1)
-      .on('click', @zoomTween )
+      .on('click', @magnify )
       .style('fill',       (d) => if @brightness( d3.rgb( @fill(d.data) ) ) < 125 then '#eee' else '#000' )
       .attr('text-anchor', (d) => if @xx( (@x0(d)+@x1(d))/2 ) > Math.PI then 'end' else 'start' )
       .attr('dy', '.2em').attr('transform', (d) =>
@@ -127,22 +126,30 @@ class Wheel
       n  = parent.children.length
       x0 = parent.children[0  ].x0
       x1 = parent.children[n-1].x1
-      rd = 0.5
-      dd = (x1-x0) *  rd
-      ds = (x1-x0) * (1.0-rd) / n
+      dd = (d.x1- d.x0) * 2
+      ds = (x1-x0-dd) / (n-1)
+      x1 = x0
       #console.log( 'magnify parent', { name:parent.data.name, x0:x0, x1:x1, dd:dd, ds:ds } )
       parent.children.forEach( (sibling) =>
-        x1 += if @sameNode( d,  sibling ) then dd else ds
-        sibling.m0 = x0
-        sibling.m1 = x1
+        x1 = if @sameNode(d, sibling) then x1+dd else x1+ds
+        sibling.m0 = if sibling.m0? then undefined else x0
+        sibling.m1 = if sibling.m1? then undefined else x1
         #console.log( 'magnify sibling', { name:sibling.data.name, m0:sibling.x0, m1:sibling.x1, x0:sibling.m0, x1:sibling.m1 } )
         x0 = x1 )
+      @vis.selectAll('path').data( @nodes )
+        .filter( (d) => @sameNode( d.parent, parent ) )
+        .transition()
+        .duration(@duration)
+        .attr(  "d", @arc )
+      @doText( @nodes )
+      return
+    ###
     @vis.selectAll('path') #.data(parent.children)
       .transition()
       .duration(@duration)
       .attr(  "d", @arc )
     @doText( @nodes )
-    return
+    ###
 
   zoomTween:(d) =>
     @vis.transition()
