@@ -7,12 +7,12 @@
         this.stream = stream;
         this.view = null; // Set by ready()
         this.flavor = new Jitter.Flavor(this.stream);
+        this.choices = new Jitter.Choices(this.stream);
         this.roast = new Jitter.Roast(this.stream);
         this.drink = new Jitter.Drink(this.stream);
         this.body = new Jitter.Body(this.stream);
         this.brew = new Jitter.Brew(this.stream);
         this.aroma = new Jitter.Aroma(this.stream);
-        this.choice = new Jitter.Choice(this.stream);
         this.coffee = new Jitter.Coffee(this.stream);
         this.order = new Jitter.Order(this.stream);
       }
@@ -96,6 +96,9 @@
           case "Flavor":
             this.flavor.overview(pane, spec);
             break;
+          case "Choices":
+            this.choices.overview(pane, spec);
+            break;
           case "Roast":
             this.roast.overview(pane, spec);
             break;
@@ -110,9 +113,6 @@
             break;
           case "Aroma":
             this.aroma.overview(pane, spec);
-            break;
-          case "Choice":
-            this.choice.overview(pane, spec);
             break;
           case "Coffee":
             this.coffee.overview(pane, spec);
@@ -132,6 +132,9 @@
           case "Flavor":
             this.flavor.ready(pane, spec);
             break;
+          case "Choices":
+            this.choices.ready(pane, spec);
+            break;
           case "Roast":
             this.roast.ready(pane, spec);
             break;
@@ -146,9 +149,6 @@
             break;
           case "Aroma":
             this.aroma.ready(pane, spec);
-            break;
-          case "Choice":
-            this.choice.ready(pane, spec);
             break;
           case "Coffee":
             this.coffee.ready(pane, spec);
@@ -167,6 +167,9 @@
           case "Flavor":
             this.flavor.create(pane, spec, study);
             break;
+          case "Choices":
+            this.choices.create(pane, spec);
+            break;
           case "Roast":
             this.roast.create(pane, spec);
             break;
@@ -181,9 +184,6 @@
             break;
           case "Aroma":
             this.aroma.create(pane, spec);
-            break;
-          case "Choice":
-            this.choice.create(pane, spec);
             break;
           case "Coffee":
             this.coffee.create(pane, spec);

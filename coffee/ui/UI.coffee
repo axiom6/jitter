@@ -18,7 +18,7 @@ class UI
   constructor:( @stream, @page ) ->
     callback = (data) =>
       @spec  =  data
-      @tocs  = new UI.Tocs( @, @stream, @spec )
+      #tocs  = new UI.Tocs( @, @stream, @spec )
       @view  = new UI.View( @, @stream, @spec )
       @ready( @page, @spec )
     UI.readJSON( "json/toc.json", callback )
@@ -26,14 +26,14 @@ class UI
 
   ready:( @page, @spec ) ->
     $('#'+Util.htmlId('App')).html( @html() )
-    @tocs.ready()
+    #tocs.ready()
     @view.ready()
     @page.ready( @view, @spec )
     return
 
+  #   <div class="ikw-tocs tocs" id="#{@htmlId('Tocs')}"></div>
   html:() ->
     """
-      <div class="ikw-tocs tocs" id="#{@htmlId('Tocs')}"></div>
       <div class="ikw-view"      id="#{@htmlId('View')}"></div>
     """
 

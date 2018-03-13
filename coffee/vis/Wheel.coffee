@@ -39,18 +39,19 @@ class Wheel
     d3.json @url, (error, json ) =>
       throw error if error
       @root = d3.hierarchy(json)
-      @root.sum(  (d) -> ( if d.children? then 0 else 1 ) )
+      @root.sum(  (d) -> ( d.selected = 'false'; if d.children? then 0 else 1 ) )
 
       @nodes = @partition(@root).descendants()
-      #console.log( 'path nodes', @nodes )
-      @path = @vis.selectAll("path")
+      @path  = @vis.selectAll("path")
         .data( @nodes )
         .enter().append("path")
         .attr( "id", (d, i) -> ( if d? then "path-" + i else "path-" + i ) )
         .attr(  "d", @arc )
         .attr(  "fill-rule", "evenodd")
-        .style( "fill",  (d) => @fill(d.data)  )
-        .on(    "click", @magnify )
+        .style( "fill",   (d) => @fill(d.data)  )
+        .on( "click",     (d) => @magnify( d, 'click'     ) )
+        .on( "mouseover", (d) => @magnify( d, 'mouseover' ) )
+        .on( "mouseout",  (d) => @magnify( d, 'mouseout'  ) )
         .append("title").text( (d) -> d.data.name )
 
       @doText( @nodes )
@@ -101,8 +102,10 @@ class Wheel
     @text = @vis.selectAll('text').data(nodes)
 
     @textEnter = @text.enter().append('text')
-      .on('click', @magnify )
-      .style("font-size", "10pt")
+      .on( "click",     (d) => @magnify( d, 'click'     ) )
+      .on( "mouseover", (d) => @magnify( d, 'mouseover' ) )
+      .on( "mouseout",  (d) => @magnify( d, 'mouseout'  ) )
+      .style("font-size", "9pt")
       .style('fill-opacity', 1)
       .style('fill',       (d) => if @brightness( d3.rgb( @fill(d.data) ) ) < 125 then '#eee' else '#000' )
       .attr('text-anchor', (d) => if @xx( @xc(d) ) > Math.PI then 'end' else 'start' )
@@ -114,9 +117,38 @@ class Wheel
     @textEnter.append('tspan').attr( 'x', (d) -> xem(d) ).text( (d) -> if d.depth then d.data.name.split(' ')[0] else '' )
     @textEnter.append('tspan').attr( 'x', (d) -> xem(d) ).attr('dy', '1em')
       .text( (d) -> if d.depth? and d.data.name? then d.data.name.split(' ')[1] or '' else '' )
+    @textEnter.append("title").text( (d) -> d.data.name )
     return
 
-  magnify:( d ) =>
+  onClick:( d )     -> @magnify( d, 'click'     )
+  onMouseover:( d ) -> @magnify( d, 'mouseover' )
+  onMouseout:( d )  -> @magnify( d, 'mouseout'  )
+
+  magnifySibling:( sibling, eventType, x0, y0, x1, y1 ) ->
+
+    op = if eventType is 'click'
+      sibling.selected = if sibling.selected then false else true
+      if sibling.selected then 'magnify' else 'normal'
+    else if eventType is 'mouseover'
+      'magnify'
+    else if eventType is 'mouseout'
+      if sibling.selected then 'magnify' else 'normal'
+    else
+
+    if op is 'magnify'
+      sibling.m0 = x0
+      sibling.m1 = x1
+      sibling.n0 = y0
+      sibling.n1 = y1
+    else
+      sibling.m0 = undefined
+      sibling.m1 = undefined
+      sibling.n0 = undefined
+      sibling.n1 = undefined
+
+    sibling
+
+  magnify:( d, eventType ) =>
     parent = d.parent
     if parent? and parent.children? and not d.children?
       console.log( 'magnify', d.data.name,  parent.data.name )
@@ -126,13 +158,11 @@ class Wheel
       dd = (d.x1-d.x0) * 2
       ds = (x1-x0-dd) / (n-1)
       x1 = x0
+      y0 = d.y0
       parent.children.forEach( (sibling) =>
         x1 = if @sameNode( d, sibling ) then x1+dd       else x1+ds
-        y1 = if @sameNode( d, sibling ) then d.y1+(d.y1-d.y0)*0.7 else d.y1
-        sibling.m0 = if sibling.m0? then undefined else x0
-        sibling.m1 = if sibling.m1? then undefined else x1
-        sibling.n0 = if sibling.n0? then undefined else d.y0
-        sibling.n1 = if sibling.n1? then undefined else y1
+        y1 = if @sameNode( d, sibling ) then d.y1+(d.y1-d.y0)*0.9 else d.y1
+        sibling = @magnifySibling( sibling, eventType, x0, y0, x1, y1 )
         x0 = x1 )
       @vis.selectAll('path').data( @nodes )
         .filter( (p) => @sameNode( p.parent, parent ) )
@@ -144,7 +174,7 @@ class Wheel
         .transition()
         .duration(@duration)
         .attr( "transform", (t) => @textTransform(t) )
-        .style("font-size", (t) => if @sameNode( t, d ) and t.m0? then '18pt' else '10pt' )
+        .style("font-size", (t) => if @sameNode( t, d ) and t.m0? then '15pt' else '9pt' )
       return
 
   textTransform:( d ) =>

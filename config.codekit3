@@ -62,12 +62,12 @@
 		"sC": 0,
 		"tS": 0
 		},
-	"\/coffee\/jitter\/Choice.coffee": {
+	"\/coffee\/jitter\/Choices.coffee": {
 		"ft": 32,
 		"ma": 0,
 		"mi": 0,
 		"oA": 0,
-		"oAP": "\/public\/js\/jitter\/Choice.js",
+		"oAP": "\/public\/js\/jitter\/Choices.js",
 		"oF": 0,
 		"oS": 0,
 		"sC": 0,
@@ -1448,16 +1448,6 @@
 		"mi": 1,
 		"oA": 0,
 		"oAP": "\/public\/js\/jitter\/Brew-min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 0
-		},
-	"\/public\/js\/jitter\/Choice.js": {
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "\/public\/js\/jitter\/Choice-min.js",
 		"oF": 0,
 		"sC": 3,
 		"tS": 0

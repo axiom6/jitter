@@ -4,16 +4,16 @@ class Page
   Jitter.Page = Page
 
   constructor:( @stream ) ->
-    @view   = null # Set by ready()
-    @flavor = new Jitter.Flavor( @stream )
-    @roast  = new Jitter.Roast(  @stream )
-    @drink  = new Jitter.Drink(  @stream )
-    @body   = new Jitter.Body(   @stream )
-    @brew   = new Jitter.Brew(   @stream )
-    @aroma  = new Jitter.Aroma(  @stream )
-    @choice = new Jitter.Choice( @stream )
-    @coffee = new Jitter.Coffee( @stream )
-    @order  = new Jitter.Order(  @stream )
+    @view    = null # Set by ready()
+    @flavor  = new Jitter.Flavor(  @stream )
+    @choices = new Jitter.Choices( @stream )
+    @roast   = new Jitter.Roast(   @stream )
+    @drink   = new Jitter.Drink(   @stream )
+    @body    = new Jitter.Body(    @stream )
+    @brew    = new Jitter.Brew(    @stream )
+    @aroma   = new Jitter.Aroma(   @stream )
+    @coffee  = new Jitter.Coffee(  @stream )
+    @order   = new Jitter.Order(   @stream )
 
   ready:( view, spec ) ->
     @view = view
@@ -58,15 +58,15 @@ class Page
     pane.page = @
     pane.$.empty()
     switch pane.name
-      when "Flavor" then @flavor.overview( pane, spec )
-      when "Roast"  then  @roast.overview( pane, spec )
-      when "Drink"  then  @drink.overview( pane, spec )
-      when "Body"   then   @body.overview( pane, spec )
-      when "Brew"   then   @brew.overview( pane, spec )
-      when "Aroma"  then  @aroma.overview( pane, spec )
-      when "Choice" then @choice.overview( pane, spec )
-      when "Coffee" then @coffee.overview( pane, spec )
-      when "Order"  then  @order.overview( pane, spec )
+      when "Flavor"  then  @flavor.overview( pane, spec )
+      when "Choices" then @choices.overview( pane, spec )
+      when "Roast"   then   @roast.overview( pane, spec )
+      when "Drink"   then   @drink.overview( pane, spec )
+      when "Body"    then    @body.overview( pane, spec )
+      when "Brew"    then    @brew.overview( pane, spec )
+      when "Aroma"   then   @aroma.overview( pane, spec )
+      when "Coffee"  then  @coffee.overview( pane, spec )
+      when "Order"   then   @order.overview( pane, spec )
       else Util.error( "Page.overviewContent() unknown pane.name", pane.name )
     return
 
@@ -74,29 +74,29 @@ class Page
     pane.page = @
     pane.$.empty()
     switch pane.name
-      when "Flavor" then @flavor.ready( pane, spec )
-      when "Roast"  then  @roast.ready( pane, spec )
-      when "Drink"  then  @drink.ready( pane, spec )
-      when "Body"   then   @body.ready( pane, spec )
-      when "Brew"   then   @brew.ready( pane, spec )
-      when "Aroma"  then  @aroma.ready( pane, spec )
-      when "Choice" then @choice.ready( pane, spec )
-      when "Coffee" then @coffee.ready( pane, spec )
-      when "Order"  then  @order.ready( pane, spec )
+      when "Flavor"  then  @flavor.ready( pane, spec )
+      when "Choices" then @choices.ready( pane, spec )
+      when "Roast"   then   @roast.ready( pane, spec )
+      when "Drink"   then   @drink.ready( pane, spec )
+      when "Body"    then    @body.ready( pane, spec )
+      when "Brew"    then    @brew.ready( pane, spec )
+      when "Aroma"   then   @aroma.ready( pane, spec )
+      when "Coffee"  then  @coffee.ready( pane, spec )
+      when "Order"   then   @order.ready( pane, spec )
       else Util.error( "Page.readyContent() unknown pane.name", pane.name )
     return
 
   createContent:( pane, spec, study=null ) ->
     pane.$.empty()
     switch pane.name
-      when "Flavor" then @flavor.create( pane, spec, study )
-      when "Roast"  then  @roast.create( pane, spec )
-      when "Drink"  then  @drink.create( pane, spec )
-      when "Body"   then   @body.create( pane, spec )
-      when "Brew"   then   @brew.create( pane, spec )
-      when "Aroma"  then  @aroma.create( pane, spec )
-      when "Choice" then @choice.create( pane, spec )
-      when "Coffee" then @coffee.create( pane, spec )
-      when "Order"  then  @order.create( pane, spec )
+      when "Flavor"  then  @flavor.create( pane, spec, study )
+      when "Choices" then @choices.create( pane, spec )
+      when "Roast"   then   @roast.create( pane, spec )
+      when "Drink"   then   @drink.create( pane, spec )
+      when "Body"    then    @body.create( pane, spec )
+      when "Brew"    then    @brew.create( pane, spec )
+      when "Aroma"   then   @aroma.create( pane, spec )
+      when "Coffee"  then  @coffee.create( pane, spec )
+      when "Order"   then   @order.create( pane, spec )
       else Util.error( "Page.createContent() unknown pane.name", pane.name )
     return

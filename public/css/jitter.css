@@ -2453,7 +2453,7 @@ nav > ul > li > ul > li > ul > li > ul > li {
 }
 .ikw-view {
   position: absolute;
-  left: 110px;
+  left: 0;
   top: 0;
   right: 0;
   bottom: 0;

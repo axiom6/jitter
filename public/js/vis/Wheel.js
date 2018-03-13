@@ -50,6 +50,7 @@
           }
           this.root = d3.hierarchy(json);
           this.root.sum(function(d) {
+            d.selected = 'false';
             if (d.children != null) {
               return 0;
             } else {
@@ -57,7 +58,6 @@
             }
           });
           this.nodes = this.partition(this.root).descendants();
-          //console.log( 'path nodes', @nodes )
           this.path = this.vis.selectAll("path").data(this.nodes).enter().append("path").attr("id", function(d, i) {
             if (d != null) {
               return "path-" + i;
@@ -66,7 +66,13 @@
             }
           }).attr("d", this.arc).attr("fill-rule", "evenodd").style("fill", (d) => {
             return this.fill(d.data);
-          }).on("click", this.magnify).append("title").text(function(d) {
+          }).on("click", (d) => {
+            return this.magnify(d, 'click');
+          }).on("mouseover", (d) => {
+            return this.magnify(d, 'mouseover');
+          }).on("mouseout", (d) => {
+            return this.magnify(d, 'mouseout');
+          }).append("title").text(function(d) {
             return d.data.name;
           });
           return this.doText(this.nodes);
@@ -159,7 +165,13 @@
       doText(nodes) {
         var angle, xem;
         this.text = this.vis.selectAll('text').data(nodes);
-        this.textEnter = this.text.enter().append('text').on('click', this.magnify).style("font-size", "10pt").style('fill-opacity', 1).style('fill', (d) => {
+        this.textEnter = this.text.enter().append('text').on("click", (d) => {
+          return this.magnify(d, 'click');
+        }).on("mouseover", (d) => {
+          return this.magnify(d, 'mouseover');
+        }).on("mouseout", (d) => {
+          return this.magnify(d, 'mouseout');
+        }).style("font-size", "9pt").style('fill-opacity', 1).style('fill', (d) => {
           if (this.brightness(d3.rgb(this.fill(d.data))) < 125) {
             return '#eee';
           } else {
@@ -202,10 +214,42 @@
             return '';
           }
         });
+        this.textEnter.append("title").text(function(d) {
+          return d.data.name;
+        });
       }
 
-      magnify(d) {
-        var dd, ds, n, parent, x0, x1;
+      onClick(d) {
+        return this.magnify(d, 'click');
+      }
+
+      onMouseover(d) {
+        return this.magnify(d, 'mouseover');
+      }
+
+      onMouseout(d) {
+        return this.magnify(d, 'mouseout');
+      }
+
+      magnifySibling(sibling, eventType, x0, y0, x1, y1) {
+        var op;
+        op = eventType === 'click' ? (sibling.selected = sibling.selected ? false : true, sibling.selected ? 'magnify' : 'normal') : eventType === 'mouseover' ? 'magnify' : eventType === 'mouseout' ? sibling.selected ? 'magnify' : 'normal' : void 0;
+        if (op === 'magnify') {
+          sibling.m0 = x0;
+          sibling.m1 = x1;
+          sibling.n0 = y0;
+          sibling.n1 = y1;
+        } else {
+          sibling.m0 = void 0;
+          sibling.m1 = void 0;
+          sibling.n0 = void 0;
+          sibling.n1 = void 0;
+        }
+        return sibling;
+      }
+
+      magnify(d, eventType) {
+        var dd, ds, n, parent, x0, x1, y0;
         parent = d.parent;
         if ((parent != null) && (parent.children != null) && (d.children == null)) {
           console.log('magnify', d.data.name, parent.data.name);
@@ -215,14 +259,12 @@
           dd = (d.x1 - d.x0) * 2;
           ds = (x1 - x0 - dd) / (n - 1);
           x1 = x0;
+          y0 = d.y0;
           parent.children.forEach((sibling) => {
             var y1;
             x1 = this.sameNode(d, sibling) ? x1 + dd : x1 + ds;
-            y1 = this.sameNode(d, sibling) ? d.y1 + (d.y1 - d.y0) * 0.7 : d.y1;
-            sibling.m0 = sibling.m0 != null ? void 0 : x0;
-            sibling.m1 = sibling.m1 != null ? void 0 : x1;
-            sibling.n0 = sibling.n0 != null ? void 0 : d.y0;
-            sibling.n1 = sibling.n1 != null ? void 0 : y1;
+            y1 = this.sameNode(d, sibling) ? d.y1 + (d.y1 - d.y0) * 0.9 : d.y1;
+            sibling = this.magnifySibling(sibling, eventType, x0, y0, x1, y1);
             return x0 = x1;
           });
           this.vis.selectAll('path').data(this.nodes).filter((p) => {
@@ -234,9 +276,9 @@
             return this.textTransform(t);
           }).style("font-size", (t) => {
             if (this.sameNode(t, d) && (t.m0 != null)) {
-              return '18pt';
+              return '15pt';
             } else {
-              return '10pt';
+              return '9pt';
             }
           });
         }

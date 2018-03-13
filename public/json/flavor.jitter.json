@@ -40,7 +40,7 @@
           { "name": "Curry", "fill":"#d8df31" },
           { "name": "Black.Pepper", "fill":"#3b3831" } ]  },
       { "name": "Nutty Chocolate", "fill":"#9d7b7a", "children": [
-          { "name": "Mexican.Chocolate", "fill":"#b36354" },
+          { "name": "Mexican.Choc", "fill":"#b36354" },
           { "name": "Hazelnut", "fill":"#995f28" },
           { "name": "Cocao.Nib", "fill":"#a16a4b" },
           { "name": "Almond", "fill":"#dea79c" },

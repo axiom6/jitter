@@ -9,7 +9,7 @@ UI = (function() {
       this.page = page;
       callback = (data) => {
         this.spec = data;
-        this.tocs = new UI.Tocs(this, this.stream, this.spec);
+        //tocs  = new UI.Tocs( @, @stream, @spec )
         this.view = new UI.View(this, this.stream, this.spec);
         return this.ready(this.page, this.spec);
       };
@@ -21,13 +21,14 @@ UI = (function() {
       this.page = page;
       this.spec = spec;
       $('#' + Util.htmlId('App')).html(this.html());
-      this.tocs.ready();
+      //tocs.ready()
       this.view.ready();
       this.page.ready(this.view, this.spec);
     }
 
+    //   <div class="ikw-tocs tocs" id="#{@htmlId('Tocs')}"></div>
     html() {
-      return `<div class="ikw-tocs tocs" id="${this.htmlId('Tocs')}"></div>\n<div class="ikw-view"      id="${this.htmlId('View')}"></div>`;
+      return `<div class="ikw-view"      id="${this.htmlId('View')}"></div>`;
     }
 
     show() {
