@@ -4,7 +4,7 @@ class Flavor
   Jitter.Flavor = Flavor
 
   constructor:( @stream ) ->
-    @wheel = new Vis.Wheel()
+    @wheel = new Vis.Wheel( @stream )
 
   overview:( pane, spec ) ->
     src = "img/flavor/FlavorReady.png"

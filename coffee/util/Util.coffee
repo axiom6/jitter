@@ -301,6 +301,7 @@ class Util
   @isEvent:(e)       ->  e? and e.target?
   @inIndex:(a,i)     ->  Util.isArray(a) and 0 <= i and i < a.length
   @inArray:(a,e)     ->  Util.isArray(a) and a.indexOf(e) > -1
+  @atArray:(a,e)     ->  if Util.inArray(a,e) then a.indexOf(e) else -1
   @inString:(s,e)    ->  Util.isStr(s)   and s.indexOf(e) > -1
   @atLength:(a,n)    ->  Util.isArray(a) and a.length==n
   @head:(a)          ->  if Util.isArray(a) then a[0]          else null
@@ -321,6 +322,7 @@ class Util
     for own key, val of from
       to[key] = val
     to
+
 
   @contains:( array, value ) ->
     Util.isArray(array) and array.indexOf(value) isnt -1
@@ -566,6 +568,14 @@ class Util
         row[keyField] = key
         objects[key]  = row
     objects
+
+  @lenObject:( object, where ) ->
+    len = 0
+    for own key, obj of object when where(key)
+      len = len + 1
+    len
+
+
 
   # Beautiful Code, Chapter 1.
   # Implements a regular expression matcher that supports character matches,

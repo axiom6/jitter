@@ -32,7 +32,7 @@ class Stream
   publish:( name, topic, jQuerySelector=null, eventType=null, htmlId="" ) ->
     if not jQuerySelector? or not eventType?
       subject = @getSubject(  name )
-      subject.mapTo( topic )
+      subject.next( topic )
     else
       @publishEvent( name, topic, jQuerySelector, eventType, htmlId )
     return

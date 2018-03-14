@@ -14,30 +14,32 @@ class Aroma
     pane.$.append( $e )
     return
 
-  ready:(    pane, spec ) ->
-    $e = $(    """<div #{Jitter.rel(0, 0,100,100)}></div>""" )
-    $e.append( """<h2  #{Jitter.abs(0, 0,100, 10)}>#{spec.name}</h2>""" )
-    $h =    $( """<div #{Jitter.abs(0,10,100, 90)}></div>""" )
+  ready:(   pane, spec ) ->
+    @pane = pane
+    @spec = spec
+    pane.$.append( """<div #{Jitter.rel(0, 0,100,100)}></div>""" )
+    pane.$.append( """<h2  #{Jitter.abs(0, 0,100, 10)}>#{spec.name}</h2>""" )
+    $tree =     $( """<div #{Jitter.abs(0, 7,100, 87)}></div>""" )
     url   = "json/aroma3.json"
     callback = (data) =>
-      htm = @html( data.children, 16 )
-      $h.append( htm )
-      pane.$.append( $e )
-      pane.$.append( $h )
+      @html( $tree, data.children, 16, 1 )
+      pane.$.append( $tree )
     UI.readJSON( url, callback )
     return
 
-  html:( children, pad ) ->
-    htm = ""
+  html:( $p, children, pad, level ) ->
     for obj in children
-      htm += """<div style="padding-left:#{pad}px; font-size:14px; line-height:24px; color:white; text-align:left">#{obj.name}</div>"""
-      htm += @html( obj.children, pad+12 ) if obj.children?
-    htm
+      $d  = $("""<div style="padding-left:#{pad}px; font-size:14px; line-height:24px; color:white; text-align:left">#{obj.name}</div>""")
+      study = { name:obj.name, chosen:false }
+      Jitter.onEvents( $d, @spec, obj.name, study ) if level is 2
+      $p.append( $d )
+      @html( $p, obj.children, pad+12, level+1 ) if obj.children?
+    return
 
   create:( pane, spec ) ->
     divId = Util.htmlId( "Wheel", "Aroma" )
     url   = "json/aroma4.json"
     pane.$.append( """<div #{Jitter.rel( 0,   0,100,100)} id="#{divId}"></div>""" )
-    pane.$.append( """<div #{Jitter.abs(40.5,49, 20, 10)}>Aroma</div>""" )
+    pane.$.append( """<div #{Jitter.abs(40.5,49, 20, 10)}>Aroma</div>""")
     @wheel.create( pane, spec, divId, url )
     return

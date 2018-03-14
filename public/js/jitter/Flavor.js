@@ -5,7 +5,7 @@
     class Flavor {
       constructor(stream) {
         this.stream = stream;
-        this.wheel = new Vis.Wheel();
+        this.wheel = new Vis.Wheel(this.stream);
       }
 
       overview(pane, spec) {

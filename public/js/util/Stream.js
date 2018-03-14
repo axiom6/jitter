@@ -41,7 +41,7 @@
         var subject;
         if ((jQuerySelector == null) || (eventType == null)) {
           subject = this.getSubject(name);
-          subject.mapTo(topic);
+          subject.next(topic);
         } else {
           this.publishEvent(name, topic, jQuerySelector, eventType, htmlId);
         }

@@ -1,13 +1,14 @@
-var Jitter;
+var Jitter,
+  hasProp = {}.hasOwnProperty;
 
 Jitter = class Jitter {
   static init() {
     Util.ready(function() {
-      var page, stream, subjects, ui;
-      subjects = ['Select'];
-      stream = new Util.Stream(subjects);
-      page = new Jitter.Page(stream);
-      ui = new UI(stream, page);
+      var page, subjects, ui;
+      subjects = ['Select', 'Choice'];
+      Jitter.stream = new Util.Stream(subjects);
+      page = new Jitter.Page(Jitter.stream);
+      ui = new UI(Jitter.stream, page);
       Util.noop(ui);
     });
   }
@@ -30,8 +31,18 @@ Jitter = class Jitter {
     return htm;
   }
 
-  static rel(x, y, w, h) {
-    return `style="position:relative; left:${x}%; top:${y}%; width:${w}%; height:${h}%; text-align:center;" `;
+  static abt(x, y, w, h, label = "") {
+    var htm;
+    htm = `<div style="position:absolute; left:${x}%; top:${y}%; width:${w}%; height:${h}%; display:table; color:white;">`;
+    if (Util.isStr(label)) {
+      htm += `<div style="font-size:14px; padding-top:2%; line-height:16px;">${label}</div>`;
+    }
+    htm += "</div>";
+    return htm;
+  }
+
+  static rel(x, y, w, h, align = "center") {
+    return `style="position:relative; left:${x}%; top:${y}%; width:${w}%; height:${h}%; text-align:${align};" `;
   }
 
   static img(src) {
@@ -42,99 +53,121 @@ Jitter = class Jitter {
     return "style=\"color:white; text-align:center;\"  ";
   }
 
-  static doClick($e, spec, item, event) {
+  static doClick($e, spec, key, study, event) {
+    var choice;
     Util.noop(event);
-    if (item != null ? item.selected : void 0) {
-      item.selected = false;
+    if (study != null ? study.chosen : void 0) {
+      study.chosen = false;
       $e.css({
         color: "white"
       });
-      console.log('Jitter.doClick unselect', {
-        menu: spec.name,
-        choice: item.name.replace(/<.br>/g, ' ')
-      });
+      choice = UI.select(spec.name, 'Jitter', UI.DelChoice, key);
+      choice.$click = $e;
+      Jitter.stream.publish('Choice', choice);
     } else {
-      item.selected = true;
+      study.chosen = true;
       $e.css({
         color: "yellow"
       });
-      console.log('Jitter.doClick selected', {
-        menu: spec.name,
-        choice: item.name.replace(/<.br>/g, ' ')
-      });
+      choice = UI.select(spec.name, 'Jitter', UI.AddChoice, key);
+      choice.$click = $e;
+      Jitter.stream.publish('Choice', choice);
     }
   }
 
-  static doEnter($e, item) {
-    if (!(item != null ? item.selected : void 0)) {
+  static doEnter($e, study) {
+    if (!(study != null ? study.chosen : void 0)) {
       return $e.css({
         color: "wheat"
       });
     }
   }
 
-  static doLeave($e, item) {
-    if (!(item != null ? item.selected : void 0)) {
+  static doLeave($e, study) {
+    if (!(study != null ? study.chosen : void 0)) {
       return $e.css({
         color: "white"
       });
     }
   }
 
-  static onEvents($e, spec, item, doClick, doEnter, doLeave) {
+  static onEvents($e, spec, key, study) {
     $e.on('click', function(event) {
-      return doClick($e, spec, item, event);
+      return Jitter.doClick($e, spec, key, study, event);
     });
     $e.on('mouseenter', function() {
-      return doEnter($e, item);
+      return Jitter.doEnter($e, study);
     });
     return $e.on('mouseleave', function() {
-      return doLeave($e, item);
+      return Jitter.doLeave($e, study);
     });
   }
 
   static horz(pane, spec, imgDir, hpc = 1.00, x0 = 0, y0 = 0) {
-    var $e, $p, array, dx, i, j, n, ref, src, th, where, x, y;
+    var $e, $p, dx, key, n, src, study, th, x, y;
     th = spec.name === 'Roast' ? 18 : 13; // A hack
     $p = $(`<div   ${Jitter.rel(0, 0, 100, 100)}></div>`);
     $p.append(`<h2 ${Jitter.abs(0, th, 10, 90)}>${spec.name}</h2>`);
-    where = function(key) {
-      return UI.isChild(key);
-    };
-    array = Util.toArray(spec, where, 'id');
-    n = array.length;
-    i = 0;
+    n = Util.lenObject(spec, UI.isChild);
     x = x0;
     y = y0;
     dx = (100 - x0) / n;
-    for (i = j = 0, ref = n; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
-      src = array[i].icon != null ? imgDir + array[i].icon : null;
-      $e = $(`${Jitter.abi(x, y, dx, 100 * hpc, src, 65 * hpc, array[i].name)}`);
-      Jitter.onEvents($e, spec, array[i], Jitter.doClick, Jitter.doEnter, Jitter.doLeave);
+    for (key in spec) {
+      if (!hasProp.call(spec, key)) continue;
+      study = spec[key];
+      if (!(UI.isChild(key))) {
+        continue;
+      }
+      src = study.icon != null ? imgDir + study.icon : null;
+      $e = $(`${Jitter.abi(x, y, dx, 100 * hpc, src, 65 * hpc, study.name)}`);
+      Jitter.onEvents($e, spec, key, study);
       $p.append($e);
       x = x + dx;
     }
     pane.$.append($p);
   }
 
-  static vert(pane, spec, imgDir, hpc = 1.00, x0 = 0, y0 = 0) {
-    var $e, $p, array, dy, i, j, n, ref, src, where, x, y;
-    $p = $(`<div   ${Jitter.rel(0, 0, 100, 100)}></div>`);
+  static vert(pane, spec, imgDir, hpc = 1.00, x0 = 0, y0 = 0, align = "center") {
+    var $e, $p, dy, key, n, src, study, x, y;
+    $p = $(`<div   ${Jitter.rel(0, 0, 100, 100, align)}></div>`);
     $p.append(`<h2 ${Jitter.abs(0, 0, 100, 10)}>${spec.name}</h2>`);
-    where = function(key) {
-      return UI.isChild(key);
-    };
-    array = Util.toArray(spec, where, 'id');
-    n = array.length;
-    i = 0;
+    n = Util.lenObject(spec, UI.isChild);
     x = x0;
     y = y0;
     dy = (100 - y0 - 5) / n;
-    for (i = j = 0, ref = n; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
-      src = array[i].icon != null ? imgDir + array[i].icon : null;
-      $e = $(`${Jitter.abi(x, y, 100, dy * hpc, src, 65 * hpc, array[i].name)}`);
-      Jitter.onEvents($e, spec, array[i], Jitter.doClick, Jitter.doEnter, Jitter.doLeave);
+    for (key in spec) {
+      if (!hasProp.call(spec, key)) continue;
+      study = spec[key];
+      if (!(UI.isChild(key))) {
+        continue;
+      }
+      src = study.icon != null ? imgDir + study.icon : null;
+      $e = $(`${Jitter.abi(x, y, 100, dy * hpc, src, 65 * hpc, study.name)}`);
+      Jitter.onEvents($e, spec, key, study);
       $p.append($e);
+      y = y + dy;
+    }
+    pane.$.append($p);
+  }
+
+  static tree(pane, spec, x0 = 0, y0 = 0) {
+    var $p, dy, key, n, study, x, y;
+    $p = $(`<div   ${Jitter.rel(0, 0, 100, 100, "left")}></div>`);
+    $p.append(`<h2 ${Jitter.abs(0, 0, 100, 10)}>${spec.name}</h2>`);
+    n = Util.lenObject(spec, UI.isChild);
+    x = x0;
+    y = y0;
+    dy = (100 - y0) / n;
+    for (key in spec) {
+      if (!hasProp.call(spec, key)) continue;
+      study = spec[key];
+      if (!(UI.isChild(key))) {
+        continue;
+      }
+      study.$e = $(`${Jitter.abt(x, y, 100, dy, study.name)}`);
+      study.num = 0;
+      Jitter.onEvents(study.$e, spec, key, study);
+      $p.append(study.$e);
       y = y + dy;
     }
     pane.$.append($p);

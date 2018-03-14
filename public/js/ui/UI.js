@@ -32,12 +32,12 @@ UI = (function() {
     }
 
     show() {
-      this.tocs.show();
+      //tocs.show()
       this.view.showAll();
     }
 
     hide() {
-      this.tocs.hide();
+      //tocs.hide()
       this.view.hideAll();
     }
 
@@ -182,7 +182,11 @@ UI = (function() {
 
   UI.SelectStudy = 'SelectStudy';
 
-  UI.intents = [UI.SelectReady, UI.SelectOverview, UI.SelectPractice, UI.SelectStudy];
+  UI.AddChoice = 'AddChoice';
+
+  UI.DelChoice = 'DelChoice';
+
+  UI.intents = [UI.SelectReady, UI.SelectOverview, UI.SelectPractice, UI.SelectStudy, UI.AddChoice, UI.DelChoice];
 
   return UI;
 

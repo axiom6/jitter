@@ -12,8 +12,10 @@ class UI
   UI.SelectOverview  = 'SelectOverview'
   UI.SelectPractice  = 'SelectPractice'
   UI.SelectStudy     = 'SelectStudy'
+  UI.AddChoice       = 'AddChoice'
+  UI.DelChoice       = 'DelChoice'
 
-  UI.intents = [UI.SelectReady,UI.SelectOverview,UI.SelectPractice,UI.SelectStudy]
+  UI.intents = [UI.SelectReady,UI.SelectOverview,UI.SelectPractice,UI.SelectStudy,UI.AddChoice,UI.DelChoice]
 
   constructor:( @stream, @page ) ->
     callback = (data) =>
@@ -38,12 +40,12 @@ class UI
     """
 
   show:() ->
-    @tocs.show()
+    #tocs.show()
     @view.showAll()
     return
 
   hide:() ->
-    @tocs.hide()
+    #tocs.hide()
     @view.hideAll()
     return
 

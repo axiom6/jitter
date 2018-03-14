@@ -18,32 +18,37 @@
       }
 
       ready(pane, spec) {
-        var $e, $h, callback, url;
-        $e = $(`<div ${Jitter.rel(0, 0, 100, 100)}></div>`);
-        $e.append(`<h2  ${Jitter.abs(0, 0, 100, 10)}>${spec.name}</h2>`);
-        $h = $(`<div ${Jitter.abs(0, 10, 100, 90)}></div>`);
+        var $tree, callback, url;
+        this.pane = pane;
+        this.spec = spec;
+        pane.$.append(`<div ${Jitter.rel(0, 0, 100, 100)}></div>`);
+        pane.$.append(`<h2  ${Jitter.abs(0, 0, 100, 10)}>${spec.name}</h2>`);
+        $tree = $(`<div ${Jitter.abs(0, 7, 100, 87)}></div>`);
         url = "json/aroma3.json";
         callback = (data) => {
-          var htm;
-          htm = this.html(data.children, 16);
-          $h.append(htm);
-          pane.$.append($e);
-          return pane.$.append($h);
+          this.html($tree, data.children, 16, 1);
+          return pane.$.append($tree);
         };
         UI.readJSON(url, callback);
       }
 
-      html(children, pad) {
-        var htm, i, len, obj;
-        htm = "";
+      html($p, children, pad, level) {
+        var $d, i, len, obj, study;
         for (i = 0, len = children.length; i < len; i++) {
           obj = children[i];
-          htm += `<div style="padding-left:${pad}px; font-size:14px; line-height:24px; color:white; text-align:left">${obj.name}</div>`;
+          $d = $(`<div style="padding-left:${pad}px; font-size:14px; line-height:24px; color:white; text-align:left">${obj.name}</div>`);
+          study = {
+            name: obj.name,
+            chosen: false
+          };
+          if (level === 2) {
+            Jitter.onEvents($d, this.spec, obj.name, study);
+          }
+          $p.append($d);
           if (obj.children != null) {
-            htm += this.html(obj.children, pad + 12);
+            this.html($p, obj.children, pad + 12, level + 1);
           }
         }
-        return htm;
       }
 
       create(pane, spec) {

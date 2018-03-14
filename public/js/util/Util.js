@@ -130,9 +130,9 @@ Util = (function() {
     }
 
     static dependsOn() {
-      var arg, has, j, len, ok;
+      var arg, has, j, len1, ok;
       ok = true;
-      for (j = 0, len = arguments.length; j < len; j++) {
+      for (j = 0, len1 = arguments.length; j < len1; j++) {
         arg = arguments[j];
         has = Util.hasGlobal(arg, false) || Util.hasModule(arg, false) || Util.hasPlugin(arg, false);
         if (!has) {
@@ -174,10 +174,10 @@ Util = (function() {
     // args should be the arguments passed by the original calling function
     // This method should not be called directly
     static toStrArgs(prefix, args) {
-      var arg, j, len, str;
+      var arg, j, len1, str;
       Util.logStackNum = 0;
       str = Util.isStr(prefix) ? prefix + " " : "";
-      for (j = 0, len = args.length; j < len; j++) {
+      for (j = 0, len1 = args.length; j < len1; j++) {
         arg = args[j];
         str += Util.toStr(arg) + " ";
       }
@@ -205,13 +205,13 @@ Util = (function() {
 
     // Recusively stringify arrays and objects
     static toStrObj(arg) {
-      var a, j, key, len, str, val;
+      var a, j, key, len1, str, val;
       str = "";
       if (arg == null) {
         str += "null";
       } else if (Util.isArray(arg)) {
         str += "[ ";
-        for (j = 0, len = arg.length; j < len; j++) {
+        for (j = 0, len1 = arg.length; j < len1; j++) {
           a = arg[j];
           str += Util.toStr(a) + ",";
         }
@@ -412,6 +412,14 @@ Util = (function() {
       return Util.isArray(a) && a.indexOf(e) > -1;
     }
 
+    static atArray(a, e) {
+      if (Util.inArray(a, e)) {
+        return a.indexOf(e);
+      } else {
+        return -1;
+      }
+    }
+
     static inString(s, e) {
       return Util.isStr(s) && s.indexOf(e) > -1;
     }
@@ -454,8 +462,8 @@ Util = (function() {
 
     //@isStrEmail:(s)   -> /^\s*[\w\-\+_]+(\.[\w\-\+_]+)*\@[\w\-\+_]+\.[\w\-\+_]+(\.[\w\-\+_]+)*\s*$/.test(s)
     static isDefs() {
-      var arg, j, len;
-      for (j = 0, len = arguments.length; j < len; j++) {
+      var arg, j, len1;
+      for (j = 0, len1 = arguments.length; j < len1; j++) {
         arg = arguments[j];
         if (arg == null) {
           return false;
@@ -650,7 +658,7 @@ Util = (function() {
     }
 
     static parseURI(uri) {
-      var a, j, len, name, nameValue, nameValues, parse, value;
+      var a, j, len1, name, nameValue, nameValues, parse, value;
       parse = {};
       parse.params = {};
       a = document.createElement('a');
@@ -668,7 +676,7 @@ Util = (function() {
       parse.query = Util.isStr(a.search) ? a.search.substring(1) : '';
       nameValues = parse.query.split('&');
       if (Util.isArray(nameValues)) {
-        for (j = 0, len = nameValues.length; j < len; j++) {
+        for (j = 0, len1 = nameValues.length; j < len1; j++) {
           nameValue = nameValues[j];
           [name, value] = nameValue.split('=');
           parse.params[name] = value;
@@ -684,9 +692,9 @@ Util = (function() {
       }
       head = array.pop();
       small = (function() {
-        var j, len, results;
+        var j, len1, results;
         results = [];
-        for (j = 0, len = array.length; j < len; j++) {
+        for (j = 0, len1 = array.length; j < len1; j++) {
           a = array[j];
           if (a <= head) {
             results.push(a);
@@ -695,9 +703,9 @@ Util = (function() {
         return results;
       })();
       large = (function() {
-        var j, len, results;
+        var j, len1, results;
         results = [];
-        for (j = 0, len = array.length; j < len; j++) {
+        for (j = 0, len1 = array.length; j < len1; j++) {
           a = array[j];
           if (a > head) {
             results.push(a);
@@ -814,13 +822,13 @@ Util = (function() {
     }
 
     static toArray(objects, whereIn = null, keyField = 'id') {
-      var array, j, key, len, object, where;
+      var array, j, key, len1, object, where;
       where = whereIn != null ? whereIn : function() {
         return true;
       };
       array = [];
       if (Util.isArray(objects)) {
-        for (j = 0, len = array.length; j < len; j++) {
+        for (j = 0, len1 = array.length; j < len1; j++) {
           object = array[j];
           if (!(where(object))) {
             continue;
@@ -845,13 +853,13 @@ Util = (function() {
     }
 
     static toObjects(rows, whereIn = null, keyField = 'id') {
-      var j, key, len, objects, row, where;
+      var j, key, len1, objects, row, where;
       where = whereIn != null ? whereIn : function() {
         return true;
       };
       objects = {};
       if (Util.isArray(rows)) {
-        for (j = 0, len = rows.length; j < len; j++) {
+        for (j = 0, len1 = rows.length; j < len1; j++) {
           row = rows[j];
           if (!(where(row))) {
             continue;
@@ -872,6 +880,19 @@ Util = (function() {
         }
       }
       return objects;
+    }
+
+    static lenObject(object, where) {
+      var key, len, obj;
+      len = 0;
+      for (key in object) {
+        if (!hasProp.call(object, key)) continue;
+        obj = object[key];
+        if (where(key)) {
+          len = len + 1;
+        }
+      }
+      return len;
     }
 
     // Beautiful Code, Chapter 1.

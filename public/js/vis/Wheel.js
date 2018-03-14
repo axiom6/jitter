@@ -3,23 +3,29 @@
 
   Wheel = (function() {
     class Wheel {
-      constructor() {
+      constructor(stream) {
         this.xc = this.xc.bind(this);
         this.yc = this.yc.bind(this);
         this.isParentOf = this.isParentOf.bind(this);
         this.fill = this.fill.bind(this);
         this.doText = this.doText.bind(this);
-        this.magnify = this.magnify.bind(this);
+        this.choiceElem = this.choiceElem.bind(this);
+        this.magnifyChoice = this.magnifyChoice.bind(this);
+        this.magnifyHover = this.magnifyHover.bind(this);
         this.textTransform = this.textTransform.bind(this);
         this.zoomTween = this.zoomTween.bind(this);
+        this.stream = stream;
+        this.numChoices = 0;
+        this.maxChoices = 4;
       }
 
       ready(pane, spec, data) {
-        return Util.noop(pane, spec, data);
+        this.spec = spec;
+        return Util.noop(pane, data);
       }
 
       create(pane, spec, divId, url, scale = 1.0) {
-        Util.noop(spec);
+        this.spec = spec;
         this.url = url;
         this.width = pane.geo.w;
         this.height = pane.geo.h;
@@ -31,7 +37,7 @@
         ]);
         this.formatNumber = d3.format(",d");
         this.padding = 5;
-        this.duration = 1000;
+        this.duration = 300;
         this.div = d3.select('#' + divId);
         this.vis = this.div.append("svg").attr("width", this.width + this.padding * 2).attr("height", this.height + this.padding * 2).append("g").attr("transform", "translate(" + [this.width / 2 + this.padding, this.height / 2 + this.padding] + ")");
         this.partition = d3.partition();
@@ -50,7 +56,7 @@
           }
           this.root = d3.hierarchy(json);
           this.root.sum(function(d) {
-            d.selected = 'false';
+            d.chosen = 'false';
             if (d.children != null) {
               return 0;
             } else {
@@ -67,11 +73,11 @@
           }).attr("d", this.arc).attr("fill-rule", "evenodd").style("fill", (d) => {
             return this.fill(d.data);
           }).on("click", (d) => {
-            return this.magnify(d, 'click');
+            return this.magnifyChoice(d);
           }).on("mouseover", (d) => {
-            return this.magnify(d, 'mouseover');
+            return this.magnifyHover(d, 'mouseover');
           }).on("mouseout", (d) => {
-            return this.magnify(d, 'mouseout');
+            return this.magnifyHover(d, 'mouseout');
           }).append("title").text(function(d) {
             return d.data.name;
           });
@@ -124,6 +130,21 @@
         return (a != null ? a.data.name : void 0) === (b != null ? b.data.name : void 0);
       }
 
+      inBranch(branch, elem) {
+        var child, j, len, ref;
+        if ((branch != null ? branch.data.name : void 0) === (elem != null ? elem.data.name : void 0)) {
+          return true;
+        }
+        ref = branch != null ? branch.children : void 0;
+        for (j = 0, len = ref.length; j < len; j++) {
+          child = ref[j];
+          if ((child != null ? child.data.name : void 0) === (elem != null ? elem.data.name : void 0)) {
+            return true;
+          }
+        }
+        return false;
+      }
+
       click(d) {
         return console.log('click', d.data.name, parent.data.name);
       }
@@ -166,18 +187,13 @@
         var angle, xem;
         this.text = this.vis.selectAll('text').data(nodes);
         this.textEnter = this.text.enter().append('text').on("click", (d) => {
-          return this.magnify(d, 'click');
+          return this.magnifyChoice(d);
         }).on("mouseover", (d) => {
-          return this.magnify(d, 'mouseover');
+          return this.magnifyHover(d, 'mouseover');
         }).on("mouseout", (d) => {
-          return this.magnify(d, 'mouseout');
-        }).style("font-size", "9pt").style('fill-opacity', 1).style('fill', (d) => {
-          if (this.brightness(d3.rgb(this.fill(d.data))) < 125) {
-            return '#eee';
-          } else {
-            return '#000';
-          }
-        }).attr('text-anchor', (d) => {
+          return this.magnifyHover(d, 'mouseout');
+        //style('fill',       (d) => if @brightness( d3.rgb( @fill(d.data) ) ) < 125 then '#eee' else '#000' )
+        }).style("font-size", "9pt").style('fill-opacity', 1).style('fill', '#000000').style('font-weight', 'bold').attr('text-anchor', (d) => {
           if (this.xx(this.xc(d)) > Math.PI) {
             return 'end';
           } else {
@@ -219,40 +235,115 @@
         });
       }
 
-      onClick(d) {
-        return this.magnify(d, 'click');
-      }
-
-      onMouseover(d) {
-        return this.magnify(d, 'mouseover');
-      }
-
-      onMouseout(d) {
-        return this.magnify(d, 'mouseout');
-      }
-
-      magnifySibling(sibling, eventType, x0, y0, x1, y1) {
-        var op;
-        op = eventType === 'click' ? (sibling.selected = sibling.selected ? false : true, sibling.selected ? 'magnify' : 'normal') : eventType === 'mouseover' ? 'magnify' : eventType === 'mouseout' ? sibling.selected ? 'magnify' : 'normal' : void 0;
-        if (op === 'magnify') {
-          sibling.m0 = x0;
-          sibling.m1 = x1;
-          sibling.n0 = y0;
-          sibling.n1 = y1;
+      choiceElem(elem, eventType, x0, y0, x1, y1) {
+        var addDel, choice, op, status;
+        status = true;
+        op = 'normal';
+        if (eventType === 'choice') {
+          elem.chosen = elem.chosen ? false : true;
+          addDel = elem.chosen ? UI.AddChoice : UI.DelChoice;
+          if (elem.chosen && this.numChoices >= this.maxChoices) {
+            alert(`You can only make ${this.maxChoices} choices for Flavor`);
+            return false;
+          }
+          this.numChoices = elem.chosen ? this.numChoices + 1 : this.numChoices - 1;
+          choice = UI.select(this.spec.name, 'Wheel', addDel, elem.data.name);
+          this.stream.publish('Choice', choice);
+          op = elem.chosen ? 'magnify' : 'normal';
+        } else if (eventType === 'child') {
+          op = elem.parent.chosen ? 'magnify' : 'child';
         } else {
-          sibling.m0 = void 0;
-          sibling.m1 = void 0;
-          sibling.n0 = void 0;
-          sibling.n1 = void 0;
+          op = 'normal';
         }
-        return sibling;
+        if (op === 'magnify' || op === 'child') {
+          elem.m0 = x0;
+          elem.m1 = x1;
+          elem.n0 = y0;
+          elem.n1 = y1;
+        } else if (op === 'child') {
+          elem.m0 = x0;
+          elem.m1 = x1;
+          elem.n0 = y0;
+          elem.n1 = y1;
+        } else {
+          elem.m0 = void 0;
+          elem.m1 = void 0;
+          elem.n0 = void 0;
+          elem.n1 = void 0;
+        }
+        return status;
       }
 
-      magnify(d, eventType) {
+      hoverElem(elem, eventType, x0, y0, x1, y1) {
+        var op, status;
+        status = true;
+        op = 'normal';
+        if (eventType === 'mouseover') {
+          op = elem.parent.chosen ? 'child' : 'magnify';
+        } else if (eventType === 'mouseout') {
+          op = elem.parent.chosen ? 'child' : 'normal';
+        } else {
+          op = 'normal';
+        }
+        if (op === 'magnify') {
+          elem.m0 = x0;
+          elem.m1 = x1;
+          elem.n0 = y0;
+          elem.n1 = y1;
+        } else if (op === 'child') {
+          elem.m0 = x0;
+          elem.m1 = x1;
+          elem.n0 = y0;
+          elem.n1 = y1;
+        } else {
+          elem.m0 = void 0;
+          elem.m1 = void 0;
+          elem.n0 = void 0;
+          elem.n1 = void 0;
+        }
+        return status;
+      }
+
+      magnifyChoice(d) {
+        var status, y0, y1;
+        if ((d.children != null) && (d.children.children == null)) {
+          console.log('magnifyChoice', d.data.name);
+          y0 = d.y0;
+          y1 = d.y0 + (d.y1 - d.y0) * 1.3;
+          status = this.choiceElem(d, 'choice', d.x0, y0, d.x1, y1);
+          y0 = d.chosen ? y1 : d.y1;
+          y1 = y0 + d.y1 - d.y0;
+          d.children.forEach((child) => {
+            return this.choiceElem(child, 'child', child != null ? child.x0 : void 0, y0, child != null ? child.x1 : void 0, y1);
+          });
+          if (!status) {
+            return;
+          }
+          this.vis.selectAll('path').data(this.nodes).filter((e) => {
+            return this.inBranch(d, e);
+          }).transition().duration(this.duration).attr("d", this.arc);
+          this.vis.selectAll('text').data(this.nodes).filter((e) => {
+            return this.inBranch(d, e);
+          }).transition().duration(this.duration).attr("transform", (t) => {
+            return this.textTransform(t);
+          }).style("font-size", (t) => {
+            if (this.sameNode(t, d) && (t.m0 != null)) {
+              return '15pt';
+            } else {
+              return '9pt';
+            }
+          });
+        }
+      }
+
+      magnifyHover(d, eventType) {
         var dd, ds, n, parent, x0, x1, y0;
+        if (true) {
+          return;
+        }
         parent = d.parent;
         if ((parent != null) && (parent.children != null) && (d.children == null)) {
-          console.log('magnify', d.data.name, parent.data.name);
+          //console.log( 'magnifyHover', d.data.name,  parent.data.name )
           n = parent.children.length;
           x0 = parent.children[0].x0;
           x1 = parent.children[n - 1].x1;
@@ -261,17 +352,19 @@
           x1 = x0;
           y0 = d.y0;
           parent.children.forEach((sibling) => {
-            var y1;
-            x1 = this.sameNode(d, sibling) ? x1 + dd : x1 + ds;
-            y1 = this.sameNode(d, sibling) ? d.y1 + (d.y1 - d.y0) * 0.9 : d.y1;
-            sibling = this.magnifySibling(sibling, eventType, x0, y0, x1, y1);
+            var et, same, y1;
+            same = this.sameNode(d, sibling);
+            x1 = same ? x1 + dd : x1 + ds;
+            y1 = same ? d.y1 + (d.y1 - d.y0) * 0.9 : d.y1;
+            et = same ? eventType : 'child';
+            this.hoverElem(sibling, et, x0, y0, x1, y1);
             return x0 = x1;
           });
           this.vis.selectAll('path').data(this.nodes).filter((p) => {
-            return this.sameNode(p.parent, parent);
+            return this.sameNode(p != null ? p.parent : void 0, parent);
           }).transition().duration(this.duration).attr("d", this.arc);
           this.vis.selectAll('text').data(this.nodes).filter((t) => {
-            return this.sameNode(t.parent, parent);
+            return this.sameNode(t != null ? t.parent : void 0, parent);
           }).transition().duration(this.duration).attr("transform", (t) => {
             return this.textTransform(t);
           }).style("font-size", (t) => {

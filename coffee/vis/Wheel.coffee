@@ -3,14 +3,17 @@ class Wheel
 
   Vis.Wheel = Wheel
 
-  constructor:() ->
+  constructor:( @stream ) ->
+    @numChoices = 0
+    @maxChoices = 4
 
   ready:(  pane, spec, data ) ->
-    Util.noop( pane, spec, data )
+    @spec = spec
+    Util.noop( pane, data )
 
   create:( pane, spec, divId, url, scale=1.0 ) ->
 
-    Util.noop( spec )
+    @spec   = spec
     @url    = url
     @width  = pane.geo.w
     @height = pane.geo.h
@@ -19,7 +22,7 @@ class Wheel
     @yy     = d3.scalePow().exponent(1.3).domain([0, 1]).range([0, @radius]) # 1.3
     @formatNumber = d3.format(",d")
     @padding = 5
-    @duration = 1000
+    @duration = 300
     @div = d3.select('#' + divId )
 
     @vis = @div.append("svg")
@@ -39,7 +42,7 @@ class Wheel
     d3.json @url, (error, json ) =>
       throw error if error
       @root = d3.hierarchy(json)
-      @root.sum(  (d) -> ( d.selected = 'false'; if d.children? then 0 else 1 ) )
+      @root.sum(  (d) -> ( d.chosen = 'false'; if d.children? then 0 else 1 ) )
 
       @nodes = @partition(@root).descendants()
       @path  = @vis.selectAll("path")
@@ -49,9 +52,9 @@ class Wheel
         .attr(  "d", @arc )
         .attr(  "fill-rule", "evenodd")
         .style( "fill",   (d) => @fill(d.data)  )
-        .on( "click",     (d) => @magnify( d, 'click'     ) )
-        .on( "mouseover", (d) => @magnify( d, 'mouseover' ) )
-        .on( "mouseout",  (d) => @magnify( d, 'mouseout'  ) )
+        .on( "click",     (d) => @magnifyChoice( d ) )
+        .on( "mouseover", (d) => @magnifyHover(  d, 'mouseover' ) )
+        .on( "mouseout",  (d) => @magnifyHover(  d, 'mouseout'  ) )
         .append("title").text( (d) -> d.data.name )
 
       @doText( @nodes )
@@ -67,6 +70,12 @@ class Wheel
 
   sameNode:( a, b ) ->
     a?.data.name is b?.data.name
+
+  inBranch:( branch, elem ) ->
+    return true if  branch?.data.name is elem?.data.name
+    for child in branch?.children
+      return true if child?.data.name is elem?.data.name
+    return false
 
   click:(d) ->
     console.log( 'click', d.data.name,  parent.data.name )
@@ -102,12 +111,14 @@ class Wheel
     @text = @vis.selectAll('text').data(nodes)
 
     @textEnter = @text.enter().append('text')
-      .on( "click",     (d) => @magnify( d, 'click'     ) )
-      .on( "mouseover", (d) => @magnify( d, 'mouseover' ) )
-      .on( "mouseout",  (d) => @magnify( d, 'mouseout'  ) )
+      .on( "click",     (d) => @magnifyChoice( d              ) )
+      .on( "mouseover", (d) => @magnifyHover(  d, 'mouseover' ) )
+      .on( "mouseout",  (d) => @magnifyHover(  d, 'mouseout'  ) )
       .style("font-size", "9pt")
       .style('fill-opacity', 1)
-      .style('fill',       (d) => if @brightness( d3.rgb( @fill(d.data) ) ) < 125 then '#eee' else '#000' )
+      #style('fill',       (d) => if @brightness( d3.rgb( @fill(d.data) ) ) < 125 then '#eee' else '#000' )
+      .style('fill', '#000000' )
+      .style('font-weight', 'bold' )
       .attr('text-anchor', (d) => if @xx( @xc(d) ) > Math.PI then 'end' else 'start' )
       .attr('dy', '.2em').attr('transform', (d) => @textTransform(d) )
 
@@ -120,38 +131,102 @@ class Wheel
     @textEnter.append("title").text( (d) -> d.data.name )
     return
 
-  onClick:( d )     -> @magnify( d, 'click'     )
-  onMouseover:( d ) -> @magnify( d, 'mouseover' )
-  onMouseout:( d )  -> @magnify( d, 'mouseout'  )
+  choiceElem:( elem, eventType, x0, y0, x1, y1 ) =>
 
-  magnifySibling:( sibling, eventType, x0, y0, x1, y1 ) ->
-
-    op = if eventType is 'click'
-      sibling.selected = if sibling.selected then false else true
-      if sibling.selected then 'magnify' else 'normal'
-    else if eventType is 'mouseover'
-      'magnify'
-    else if eventType is 'mouseout'
-      if sibling.selected then 'magnify' else 'normal'
+    status = true
+    op = 'normal'
+    if eventType is 'choice'
+      elem.chosen = if elem.chosen then false           else true
+      addDel      = if elem.chosen then UI.AddChoice    else UI.DelChoice
+      if elem.chosen and @numChoices >= @maxChoices
+        alert( "You can only make #{@maxChoices} choices for Flavor" )
+        return false
+      @numChoices = if elem.chosen then @numChoices + 1 else @numChoices - 1
+      choice      = UI.select( @spec.name, 'Wheel', addDel, elem.data.name )
+      @stream.publish( 'Choice', choice )
+      op = if elem.chosen        then 'magnify' else 'normal'
+    else if eventType is 'child'
+      op = if elem.parent.chosen then 'magnify' else 'child'
     else
+      op = 'normal'
+
+    if op is 'magnify' or op is 'child'
+      elem.m0 = x0
+      elem.m1 = x1
+      elem.n0 = y0
+      elem.n1 = y1
+    else if op is 'child'
+      elem.m0 = x0
+      elem.m1 = x1
+      elem.n0 = y0
+      elem.n1 = y1
+    else
+      elem.m0 = undefined
+      elem.m1 = undefined
+      elem.n0 = undefined
+      elem.n1 = undefined
+
+    status
+
+  hoverElem:( elem, eventType, x0, y0, x1, y1 ) ->
+
+    status = true
+    op = 'normal'
+    if eventType is 'mouseover'
+      op = if elem.parent.chosen then 'child' else 'magnify'
+    else if eventType is 'mouseout'
+      op = if elem.parent.chosen then 'child' else 'normal'
+    else
+      op = 'normal'
 
     if op is 'magnify'
-      sibling.m0 = x0
-      sibling.m1 = x1
-      sibling.n0 = y0
-      sibling.n1 = y1
+      elem.m0 = x0
+      elem.m1 = x1
+      elem.n0 = y0
+      elem.n1 = y1
+    else if op is 'child'
+      elem.m0 = x0
+      elem.m1 = x1
+      elem.n0 = y0
+      elem.n1 = y1
     else
-      sibling.m0 = undefined
-      sibling.m1 = undefined
-      sibling.n0 = undefined
-      sibling.n1 = undefined
+      elem.m0 = undefined
+      elem.m1 = undefined
+      elem.n0 = undefined
+      elem.n1 = undefined
 
-    sibling
+    status
 
-  magnify:( d, eventType ) =>
+  magnifyChoice:( d ) =>
+    
+    if d.children? and not d.children.children?
+      console.log( 'magnifyChoice', d.data.name )
+      y0 = d.y0
+      y1 = d.y0 + (d.y1-d.y0) * 1.3
+      status = @choiceElem( d, 'choice', d.x0, y0, d.x1, y1 )
+      y0 = if d.chosen then y1 else d.y1
+      y1 = y0 + d.y1 - d.y0
+      d.children.forEach( (child) =>
+        @choiceElem( child, 'child', child?.x0, y0, child?.x1, y1 ) )
+      return if not status
+      @vis.selectAll('path').data( @nodes )
+        .filter( (e) => @inBranch( d, e ) )
+        .transition()
+        .duration(@duration)
+        .attr(  "d", @arc )
+      @vis.selectAll('text').data( @nodes )
+        .filter( (e) => @inBranch( d, e ) )
+        .transition()
+        .duration(@duration)
+        .attr( "transform", (t) => @textTransform(t) )
+        .style("font-size", (t) => if @sameNode( t, d ) and t.m0? then '15pt' else '9pt' )
+      return
+
+  magnifyHover:( d, eventType ) =>
+    return if true
     parent = d.parent
     if parent? and parent.children? and not d.children?
-      console.log( 'magnify', d.data.name,  parent.data.name )
+      #console.log( 'magnifyHover', d.data.name,  parent.data.name )
       n  = parent.children.length
       x0 = parent.children[0  ].x0
       x1 = parent.children[n-1].x1
@@ -160,17 +235,19 @@ class Wheel
       x1 = x0
       y0 = d.y0
       parent.children.forEach( (sibling) =>
-        x1 = if @sameNode( d, sibling ) then x1+dd       else x1+ds
-        y1 = if @sameNode( d, sibling ) then d.y1+(d.y1-d.y0)*0.9 else d.y1
-        sibling = @magnifySibling( sibling, eventType, x0, y0, x1, y1 )
+        same = @sameNode( d, sibling )
+        x1 = if same then x1+dd       else x1+ds
+        y1 = if same then d.y1+(d.y1-d.y0)*0.9 else d.y1
+        et = if same then eventType else 'child'
+        @hoverElem( sibling, et, x0, y0, x1, y1 )
         x0 = x1 )
       @vis.selectAll('path').data( @nodes )
-        .filter( (p) => @sameNode( p.parent, parent ) )
+        .filter( (p) => @sameNode( p?.parent, parent ) )
         .transition()
         .duration(@duration)
         .attr(  "d", @arc )
       @vis.selectAll('text').data( @nodes )
-        .filter( (t) => @sameNode( t.parent, parent ) )
+        .filter( (t) => @sameNode( t?.parent, parent ) )
         .transition()
         .duration(@duration)
         .attr( "transform", (t) => @textTransform(t) )

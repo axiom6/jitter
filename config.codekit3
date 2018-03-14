@@ -1452,6 +1452,16 @@
 		"sC": 3,
 		"tS": 0
 		},
+	"\/public\/js\/jitter\/Choices.js": {
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/public\/js\/jitter\/Choices-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
 	"\/public\/js\/jitter\/Coffee.js": {
 		"ft": 64,
 		"ma": 0,
