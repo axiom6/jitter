@@ -24,13 +24,13 @@ class Choices
     return
 
   onChoice:( choice ) =>
-    console.log( 'Choice', choice )
+    #console.log( 'Choice', choice )
     study  = @spec[choice.name]
     htmlId = Util.getHtmlId( choice.name, 'Choice',  choice.study )
     if choice.intent is UI.AddChoice
       if study.num < study.max
          study.num++
-         study.$e.append("""<div id="#{htmlId}" style="color:yellpadding-left:12px; font-size:12px; line-height:14px;">#{choice.study}</div>""" )
+         study.$e.append("""<div id="#{htmlId}" style="color:yellow; padding-left:12px; font-size:12px; line-height:14px;">#{choice.study}</div>""" )
       else
         choice.$click.css( { color:"white" } ) if choice.$click?
         alert( "You can only make #{study.max} choices for #{choice.name}" )

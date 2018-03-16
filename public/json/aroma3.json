@@ -6,9 +6,7 @@
       { "name": "Fruity", "children": [
           { "name": "Citrus" },
           { "name": "Berry Like" } ] },
-      { "name": "Herby", "children": [
-          { "name": "Alliaceous" },
-          { "name": "Leguminous"} ] } ] },
+      { "name": "Herby" } ] },
   { "name": "Sugar Browning", "children": [
       { "name": "Nutty", "children": [
           { "name": "Nut Like" },

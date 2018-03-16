@@ -14,17 +14,17 @@ class Flavor
     pane.$.append( $e )
     return
 
-  ready:(    pane, spec ) ->
-    @create( pane, spec )
-    return
-
-  create:( pane, spec, study ) ->
+  ready:( pane, spec, study ) ->
     name  = if study? then study.name                  else "Jitter"
     url   = if study? then  "json/"+study.json+".json" else "json/flavor.jitter.json"
     scale = if study? then study.scale else 1.25
     divId = Util.getHtmlId( "Wheel", name )
     pane.$.append( """<div #{Jitter.rel( 0, 0,100,100)} id="#{divId}"></div>""" )
     pane.$.append( """<div #{Jitter.abs(41,49, 20, 10)}>Flavor</div>""" )
-    @wheel.create( pane, spec, divId, url, scale )
+    @wheel.ready( pane, spec, divId, url, scale )
+    return
+
+  create:(     pane, spec ) ->
+    Util.noop( pane, spec )
     return
 

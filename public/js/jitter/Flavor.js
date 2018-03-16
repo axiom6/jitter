@@ -17,11 +17,7 @@
         pane.$.append($e);
       }
 
-      ready(pane, spec) {
-        this.create(pane, spec);
-      }
-
-      create(pane, spec, study) {
+      ready(pane, spec, study) {
         var divId, name, scale, url;
         name = study != null ? study.name : "Jitter";
         url = study != null ? "json/" + study.json + ".json" : "json/flavor.jitter.json";
@@ -29,7 +25,11 @@
         divId = Util.getHtmlId("Wheel", name);
         pane.$.append(`<div ${Jitter.rel(0, 0, 100, 100)} id="${divId}"></div>`);
         pane.$.append(`<div ${Jitter.abs(41, 49, 20, 10)}>Flavor</div>`);
-        this.wheel.create(pane, spec, divId, url, scale);
+        this.wheel.ready(pane, spec, divId, url, scale);
+      }
+
+      create(pane, spec) {
+        Util.noop(pane, spec);
       }
 
     };

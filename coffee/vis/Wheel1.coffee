@@ -7,13 +7,11 @@ class Wheel
     @numChoices = 0
     @maxChoices = 4
 
-
-  create:(  pane, spec, data ) ->
-
+  ready:(  pane, spec, data ) ->
     @spec = spec
     Util.noop( pane, data )
 
-  ready:( pane, spec, divId, url, scale=1.0 ) ->
+  create:( pane, spec, divId, url, scale=1.0 ) ->
 
     @spec   = spec
     @url    = url
@@ -44,7 +42,7 @@ class Wheel
     d3.json @url, (error, json ) =>
       throw error if error
       @root = d3.hierarchy(json)
-      @root.sum(  (d) -> ( d.chosen = false; d.hide = not d.children?; if d.children? then 0 else 1 ) )
+      @root.sum(  (d) -> ( d.chosen = 'false'; if d.children? then 0 else 1 ) )
 
       @nodes = @partition(@root).descendants()
       @path  = @vis.selectAll("path")
@@ -53,11 +51,10 @@ class Wheel
         .attr( "id", (d, i) -> ( if d? then "path-" + i else "path-" + i ) )
         .attr(  "d", @arc )
         .attr(  "fill-rule", "evenodd")
-        .style( "fill",    (d) => @fill(d.data)  )
-        .style( "display", (d) -> if d.data.hide then "none" else "block" )
-        .on( "click",      (d) => @magnify( d, 'click'     ) )
-        .on( "mouseover",  (d) => @magnify( d, 'mouseover' ) )
-        .on( "mouseout",   (d) => @magnify( d, 'mouseout'  ) )
+        .style( "fill",   (d) => @fill(d.data)  )
+        .on( "click",     (d) => @magnifyChoice( d ) )
+        .on( "mouseover", (d) => @magnifyHover(  d, 'mouseover' ) )
+        .on( "mouseout",  (d) => @magnifyHover(  d, 'mouseout'  ) )
         .append("title").text( (d) -> d.data.name )
 
       @doText( @nodes )
@@ -79,6 +76,9 @@ class Wheel
     for child in branch?.children
       return true if child?.data.name is elem?.data.name
     return false
+
+  click:(d) ->
+    console.log( 'click', d.data.name,  parent.data.name )
 
   # http://www.w3.org/WAI/ER/WD-AERT/#color-contrast
   brightness:( rgb ) ->
@@ -111,15 +111,14 @@ class Wheel
     @text = @vis.selectAll('text').data(nodes)
 
     @textEnter = @text.enter().append('text')
-      .on( "click",       (d) => @magnify( d, 'click'     ) )
-      .on( "mouseover",   (d) => @magnify( d, 'mouseover' ) )
-      .on( "mouseout",    (d) => @magnify( d, 'mouseout'  ) )
-      .style("font-size", (d) -> if d.data.children? then '12pt' else '9pt' )
+      .on( "click",     (d) => @magnifyChoice( d              ) )
+      .on( "mouseover", (d) => @magnifyHover(  d, 'mouseover' ) )
+      .on( "mouseout",  (d) => @magnifyHover(  d, 'mouseout'  ) )
+      .style("font-size", "9pt")
       .style('fill-opacity', 1)
       #style('fill',       (d) => if @brightness( d3.rgb( @fill(d.data) ) ) < 125 then '#eee' else '#000' )
       .style('fill', '#000000' )
       .style('font-weight', 'bold' )
-      .style( "display",   (d) -> if d.data.hide then "none" else "block" )
       .attr('text-anchor', (d) => if @xx( @xc(d) ) > Math.PI then 'end' else 'start' )
       .attr('dy', '.2em').attr('transform', (d) => @textTransform(d) )
 
@@ -132,79 +131,128 @@ class Wheel
     @textEnter.append("title").text( (d) -> d.data.name )
     return
 
-  magnify:( d, eventType ) =>
-    
-    if d.data?.can?
-      #console.log( 'magnify', d.data.name )
+  choiceElem:( elem, eventType, x0, y0, x1, y1 ) =>
+
+    status = true
+    op = 'normal'
+    if eventType is 'choice'
+      elem.chosen = if elem.chosen then false           else true
+      addDel      = if elem.chosen then UI.AddChoice    else UI.DelChoice
+      if elem.chosen and @numChoices >= @maxChoices
+        alert( "You can only make #{@maxChoices} choices for Flavor" )
+        return false
+      @numChoices = if elem.chosen then @numChoices + 1 else @numChoices - 1
+      choice      = UI.select( @spec.name, 'Wheel', addDel, elem.data.name )
+      @stream.publish( 'Choice', choice )
+      op = if elem.chosen        then 'magnify' else 'normal'
+    else if eventType is 'child'
+      op = if elem.parent.chosen then 'magnify' else 'child'
+    else
+      op = 'normal'
+
+    if op is 'magnify' or op is 'child'
+      elem.m0 = x0
+      elem.m1 = x1
+      elem.n0 = y0
+      elem.n1 = y1
+    else if op is 'child'
+      elem.m0 = x0
+      elem.m1 = x1
+      elem.n0 = y0
+      elem.n1 = y1
+    else
+      elem.m0 = undefined
+      elem.m1 = undefined
+      elem.n0 = undefined
+      elem.n1 = undefined
+
+    status
+
+  hoverElem:( elem, eventType, x0, y0, x1, y1 ) ->
+
+    status = true
+    op = 'normal'
+    if eventType is 'mouseover'
+      op = if elem.parent.chosen then 'child' else 'magnify'
+    else if eventType is 'mouseout'
+      op = if elem.parent.chosen then 'child' else 'normal'
+    else
+      op = 'normal'
+
+    if op is 'magnify'
+      elem.m0 = x0
+      elem.m1 = x1
+      elem.n0 = y0
+      elem.n1 = y1
+    else if op is 'child'
+      elem.m0 = x0
+      elem.m1 = x1
+      elem.n0 = y0
+      elem.n1 = y1
+    else
+      elem.m0 = undefined
+      elem.m1 = undefined
+      elem.n0 = undefined
+      elem.n1 = undefined
+
+    status
+
+  magnifyChoice:( d ) =>
+
+    if d.children? and not d.children.children?
+      console.log( 'magnifyChoice', d.data.name )
       y0 = d.y0
       y1 = d.y0 + (d.y1-d.y0) * 1.3
-      resize = @doChoice( d, eventType, d.x0, y0, d.x1, y1 )
-      y0 = if resize is UI.AddChoice or 'mouseover' then y1 else d.y1
+      status = @choiceElem( d, 'choice', d.x0, y0, d.x1, y1 )
+      y0 = if d.chosen then y1 else d.y1
       y1 = y0 + d.y1 - d.y0
-      return if resize is 'none'
       d.children.forEach( (child) =>
-        child?.data.hide = not ( d.chosen or eventType is 'mouseover' )
-        @resizeElem( child, resize, child?.x0, y0, child?.x1, y1 ) )
+        @choiceElem( child, 'child', child?.x0, y0, child?.x1, y1 ) )
+      return if not status
       @vis.selectAll('path').data( @nodes )
         .filter( (e) => @inBranch( d, e ) )
         .transition()
         .duration(@duration)
-        .style( "display", (d) -> if d.data.hide then "none" else "block" )
         .attr(  "d", @arc )
       @vis.selectAll('text').data( @nodes )
         .filter( (e) => @inBranch( d, e ) )
         .transition()
         .duration(@duration)
         .attr( "transform", (t) => @textTransform(t) )
-        .style("font-size", (t) => @fontSize( t, d ) )
-        .style( "display", (d) -> if d.data.hide then "none" else "block" )
-    return
+        .style("font-size", (t) => if @sameNode( t, d ) and t.m0? then '15pt' else '9pt' )
+      return
 
-  fontSize:( t, d ) =>
-    if @sameNode( t, d ) and t.m0?
-      '15pt'
-    else
-      if t.children? then '12pt' else '9pt'
-
-  doChoice:( d, eventType, x0, y0, x1, y1 ) =>
-    resize = 'none'
-    if eventType is 'click'
-      resize = @chooseElem( d )
-      @resizeElem( d, resize, x0, y0, x1, y1 )
-    else if not d.chosen
-      resize = eventType
-      @resizeElem( d, resize, x0, y0, x1, y1 )
-    resize = 'none' if d.chosen and eventType is 'mouseout'
-    resize
-
-  chooseElem:( elem ) =>
-    elem.chosen = if elem.chosen then false           else true
-    addDel      = if elem.chosen then UI.AddChoice    else UI.DelChoice
-    if elem.chosen and @numChoices >= @maxChoices
-      alert( "You can only make #{@maxChoices} choices for Flavor" )
-      elem.chosen = false
-      return 'none'
-    @numChoices = if elem.chosen then @numChoices + 1 else @numChoices - 1
-    choice      = UI.select( @spec.name, 'Wheel', addDel, elem.data.name )
-    @stream.publish( 'Choice', choice )
-    addDel
-
-  resizeElem:( elem, resize, x0, y0, x1, y1 ) ->
-    if resize is UI.AddChoice or resize is 'mouseover'
-      elem.m0 = x0
-      elem.m1 = x1
-      elem.n0 = y0
-      elem.n1 = y1
-      elem.data.hide = false
-    else if resize is UI.DelChoice or resize is 'mouseout'
-      elem.m0 = undefined
-      elem.m1 = undefined
-      elem.n0 = undefined
-      elem.n1 = undefined
-      elem.data.hide = if resize is 'mouseout' and not elem.data.children? then true else false
-    else
-      Util.noop()
-    return
+  magnifyHover:( d, eventType ) =>
+    #return if true
+    parent = d.parent
+    if parent? and parent.children? and not d.children?
+      #console.log( 'magnifyHover', d.data.name,  parent.data.name )
+      n  = parent.children.length
+      x0 = parent.children[0  ].x0
+      x1 = parent.children[n-1].x1
+      dd = (d.x1-d.x0) * 2
+      ds = (x1-x0-dd) / (n-1)
+      x1 = x0
+      y0 = d.y0
+      parent.children.forEach( (sibling) =>
+        same = @sameNode( d, sibling )
+        x1 = if same then x1+dd       else x1+ds
+        y1 = if same then d.y1+(d.y1-d.y0)*0.9 else d.y1
+        et = if same then eventType else 'child'
+        @hoverElem( sibling, et, x0, y0, x1, y1 )
+        x0 = x1 )
+      @vis.selectAll('path').data( @nodes )
+        .filter( (p) => @sameNode( p?.parent, parent ) )
+        .transition()
+        .duration(@duration)
+        .attr(  "d", @arc )
+      @vis.selectAll('text').data( @nodes )
+        .filter( (t) => @sameNode( t?.parent, parent ) )
+        .transition()
+        .duration(@duration)
+        .attr( "transform", (t) => @textTransform(t) )
+        .style("font-size", (t) => if @sameNode( t, d ) and t.m0? then '15pt' else '9pt' )
+      return
 
   textTransform:( d ) =>
     multiline = (d.data.name or '').split(' ').length > 1

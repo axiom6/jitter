@@ -9,9 +9,10 @@
         this.isParentOf = this.isParentOf.bind(this);
         this.fill = this.fill.bind(this);
         this.doText = this.doText.bind(this);
-        this.choiceElem = this.choiceElem.bind(this);
-        this.magnifyChoice = this.magnifyChoice.bind(this);
-        this.magnifyHover = this.magnifyHover.bind(this);
+        this.magnify = this.magnify.bind(this);
+        this.fontSize = this.fontSize.bind(this);
+        this.doChoice = this.doChoice.bind(this);
+        this.chooseElem = this.chooseElem.bind(this);
         this.textTransform = this.textTransform.bind(this);
         this.zoomTween = this.zoomTween.bind(this);
         this.stream = stream;
@@ -19,12 +20,12 @@
         this.maxChoices = 4;
       }
 
-      ready(pane, spec, data) {
+      create(pane, spec, data) {
         this.spec = spec;
         return Util.noop(pane, data);
       }
 
-      create(pane, spec, divId, url, scale = 1.0) {
+      ready(pane, spec, divId, url, scale = 1.0) {
         this.spec = spec;
         this.url = url;
         this.width = pane.geo.w;
@@ -56,7 +57,8 @@
           }
           this.root = d3.hierarchy(json);
           this.root.sum(function(d) {
-            d.chosen = 'false';
+            d.chosen = false;
+            d.hide = d.children == null;
             if (d.children != null) {
               return 0;
             } else {
@@ -72,12 +74,18 @@
             }
           }).attr("d", this.arc).attr("fill-rule", "evenodd").style("fill", (d) => {
             return this.fill(d.data);
+          }).style("display", function(d) {
+            if (d.data.hide) {
+              return "none";
+            } else {
+              return "block";
+            }
           }).on("click", (d) => {
-            return this.magnifyChoice(d);
+            return this.magnify(d, 'click');
           }).on("mouseover", (d) => {
-            return this.magnifyHover(d, 'mouseover');
+            return this.magnify(d, 'mouseover');
           }).on("mouseout", (d) => {
-            return this.magnifyHover(d, 'mouseout');
+            return this.magnify(d, 'mouseout');
           }).append("title").text(function(d) {
             return d.data.name;
           });
@@ -145,10 +153,6 @@
         return false;
       }
 
-      click(d) {
-        return console.log('click', d.data.name, parent.data.name);
-      }
-
       // http://www.w3.org/WAI/ER/WD-AERT/#color-contrast
       brightness(rgb) {
         return rgb.r * .299 + rgb.g * .587 + rgb.b * .114;
@@ -187,13 +191,25 @@
         var angle, xem;
         this.text = this.vis.selectAll('text').data(nodes);
         this.textEnter = this.text.enter().append('text').on("click", (d) => {
-          return this.magnifyChoice(d);
+          return this.magnify(d, 'click');
         }).on("mouseover", (d) => {
-          return this.magnifyHover(d, 'mouseover');
+          return this.magnify(d, 'mouseover');
         }).on("mouseout", (d) => {
-          return this.magnifyHover(d, 'mouseout');
+          return this.magnify(d, 'mouseout');
+        }).style("font-size", function(d) {
+          if (d.data.children != null) {
+            return '12pt';
+          } else {
+            return '9pt';
+          }
         //style('fill',       (d) => if @brightness( d3.rgb( @fill(d.data) ) ) < 125 then '#eee' else '#000' )
-        }).style("font-size", "9pt").style('fill-opacity', 1).style('fill', '#000000').style('font-weight', 'bold').attr('text-anchor', (d) => {
+        }).style('fill-opacity', 1).style('fill', '#000000').style('font-weight', 'bold').style("display", function(d) {
+          if (d.data.hide) {
+            return "none";
+          } else {
+            return "block";
+          }
+        }).attr('text-anchor', (d) => {
           if (this.xx(this.xc(d)) > Math.PI) {
             return 'end';
           } else {
@@ -235,145 +251,107 @@
         });
       }
 
-      choiceElem(elem, eventType, x0, y0, x1, y1) {
-        var addDel, choice, op, status;
-        status = true;
-        op = 'normal';
-        if (eventType === 'choice') {
-          elem.chosen = elem.chosen ? false : true;
-          addDel = elem.chosen ? UI.AddChoice : UI.DelChoice;
-          if (elem.chosen && this.numChoices >= this.maxChoices) {
-            alert(`You can only make ${this.maxChoices} choices for Flavor`);
-            return false;
-          }
-          this.numChoices = elem.chosen ? this.numChoices + 1 : this.numChoices - 1;
-          choice = UI.select(this.spec.name, 'Wheel', addDel, elem.data.name);
-          this.stream.publish('Choice', choice);
-          op = elem.chosen ? 'magnify' : 'normal';
-        } else if (eventType === 'child') {
-          op = elem.parent.chosen ? 'magnify' : 'child';
-        } else {
-          op = 'normal';
-        }
-        if (op === 'magnify' || op === 'child') {
-          elem.m0 = x0;
-          elem.m1 = x1;
-          elem.n0 = y0;
-          elem.n1 = y1;
-        } else if (op === 'child') {
-          elem.m0 = x0;
-          elem.m1 = x1;
-          elem.n0 = y0;
-          elem.n1 = y1;
-        } else {
-          elem.m0 = void 0;
-          elem.m1 = void 0;
-          elem.n0 = void 0;
-          elem.n1 = void 0;
-        }
-        return status;
-      }
-
-      hoverElem(elem, eventType, x0, y0, x1, y1) {
-        var op, status;
-        status = true;
-        op = 'normal';
-        if (eventType === 'mouseover') {
-          op = elem.parent.chosen ? 'child' : 'magnify';
-        } else if (eventType === 'mouseout') {
-          op = elem.parent.chosen ? 'child' : 'normal';
-        } else {
-          op = 'normal';
-        }
-        if (op === 'magnify') {
-          elem.m0 = x0;
-          elem.m1 = x1;
-          elem.n0 = y0;
-          elem.n1 = y1;
-        } else if (op === 'child') {
-          elem.m0 = x0;
-          elem.m1 = x1;
-          elem.n0 = y0;
-          elem.n1 = y1;
-        } else {
-          elem.m0 = void 0;
-          elem.m1 = void 0;
-          elem.n0 = void 0;
-          elem.n1 = void 0;
-        }
-        return status;
-      }
-
-      magnifyChoice(d) {
-        var status, y0, y1;
-        if ((d.children != null) && (d.children.children == null)) {
-          console.log('magnifyChoice', d.data.name);
+      magnify(d, eventType) {
+        var ref, resize, y0, y1;
+        if (((ref = d.data) != null ? ref.can : void 0) != null) {
+          //console.log( 'magnify', d.data.name )
           y0 = d.y0;
           y1 = d.y0 + (d.y1 - d.y0) * 1.3;
-          status = this.choiceElem(d, 'choice', d.x0, y0, d.x1, y1);
-          y0 = d.chosen ? y1 : d.y1;
+          resize = this.doChoice(d, eventType, d.x0, y0, d.x1, y1);
+          y0 = resize === UI.AddChoice || 'mouseover' ? y1 : d.y1;
           y1 = y0 + d.y1 - d.y0;
-          d.children.forEach((child) => {
-            return this.choiceElem(child, 'child', child != null ? child.x0 : void 0, y0, child != null ? child.x1 : void 0, y1);
-          });
-          if (!status) {
+          if (resize === 'none') {
             return;
           }
+          d.children.forEach((child) => {
+            if (child != null) {
+              child.data.hide = !(d.chosen || eventType === 'mouseover');
+            }
+            return this.resizeElem(child, resize, child != null ? child.x0 : void 0, y0, child != null ? child.x1 : void 0, y1);
+          });
           this.vis.selectAll('path').data(this.nodes).filter((e) => {
             return this.inBranch(d, e);
-          }).transition().duration(this.duration).attr("d", this.arc);
+          }).transition().duration(this.duration).style("display", function(d) {
+            if (d.data.hide) {
+              return "none";
+            } else {
+              return "block";
+            }
+          }).attr("d", this.arc);
           this.vis.selectAll('text').data(this.nodes).filter((e) => {
             return this.inBranch(d, e);
           }).transition().duration(this.duration).attr("transform", (t) => {
             return this.textTransform(t);
           }).style("font-size", (t) => {
-            if (this.sameNode(t, d) && (t.m0 != null)) {
-              return '15pt';
+            return this.fontSize(t, d);
+          }).style("display", function(d) {
+            if (d.data.hide) {
+              return "none";
             } else {
-              return '9pt';
+              return "block";
             }
           });
         }
       }
 
-      magnifyHover(d, eventType) {
-        var dd, ds, n, parent, x0, x1, y0;
-        if (true) {
-          return;
+      fontSize(t, d) {
+        if (this.sameNode(t, d) && (t.m0 != null)) {
+          return '15pt';
+        } else {
+          if (t.children != null) {
+            return '12pt';
+          } else {
+            return '9pt';
+          }
         }
-        parent = d.parent;
-        if ((parent != null) && (parent.children != null) && (d.children == null)) {
-          //console.log( 'magnifyHover', d.data.name,  parent.data.name )
-          n = parent.children.length;
-          x0 = parent.children[0].x0;
-          x1 = parent.children[n - 1].x1;
-          dd = (d.x1 - d.x0) * 2;
-          ds = (x1 - x0 - dd) / (n - 1);
-          x1 = x0;
-          y0 = d.y0;
-          parent.children.forEach((sibling) => {
-            var et, same, y1;
-            same = this.sameNode(d, sibling);
-            x1 = same ? x1 + dd : x1 + ds;
-            y1 = same ? d.y1 + (d.y1 - d.y0) * 0.9 : d.y1;
-            et = same ? eventType : 'child';
-            this.hoverElem(sibling, et, x0, y0, x1, y1);
-            return x0 = x1;
-          });
-          this.vis.selectAll('path').data(this.nodes).filter((p) => {
-            return this.sameNode(p != null ? p.parent : void 0, parent);
-          }).transition().duration(this.duration).attr("d", this.arc);
-          this.vis.selectAll('text').data(this.nodes).filter((t) => {
-            return this.sameNode(t != null ? t.parent : void 0, parent);
-          }).transition().duration(this.duration).attr("transform", (t) => {
-            return this.textTransform(t);
-          }).style("font-size", (t) => {
-            if (this.sameNode(t, d) && (t.m0 != null)) {
-              return '15pt';
-            } else {
-              return '9pt';
-            }
-          });
+      }
+
+      doChoice(d, eventType, x0, y0, x1, y1) {
+        var resize;
+        resize = 'none';
+        if (eventType === 'click') {
+          resize = this.chooseElem(d);
+          this.resizeElem(d, resize, x0, y0, x1, y1);
+        } else if (!d.chosen) {
+          resize = eventType;
+          this.resizeElem(d, resize, x0, y0, x1, y1);
+        }
+        if (d.chosen && eventType === 'mouseout') {
+          resize = 'none';
+        }
+        return resize;
+      }
+
+      chooseElem(elem) {
+        var addDel, choice;
+        elem.chosen = elem.chosen ? false : true;
+        addDel = elem.chosen ? UI.AddChoice : UI.DelChoice;
+        if (elem.chosen && this.numChoices >= this.maxChoices) {
+          alert(`You can only make ${this.maxChoices} choices for Flavor`);
+          elem.chosen = false;
+          return 'none';
+        }
+        this.numChoices = elem.chosen ? this.numChoices + 1 : this.numChoices - 1;
+        choice = UI.select(this.spec.name, 'Wheel', addDel, elem.data.name);
+        this.stream.publish('Choice', choice);
+        return addDel;
+      }
+
+      resizeElem(elem, resize, x0, y0, x1, y1) {
+        if (resize === UI.AddChoice || resize === 'mouseover') {
+          elem.m0 = x0;
+          elem.m1 = x1;
+          elem.n0 = y0;
+          elem.n1 = y1;
+          elem.data.hide = false;
+        } else if (resize === UI.DelChoice || resize === 'mouseout') {
+          elem.m0 = void 0;
+          elem.m1 = void 0;
+          elem.n0 = void 0;
+          elem.n1 = void 0;
+          elem.data.hide = resize === 'mouseout' && (elem.data.children == null) ? true : false;
+        } else {
+          Util.noop();
         }
       }
 
