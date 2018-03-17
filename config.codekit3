@@ -589,7 +589,7 @@
 		"ie": 0,
 		"iI": 0,
 		"ma": 0,
-		"oA": 1,
+		"oA": 0,
 		"oAP": "\/public\/css\/tocs.css",
 		"oF": 0,
 		"oS": 0,
@@ -632,6 +632,16 @@
 		"sM": 0,
 		"sU": 0
 		},
+	"\/public\/css\/btn.css": {
+		"aP": 1,
+		"bl": 0,
+		"ft": 16,
+		"ma": 0,
+		"oA": 0,
+		"oAP": "\/public\/css\/btn-min.css",
+		"oF": 0,
+		"oS": 3
+		},
 	"\/public\/css\/jitter.css": {
 		"aP": 1,
 		"bl": 0,
@@ -639,6 +649,26 @@
 		"ma": 0,
 		"oA": 0,
 		"oAP": "\/public\/css\/jitter-min.css",
+		"oF": 0,
+		"oS": 3
+		},
+	"\/public\/css\/navb.css": {
+		"aP": 1,
+		"bl": 0,
+		"ft": 16,
+		"ma": 0,
+		"oA": 0,
+		"oAP": "\/public\/css\/navb-min.css",
+		"oF": 0,
+		"oS": 3
+		},
+	"\/public\/css\/table.css": {
+		"aP": 1,
+		"bl": 0,
+		"ft": 16,
+		"ma": 0,
+		"oA": 0,
+		"oAP": "\/public\/css\/table-min.css",
 		"oF": 0,
 		"oS": 3
 		},
@@ -740,7 +770,7 @@
 		},
 	"\/public\/img\/brew\/AeroPress.png": {
 		"ft": 32768,
-		"iS": 17000,
+		"iS": 12188,
 		"oA": 0,
 		"oAP": "\/public\/img\/brew\/AeroPress.png",
 		"oF": 0,
@@ -749,9 +779,19 @@
 		"oT": 1,
 		"q": 100
 		},
+	"\/public\/img\/brew\/AeroPress.svg": {
+		"ft": 2097152,
+		"miP": 0,
+		"oA": 2,
+		"oAP": "\/public\/img\/brew\/AeroPress.svg",
+		"oF": 0,
+		"opt": 0,
+		"plM": 3758088159,
+		"prP": 0
+		},
 	"\/public\/img\/brew\/AutoDrip.png": {
 		"ft": 32768,
-		"iS": 19933,
+		"iS": 9291,
 		"oA": 0,
 		"oAP": "\/public\/img\/brew\/AutoDrip.png",
 		"oF": 0,
@@ -760,9 +800,40 @@
 		"oT": 1,
 		"q": 100
 		},
+	"\/public\/img\/brew\/AutoDrip.svg": {
+		"ft": 2097152,
+		"miP": 0,
+		"oA": 2,
+		"oAP": "\/public\/img\/brew\/AutoDrip.svg",
+		"oF": 0,
+		"opt": 0,
+		"plM": 3758088159,
+		"prP": 0
+		},
+	"\/public\/img\/brew\/BrewMethods.jpg": {
+		"ft": 16384,
+		"iS": 56471,
+		"oA": 0,
+		"oAP": "\/public\/img\/brew\/BrewMethods.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/public\/img\/brew\/Chemex.png": {
+		"ft": 32768,
+		"iS": 13218,
+		"oA": 0,
+		"oAP": "\/public\/img\/brew\/Chemex.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
 	"\/public\/img\/brew\/ColdBrew.png": {
 		"ft": 32768,
-		"iS": 17723,
+		"iS": 15740,
 		"oA": 0,
 		"oAP": "\/public\/img\/brew\/ColdBrew.png",
 		"oF": 0,
@@ -773,7 +844,7 @@
 		},
 	"\/public\/img\/brew\/Expresso.png": {
 		"ft": 32768,
-		"iS": 15893,
+		"iS": 8587,
 		"oA": 0,
 		"oAP": "\/public\/img\/brew\/Expresso.png",
 		"oF": 0,
@@ -784,7 +855,7 @@
 		},
 	"\/public\/img\/brew\/FrenchPress.png": {
 		"ft": 32768,
-		"iS": 16950,
+		"iS": 17421,
 		"oA": 0,
 		"oAP": "\/public\/img\/brew\/FrenchPress.png",
 		"oF": 0,
@@ -793,9 +864,20 @@
 		"oT": 1,
 		"q": 100
 		},
+	"\/public\/img\/brew\/MochaPot.png": {
+		"ft": 32768,
+		"iS": 14991,
+		"oA": 0,
+		"oAP": "\/public\/img\/brew\/MochaPot.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
 	"\/public\/img\/brew\/PourOver.png": {
 		"ft": 32768,
-		"iS": 20945,
+		"iS": 12615,
 		"oA": 0,
 		"oAP": "\/public\/img\/brew\/PourOver.png",
 		"oF": 0,
@@ -804,42 +886,9 @@
 		"oT": 1,
 		"q": 100
 		},
-	"\/public\/img\/brew\/PourOverAll.png": {
-		"ft": 32768,
-		"iS": 343680,
-		"oA": 0,
-		"oAP": "\/public\/img\/brew\/PourOverAll.png",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"oT": 1,
-		"q": 100
-		},
-	"\/public\/img\/brew\/PressureVacuum.png": {
-		"ft": 32768,
-		"iS": 292155,
-		"oA": 0,
-		"oAP": "\/public\/img\/brew\/PressureVacuum.png",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"oT": 1,
-		"q": 100
-		},
-	"\/public\/img\/brew\/Steeping.png": {
-		"ft": 32768,
-		"iS": 257253,
-		"oA": 0,
-		"oAP": "\/public\/img\/brew\/Steeping.png",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"oT": 1,
-		"q": 100
-		},
 	"\/public\/img\/brew\/SyphonPot.png": {
 		"ft": 32768,
-		"iS": 19558,
+		"iS": 13302,
 		"oA": 0,
 		"oAP": "\/public\/img\/brew\/SyphonPot.png",
 		"oF": 0,
@@ -848,119 +897,132 @@
 		"oT": 1,
 		"q": 100
 		},
-	"\/public\/img\/brew2\/AeroPress.png": {
-		"ft": 32768,
-		"iS": 12188,
-		"oA": 0,
-		"oAP": "\/public\/img\/brew2\/AeroPress.png",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"oT": 1,
-		"q": 100
-		},
-	"\/public\/img\/brew2\/AeroPress.svg": {
-		"ft": 2097152,
-		"miP": 0,
-		"oA": 2,
-		"oAP": "\/public\/img\/brew2\/AeroPress.svg",
-		"oF": 0,
-		"opt": 0,
-		"plM": 3758088159,
-		"prP": 0
-		},
-	"\/public\/img\/brew2\/AutoDrip.svg": {
-		"ft": 2097152,
-		"miP": 0,
-		"oA": 2,
-		"oAP": "\/public\/img\/brew2\/AutoDrip.svg",
-		"oF": 0,
-		"opt": 0,
-		"plM": 3758088159,
-		"prP": 0
-		},
-	"\/public\/img\/brew2\/Chemex.png": {
-		"ft": 32768,
-		"iS": 13218,
-		"oA": 0,
-		"oAP": "\/public\/img\/brew2\/Chemex.png",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"oT": 1,
-		"q": 100
-		},
-	"\/public\/img\/brew2\/ColdBrew.png": {
-		"ft": 32768,
-		"iS": 15740,
-		"oA": 0,
-		"oAP": "\/public\/img\/brew2\/ColdBrew.png",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"oT": 1,
-		"q": 100
-		},
-	"\/public\/img\/brew2\/FrenchPress.png": {
-		"ft": 32768,
-		"iS": 17421,
-		"oA": 0,
-		"oAP": "\/public\/img\/brew2\/FrenchPress.png",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"oT": 1,
-		"q": 100
-		},
-	"\/public\/img\/brew2\/MochaPot.png": {
-		"ft": 32768,
-		"iS": 14991,
-		"oA": 0,
-		"oAP": "\/public\/img\/brew2\/MochaPot.png",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"oT": 1,
-		"q": 100
-		},
-	"\/public\/img\/brew2\/PourOver.png": {
-		"ft": 32768,
-		"iS": 12615,
-		"oA": 0,
-		"oAP": "\/public\/img\/brew2\/PourOver.png",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"oT": 1,
-		"q": 100
-		},
-	"\/public\/img\/brew2\/Siphon.png": {
-		"ft": 32768,
-		"iS": 13302,
-		"oA": 0,
-		"oAP": "\/public\/img\/brew2\/Siphon.png",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"oT": 1,
-		"q": 100
-		},
-	"\/public\/img\/brew2\/Turkish.png": {
+	"\/public\/img\/brew\/Turkish.png": {
 		"ft": 32768,
 		"iS": 15947,
 		"oA": 0,
-		"oAP": "\/public\/img\/brew2\/Turkish.png",
+		"oAP": "\/public\/img\/brew\/Turkish.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"oT": 1,
 		"q": 100
 		},
-	"\/public\/img\/brew2\/Vietnamese.png": {
+	"\/public\/img\/brew\/Vietnamese.png": {
 		"ft": 32768,
 		"iS": 12535,
 		"oA": 0,
-		"oAP": "\/public\/img\/brew2\/Vietnamese.png",
+		"oAP": "\/public\/img\/brew\/Vietnamese.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/public\/img\/brew1\/AeroPress.png": {
+		"ft": 32768,
+		"iS": 17000,
+		"oA": 0,
+		"oAP": "\/public\/img\/brew1\/AeroPress.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/public\/img\/brew1\/AutoDrip.png": {
+		"ft": 32768,
+		"iS": 19933,
+		"oA": 0,
+		"oAP": "\/public\/img\/brew1\/AutoDrip.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/public\/img\/brew1\/ColdBrew.png": {
+		"ft": 32768,
+		"iS": 17723,
+		"oA": 0,
+		"oAP": "\/public\/img\/brew1\/ColdBrew.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/public\/img\/brew1\/Expresso.png": {
+		"ft": 32768,
+		"iS": 15893,
+		"oA": 0,
+		"oAP": "\/public\/img\/brew1\/Expresso.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/public\/img\/brew1\/FrenchPress.png": {
+		"ft": 32768,
+		"iS": 16950,
+		"oA": 0,
+		"oAP": "\/public\/img\/brew1\/FrenchPress.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/public\/img\/brew1\/PourOver.png": {
+		"ft": 32768,
+		"iS": 20945,
+		"oA": 0,
+		"oAP": "\/public\/img\/brew1\/PourOver.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/public\/img\/brew1\/PourOverAll.png": {
+		"ft": 32768,
+		"iS": 343680,
+		"oA": 0,
+		"oAP": "\/public\/img\/brew1\/PourOverAll.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/public\/img\/brew1\/PressureVacuum.png": {
+		"ft": 32768,
+		"iS": 292155,
+		"oA": 0,
+		"oAP": "\/public\/img\/brew1\/PressureVacuum.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/public\/img\/brew1\/Steeping.png": {
+		"ft": 32768,
+		"iS": 257253,
+		"oA": 0,
+		"oAP": "\/public\/img\/brew1\/Steeping.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/public\/img\/brew1\/SyphonPot.png": {
+		"ft": 32768,
+		"iS": 19558,
+		"oA": 0,
+		"oAP": "\/public\/img\/brew1\/SyphonPot.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,

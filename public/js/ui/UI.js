@@ -165,7 +165,7 @@ UI = (function() {
 
   };
 
-  UI.showTocs = true;
+  UI.showTocs = false;
 
   UI.$empty = $(); // Empty jQuery singleton for intialization
 

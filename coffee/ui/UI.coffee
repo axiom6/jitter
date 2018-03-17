@@ -1,7 +1,7 @@
 
 class UI
 
-  UI.showTocs     = true
+  UI.showTocs     = false
   UI.$empty       = $() # Empty jQuery singleton for intialization
   UI.None         = "None"
   UI.ncol         = 36
