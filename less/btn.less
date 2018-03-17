@@ -1,11 +1,14 @@
 
-@import "shape.less";
+@import "color.less";
+@import "mixin.less";
+@import "gradient.less";
 
-@btn-top:    @back70; @btn-bot:    @back80; @btn-color:    @black;
-@btn-hov-top:@back60; @btn-hov-bot:@back70; @btn-hov-color:@black;
-@btn-bord:@back50;
+@btn-top:    @color-back70; @btn-bot:    @color-back80; @btn-color:    @color-black;
+@btn-hov-top:@color-back60; @btn-hov-bot:@color-back70; @btn-hov-color:@color-black;
+@btn-bord:@color-back50;
 @btn_size:6px;
 @btn-font:Arial, Helvetica, sans-serif;
+
 .btn-font{ font-family:Arial, Helvetica, sans-serif;}
 
 
@@ -46,17 +49,17 @@
 
 .btn-push
  { display:inline-block; .mixin-round(8px); .mixin-transition-shadow(2ms,ease-in-out);
-  .mixin-shadow2(@back50,0,8px,0,0,rgba(0,0,0,.35),0,15px,20px,0); }
+  .mixin-shadow2(@color-back50,0,8px,0,0,rgba(0,0,0,.35),0,15px,20px,0); }
 
 .btn-push span 
  { display: inline-block; .mixin-paddings(10px,5px,10px,5px); .mixin-round(8px);
    font-family: "cooper-black-std-1", "cooper-black-std-2", Helvetica, Arial, sans-serif;
-   line-height: 1; text-shadow: 0 -1px 1px rgba(19,65,88,.8); .gradient-top(@back50,@back70);
+   line-height: 1; text-shadow: 0 -1px 1px rgba(19,65,88,.8); .gradient-top(@color-back50,@color-back70);
    .mixin-shadow(rgba(255,255,255,.15),0,-1px,1px,0,inset);
    .mixin-transition-transform(.2s,ease-in-out);  }
 
 .btn-push:active
-  { .mixin-shadow2(@back50,0,8px,0,0,rgba(0,0,0,.3),0,12px,10px,0); }
+  { .mixin-shadow2(@color-back50,0,8px,0,0,rgba(0,0,0,.3),0,12px,10px,0); }
 
 .btn-push:active span
   { .mixin-translate(0,4px); }

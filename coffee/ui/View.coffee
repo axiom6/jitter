@@ -4,11 +4,12 @@ class View
   UI.View = View
 
   constructor:( @ui, @stream, @practices ) ->
-    @speed     = 400
-    @$view     = UI.$empty
-    @margin    = UI.margin
-    @ncol      = UI.ncol
-    @nrow      = UI.nrow
+    @speed       = 400
+    @$view       = UI.$empty
+    @margin      = UI.margin
+    @ncol        = UI.ncol
+    @nrow        = UI.nrow
+    @classPrefix = if Util.isStr(@practices.css) then @spec.css else 'ui-view'
     [@wpane,@hpane,@wview,@hview,@wscale,@hscale] = @percents( @nrow, @ncol, @margin )
     @panes     = @createPanes( @practices )
     @sizeCallback  = null
@@ -21,7 +22,7 @@ class View
   ready:() ->
     parent = $('#'+@ui.getHtmlId('View') ) # parent is outside of planes
     htmlId = @ui.htmlId( 'View','Plane' )
-    html   = $( """<div id="#{htmlId}" class="ikw-view-plane"></div>""" )
+    html   = $( """<div id="#{htmlId}" class="#{@classPrefix}"></div>""" )
     parent.append( html )
     @$view = parent.find('#'+htmlId )
     pane.ready()  for pane  in @panes

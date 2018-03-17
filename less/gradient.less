@@ -1,12 +1,16 @@
 
-@import "mixin.less";
 
 /* Linear Gradients 2  Color */
 
 .gradient-left( @cs1, @cs2 )
- { .gradient-std-linear( left, @cs1, @cs2 );
-   .gradient-ie6-linear( 1,    @cs1, @cs2 );
-   .gradient-w10-linear( left, center, right, center, @cs1, @cs2 ); }
+ {
+  background-image: linear-gradient(to right, @cs1, @cs2);
+}
+
+.gradient-left2( @cs1, @cs2 )
+{ .gradient-std-linear( left, @cs1, @cs2 );
+  .gradient-ie6-linear( 1,    @cs1, @cs2 );
+  .gradient-w10-linear( left, center, right, center, @cs1, @cs2 ); }
 
 .gradient-top( @cs1, @cs2 )
  { .gradient-std-linear( top, @cs1, @cs2 );
@@ -34,9 +38,7 @@
  /* Standard linear gradients for W3C Firefox Opera IE10 Webkit11 */
 
 .gradient-std-linear( @dir, @cs1, @cs2 )
- {  background-image:    -moz-linear-gradient(@dir,@cs1,@cs2);
-    background-image:      -o-linear-gradient(@dir,@cs1,@cs2);
-    background-image:     -ms-linear-gradient(@dir,@cs1,@cs2); }
+ {  background-image: -moz-linear-gradient(@dir,@cs1,@cs2); }
 
 .gradient-w10-linear( @begx, @begy, @endx, @endy, @cs1, @cs2 )
  { background-image: -webkit-gradient(linear,@begx @begy,@endx @endy, from(@cs1), to(@cs2) ); }
@@ -50,9 +52,8 @@
 
 /* Standard radial gradients for W3C Firefox Opera IE10 Webkit11 */
 .gradient-std-radial( @begx, @begy, @endx, @endy, @cs1, @cs2, @shape )
- {  background-image:    -moz-radial-gradient(@begx @begy,@endx,@cs1,@cs2);
-    background-image:      -o-radial-gradient(@begx @begy,@shape @endx @endy,@cs1,@cs2);
-    background-image:     -ms-radial-gradient(@begx @begy,@shape @endx @endy,@cs1,@cs2);
-    background-image: -webkit-radial-gradient(@begx @begy,0,@begx @begy, 141, from(@cs1), to(@cs2) ); }  /* Needs lot of work */
+ {  background-image: -moz-radial-gradient(@begx @begy,@endx,@cs1,@cs2);}
+
+// background-image: -webkit-radial-gradient(@begx @begy,0,@begx @begy, 141, from(@cs1), to(@cs2) );
 
 

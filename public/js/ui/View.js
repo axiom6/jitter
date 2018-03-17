@@ -14,6 +14,7 @@
         this.margin = UI.margin;
         this.ncol = UI.ncol;
         this.nrow = UI.nrow;
+        this.classPrefix = Util.isStr(this.practices.css) ? this.spec.css : 'ui-view';
         [this.wpane, this.hpane, this.wview, this.hview, this.wscale, this.hscale] = this.percents(this.nrow, this.ncol, this.margin);
         this.panes = this.createPanes(this.practices);
         this.sizeCallback = null;
@@ -28,7 +29,7 @@
         var html, htmlId, k, len, pane, parent, ref;
         parent = $('#' + this.ui.getHtmlId('View')); // parent is outside of planes
         htmlId = this.ui.htmlId('View', 'Plane');
-        html = $(`<div id="${htmlId}" class="ikw-view-plane"></div>`);
+        html = $(`<div id="${htmlId}" class="${this.classPrefix}"></div>`);
         parent.append(html);
         this.$view = parent.find('#' + htmlId);
         ref = this.panes;

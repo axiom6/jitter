@@ -15,7 +15,7 @@
         [j, m, i, n] = UI.jmin(this.cells);
         [this.left, this.top, this.width, this.height] = this.view.position(j, m, i, n, this.spec);
         this.name = this.spec.name;
-        this.css = Util.isStr(this.spec.css) ? this.spec.css : 'ikw-pane';
+        this.classPrefix = Util.isStr(this.spec.css) ? this.spec.css : 'ui-pane';
         this.$ = UI.$empty;
         this.wscale = this.view.wscale;
         this.hscale = this.view.hscale;
@@ -155,7 +155,7 @@
       }
 
       createHtml() {
-        return `<div id="${this.htmlId}" class="${this.css}"></div>`;
+        return `<div id="${this.htmlId}" class="${this.classPrefix}"></div>`;
       }
 
       reset(select) {

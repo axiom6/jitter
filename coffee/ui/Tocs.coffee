@@ -7,9 +7,10 @@ class Tocs
   constructor:( @ui, @stream, @practices ) ->
     [@specs,@stack] = @createTocsSpecs( @practices )
     #@logSpecs()
-    @htmlIdApp = @ui.getHtmlId('Tocs','')
-    @last      = @specs[0]
-    @speed     = 400
+    @htmlIdApp   = @ui.getHtmlId('Tocs','')
+    @classPrefix = if Util.isStr(@practices.css) then @practices.css else 'tocs'
+    @last        = @specs[0]
+    @speed       = 400
 
   createTocsSpecs:( practices ) ->
     spec0     = { level:0, name:"Beg" }
@@ -18,7 +19,8 @@ class Tocs
     specs     = []
     specs.push( spec0 )
     for own keyPrac, practice of practices
-      hasChild = if keyPrac is "Overview" then false else practice.toc
+      pracToc  = if practice['toc']? then practice['toc'] else true
+      hasChild = if keyPrac is "Overview" then false else pracToc
       @enrichSpec( keyPrac, practice, specs, 1, spec0, hasChild,  true )
       for own keyStudy, study of practice when hasChild and UI.isChild(keyStudy)
         practice.hasChild = true
@@ -85,7 +87,7 @@ class Tocs
 
   html:() ->
     @specs[0].ulId = @htmlId(@specs[0],'UL')
-    htm  = """<ul class="ul0" id="#{@specs[0].ulId}">"""
+    htm  = """<ul class="#{@classPrefix}ul0" id="#{@specs[0].ulId}">"""
     for i in [1...@specs.length]
       htm += @process( i  )
     htm
@@ -115,9 +117,9 @@ class Tocs
     spec.liId = @htmlId(spec,'LI')
     spec.ulId = @htmlId(spec,'UL')
     #Util.log( 'UI.Tocs htmlBeg()', spec.id, spec.liId, spec.ulId )
-    htm  = """<li class="li#{spec.level}" id="#{spec.liId}" >"""
+    htm  = """<li class="#{@classPrefix}li#{spec.level}" id="#{spec.liId}" >"""
     htm += """#{@htmIconName(spec)}"""
-    htm += """<ul class="ul#{spec.level}" id="#{spec.ulId}">""" if spec.hasChild
+    htm += """<ul class="#{@classPrefix}ul#{spec.level}" id="#{spec.ulId}">""" if spec.hasChild
     htm
 
   htmIconName:( spec ) ->

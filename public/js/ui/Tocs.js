@@ -11,12 +11,13 @@
         [this.specs, this.stack] = this.createTocsSpecs(this.practices);
         //@logSpecs()
         this.htmlIdApp = this.ui.getHtmlId('Tocs', '');
+        this.classPrefix = Util.isStr(this.practices.css) ? this.practices.css : 'tocs';
         this.last = this.specs[0];
         this.speed = 400;
       }
 
       createTocsSpecs(practices) {
-        var hasChild, keyPrac, keyStudy, practice, spec0, specN, specs, stack, study;
+        var hasChild, keyPrac, keyStudy, pracToc, practice, spec0, specN, specs, stack, study;
         spec0 = {
           level: 0,
           name: "Beg"
@@ -28,7 +29,8 @@
         for (keyPrac in practices) {
           if (!hasProp.call(practices, keyPrac)) continue;
           practice = practices[keyPrac];
-          hasChild = keyPrac === "Overview" ? false : practice.toc;
+          pracToc = practice['toc'] != null ? practice['toc'] : true;
+          hasChild = keyPrac === "Overview" ? false : pracToc;
           this.enrichSpec(keyPrac, practice, specs, 1, spec0, hasChild, true);
           for (keyStudy in practice) {
             if (!hasProp.call(practice, keyStudy)) continue;
@@ -144,7 +146,7 @@
       html() {
         var htm, i, j, ref;
         this.specs[0].ulId = this.htmlId(this.specs[0], 'UL');
-        htm = `<ul class="ul0" id="${this.specs[0].ulId}">`;
+        htm = `<ul class="${this.classPrefix}ul0" id="${this.specs[0].ulId}">`;
         for (i = j = 1, ref = this.specs.length; 1 <= ref ? j < ref : j > ref; i = 1 <= ref ? ++j : --j) {
           htm += this.process(i);
         }
@@ -185,10 +187,10 @@
         spec.liId = this.htmlId(spec, 'LI');
         spec.ulId = this.htmlId(spec, 'UL');
         //Util.log( 'UI.Tocs htmlBeg()', spec.id, spec.liId, spec.ulId )
-        htm = `<li class="li${spec.level}" id="${spec.liId}" >`;
+        htm = `<li class="${this.classPrefix}li${spec.level}" id="${spec.liId}" >`;
         htm += `${this.htmIconName(spec)}`;
         if (spec.hasChild) {
-          htm += `<ul class="ul${spec.level}" id="${spec.ulId}">`;
+          htm += `<ul class="${this.classPrefix}ul${spec.level}" id="${spec.ulId}">`;
         }
         return htm;
       }

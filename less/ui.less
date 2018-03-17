@@ -1,0 +1,43 @@
+
+
+@import "layout.less";
+
+.ui-font{ font-family:Arial, Helvetica, sans-serif; }
+
+@ui-back15:@color-back15;
+@ui-back20:@color-back20;
+
+
+.ui-view { width:100%; height:100%; background-color:@ui-back15; }
+.ui-pane { background-color:@ui-back20; position:absolute; .ui-font; z-index:2; overflow:visible; .mixin-round(24px); }
+
+.ui-pane-center       { position:absolute;  left:15%; top:15%; width:70%; height:70%; z-index:3; display:table; }
+.ui-pane-table        { position:absolute;  left: 5%; top: 5%; width:90%; height:90%; }
+.ui-pane-connect > div > ul { .mixin-paddings(20px,0,0,0); margin:0; }
+
+.ui-pane-center-div   { display:table-cell; vertical-align:middle; padding:20px; }
+.ui-pane-icon         { text-align:center; }
+.ui-pane-img          { display:block; margin-left:auto; margin-right:auto; }
+.ui-pane-text         { text-align:center; line-height:1.0; margin-top:4px; }
+.ui-pane-center-div:hover { .mixin-hover; }
+
+/*
+.ui-pane-study-ul     { list-style:none; margin-left:0.1em;  line-height:1.2; margin-top:0; }
+.ui-pane-study-li     { }
+.ui-pane-study-icon   { text-align:left; display:inline; font-size:120%; }
+.ui-pane-study-text   { text-align:left; display:inline; padding-left:0.3em; font-size:120%; line-height:1.0; }
+.ui-pane-topic-ul     { list-style:none; margin-left:0.0em;  line-height:1.2; margin-top:0; }
+.ui-pane-topic-li     { }
+.ui-pane-topic-icon   { text-align:left; display:inline; }
+.ui-pane-topic-text   { text-align:left; display:inline;    padding-left:0; }
+.ui-pane-topin-ul     { list-style:none; margin:0; padding-left:1em; line-height:0.8; font-size:0.7em; }
+.ui-pane-topin-li     { }
+.ui-pane-topin-lib    { font-weight:900; font-size:1.2em; }
+.ui-pane-topin-icon   { text-align:left; display:inline; }
+.ui-pane-topin-text   { text-align:left; display:inline;    padding-left:0; }
+.ui-pane-item-ul      { list-style:none; margin:0; padding-left:1em; line-height:0.6; font-size:0.8em; }
+.ui-pane-item-li      { }
+.ui-pane-item-lib     { font-weight:900; font-size:1.0em; }
+.ui-pane-item-icon    { text-align:left; display:inline; }
+.ui-pane-item-text    { text-align:left; display:inline; padding-left:0.0em; }
+*/

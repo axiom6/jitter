@@ -1,6 +1,4 @@
 
-@import "gradient.less";
-
 .shape-wh(@w,@h)  { width:@w; height:@w; }
 .shape-round(@r)  { border-radius:@r; -moz-border-radius:@r; -webkit-border-radius:@r;
              -o-border-radius:@r;  -ms-border-radius:@r; }
@@ -84,8 +82,8 @@
   position:relative;
   display:block;
   color:@bg;
-  width:0px;
-  height:0px;
+  width:0;
+  height:0;
   border-right: 100px solid transparent;
   border-bottom:70px solid @bg;
   border-left: 100px solid transparent;
@@ -114,8 +112,8 @@
   color:@bg;
   top:3px;
   left:-105px;
-  width:0px;
-  height:0px;
+  width:0;
+  height:0;
   border-right:100px solid transparent;
   border-bottom:70px solid @bg;
   border-left:100px solid transparent;
@@ -263,16 +261,11 @@
 }
 
 .shape-pacman(@bg) {
- width:0px;
- height:0px;
- border-right:60px solid transparent;
- border-top:60px solid @bg;
- border-left:60px solid @bg;
- border-bottom:60px solid @bg;
- border-top-left-radius:60px;
- border-top-right-radius:60px;
- border-bottom-left-radius:60px;
- border-bottom-right-radius:60px;
+ width:0;
+ height:0;
+  border: 60px solid;
+  border-right-color: transparent;
+  border-radius: 60px;
 }
 
 
@@ -356,6 +349,3 @@
       transform:rotate(135deg);
 }
 }
-
-
-

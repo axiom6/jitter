@@ -278,6 +278,26 @@
 		"oAP": "\/doc\/aaa\/firebase.html",
 		"oF": 0
 		},
+	"\/doc\/aaa\/flavor.css": {
+		"aP": 1,
+		"bl": 0,
+		"ft": 16,
+		"ma": 0,
+		"oA": 0,
+		"oAP": "\/doc\/aaa\/flavor-min.css",
+		"oF": 0,
+		"oS": 3
+		},
+	"\/doc\/aaa\/font-awesome.css": {
+		"aP": 1,
+		"bl": 0,
+		"ft": 16,
+		"ma": 0,
+		"oA": 0,
+		"oAP": "\/doc\/aaa\/font-awesome-min.css",
+		"oF": 0,
+		"oS": 3
+		},
 	"\/doc\/aaa\/interact.txt": {
 		"cB": 0,
 		"ft": 8192,
@@ -309,169 +329,6 @@
 		"sC": 3,
 		"tS": 0
 		},
-	"\/doc\/wheel\/.gitignore": {
-		"cB": 0,
-		"ft": 8192,
-		"oA": 0,
-		"oAP": "\/doc\/wheel\/.gitignore",
-		"oF": 0
-		},
-	"\/doc\/wheel\/bilevel\/bilevel.html": {
-		"cB": 0,
-		"ft": 8192,
-		"oA": 0,
-		"oAP": "\/doc\/wheel\/bilevel\/bilevel.html",
-		"oF": 0
-		},
-	"\/doc\/wheel\/bilevel\/flare.json": {
-		"ft": 524288,
-		"oA": 1,
-		"oAP": "\/doc\/wheel\/bilevel\/flare-min.json",
-		"oF": 0,
-		"oO": 0,
-		"oS": 1
-		},
-	"\/doc\/wheel\/coffee-wheel\/coffee-wheel.html": {
-		"cB": 0,
-		"ft": 8192,
-		"oA": 0,
-		"oAP": "\/doc\/wheel\/coffee-wheel\/coffee-wheel.html",
-		"oF": 0
-		},
-	"\/doc\/wheel\/coffee-wheel\/flavor.v4.html": {
-		"cB": 0,
-		"ft": 8192,
-		"oA": 0,
-		"oAP": "\/doc\/wheel\/coffee-wheel\/flavor.v4.html",
-		"oF": 0
-		},
-	"\/doc\/wheel\/coffee-wheel\/style.css": {
-		"aP": 1,
-		"bl": 0,
-		"ft": 16,
-		"ma": 0,
-		"oA": 0,
-		"oAP": "\/doc\/wheel\/coffee-wheel\/style-min.css",
-		"oF": 0,
-		"oS": 3
-		},
-	"\/doc\/wheel\/coffee-wheel\/wheel.json": {
-		"ft": 524288,
-		"oA": 1,
-		"oAP": "\/doc\/wheel\/coffee-wheel\/wheel-min.json",
-		"oF": 0,
-		"oO": 0,
-		"oS": 1
-		},
-	"\/doc\/wheel\/coffee-wheel\/Wheel.v3.coffee": {
-		"ft": 32,
-		"ma": 0,
-		"mi": 0,
-		"oA": 0,
-		"oAP": "\/doc\/wheel\/coffee-wheel\/Wheel.v3.js",
-		"oF": 0,
-		"oS": 0,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/doc\/wheel\/coffee\/Flavor.coffee": {
-		"ft": 32,
-		"ma": 0,
-		"mi": 0,
-		"oA": 0,
-		"oAP": "\/doc\/wheel\/public\/js\/Flavor.js",
-		"oF": 0,
-		"oS": 0,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/doc\/wheel\/coffee\/Flavor.js": {
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "\/doc\/wheel\/coffee\/Flavor-min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 0
-		},
-	"\/doc\/wheel\/coffee\/flavor.v3.js": {
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "\/doc\/wheel\/coffee\/flavor.v3-min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 0
-		},
-	"\/doc\/wheel\/coffee\/flavor.v4.js": {
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "\/doc\/wheel\/coffee\/flavor.v4-min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 0
-		},
-	"\/doc\/wheel\/coffee\/Radar.coffee": {
-		"ft": 32,
-		"ma": 0,
-		"mi": 0,
-		"oA": 0,
-		"oAP": "\/doc\/wheel\/public\/js\/Radar.js",
-		"oF": 0,
-		"oS": 0,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/doc\/wheel\/coffee\/WheelColor.coffee": {
-		"ft": 32,
-		"ma": 0,
-		"mi": 0,
-		"oA": 0,
-		"oAP": "\/doc\/wheel\/public\/js\/WheelColor.js",
-		"oF": 0,
-		"oS": 0,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/doc\/wheel\/flare\/flare.css": {
-		"aP": 1,
-		"bl": 0,
-		"ft": 16,
-		"ma": 0,
-		"oA": 0,
-		"oAP": "\/doc\/wheel\/flare\/flare-min.css",
-		"oF": 0,
-		"oS": 3
-		},
-	"\/doc\/wheel\/flare\/flare.html": {
-		"cB": 0,
-		"ft": 8192,
-		"oA": 0,
-		"oAP": "\/doc\/wheel\/flare\/flare.html",
-		"oF": 0
-		},
-	"\/doc\/wheel\/flare\/flare.js": {
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "\/doc\/wheel\/flare\/flare-min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 0
-		},
-	"\/doc\/wheel\/flare\/flare.json": {
-		"ft": 524288,
-		"oA": 1,
-		"oAP": "\/doc\/wheel\/flare\/flare-min.json",
-		"oF": 0,
-		"oO": 0,
-		"oS": 1
-		},
 	"\/doc\/wheel\/JitterDoneRight.png": {
 		"ft": 32768,
 		"iS": 397929,
@@ -483,45 +340,27 @@
 		"oT": 1,
 		"q": 100
 		},
-	"\/doc\/wheel\/sun\/d3.js": {
-		"ft": 64,
+	"\/doc\/wheel\/Radar.coffee": {
+		"ft": 32,
 		"ma": 0,
-		"mi": 1,
+		"mi": 0,
 		"oA": 0,
-		"oAP": "\/doc\/wheel\/sun\/d3-min.js",
+		"oAP": "\/doc\/wheel\/Radar.js",
 		"oF": 0,
-		"sC": 3,
+		"oS": 0,
+		"sC": 0,
 		"tS": 0
 		},
-	"\/doc\/wheel\/sun\/flavor.v4.json": {
-		"ft": 524288,
-		"oA": 1,
-		"oAP": "\/doc\/wheel\/sun\/flavor.v4-min.json",
-		"oF": 0,
-		"oO": 0,
-		"oS": 1
-		},
-	"\/doc\/wheel\/sun\/sun.html": {
-		"cB": 0,
-		"ft": 8192,
+	"\/doc\/wheel\/WheelColor.coffee": {
+		"ft": 32,
+		"ma": 0,
+		"mi": 0,
 		"oA": 0,
-		"oAP": "\/doc\/wheel\/sun\/sun.html",
-		"oF": 0
-		},
-	"\/doc\/wheel\/sunburst\/flare.json": {
-		"ft": 524288,
-		"oA": 1,
-		"oAP": "\/doc\/wheel\/sunburst\/flare-min.json",
+		"oAP": "\/doc\/wheel\/WheelColor.js",
 		"oF": 0,
-		"oO": 0,
-		"oS": 1
-		},
-	"\/doc\/wheel\/sunburst\/sunburst.html": {
-		"cB": 0,
-		"ft": 8192,
-		"oA": 0,
-		"oAP": "\/doc\/wheel\/sunburst\/sunburst.html",
-		"oF": 0
+		"oS": 0,
+		"sC": 0,
+		"tS": 0
 		},
 	"\/firebase.json": {
 		"ft": 524288,
@@ -538,23 +377,6 @@
 		"oAP": "\/jitter.iml",
 		"oF": 0
 		},
-	"\/less\/base.less": {
-		"aP": 0,
-		"bl": 0,
-		"dJ": 0,
-		"ft": 1,
-		"ie": 0,
-		"iI": 0,
-		"ma": 0,
-		"oA": 1,
-		"oAP": "\/public\/css\/base.css",
-		"oF": 0,
-		"oS": 0,
-		"rU": 0,
-		"sI": 0,
-		"sM": 0,
-		"sU": 0
-		},
 	"\/less\/btn.less": {
 		"aP": 0,
 		"bl": 0,
@@ -563,7 +385,7 @@
 		"ie": 0,
 		"iI": 0,
 		"ma": 0,
-		"oA": 1,
+		"oA": 0,
 		"oAP": "\/public\/css\/btn.css",
 		"oF": 0,
 		"oS": 0,
@@ -589,6 +411,23 @@
 		"sM": 0,
 		"sU": 0
 		},
+	"\/less\/d3tree.less": {
+		"aP": 0,
+		"bl": 0,
+		"dJ": 0,
+		"ft": 1,
+		"ie": 0,
+		"iI": 0,
+		"ma": 0,
+		"oA": 0,
+		"oAP": "\/public\/css\/d3tree.css",
+		"oF": 0,
+		"oS": 0,
+		"rU": 0,
+		"sI": 0,
+		"sM": 0,
+		"sU": 0
+		},
 	"\/less\/gradient.less": {
 		"aP": 0,
 		"bl": 0,
@@ -599,6 +438,23 @@
 		"ma": 0,
 		"oA": 1,
 		"oAP": "\/public\/css\/gradient.css",
+		"oF": 0,
+		"oS": 0,
+		"rU": 0,
+		"sI": 0,
+		"sM": 0,
+		"sU": 0
+		},
+	"\/less\/ikw.less": {
+		"aP": 0,
+		"bl": 0,
+		"dJ": 0,
+		"ft": 1,
+		"ie": 0,
+		"iI": 0,
+		"ma": 0,
+		"oA": 0,
+		"oAP": "\/public\/css\/ikw.css",
 		"oF": 0,
 		"oS": 0,
 		"rU": 0,
@@ -657,7 +513,7 @@
 		"sM": 0,
 		"sU": 0
 		},
-	"\/less\/muse.less": {
+	"\/less\/navb.less": {
 		"aP": 0,
 		"bl": 0,
 		"dJ": 0,
@@ -665,25 +521,8 @@
 		"ie": 0,
 		"iI": 0,
 		"ma": 0,
-		"oA": 1,
-		"oAP": "\/public\/css\/muse.css",
-		"oF": 0,
-		"oS": 0,
-		"rU": 0,
-		"sI": 0,
-		"sM": 0,
-		"sU": 0
-		},
-	"\/less\/navbar.less": {
-		"aP": 0,
-		"bl": 0,
-		"dJ": 0,
-		"ft": 1,
-		"ie": 0,
-		"iI": 0,
-		"ma": 0,
-		"oA": 1,
-		"oAP": "\/public\/css\/navbar.css",
+		"oA": 0,
+		"oAP": "\/public\/css\/navb.css",
 		"oF": 0,
 		"oS": 0,
 		"rU": 0,
@@ -699,7 +538,7 @@
 		"ie": 0,
 		"iI": 0,
 		"ma": 0,
-		"oA": 1,
+		"oA": 0,
 		"oAP": "\/public\/css\/shape.css",
 		"oF": 0,
 		"oS": 0,
@@ -716,7 +555,7 @@
 		"ie": 0,
 		"iI": 0,
 		"ma": 0,
-		"oA": 1,
+		"oA": 0,
 		"oAP": "\/public\/css\/table.css",
 		"oF": 0,
 		"oS": 0,
@@ -733,7 +572,7 @@
 		"ie": 0,
 		"iI": 0,
 		"ma": 0,
-		"oA": 1,
+		"oA": 0,
 		"oAP": "\/public\/css\/tabs.css",
 		"oF": 0,
 		"oS": 0,
@@ -759,7 +598,7 @@
 		"sM": 0,
 		"sU": 0
 		},
-	"\/less\/variables.less": {
+	"\/less\/ui.less": {
 		"aP": 0,
 		"bl": 0,
 		"dJ": 0,
@@ -768,7 +607,7 @@
 		"iI": 0,
 		"ma": 0,
 		"oA": 1,
-		"oAP": "\/public\/css\/variables.css",
+		"oAP": "\/public\/css\/ui.css",
 		"oF": 0,
 		"oS": 0,
 		"rU": 0,
@@ -776,35 +615,22 @@
 		"sM": 0,
 		"sU": 0
 		},
-	"\/public\/css\/flavor-min.css": {
-		"aP": 1,
+	"\/less\/vars.less": {
+		"aP": 0,
 		"bl": 0,
-		"ft": 16,
+		"dJ": 0,
+		"ft": 1,
+		"ie": 0,
+		"iI": 0,
 		"ma": 0,
-		"oA": 0,
-		"oAP": "\/public\/css\/flavor-min-min.css",
+		"oA": 1,
+		"oAP": "\/public\/css\/vars.css",
 		"oF": 0,
-		"oS": 3
-		},
-	"\/public\/css\/flavor.css": {
-		"aP": 1,
-		"bl": 0,
-		"ft": 16,
-		"ma": 0,
-		"oA": 0,
-		"oAP": "\/public\/css\/flavor-min.css",
-		"oF": 0,
-		"oS": 3
-		},
-	"\/public\/css\/font-awesome.css": {
-		"aP": 1,
-		"bl": 0,
-		"ft": 16,
-		"ma": 0,
-		"oA": 0,
-		"oAP": "\/public\/css\/font-awesome-min.css",
-		"oF": 0,
-		"oS": 3
+		"oS": 0,
+		"rU": 0,
+		"sI": 0,
+		"sM": 0,
+		"sU": 0
 		},
 	"\/public\/css\/jitter.css": {
 		"aP": 1,
@@ -978,11 +804,163 @@
 		"oT": 1,
 		"q": 100
 		},
+	"\/public\/img\/brew\/PourOverAll.png": {
+		"ft": 32768,
+		"iS": 343680,
+		"oA": 0,
+		"oAP": "\/public\/img\/brew\/PourOverAll.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/public\/img\/brew\/PressureVacuum.png": {
+		"ft": 32768,
+		"iS": 292155,
+		"oA": 0,
+		"oAP": "\/public\/img\/brew\/PressureVacuum.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/public\/img\/brew\/Steeping.png": {
+		"ft": 32768,
+		"iS": 257253,
+		"oA": 0,
+		"oAP": "\/public\/img\/brew\/Steeping.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
 	"\/public\/img\/brew\/SyphonPot.png": {
 		"ft": 32768,
 		"iS": 19558,
 		"oA": 0,
 		"oAP": "\/public\/img\/brew\/SyphonPot.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/public\/img\/brew2\/AeroPress.png": {
+		"ft": 32768,
+		"iS": 12188,
+		"oA": 0,
+		"oAP": "\/public\/img\/brew2\/AeroPress.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/public\/img\/brew2\/AeroPress.svg": {
+		"ft": 2097152,
+		"miP": 0,
+		"oA": 2,
+		"oAP": "\/public\/img\/brew2\/AeroPress.svg",
+		"oF": 0,
+		"opt": 0,
+		"plM": 3758088159,
+		"prP": 0
+		},
+	"\/public\/img\/brew2\/AutoDrip.svg": {
+		"ft": 2097152,
+		"miP": 0,
+		"oA": 2,
+		"oAP": "\/public\/img\/brew2\/AutoDrip.svg",
+		"oF": 0,
+		"opt": 0,
+		"plM": 3758088159,
+		"prP": 0
+		},
+	"\/public\/img\/brew2\/Chemex.png": {
+		"ft": 32768,
+		"iS": 13218,
+		"oA": 0,
+		"oAP": "\/public\/img\/brew2\/Chemex.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/public\/img\/brew2\/ColdBrew.png": {
+		"ft": 32768,
+		"iS": 15740,
+		"oA": 0,
+		"oAP": "\/public\/img\/brew2\/ColdBrew.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/public\/img\/brew2\/FrenchPress.png": {
+		"ft": 32768,
+		"iS": 17421,
+		"oA": 0,
+		"oAP": "\/public\/img\/brew2\/FrenchPress.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/public\/img\/brew2\/MochaPot.png": {
+		"ft": 32768,
+		"iS": 14991,
+		"oA": 0,
+		"oAP": "\/public\/img\/brew2\/MochaPot.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/public\/img\/brew2\/PourOver.png": {
+		"ft": 32768,
+		"iS": 12615,
+		"oA": 0,
+		"oAP": "\/public\/img\/brew2\/PourOver.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/public\/img\/brew2\/Siphon.png": {
+		"ft": 32768,
+		"iS": 13302,
+		"oA": 0,
+		"oAP": "\/public\/img\/brew2\/Siphon.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/public\/img\/brew2\/Turkish.png": {
+		"ft": 32768,
+		"iS": 15947,
+		"oA": 0,
+		"oAP": "\/public\/img\/brew2\/Turkish.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/public\/img\/brew2\/Vietnamese.png": {
+		"ft": 32768,
+		"iS": 12535,
+		"oA": 0,
+		"oAP": "\/public\/img\/brew2\/Vietnamese.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
@@ -1029,143 +1007,11 @@
 		"opt": 0,
 		"q": 100
 		},
-	"\/public\/img\/first\/AeroPress.png": {
-		"ft": 32768,
-		"iS": 12188,
-		"oA": 0,
-		"oAP": "\/public\/img\/first\/AeroPress.png",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"oT": 1,
-		"q": 100
-		},
-	"\/public\/img\/first\/Chemex.png": {
-		"ft": 32768,
-		"iS": 13218,
-		"oA": 0,
-		"oAP": "\/public\/img\/first\/Chemex.png",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"oT": 1,
-		"q": 100
-		},
-	"\/public\/img\/first\/ColdBrew.png": {
-		"ft": 32768,
-		"iS": 15740,
-		"oA": 0,
-		"oAP": "\/public\/img\/first\/ColdBrew.png",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"oT": 1,
-		"q": 100
-		},
-	"\/public\/img\/first\/FrenchPress.png": {
-		"ft": 32768,
-		"iS": 17421,
-		"oA": 0,
-		"oAP": "\/public\/img\/first\/FrenchPress.png",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"oT": 1,
-		"q": 100
-		},
-	"\/public\/img\/first\/MochaPot.png": {
-		"ft": 32768,
-		"iS": 14991,
-		"oA": 0,
-		"oAP": "\/public\/img\/first\/MochaPot.png",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"oT": 1,
-		"q": 100
-		},
-	"\/public\/img\/first\/PourOver.png": {
-		"ft": 32768,
-		"iS": 12615,
-		"oA": 0,
-		"oAP": "\/public\/img\/first\/PourOver.png",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"oT": 1,
-		"q": 100
-		},
-	"\/public\/img\/first\/Siphon.png": {
-		"ft": 32768,
-		"iS": 13302,
-		"oA": 0,
-		"oAP": "\/public\/img\/first\/Siphon.png",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"oT": 1,
-		"q": 100
-		},
-	"\/public\/img\/first\/Turkish.png": {
-		"ft": 32768,
-		"iS": 15947,
-		"oA": 0,
-		"oAP": "\/public\/img\/first\/Turkish.png",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"oT": 1,
-		"q": 100
-		},
-	"\/public\/img\/first\/Vietnamese.png": {
-		"ft": 32768,
-		"iS": 12535,
-		"oA": 0,
-		"oAP": "\/public\/img\/first\/Vietnamese.png",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"oT": 1,
-		"q": 100
-		},
 	"\/public\/img\/flavor\/FlavorReady.png": {
 		"ft": 32768,
 		"iS": 99064,
 		"oA": 0,
 		"oAP": "\/public\/img\/flavor\/FlavorReady.png",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"oT": 1,
-		"q": 100
-		},
-	"\/public\/img\/method\/PourOverAll.png": {
-		"ft": 32768,
-		"iS": 343680,
-		"oA": 0,
-		"oAP": "\/public\/img\/method\/PourOverAll.png",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"oT": 1,
-		"q": 100
-		},
-	"\/public\/img\/method\/PressureVacuum.png": {
-		"ft": 32768,
-		"iS": 292155,
-		"oA": 0,
-		"oAP": "\/public\/img\/method\/PressureVacuum.png",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"oT": 1,
-		"q": 100
-		},
-	"\/public\/img\/method\/Steeping.png": {
-		"ft": 32768,
-		"iS": 257253,
-		"oA": 0,
-		"oAP": "\/public\/img\/method\/Steeping.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
@@ -1257,26 +1103,6 @@
 		"oT": 1,
 		"q": 100
 		},
-	"\/public\/img\/svg\/AeroPress.svg": {
-		"ft": 2097152,
-		"miP": 0,
-		"oA": 2,
-		"oAP": "\/public\/img\/svg\/AeroPress.svg",
-		"oF": 0,
-		"opt": 0,
-		"plM": 3758088159,
-		"prP": 0
-		},
-	"\/public\/img\/svg\/AutoDrip.svg": {
-		"ft": 2097152,
-		"miP": 0,
-		"oA": 2,
-		"oAP": "\/public\/img\/svg\/AutoDrip.svg",
-		"oF": 0,
-		"opt": 0,
-		"plM": 3758088159,
-		"prP": 0
-		},
 	"\/public\/img\/wheel\/BfPpo1iCUAEpsmU.jpg": {
 		"ft": 16384,
 		"iS": 44270,
@@ -1352,26 +1178,6 @@
 		"iS": 144423,
 		"oA": 0,
 		"oAP": "\/public\/img\/wheel\/coffeeSpectrum_1000.jpg",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"q": 100
-		},
-	"\/public\/img\/wheel\/CoolNodes.jpg": {
-		"ft": 16384,
-		"iS": 103776,
-		"oA": 0,
-		"oAP": "\/public\/img\/wheel\/CoolNodes.jpg",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"q": 100
-		},
-	"\/public\/img\/wheel\/CoolWheel.jpeg": {
-		"ft": 16384,
-		"iS": 71401,
-		"oA": 0,
-		"oAP": "\/public\/img\/wheel\/CoolWheel.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,

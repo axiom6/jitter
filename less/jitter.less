@@ -1,37 +1,4 @@
 
-//@hue:270; @sat:  0; @lit:40%; @inc: 5%;
-//@hue:270; @sat:40%; @lit:30%; @inc:12%;
-//@hue:180; @sat:40%; @lit:30%; @inc:12%;
-//@hue:240; @sat:44%; @lit:69%; @inc: 5%;
-@hue:330; @sat:40%; @lit:40%; @inc:12%;
-@west:170px; @north:48px; @east:32px; @south:32px;
-
-@seed-color:hsl(@hue,@sat,@lit);                  // This color is used to generate the scheme
-@wheel_pos1:45; @wheel_pos2:315; @wheel_pos3:180; // Color wheel Accented analogue (default)
-
-@foreColor:wheat;
-
-body { color:@foreColor; }
-
-.node {  font: 18px sans-serif; }
-.link {  fill: none;  stroke: #ccc;  stroke-width: 1.5px; }
-.node circle {  fill: #fff;  stroke: steelblue;  stroke-width: 1.5px; }
-
-.node rect { cursor: move; fill-opacity: .9; shape-rendering: crispEdges; }
-
-//.node text { pointer-events: none; stroke:white;  } // text-shadow: 0 1px 0 #fff;
-
-//.link { fill:none;  stroke-opacity: 1; stroke:yellow; }
-//.link { stroke-opacity: 1; }
-
-.link:hover { stroke-opacity: .5; }
-
-// #EntitlementPracHexPath:hover { color:white; }
-
-@import "muse.less";
-@import "../css/font-awesome.css";
-
-
-
-
-
+@import   "layout.less"; // Depends on "color.less" and "gradient.less"
+@import   "tocs.less";   // Depends on "color.less" and "gradient.less" and "mixin.less"
+@import   "ui.less";

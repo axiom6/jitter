@@ -9,7 +9,9 @@ UI = (function() {
       this.page = page;
       callback = (data) => {
         this.spec = data;
-        //tocs  = new UI.Tocs( @, @stream, @spec )
+        if (UI.showTocs) {
+          this.tocs = new UI.Tocs(this, this.stream, this.spec);
+        }
         this.view = new UI.View(this, this.stream, this.spec);
         return this.ready(this.page, this.spec);
       };
@@ -21,14 +23,22 @@ UI = (function() {
       this.page = page;
       this.spec = spec;
       $('#' + Util.htmlId('App')).html(this.html());
-      //tocs.ready()
+      if (UI.showTocs) {
+        this.tocs.ready();
+      }
       this.view.ready();
       this.page.ready(this.view, this.spec);
     }
 
-    //   <div class="ikw-tocs tocs" id="#{@htmlId('Tocs')}"></div>
+    
     html() {
-      return `<div class="ikw-view"      id="${this.htmlId('View')}"></div>`;
+      var htm;
+      htm = "";
+      if (UI.showTocs) {
+        htm += `<div class="layout-tocs tocs" id="${this.htmlId('Tocs')}"></div>`;
+      }
+      htm += `<div class="layout-view" id="${this.htmlId('View')}"></div>`;
+      return htm;
     }
 
     show() {
@@ -154,6 +164,8 @@ UI = (function() {
     static publish() {}
 
   };
+
+  UI.showTocs = true;
 
   UI.$empty = $(); // Empty jQuery singleton for intialization
 

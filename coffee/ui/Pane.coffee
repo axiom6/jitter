@@ -4,19 +4,19 @@ class Pane
   UI.Pane = Pane
 
   constructor:( @ui, @stream, @view, @spec ) ->
-    @spec.pane = @
-    @cells     = @spec.cells
-    [j,m,i,n]  = UI.jmin(@cells)
+    @spec.pane   = @
+    @cells       = @spec.cells
+    [j,m,i,n]    = UI.jmin(@cells)
     [@left,@top,@width,@height] = @view.position(j,m,i,n,@spec)
-    @name      = @spec.name
-    @css       = if Util.isStr(@spec.css) then @spec.css else 'ikw-pane'
-    @$         = UI.$empty
-    @wscale    = @view.wscale
-    @hscale    = @view.hscale
-    @margin    = @view.margin
-    @speed     = @view.speed
-    @page      = null # set by UI.Page.ready()
-    @geo       = null # reset by geom() when pageContent() dispatches to page
+    @name        = @spec.name
+    @classPrefix = if Util.isStr(@spec.css) then @spec.css else 'ui-pane'
+    @$           = UI.$empty
+    @wscale      = @view.wscale
+    @hscale      = @view.hscale
+    @margin      = @view.margin
+    @speed       = @view.speed
+    @page        = null # set by UI.Page.ready()
+    @geo         = null # reset by geom() when pageContent() dispatches to page
 
   ready:() ->
     @htmlId = @ui.htmlId( @name, 'Pane' )
@@ -78,7 +78,7 @@ class Pane
     return
 
   createHtml:() ->
-    """<div id="#{@htmlId}" class="#{@css}"></div>"""
+    """<div id="#{@htmlId}" class="#{@classPrefix}"></div>"""
 
   reset:( select ) ->
     @$.css( { left:@xs(@left), top:@ys(@top), width:@xs(@width), height:@ys(@height) } )
