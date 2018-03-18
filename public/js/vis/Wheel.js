@@ -196,12 +196,8 @@
           return this.magnify(d, 'mouseover');
         }).on("mouseout", (d) => {
           return this.magnify(d, 'mouseout');
-        }).style("font-size", function(d) {
-          if (d.data.children != null) {
-            return '12pt';
-          } else {
-            return '9pt';
-          }
+        }).style("font-size", (t) => {
+          return this.fontSize(t);
         //style('fill',       (d) => if @brightness( d3.rgb( @fill(d.data) ) ) < 125 then '#eee' else '#000' )
         }).style('fill-opacity', 1).style('fill', '#000000').style('font-weight', 'bold').style("display", function(d) {
           if (d.data.hide) {
@@ -294,14 +290,14 @@
         }
       }
 
-      fontSize(t, d) {
-        if (this.sameNode(t, d) && (t.m0 != null)) {
-          return '15pt';
+      fontSize(t, d = null) {
+        if ((d != null) && this.sameNode(t, d) && (t.m0 != null)) {
+          return '2.2vmin';
         } else {
           if (t.children != null) {
-            return '12pt';
+            return '1.9vmin';
           } else {
-            return '9pt';
+            return '1.7vmin';
           }
         }
       }

@@ -114,7 +114,7 @@ class Wheel
       .on( "click",       (d) => @magnify( d, 'click'     ) )
       .on( "mouseover",   (d) => @magnify( d, 'mouseover' ) )
       .on( "mouseout",    (d) => @magnify( d, 'mouseout'  ) )
-      .style("font-size", (d) -> if d.data.children? then '12pt' else '9pt' )
+      .style("font-size", (t) => @fontSize( t ) )
       .style('fill-opacity', 1)
       #style('fill',       (d) => if @brightness( d3.rgb( @fill(d.data) ) ) < 125 then '#eee' else '#000' )
       .style('fill', '#000000' )
@@ -160,11 +160,11 @@ class Wheel
         .style( "display", (d) -> if d.data.hide then "none" else "block" )
     return
 
-  fontSize:( t, d ) =>
-    if @sameNode( t, d ) and t.m0?
-      '15pt'
+  fontSize:( t, d=null ) =>
+    if d? and @sameNode( t, d ) and t.m0?
+      '2.2vmin'
     else
-      if t.children? then '12pt' else '9pt'
+      if t.children? then '1.9vmin' else '1.7vmin'
 
   doChoice:( d, eventType, x0, y0, x1, y1 ) =>
     resize = 'none'

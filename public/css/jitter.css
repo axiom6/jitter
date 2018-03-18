@@ -276,6 +276,32 @@
   color: #f7edf2;
   border-radius: 8px;
 }
+.ui-pane .panel {
+  font-family: Roboto, sans-serif;
+}
+.ui-pane .label {
+  font-size: 3vmin;
+  color: white;
+  padding-top: 0.3vmin;
+}
+.ui-pane .image {
+  font-size: 2vmin;
+  color: white;
+}
+.ui-pane .texts {
+  font-size: 2vmin;
+  color: white;
+  line-height: 2vmin;
+}
+.ui-pane .branch {
+  font-size: 2vmin;
+  color: white;
+  line-height: 2.5vmin;
+}
+.ui-pane .txt {
+  font-size: 2vmin;
+  color: white;
+}
 /*
 .ui-pane-study-ul     { list-style:none; margin-left:0.1em;  line-height:1.2; margin-top:0; }
 .ui-pane-study-li     { }
