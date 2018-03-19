@@ -6,6 +6,13 @@
     "Drink":  { "name": "Drink"  },
     "Brew":   { "name": "Brew"   },
     "Aroma3": { "name": "Aroma"  } },
+  "Body": { "name":"Body", "cells":[1,4,19,18],"toc":false, "pane":true,
+    "Heavy":    { "name": "Heavy</br>Thick</br>Chewy",    "weight":"Thick",   "texture":"Chewy",  "iconx":"Body.jpg" },
+    "Deep":     { "name": "Deep</br>Coating</br>Full",    "weight":"Coating", "texture":"Full",   "iconx":"Body.jpg" },
+    "Syrupy":   { "name": "Syrupy</br>Creamy</br>Sticky", "weight":"Creamy",  "texture":"Sticky", "iconx":"Body.jpg" },
+    "Medium":   { "name": "Medium</br>Milky</br>Round",   "weight":"Milky",   "texture":"Round",  "iconx":"Body.jpg" },
+    "Tea.Like": { "name": "Tea.Like</br>Silky</br>Slick", "weight":"Silky",   "texture":"Slick",  "iconx":"Body.jpg" },
+    "Light":    { "name": "Light</br>Watery</br>Thin",    "weight":"Watery",  "texture":"Thin",   "iconx":"Body.jpg" } },
   "Coffee": { "name":"Coffee", "cells":[13,12,25,12], "toc":false },
   "Order" : { "name":"Order",  "cells":[25,12,25,12], "toc":false }
 }

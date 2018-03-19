@@ -282,7 +282,7 @@
 .ui-pane .label {
   font-size: 3vmin;
   color: white;
-  padding-top: 0.3vmin;
+  font-weight: bold;
 }
 .ui-pane .image {
   font-size: 2vmin;
@@ -296,7 +296,15 @@
 .ui-pane .branch {
   font-size: 2vmin;
   color: white;
-  line-height: 2.5vmin;
+  line-height: 3vmin;
+}
+.ui-pane .roast {
+  font-size: 2vmin;
+  color: white;
+  z-index: 2;
+}
+.ui-pane .roast:hover {
+  color: wheat;
 }
 .ui-pane .txt {
   font-size: 2vmin;

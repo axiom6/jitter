@@ -10,20 +10,20 @@
       overview(pane, spec) {
         var $e, src;
         src = "img/body/Body.jpg";
-        $e = $(`<div ${Jitter.rel(0, 0, 100, 100)}></div>`);
-        $e.append(`<h1 ${Jitter.abs(0, 0, 100, 10)}>${spec.name}</h1>`);
-        $e.append(`  ${Jitter.abi(0, 10, 100, 90, src, 150)}`);
+        $e = $(`<div ${Jitter.panel(0, 0, 100, 100)}></div>`);
+        $e.append(`<h1 ${Jitter.label(0, 0, 100, 10)}>${spec.name}</h1>`);
+        $e.append(`  ${Jitter.image(0, 10, 100, 90, src, 150)}`);
         pane.$.append($e);
       }
 
       ready(pane, spec) {
-        Jitter.vert(pane, spec, 'img/body/', 0.75, 0, 15);
+        Jitter.vert(pane, spec, 'img/body/', 0.75, 0, 18);
       }
 
       create(pane, spec) {
         var $e, array, i, j, k, len, len1, ref, ref1, where, x, y;
-        $e = $(`<div   ${Jitter.rel(0, 0, 100, 100)}></div>`);
-        $e.append(`<h1 ${Jitter.abs(0, 0, 100, 10)}>${spec.name}</h1>`);
+        $e = $(`<div   ${Jitter.panel(0, 0, 100, 100)}></div>`);
+        $e.append(`<h1 ${Jitter.label(0, 0, 100, 10)}>${spec.name}</h1>`);
         where = function(key) {
           return UI.isChild(key);
         };
@@ -35,7 +35,7 @@
           ref1 = [0, 33, 66];
           for (k = 0, len1 = ref1.length; k < len1; k++) {
             x = ref1[k];
-            $e.append(`<div ${Jitter.abs(x, y, 33, 45)}>\n  <h3>${array[i].name}</h3>\n</div>`);
+            $e.append(`<div ${Jitter.image(x, y, 33, 45)}>\n  <h3>${array[i].name}</h3>\n</div>`);
             i = i + 1;
           }
         }

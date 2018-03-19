@@ -22,7 +22,7 @@
         this.pane = pane;
         this.spec = spec;
         pane.$.append(`<div ${Jitter.panel(0, 0, 100, 100)}></div>`);
-        pane.$.append(`<h2  ${Jitter.label(0, 0, 100, 10)}>${spec.name}</h2>`);
+        pane.$.append(`<div ${Jitter.label(0, 2, 100, 10)}>${spec.name}</div>`);
         $tree = $(`<div ${Jitter.label(0, 7, 100, 87)}></div>`);
         url = "json/aroma3.json";
         callback = (data) => {

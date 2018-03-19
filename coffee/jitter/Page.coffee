@@ -5,6 +5,7 @@ class Page
 
   constructor:( @stream ) ->
     @view    = null # Set by ready()
+    @logo    = new Jitter.Logo(    @stream )
     @flavor  = new Jitter.Flavor(  @stream )
     @choices = new Jitter.Choices( @stream )
     @roast   = new Jitter.Roast(   @stream )
@@ -58,6 +59,7 @@ class Page
     pane.page = @
     pane.$.empty()
     switch pane.name
+      when "Logo"    then    @logo.overview( pane, spec )
       when "Flavor"  then  @flavor.overview( pane, spec )
       when "Choices" then @choices.overview( pane, spec )
       when "Roast"   then   @roast.overview( pane, spec )
@@ -74,6 +76,7 @@ class Page
     pane.page = @
     pane.$.empty()
     switch pane.name
+      when "Logo"    then    @logo.ready( pane, spec )
       when "Flavor"  then  @flavor.ready( pane, spec )
       when "Choices" then @choices.ready( pane, spec )
       when "Roast"   then   @roast.ready( pane, spec )
@@ -89,6 +92,7 @@ class Page
   createContent:( pane, spec, study=null ) ->
     pane.$.empty()
     switch pane.name
+      when "Logo"    then    @logo.create( pane, spec )
       when "Flavor"  then  @flavor.create( pane, spec, study )
       when "Choices" then @choices.create( pane, spec )
       when "Roast"   then   @roast.create( pane, spec )

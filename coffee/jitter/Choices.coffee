@@ -11,7 +11,7 @@ class Choices
 
   ready:(    pane, spec ) ->
     @spec = spec
-    Jitter.tree( pane, spec, 6, 10 )
+    Jitter.tree( pane, spec, 6, 13 )
     @subscribe()
     return
 

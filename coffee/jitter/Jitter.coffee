@@ -20,15 +20,15 @@ class Jitter
   @panel:( x, y, w, h, align="center" ) ->
     """class="panel" style="position:relative; left:#{x}%; top:#{y}%; width:#{w}%; height:#{h}%; text-align:#{align};" """
 
-  @label:( x, y, w, h ) ->
-    """class="label" style="position:absolute; left:#{x}%; top:#{y}%; width:#{w}%; height:#{h}%; text-align:center;" """
+  @label:( x, y, w, h, klass="label" ) ->
+    """class="#{klass}" style="position:absolute; left:#{x}%; top:#{y}%; width:#{w}%; height:#{h}%; text-align:center;" """
 
-  @image:( x, y, w, h, src, mh, label="" ) ->
+  @image:( x, y, w, h, src, mh, label="", radius="6px" ) ->
     klass  = if src? then "image"            else "texts"
-    tstyle = if src? then "padding-top:3px;" else ""
+    tstyle = if src? then "padding-top:3px;" else ""                # max-width:#{mh*4}vmin;
     htm  = """<div class="#{klass}" style="position:absolute; left:#{x}%; top:#{y}%; width:#{w}%; height:#{h}%; display:table;">"""
     htm += """<div style="display:table-cell; vertical-align:middle;">"""
-    htm += """<img style="display:block; margin-left:auto; margin-right:auto; max-height:#{mh}vmin;" src="#{src}"/>""" if src?
+    htm += """<img style="display:block; margin-left:auto; margin-right:auto; max-height:#{mh}vmin; border-radius:#{radius};" src="#{src}"/>""" if src?
     htm += """<div style="#{tstyle}">#{label}</div>"""  if Util.isStr(label)
     htm += """</div></div>"""
     htm
@@ -87,8 +87,8 @@ class Jitter
     return
 
   @vert:( pane, spec, imgDir, hpc=1.00, x0=0, y0=0, align="center" ) ->
-    $p = $( """<div   #{Jitter.panel(0,0,100,100,align)}></div>""" )
-    $p.append( """<h2 #{Jitter.label(0,0,100, 10)}>#{spec.name}</h2>""" )
+    $p = $( """<div    #{Jitter.panel(0,0,100,100,align)}></div>""" )
+    $p.append( """<div #{Jitter.label(0,3,100, 10)}>#{spec.name}</div>""" )
     n  =  Util.lenObject( spec, UI.isChild )
     x  = x0
     y  = y0
@@ -103,8 +103,8 @@ class Jitter
     return
 
   @tree:( pane, spec, x0=0, y0=0 ) ->
-    $p = $( """<div   #{Jitter.panel(0,0,100,100,"left")}></div>""" )
-    $p.append( """<h2 #{Jitter.label(0,0,100, 10)}>#{spec.name}</h2>""" )
+    $p = $( """<div    #{Jitter.panel(0,0,100,100,"left")}></div>""" )
+    $p.append( """<div #{Jitter.label(0,3,100, 10)}>#{spec.name}</div>""" )
     n  =  Util.lenObject( spec, UI.isChild )
     x  = x0
     y  = y0

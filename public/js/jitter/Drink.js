@@ -17,13 +17,13 @@
       }
 
       ready(pane, spec) {
-        Jitter.vert(pane, spec, 'img/drink/', 0.75, 0, 15);
+        Jitter.vert(pane, spec, 'img/drink/', 0.75, 0, 18);
       }
 
       create(pane, spec) {
         var $e, array, i, j, k, len, len1, ref, ref1, where, x, y;
-        $e = $(`<div   ${Jitter.rel(0, 0, 100, 100)}></div>`);
-        $e.append(`<h1 ${Jitter.abs(0, 0, 100, 10)}>${spec.name}</h1>`);
+        $e = $(`<div    ${Jitter.rel(0, 0, 100, 100)}></div>`);
+        $e.append(`<div ${Jitter.abs(0, 0, 100, 10)}>${spec.name}</div>`);
         where = function(key) {
           return UI.isChild(key);
         };

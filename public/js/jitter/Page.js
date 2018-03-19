@@ -6,6 +6,7 @@
       constructor(stream) {
         this.stream = stream;
         this.view = null; // Set by ready()
+        this.logo = new Jitter.Logo(this.stream);
         this.flavor = new Jitter.Flavor(this.stream);
         this.choices = new Jitter.Choices(this.stream);
         this.roast = new Jitter.Roast(this.stream);
@@ -93,6 +94,9 @@
         pane.page = this;
         pane.$.empty();
         switch (pane.name) {
+          case "Logo":
+            this.logo.overview(pane, spec);
+            break;
           case "Flavor":
             this.flavor.overview(pane, spec);
             break;
@@ -129,6 +133,9 @@
         pane.page = this;
         pane.$.empty();
         switch (pane.name) {
+          case "Logo":
+            this.logo.ready(pane, spec);
+            break;
           case "Flavor":
             this.flavor.ready(pane, spec);
             break;
@@ -164,6 +171,9 @@
       createContent(pane, spec, study = null) {
         pane.$.empty();
         switch (pane.name) {
+          case "Logo":
+            this.logo.create(pane, spec);
+            break;
           case "Flavor":
             this.flavor.create(pane, spec, study);
             break;

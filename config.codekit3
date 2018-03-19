@@ -117,6 +117,17 @@
 		"sC": 0,
 		"tS": 0
 		},
+	"\/coffee\/jitter\/Logo.coffee": {
+		"ft": 32,
+		"ma": 0,
+		"mi": 0,
+		"oA": 0,
+		"oAP": "\/public\/js\/jitter\/Logo.js",
+		"oF": 0,
+		"oS": 0,
+		"sC": 0,
+		"tS": 0
+		},
 	"\/coffee\/jitter\/Order.coffee": {
 		"ft": 32,
 		"ma": 0,
@@ -329,6 +340,210 @@
 		"sC": 3,
 		"tS": 0
 		},
+	"\/doc\/brew1\/AeroPress.png": {
+		"ft": 32768,
+		"iS": 17000,
+		"oA": 0,
+		"oAP": "\/doc\/brew1\/AeroPress.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/doc\/brew1\/AeroPress.svg": {
+		"ft": 2097152,
+		"miP": 0,
+		"oA": 2,
+		"oAP": "\/doc\/brew1\/AeroPress.svg",
+		"oF": 0,
+		"opt": 0,
+		"plM": 3758088159,
+		"prP": 0
+		},
+	"\/doc\/brew1\/AutoDrip.jpg": {
+		"ft": 16384,
+		"iS": 5847,
+		"oA": 0,
+		"oAP": "\/doc\/brew1\/AutoDrip.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/doc\/brew1\/AutoDrip.png": {
+		"ft": 32768,
+		"iS": 19933,
+		"oA": 0,
+		"oAP": "\/doc\/brew1\/AutoDrip.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/doc\/brew1\/AutoDrip.svg": {
+		"ft": 2097152,
+		"miP": 0,
+		"oA": 2,
+		"oAP": "\/doc\/brew1\/AutoDrip.svg",
+		"oF": 0,
+		"opt": 0,
+		"plM": 3758088159,
+		"prP": 0
+		},
+	"\/doc\/brew1\/BrewMethods.jpg": {
+		"ft": 16384,
+		"iS": 56471,
+		"oA": 0,
+		"oAP": "\/doc\/brew1\/BrewMethods.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/doc\/brew1\/Chemex.png": {
+		"ft": 32768,
+		"iS": 13218,
+		"oA": 0,
+		"oAP": "\/doc\/brew1\/Chemex.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/doc\/brew1\/ColdBrew.png": {
+		"ft": 32768,
+		"iS": 17723,
+		"oA": 0,
+		"oAP": "\/doc\/brew1\/ColdBrew.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/doc\/brew1\/Expresso.jpg": {
+		"ft": 16384,
+		"iS": 8049,
+		"oA": 0,
+		"oAP": "\/doc\/brew1\/Expresso.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/doc\/brew1\/Expresso.png": {
+		"ft": 32768,
+		"iS": 15893,
+		"oA": 0,
+		"oAP": "\/doc\/brew1\/Expresso.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/doc\/brew1\/FrenchPress.png": {
+		"ft": 32768,
+		"iS": 16950,
+		"oA": 0,
+		"oAP": "\/doc\/brew1\/FrenchPress.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/doc\/brew1\/MochaPot.png": {
+		"ft": 32768,
+		"iS": 14991,
+		"oA": 0,
+		"oAP": "\/doc\/brew1\/MochaPot.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/doc\/brew1\/PourOver.png": {
+		"ft": 32768,
+		"iS": 20945,
+		"oA": 0,
+		"oAP": "\/doc\/brew1\/PourOver.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/doc\/brew1\/PourOverAll.png": {
+		"ft": 32768,
+		"iS": 343680,
+		"oA": 0,
+		"oAP": "\/doc\/brew1\/PourOverAll.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/doc\/brew1\/PressureVacuum.png": {
+		"ft": 32768,
+		"iS": 292155,
+		"oA": 0,
+		"oAP": "\/doc\/brew1\/PressureVacuum.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/doc\/brew1\/Steeping.png": {
+		"ft": 32768,
+		"iS": 257253,
+		"oA": 0,
+		"oAP": "\/doc\/brew1\/Steeping.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/doc\/brew1\/SyphonPot.png": {
+		"ft": 32768,
+		"iS": 19558,
+		"oA": 0,
+		"oAP": "\/doc\/brew1\/SyphonPot.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/doc\/brew1\/Turkish.png": {
+		"ft": 32768,
+		"iS": 15947,
+		"oA": 0,
+		"oAP": "\/doc\/brew1\/Turkish.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/doc\/brew1\/Vietnamese.png": {
+		"ft": 32768,
+		"iS": 12535,
+		"oA": 0,
+		"oAP": "\/doc\/brew1\/Vietnamese.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
 	"\/doc\/wheel\/JitterDoneRight.png": {
 		"ft": 32768,
 		"iS": 397929,
@@ -349,6 +564,16 @@
 		"oF": 0,
 		"oS": 0,
 		"sC": 0,
+		"tS": 0
+		},
+	"\/doc\/wheel\/Wheel1.js": {
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/doc\/wheel\/Wheel1-min.js",
+		"oF": 0,
+		"sC": 3,
 		"tS": 0
 		},
 	"\/doc\/wheel\/WheelColor.coffee": {
@@ -768,265 +993,74 @@
 		"opt": 0,
 		"q": 100
 		},
-	"\/public\/img\/brew\/AeroPress.png": {
-		"ft": 32768,
-		"iS": 12188,
-		"oA": 0,
-		"oAP": "\/public\/img\/brew\/AeroPress.png",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"oT": 1,
-		"q": 100
-		},
-	"\/public\/img\/brew\/AeroPress.svg": {
-		"ft": 2097152,
-		"miP": 0,
-		"oA": 2,
-		"oAP": "\/public\/img\/brew\/AeroPress.svg",
-		"oF": 0,
-		"opt": 0,
-		"plM": 3758088159,
-		"prP": 0
-		},
-	"\/public\/img\/brew\/AutoDrip.png": {
-		"ft": 32768,
-		"iS": 9291,
-		"oA": 0,
-		"oAP": "\/public\/img\/brew\/AutoDrip.png",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"oT": 1,
-		"q": 100
-		},
-	"\/public\/img\/brew\/AutoDrip.svg": {
-		"ft": 2097152,
-		"miP": 0,
-		"oA": 2,
-		"oAP": "\/public\/img\/brew\/AutoDrip.svg",
-		"oF": 0,
-		"opt": 0,
-		"plM": 3758088159,
-		"prP": 0
-		},
-	"\/public\/img\/brew\/BrewMethods.jpg": {
+	"\/public\/img\/brew\/AeroPress.jpg": {
 		"ft": 16384,
-		"iS": 56471,
+		"iS": 6539,
 		"oA": 0,
-		"oAP": "\/public\/img\/brew\/BrewMethods.jpg",
+		"oAP": "\/public\/img\/brew\/AeroPress.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
 		},
-	"\/public\/img\/brew\/Chemex.png": {
-		"ft": 32768,
-		"iS": 13218,
+	"\/public\/img\/brew\/AutoDrip.jpg": {
+		"ft": 16384,
+		"iS": 59936,
 		"oA": 0,
-		"oAP": "\/public\/img\/brew\/Chemex.png",
+		"oAP": "\/public\/img\/brew\/AutoDrip.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
-		"oT": 1,
 		"q": 100
 		},
-	"\/public\/img\/brew\/ColdBrew.png": {
-		"ft": 32768,
-		"iS": 15740,
+	"\/public\/img\/brew\/ColdBrew.jpg": {
+		"ft": 16384,
+		"iS": 5429,
 		"oA": 0,
-		"oAP": "\/public\/img\/brew\/ColdBrew.png",
+		"oAP": "\/public\/img\/brew\/ColdBrew.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
-		"oT": 1,
 		"q": 100
 		},
-	"\/public\/img\/brew\/Expresso.png": {
-		"ft": 32768,
-		"iS": 8587,
+	"\/public\/img\/brew\/Expresso.jpg": {
+		"ft": 16384,
+		"iS": 62811,
 		"oA": 0,
-		"oAP": "\/public\/img\/brew\/Expresso.png",
+		"oAP": "\/public\/img\/brew\/Expresso.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
-		"oT": 1,
 		"q": 100
 		},
-	"\/public\/img\/brew\/FrenchPress.png": {
-		"ft": 32768,
-		"iS": 17421,
+	"\/public\/img\/brew\/FrenchPress.jpg": {
+		"ft": 16384,
+		"iS": 5660,
 		"oA": 0,
-		"oAP": "\/public\/img\/brew\/FrenchPress.png",
+		"oAP": "\/public\/img\/brew\/FrenchPress.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
-		"oT": 1,
 		"q": 100
 		},
-	"\/public\/img\/brew\/MochaPot.png": {
-		"ft": 32768,
-		"iS": 14991,
+	"\/public\/img\/brew\/PourOver.jpg": {
+		"ft": 16384,
+		"iS": 4467,
 		"oA": 0,
-		"oAP": "\/public\/img\/brew\/MochaPot.png",
+		"oAP": "\/public\/img\/brew\/PourOver.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
-		"oT": 1,
 		"q": 100
 		},
-	"\/public\/img\/brew\/PourOver.png": {
-		"ft": 32768,
-		"iS": 12615,
+	"\/public\/img\/brew\/SyphonPot.jpg": {
+		"ft": 16384,
+		"iS": 5357,
 		"oA": 0,
-		"oAP": "\/public\/img\/brew\/PourOver.png",
+		"oAP": "\/public\/img\/brew\/SyphonPot.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
-		"oT": 1,
-		"q": 100
-		},
-	"\/public\/img\/brew\/SyphonPot.png": {
-		"ft": 32768,
-		"iS": 13302,
-		"oA": 0,
-		"oAP": "\/public\/img\/brew\/SyphonPot.png",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"oT": 1,
-		"q": 100
-		},
-	"\/public\/img\/brew\/Turkish.png": {
-		"ft": 32768,
-		"iS": 15947,
-		"oA": 0,
-		"oAP": "\/public\/img\/brew\/Turkish.png",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"oT": 1,
-		"q": 100
-		},
-	"\/public\/img\/brew\/Vietnamese.png": {
-		"ft": 32768,
-		"iS": 12535,
-		"oA": 0,
-		"oAP": "\/public\/img\/brew\/Vietnamese.png",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"oT": 1,
-		"q": 100
-		},
-	"\/public\/img\/brew1\/AeroPress.png": {
-		"ft": 32768,
-		"iS": 17000,
-		"oA": 0,
-		"oAP": "\/public\/img\/brew1\/AeroPress.png",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"oT": 1,
-		"q": 100
-		},
-	"\/public\/img\/brew1\/AutoDrip.png": {
-		"ft": 32768,
-		"iS": 19933,
-		"oA": 0,
-		"oAP": "\/public\/img\/brew1\/AutoDrip.png",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"oT": 1,
-		"q": 100
-		},
-	"\/public\/img\/brew1\/ColdBrew.png": {
-		"ft": 32768,
-		"iS": 17723,
-		"oA": 0,
-		"oAP": "\/public\/img\/brew1\/ColdBrew.png",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"oT": 1,
-		"q": 100
-		},
-	"\/public\/img\/brew1\/Expresso.png": {
-		"ft": 32768,
-		"iS": 15893,
-		"oA": 0,
-		"oAP": "\/public\/img\/brew1\/Expresso.png",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"oT": 1,
-		"q": 100
-		},
-	"\/public\/img\/brew1\/FrenchPress.png": {
-		"ft": 32768,
-		"iS": 16950,
-		"oA": 0,
-		"oAP": "\/public\/img\/brew1\/FrenchPress.png",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"oT": 1,
-		"q": 100
-		},
-	"\/public\/img\/brew1\/PourOver.png": {
-		"ft": 32768,
-		"iS": 20945,
-		"oA": 0,
-		"oAP": "\/public\/img\/brew1\/PourOver.png",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"oT": 1,
-		"q": 100
-		},
-	"\/public\/img\/brew1\/PourOverAll.png": {
-		"ft": 32768,
-		"iS": 343680,
-		"oA": 0,
-		"oAP": "\/public\/img\/brew1\/PourOverAll.png",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"oT": 1,
-		"q": 100
-		},
-	"\/public\/img\/brew1\/PressureVacuum.png": {
-		"ft": 32768,
-		"iS": 292155,
-		"oA": 0,
-		"oAP": "\/public\/img\/brew1\/PressureVacuum.png",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"oT": 1,
-		"q": 100
-		},
-	"\/public\/img\/brew1\/Steeping.png": {
-		"ft": 32768,
-		"iS": 257253,
-		"oA": 0,
-		"oAP": "\/public\/img\/brew1\/Steeping.png",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"oT": 1,
-		"q": 100
-		},
-	"\/public\/img\/brew1\/SyphonPot.png": {
-		"ft": 32768,
-		"iS": 19558,
-		"oA": 0,
-		"oAP": "\/public\/img\/brew1\/SyphonPot.png",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"oT": 1,
 		"q": 100
 		},
 	"\/public\/img\/drink\/Black.jpg": {
@@ -1074,6 +1108,28 @@
 		"iS": 99064,
 		"oA": 0,
 		"oAP": "\/public\/img\/flavor\/FlavorReady.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/public\/img\/logo\/JitterBoxLogo.png": {
+		"ft": 32768,
+		"iS": 138275,
+		"oA": 0,
+		"oAP": "\/public\/img\/logo\/JitterBoxLogo.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/public\/img\/logo\/JitterBoxRx.png": {
+		"ft": 32768,
+		"iS": 97480,
+		"oA": 0,
+		"oAP": "\/public\/img\/logo\/JitterBoxRx.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
@@ -1159,6 +1215,27 @@
 		"iS": 89054,
 		"oA": 0,
 		"oAP": "\/public\/img\/roast\/MediumLight.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/public\/img\/roast\/Roasts.jpg": {
+		"ft": 16384,
+		"iS": 6398,
+		"oA": 0,
+		"oAP": "\/public\/img\/roast\/Roasts.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/public\/img\/roast\/RoastsBig.png": {
+		"ft": 32768,
+		"iS": 1359694,
+		"oA": 0,
+		"oAP": "\/public\/img\/roast\/RoastsBig.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
@@ -1381,6 +1458,16 @@
 		"sC": 3,
 		"tS": 0
 		},
+	"\/public\/js\/jitter\/Logo.js": {
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/public\/js\/jitter\/Logo-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
 	"\/public\/js\/jitter\/Order.js": {
 		"ft": 64,
 		"ma": 0,
@@ -1547,16 +1634,6 @@
 		"mi": 1,
 		"oA": 0,
 		"oAP": "\/public\/js\/vis\/Wheel-min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 0
-		},
-	"\/public\/js\/vis\/Wheel1.js": {
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "\/public\/js\/vis\/Wheel1-min.js",
 		"oF": 0,
 		"sC": 3,
 		"tS": 0

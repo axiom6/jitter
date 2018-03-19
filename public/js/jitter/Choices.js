@@ -14,7 +14,7 @@
 
       ready(pane, spec) {
         this.spec = spec;
-        Jitter.tree(pane, spec, 6, 10);
+        Jitter.tree(pane, spec, 6, 13);
         this.subscribe();
       }
 
