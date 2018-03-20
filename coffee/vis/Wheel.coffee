@@ -7,15 +7,27 @@ class Wheel
     @numChoices = 0
     @maxChoices = 4
 
-
   create:(  pane, spec, data ) ->
 
     @spec = spec
     Util.noop( pane, data )
 
+  resize:() ->
+    w  = @pane.geo.w
+    h  = @pane.geo.h
+    sx = w  / @width
+    sy = h  / @height
+    sc = Math.min( sx, sy )
+    xc = w/2
+    yc = h/2
+    @svg.attr( "width", w ).attr( "height", h )
+    @g.transition().attr("transform", """translate(#{xc},#{yc}) scale(#{sc})""" )
+    return
+
   ready:( pane, spec, divId, url, scale=1.0 ) ->
 
     @spec   = spec
+    @pane   = pane
     @url    = url
     @width  = pane.geo.w
     @height = pane.geo.h
@@ -23,15 +35,25 @@ class Wheel
     @xx     = d3.scaleLinear().range([ 0, 2*Math.PI ] )
     @yy     = d3.scalePow().exponent(1.3).domain([0, 1]).range([0, @radius]) # 1.3
     @formatNumber = d3.format(",d")
-    @padding = 5
+    @padding = 0
     @duration = 300
-    @div = d3.select('#' + divId )
+    @div  = d3.select( '#' + divId )
+    @$div = $(         '#' + divId )
 
-    @vis = @div.append("svg")
-      .attr("width",  @width  + @padding * 2 )
-      .attr("height", @height + @padding * 2 )
-      .append("g")
-      .attr("transform", "translate(" + [ @width/2+@padding, @height/2+@padding] + ")")
+    w  = @width
+    h  = @height
+    xc = @width/2
+    yc = @height/2
+    @svg = @div.append("svg")
+      .attr("width",   w )
+      .attr("height",  h )
+    @g = @svg.append("g")
+      .attr("transform", """translate(#{xc},#{yc}) scale(1,1)""")
+    @g.append("text").text("Flavor")
+      .attr( 'x', -32 )
+      .attr( 'y',  12 )
+      .style('fill', 'white' )
+      .style("font-size", "3vmin" )
 
     @partition = d3.partition()
 
@@ -47,7 +69,7 @@ class Wheel
       @root.sum(  (d) -> ( d.chosen = false; d.hide = not d.children?; if d.children? then 0 else 1 ) )
 
       @nodes = @partition(@root).descendants()
-      @path  = @vis.selectAll("path")
+      @path  = @g.selectAll("path")
         .data( @nodes )
         .enter().append("path")
         .attr( "id", (d, i) -> ( if d? then "path-" + i else "path-" + i ) )
@@ -95,8 +117,6 @@ class Wheel
 
     if d.fill?
       d.fill
-    else if d.colour
-      d.colour
     else if d.children
       colours = d.children.map(@fill)
       a = d3.hsl(colours[0])
@@ -108,7 +128,7 @@ class Wheel
 
   doText:( nodes ) =>
 
-    @text = @vis.selectAll('text').data(nodes)
+    @text = @g.selectAll('text').data(nodes)
 
     @textEnter = @text.enter().append('text')
       .on( "click",       (d) => @magnify( d, 'click'     ) )
@@ -134,7 +154,7 @@ class Wheel
 
   magnify:( d, eventType ) =>
     
-    if d.data?.can?
+    if d.data['can']?
       #console.log( 'magnify', d.data.name )
       y0 = d.y0
       y1 = d.y0 + (d.y1-d.y0) * 1.3
@@ -145,13 +165,13 @@ class Wheel
       d.children.forEach( (child) =>
         child?.data.hide = not ( d.chosen or eventType is 'mouseover' )
         @resizeElem( child, resize, child?.x0, y0, child?.x1, y1 ) )
-      @vis.selectAll('path').data( @nodes )
+      @g.selectAll('path').data( @nodes )
         .filter( (e) => @inBranch( d, e ) )
         .transition()
         .duration(@duration)
         .style( "display", (d) -> if d.data.hide then "none" else "block" )
         .attr(  "d", @arc )
-      @vis.selectAll('text').data( @nodes )
+      @g.selectAll('text').data( @nodes )
         .filter( (e) => @inBranch( d, e ) )
         .transition()
         .duration(@duration)
@@ -165,6 +185,12 @@ class Wheel
       '2.2vmin'
     else
       if t.children? then '1.9vmin' else '1.7vmin'
+
+  fontSizePt:( t, d=null ) =>
+    if d? and @sameNode( t, d ) and t.m0?
+      '16pt'
+    else
+      if t.children? then '14pt' else '12pt'
 
   doChoice:( d, eventType, x0, y0, x1, y1 ) =>
     resize = 'none'
@@ -213,7 +239,7 @@ class Wheel
     'rotate(' + rotate + ')translate(' + @yy(@y0(d)) + @padding + ')rotate(' + (if angle > 90 then -180 else 0) + ')'
 
   zoomTween:( d ) =>
-    @vis.transition()
+    @svg.transition()
       .duration(@duration)
       .tween( "scale", () =>
         xd = d3.interpolate( @xx.domain(), [ @x0(d), @x1(d)] )

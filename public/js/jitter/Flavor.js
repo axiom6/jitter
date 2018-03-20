@@ -27,14 +27,13 @@
         scale = study != null ? study.scale : 1.25;
         divId = Util.getHtmlId("Wheel", name);
         pane.$.append(`<div ${Jitter.panel(0, 0, 100, 100)} id="${divId}"></div>`);
-        pane.$.append(`<div ${Jitter.label(41, 49, 20, 10)}>Flavor</div>`);
         this.wheel.ready(pane, spec, divId, url, scale);
         window.addEventListener("resize", this.resize);
       }
 
       resize() {
         this.pane.geo = this.pane.geom();
-        return this.ready(this.pane, this.spec, this.study);
+        return this.wheel.resize();
       }
 
       create(pane, spec) {

@@ -271,17 +271,6 @@
 		"sC": 1,
 		"tS": 0
 		},
-	"\/coffee\/vis\/Wheel1.coffee": {
-		"ft": 32,
-		"ma": 0,
-		"mi": 0,
-		"oA": 0,
-		"oAP": "\/public\/js\/vis\/Wheel1.js",
-		"oF": 0,
-		"oS": 0,
-		"sC": 0,
-		"tS": 0
-		},
 	"\/doc\/aaa\/firebase.html": {
 		"cB": 0,
 		"ft": 8192,
@@ -544,6 +533,68 @@
 		"oT": 1,
 		"q": 100
 		},
+	"\/doc\/img\/CoffeeColors.jpg": {
+		"ft": 16384,
+		"iS": 144190,
+		"oA": 0,
+		"oAP": "\/doc\/img\/CoffeeColors.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/doc\/img\/logo - 2018 - RX - BnW.png": {
+		"ft": 32768,
+		"iS": 24087,
+		"oA": 0,
+		"oAP": "\/doc\/img\/logo - 2018 - RX - BnW.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/doc\/img\/Logo - 2018 Full - BnW.png": {
+		"ft": 32768,
+		"iS": 19603,
+		"oA": 0,
+		"oAP": "\/doc\/img\/Logo - 2018 Full - BnW.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/doc\/img\/RoastsAll.jpg": {
+		"ft": 16384,
+		"iS": 11172,
+		"oA": 0,
+		"oAP": "\/doc\/img\/RoastsAll.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/doc\/img\/RoastsBig copy.jpg": {
+		"ft": 16384,
+		"iS": 374286,
+		"oA": 0,
+		"oAP": "\/doc\/img\/RoastsBig copy.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/doc\/img\/RoastsBig.jpg": {
+		"ft": 16384,
+		"iS": 142724,
+		"oA": 0,
+		"oAP": "\/doc\/img\/RoastsBig.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
 	"\/doc\/wheel\/JitterDoneRight.png": {
 		"ft": 32768,
 		"iS": 397929,
@@ -561,6 +612,17 @@
 		"mi": 0,
 		"oA": 0,
 		"oAP": "\/doc\/wheel\/Radar.js",
+		"oF": 0,
+		"oS": 0,
+		"sC": 0,
+		"tS": 0
+		},
+	"\/doc\/wheel\/Wheel1.coffee": {
+		"ft": 32,
+		"ma": 0,
+		"mi": 0,
+		"oA": 0,
+		"oAP": "\/doc\/wheel\/Wheel1.js",
 		"oF": 0,
 		"oS": 0,
 		"sC": 0,

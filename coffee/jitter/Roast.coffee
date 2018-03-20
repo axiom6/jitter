@@ -18,7 +18,7 @@ class Roast
     src = "img/roast/RoastsBig.png"
     pane.$.append( """<div   #{Jitter.panel( 0, 0,100,100)}></div>""" )
     pane.$.append(  """<div #{Jitter.label( 3,42, 10, 16)}>#{spec.name}</div>""" )
-    $i = $("""#{@image(16, 8, 75, 78,src,12,"")}"""  )
+    $i = $("""#{@image( 16, 8, 75, 78, src, 15 ) }"""  )
     $i.append("""<div #{Jitter.label( 3,82,16, 10,"roast")}>Light</div>""")
     $i.append("""<div #{Jitter.label(24,82,16, 10,"roast")}>Medium Light</div>""")
     $i.append("""<div #{Jitter.label(42,82,16, 10,"roast")}>Medium</div>""")
@@ -47,7 +47,7 @@ class Roast
     klass  = if src? then "image"            else "texts"
     htm  = """<div class="#{klass}" style="position:absolute; left:#{x}%; top:#{y}%; width:#{w}%; height:#{h}%; display:table;">"""
     htm += """<div style="display:table-cell; vertical-align:middle;">"""
-    htm += """<img style="display:block; margin-left:auto; margin-right:auto;  width:100%; border-radius:24px;" src="#{src}"/>""" if src?
+    htm += """<img style="display:block; margin-left:auto; margin-right:auto;  width:100%; max-height:#{mh}vmin; border-radius:24px;" src="#{src}"/>""" if src?
     htm
 
   create:( pane, spec ) ->

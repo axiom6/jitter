@@ -4,9 +4,10 @@ class Page
   Jitter.Page = Page
 
   constructor:( @stream ) ->
+    Jitter.page = @
     @view    = null # Set by ready()
-    @logo    = new Jitter.Logo(    @stream )
     @flavor  = new Jitter.Flavor(  @stream )
+    @logo    = new Jitter.Logo(    @stream )
     @choices = new Jitter.Choices( @stream )
     @roast   = new Jitter.Roast(   @stream )
     @drink   = new Jitter.Drink(   @stream )

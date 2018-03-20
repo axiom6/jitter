@@ -216,6 +216,9 @@
   bottom: 6px;
   width: 14px;
 }
+html {
+  overflow: hidden;
+}
 .ui-font {
   font-family: Arial, Helvetica, sans-serif;
 }

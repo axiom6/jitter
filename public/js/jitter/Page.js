@@ -5,9 +5,10 @@
     class Page {
       constructor(stream) {
         this.stream = stream;
+        Jitter.page = this;
         this.view = null; // Set by ready()
-        this.logo = new Jitter.Logo(this.stream);
         this.flavor = new Jitter.Flavor(this.stream);
+        this.logo = new Jitter.Logo(this.stream);
         this.choices = new Jitter.Choices(this.stream);
         this.roast = new Jitter.Roast(this.stream);
         this.drink = new Jitter.Drink(this.stream);

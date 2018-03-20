@@ -11,6 +11,7 @@
         this.doText = this.doText.bind(this);
         this.magnify = this.magnify.bind(this);
         this.fontSize = this.fontSize.bind(this);
+        this.fontSizePt = this.fontSizePt.bind(this);
         this.doChoice = this.doChoice.bind(this);
         this.chooseElem = this.chooseElem.bind(this);
         this.textTransform = this.textTransform.bind(this);
@@ -25,8 +26,23 @@
         return Util.noop(pane, data);
       }
 
+      resize() {
+        var h, sc, sx, sy, w, xc, yc;
+        w = this.pane.geo.w;
+        h = this.pane.geo.h;
+        sx = w / this.width;
+        sy = h / this.height;
+        sc = Math.min(sx, sy);
+        xc = w / 2;
+        yc = h / 2;
+        this.svg.attr("width", w).attr("height", h);
+        this.g.transition().attr("transform", `translate(${xc},${yc}) scale(${sc})`);
+      }
+
       ready(pane, spec, divId, url, scale = 1.0) {
+        var h, w, xc, yc;
         this.spec = spec;
+        this.pane = pane;
         this.url = url;
         this.width = pane.geo.w;
         this.height = pane.geo.h;
@@ -37,10 +53,17 @@
           this.radius // 1.3
         ]);
         this.formatNumber = d3.format(",d");
-        this.padding = 5;
+        this.padding = 0;
         this.duration = 300;
         this.div = d3.select('#' + divId);
-        this.vis = this.div.append("svg").attr("width", this.width + this.padding * 2).attr("height", this.height + this.padding * 2).append("g").attr("transform", "translate(" + [this.width / 2 + this.padding, this.height / 2 + this.padding] + ")");
+        this.$div = $('#' + divId);
+        w = this.width;
+        h = this.height;
+        xc = this.width / 2;
+        yc = this.height / 2;
+        this.svg = this.div.append("svg").attr("width", w).attr("height", h);
+        this.g = this.svg.append("g").attr("transform", `translate(${xc},${yc}) scale(1,1)`);
+        this.g.append("text").text("Flavor").attr('x', -32).attr('y', 12).style('fill', 'white').style("font-size", "3vmin");
         this.partition = d3.partition();
         this.arc = d3.arc().startAngle((d) => {
           return Math.max(0, Math.min(2 * Math.PI, this.xx(this.x0(d))));
@@ -66,7 +89,7 @@
             }
           });
           this.nodes = this.partition(this.root).descendants();
-          this.path = this.vis.selectAll("path").data(this.nodes).enter().append("path").attr("id", function(d, i) {
+          this.path = this.g.selectAll("path").data(this.nodes).enter().append("path").attr("id", function(d, i) {
             if (d != null) {
               return "path-" + i;
             } else {
@@ -174,8 +197,6 @@
         var a, b, colours;
         if (d.fill != null) {
           return d.fill;
-        } else if (d.colour) {
-          return d.colour;
         } else if (d.children) {
           colours = d.children.map(this.fill);
           a = d3.hsl(colours[0]);
@@ -189,7 +210,7 @@
 
       doText(nodes) {
         var angle, xem;
-        this.text = this.vis.selectAll('text').data(nodes);
+        this.text = this.g.selectAll('text').data(nodes);
         this.textEnter = this.text.enter().append('text').on("click", (d) => {
           return this.magnify(d, 'click');
         }).on("mouseover", (d) => {
@@ -248,8 +269,8 @@
       }
 
       magnify(d, eventType) {
-        var ref, resize, y0, y1;
-        if (((ref = d.data) != null ? ref.can : void 0) != null) {
+        var resize, y0, y1;
+        if (d.data['can'] != null) {
           //console.log( 'magnify', d.data.name )
           y0 = d.y0;
           y1 = d.y0 + (d.y1 - d.y0) * 1.3;
@@ -265,7 +286,7 @@
             }
             return this.resizeElem(child, resize, child != null ? child.x0 : void 0, y0, child != null ? child.x1 : void 0, y1);
           });
-          this.vis.selectAll('path').data(this.nodes).filter((e) => {
+          this.g.selectAll('path').data(this.nodes).filter((e) => {
             return this.inBranch(d, e);
           }).transition().duration(this.duration).style("display", function(d) {
             if (d.data.hide) {
@@ -274,7 +295,7 @@
               return "block";
             }
           }).attr("d", this.arc);
-          this.vis.selectAll('text').data(this.nodes).filter((e) => {
+          this.g.selectAll('text').data(this.nodes).filter((e) => {
             return this.inBranch(d, e);
           }).transition().duration(this.duration).attr("transform", (t) => {
             return this.textTransform(t);
@@ -298,6 +319,18 @@
             return '1.9vmin';
           } else {
             return '1.7vmin';
+          }
+        }
+      }
+
+      fontSizePt(t, d = null) {
+        if ((d != null) && this.sameNode(t, d) && (t.m0 != null)) {
+          return '16pt';
+        } else {
+          if (t.children != null) {
+            return '14pt';
+          } else {
+            return '12pt';
           }
         }
       }
@@ -360,7 +393,7 @@
       }
 
       zoomTween(d) {
-        return this.vis.transition().duration(this.duration).tween("scale", () => {
+        return this.svg.transition().duration(this.duration).tween("scale", () => {
           var xd, yd, yr;
           xd = d3.interpolate(this.xx.domain(), [this.x0(d), this.x1(d)]);
           yd = d3.interpolate(this.yy.domain(), [this.y0(d), 1]);

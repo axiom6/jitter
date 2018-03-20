@@ -1,6 +1,5 @@
 {
   "Ready":    { "name":"Ready",    "cells":[ 1,36, 1,36], "toc":false, "pane":false },
-  "Logo":     { "name":"Logo",     "cells":[ 1, 8, 1, 8], "toc":false, "pane":true  },
   "Choices":  { "name":"Choices",  "cells":[ 5, 4,9,23], "toc":true,  "pane":true,
     "Flavor":   { "name":"Flavor", "max":4 },
     "Roast":    { "name":"Roast",  "max":3 },
@@ -13,6 +12,7 @@
     "Wheel":      { "name": "Wheel",      "json":"flavor.wheel",  "scale":"1.0" },
     "Speciality": { "name": "Speciality", "json":"flavor.sca",    "scale":"0.9" },
     "Davies":     { "name": "Davies",     "json":"flavor.davies", "scale":"0.9" } },
+  "Logo":     { "name":"Logo",     "cells":[ 1, 8, 1, 8], "toc":false, "pane":true  },
   "Roast": { "name":"Roast", "cells":[9,22,1,8], "toc":false, "pane":true,
     "Light":       { "name": "Light",        "icon":"Light.png"       },
     "MediumLight": { "name": "Medium Light", "icon":"MediumLight.png" },

@@ -22,14 +22,13 @@ class Flavor
     scale = if study? then study.scale else 1.25
     divId = Util.getHtmlId( "Wheel", name )
     pane.$.append( """<div #{Jitter.panel( 0, 0,100,100)} id="#{divId}"></div>""" )
-    pane.$.append( """<div #{Jitter.label(41,49, 20, 10)}>Flavor</div>""" )
     @wheel.ready( pane, spec, divId, url, scale )
     window.addEventListener("resize", @resize );
     return
 
   resize:() =>
     @pane.geo = @pane.geom()
-    @ready( @pane, @spec, @study )
+    @wheel.resize()
 
   create:(     pane, spec ) ->
     Util.noop( pane, spec )
