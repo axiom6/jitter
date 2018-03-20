@@ -88,7 +88,7 @@
   top: 0;
   width: 0;
   height: 0;
-  background: #1c3030;
+  background: #999999;
 }
 .layout-corp {
   position: absolute;
@@ -96,8 +96,8 @@
   top: 0;
   right: 0;
   height: 0;
-  background-image: -moz-linear-gradient(top, #1c3030, #9ec7c7);
-  background-image: -webkit-gradient(linear, center top, center bottom, from(#1c3030), to(#9ec7c7));
+  background-image: -moz-linear-gradient(top, #999999, #b3b3b3);
+  background-image: -webkit-gradient(linear, center top, center bottom, from(#999999), to(#b3b3b3));
 }
 .layout-find {
   position: absolute;
@@ -105,7 +105,7 @@
   top: 0;
   width: 0;
   height: 0;
-  background: #1c3030;
+  background: #999999;
 }
 .layout-tocs {
   position: absolute;
@@ -113,7 +113,7 @@
   top: 0;
   width: 0;
   bottom: 0;
-  background: #1c3030;
+  background: #999999;
   font-family: Arial, Helvetica, sans-serif;
 }
 .layout-view {
@@ -122,7 +122,7 @@
   top: 0;
   right: 0;
   height: 100%;
-  background: #bedada;
+  background: #cccccc;
   overflow: visible;
 }
 .layout-page {
@@ -131,7 +131,7 @@
   top: 0;
   right: 0;
   bottom: 0;
-  background-image: -moz-radial-gradient(center center, farthest-side, #bedada, #9ec7c7);
+  background-image: -moz-radial-gradient(center center, farthest-side, #cccccc, #b3b3b3);
   display: none;
 }
 .layout-back {
@@ -140,7 +140,7 @@
   top: 0;
   right: 0;
   height: 100%;
-  background: #bedada;
+  background: #cccccc;
   overflow: visible;
 }
 .layout-side {
@@ -149,8 +149,8 @@
   top: 0;
   width: 0;
   bottom: 0;
-  background-image: -moz-linear-gradient(right, #1c3030, #9ec7c7);
-  background-image: -webkit-gradient(linear, right center, left center, from(#1c3030), to(#9ec7c7));
+  background-image: -moz-linear-gradient(right, #999999, #b3b3b3);
+  background-image: -webkit-gradient(linear, right center, left center, from(#999999), to(#b3b3b3));
   font-family: Arial, Helvetica, sans-serif;
 }
 .layout-pref {
@@ -159,7 +159,7 @@
   bottom: 0;
   width: 0;
   height: 0;
-  background: #1c3030;
+  background: #999999;
 }
 .layout-foot {
   position: absolute;
@@ -167,8 +167,8 @@
   bottom: 0;
   right: 0;
   height: 0;
-  background-image: -moz-linear-gradient(bottom, #1c3030, #9ec7c7);
-  background-image: -webkit-gradient(linear, center bottom, center top, from(#1c3030), to(#9ec7c7));
+  background-image: -moz-linear-gradient(bottom, #999999, #b3b3b3);
+  background-image: -webkit-gradient(linear, center bottom, center top, from(#999999), to(#b3b3b3));
 }
 .layout-trak {
   position: absolute;
@@ -176,7 +176,7 @@
   bottom: 0;
   width: 0;
   height: 0;
-  background: #1c3030;
+  background: #999999;
 }
 .layout-menu {
   position: absolute;
@@ -184,8 +184,8 @@
   top: 0;
   right: 0;
   height: 0;
-  background-image: -moz-linear-gradient(top, #1c3030, #9ec7c7);
-  background-image: -webkit-gradient(linear, center top, center bottom, from(#1c3030), to(#9ec7c7));
+  background-image: -moz-linear-gradient(top, #999999, #b3b3b3);
+  background-image: -webkit-gradient(linear, center top, center bottom, from(#999999), to(#b3b3b3));
 }
 .layout-logo .text {
   position: relative;
@@ -225,10 +225,10 @@ html {
 .ui-view {
   width: 100%;
   height: 100%;
-  background-color: #1c3030;
+  background-color: #333333;
 }
 .ui-pane {
-  background-color: #254141;
+  background-color: #4d4d4d;
   position: absolute;
   font-family: Arial, Helvetica, sans-serif;
   z-index: 2;

@@ -959,6 +959,16 @@
 		"oF": 0,
 		"oS": 3
 		},
+	"\/public\/css\/tocs.css": {
+		"aP": 1,
+		"bl": 0,
+		"ft": 16,
+		"ma": 0,
+		"oA": 0,
+		"oAP": "\/public\/css\/tocs-min.css",
+		"oF": 0,
+		"oS": 3
+		},
 	"\/public\/fonts\/fontawesome-webfont.eot": {
 		"cB": 0,
 		"ft": 8192,
