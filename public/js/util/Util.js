@@ -882,7 +882,9 @@ Util = (function() {
       return objects;
     }
 
-    static lenObject(object, where) {
+    static lenObject(object, where = function() {
+        return true;
+      }) {
       var key, len, obj;
       len = 0;
       for (key in object) {

@@ -329,6 +329,106 @@
 		"sC": 3,
 		"tS": 0
 		},
+	"\/doc\/angles-cup\/AngelsCup'Acidity.jpg": {
+		"ft": 16384,
+		"iS": 92481,
+		"oA": 0,
+		"oAP": "\/doc\/angles-cup\/AngelsCup'Acidity.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/doc\/angles-cup\/AngelsCup.Art.jpg": {
+		"ft": 16384,
+		"iS": 127604,
+		"oA": 0,
+		"oAP": "\/doc\/angles-cup\/AngelsCup.Art.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/doc\/angles-cup\/AngelsCup.Color.Taste.Flavor.jpg": {
+		"ft": 16384,
+		"iS": 100129,
+		"oA": 0,
+		"oAP": "\/doc\/angles-cup\/AngelsCup.Color.Taste.Flavor.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/doc\/angles-cup\/AngelsCup.Flavors.svg": {
+		"ft": 2097152,
+		"miP": 0,
+		"oA": 2,
+		"oAP": "\/doc\/angles-cup\/AngelsCup.Flavors.svg",
+		"oF": 0,
+		"opt": 0,
+		"plM": 3758088159,
+		"prP": 0
+		},
+	"\/doc\/angles-cup\/AngelsCup.Notes.jpg": {
+		"ft": 16384,
+		"iS": 167810,
+		"oA": 0,
+		"oAP": "\/doc\/angles-cup\/AngelsCup.Notes.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/doc\/angles-cup\/AngelsCup.Results.jpg": {
+		"ft": 16384,
+		"iS": 72966,
+		"oA": 0,
+		"oAP": "\/doc\/angles-cup\/AngelsCup.Results.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/doc\/angles-cup\/Angles-Cup.Flavor.Results.jpg": {
+		"ft": 16384,
+		"iS": 7331,
+		"oA": 0,
+		"oAP": "\/doc\/angles-cup\/Angles-Cup.Flavor.Results.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/doc\/angles-cup\/AnglesCup.Tasting.jpg": {
+		"ft": 16384,
+		"iS": 26114,
+		"oA": 0,
+		"oAP": "\/doc\/angles-cup\/AnglesCup.Tasting.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/doc\/angles-cup\/AnglesCupRating.jpg": {
+		"ft": 16384,
+		"iS": 22222,
+		"oA": 0,
+		"oAP": "\/doc\/angles-cup\/AnglesCupRating.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/doc\/angles-cup\/Taints.jpg": {
+		"ft": 16384,
+		"iS": 476261,
+		"oA": 0,
+		"oAP": "\/doc\/angles-cup\/Taints.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
 	"\/doc\/brew1\/AeroPress.png": {
 		"ft": 32768,
 		"iS": 17000,
@@ -542,6 +642,13 @@
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
+		},
+	"\/doc\/img\/CoffeeColors.txt": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 0,
+		"oAP": "\/doc\/img\/CoffeeColors.txt",
+		"oF": 0
 		},
 	"\/doc\/img\/logo - 2018 - RX - BnW.png": {
 		"ft": 32768,
@@ -1202,6 +1309,116 @@
 		"iS": 97480,
 		"oA": 0,
 		"oAP": "\/public\/img\/logo\/JitterBoxRx.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/public\/img\/roast\/1.png": {
+		"ft": 32768,
+		"iS": 18775,
+		"oA": 0,
+		"oAP": "\/public\/img\/roast\/1.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/public\/img\/roast\/2.png": {
+		"ft": 32768,
+		"iS": 18749,
+		"oA": 0,
+		"oAP": "\/public\/img\/roast\/2.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/public\/img\/roast\/3.png": {
+		"ft": 32768,
+		"iS": 19425,
+		"oA": 0,
+		"oAP": "\/public\/img\/roast\/3.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/public\/img\/roast\/4.png": {
+		"ft": 32768,
+		"iS": 19290,
+		"oA": 0,
+		"oAP": "\/public\/img\/roast\/4.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/public\/img\/roast\/5.png": {
+		"ft": 32768,
+		"iS": 18901,
+		"oA": 0,
+		"oAP": "\/public\/img\/roast\/5.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/public\/img\/roast\/6.png": {
+		"ft": 32768,
+		"iS": 18312,
+		"oA": 0,
+		"oAP": "\/public\/img\/roast\/6.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/public\/img\/roast\/7.png": {
+		"ft": 32768,
+		"iS": 17945,
+		"oA": 0,
+		"oAP": "\/public\/img\/roast\/7.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/public\/img\/roast\/8.png": {
+		"ft": 32768,
+		"iS": 17495,
+		"oA": 0,
+		"oAP": "\/public\/img\/roast\/8.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/public\/img\/roast\/9.png": {
+		"ft": 32768,
+		"iS": 16427,
+		"oA": 0,
+		"oAP": "\/public\/img\/roast\/9.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/public\/img\/roast\/A.png": {
+		"ft": 32768,
+		"iS": 16429,
+		"oA": 0,
+		"oAP": "\/public\/img\/roast\/A.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,

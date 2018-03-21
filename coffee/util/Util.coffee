@@ -569,7 +569,7 @@ class Util
         objects[key]  = row
     objects
 
-  @lenObject:( object, where ) ->
+  @lenObject:( object, where=()->true ) ->
     len = 0
     for own key, obj of object when where(key)
       len = len + 1

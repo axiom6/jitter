@@ -1,5 +1,6 @@
 (function() {
-  var Roast;
+  var Roast,
+    hasProp = {}.hasOwnProperty;
 
   Roast = (function() {
     class Roast {
@@ -18,8 +19,32 @@
       }
 
       ready(pane, spec) {
+        var $r, $s, dir, dx, key, n, ref, roast, src, x;
+        [this.pane, this.spec] = [pane, spec];
+        dir = "img/roast/";
+        n = Util.lenObject(Roast.Roasts);
+        x = 0;
+        dx = 100 / n;
+        pane.$.append(`<div ${Jitter.panel(0, 0, 100, 100)}></div>`);
+        pane.$.append(`<div ${Jitter.label(3, 42, 7, 16)}>${spec.name}</div>`);
+        $r = $(`<div ${Jitter.label(10, 5, 90, 85, "roast")}></div>`);
+        ref = Roast.Roasts;
+        for (key in ref) {
+          if (!hasProp.call(ref, key)) continue;
+          roast = ref[key];
+          src = dir + roast.img;
+          $s = $(`<div ${Jitter.label(x, 0, dx, 100, "roast")}></div>`);
+          $s.append(`<img style="width:80px; height:80px;" src="${src}"/>`);
+          $s.append(`<div style="width:100%; height:20%; background:${roast.color};"></div>`);
+          $r.append($s);
+          x = x + dx;
+        }
+        pane.$.append($r);
+      }
+
+      ready1(pane, spec) {
         var $i, src;
-        this.spec = spec;
+        [this.pane, this.spec] = [pane, spec];
         src = "img/roast/RoastsBig.png";
         pane.$.append(`<div   ${Jitter.panel(0, 0, 100, 100)}></div>`);
         pane.$.append(`<div ${Jitter.label(3, 42, 10, 16)}>${spec.name}</div>`);
@@ -77,6 +102,76 @@
     };
 
     Jitter.Roast = Roast;
+
+    Roast.Roasts = {
+      "1": {
+        color: "#a69c7f",
+        img: "1.png"
+      },
+      "3": {
+        color: "#8b7059",
+        img: "3.png"
+      },
+      "6": {
+        color: "#675346",
+        img: "6.png"
+      },
+      "7": {
+        color: "#6a5b4a",
+        img: "7.png"
+      },
+      "8": {
+        color: "#3d4037",
+        img: "8.png"
+      },
+      "A": {
+        color: "#141e1b",
+        img: "A.png"
+      }
+    };
+
+    Roast.Roasts10 = {
+      "1": {
+        color: "#a69c7f",
+        img: "1.png"
+      },
+      "2": {
+        color: "#b8927a",
+        img: "2.png"
+      },
+      "3": {
+        color: "#8b7059",
+        img: "3.png"
+      },
+      "4": {
+        color: "#7e8652",
+        img: "4.png"
+      },
+      "5": {
+        color: "#6b574a",
+        img: "5.png"
+      },
+      "6": {
+        color: "#675346",
+        img: "6.png"
+      },
+      "7": {
+        color: "#6a5b4a",
+        img: "7.png"
+      },
+      "8": {
+        color: "#3d4037",
+        img: "8.png"
+      },
+      "9": {
+        color: "#3c3f36",
+        img: "9.png"
+      },
+      "A": {
+        color: "#141e1b",
+        img: "A.png"
+      }
+    };
 
     return Roast;
 
