@@ -29,14 +29,15 @@
       }
 
       onChoice(choice) {
-        var htmlId, study;
+        var htmlId, study, value;
         //console.log( 'Choice', choice )
         study = this.spec[choice.name];
         htmlId = Util.getHtmlId(choice.name, 'Choice', choice.study);
+        value = choice.value != null ? ":" + choice.value : "";
         if (choice.intent === UI.AddChoice) {
           if (study.num < study.max) {
             study.num++;
-            study.$e.append(`<div id="${htmlId}" style="color:yellow; padding-left:12px; font-size:12px; line-height:14px;">${choice.study}</div>`);
+            study.$e.append(`<div id="${htmlId}" style="color:yellow; padding-left:12px; font-size:12px; line-height:14px;">${choice.study + value}</div>`);
           } else {
             if (choice.$click != null) {
               choice.$click.css({

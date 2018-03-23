@@ -4,15 +4,15 @@ class Roast
   Jitter.Roast = Roast
 
   Roast.Roasts = {
-    "1":{ color:"#ad8d70", img:"1d.png" },
-    "2":{ color:"#99795f", img:"2d.png" },
-    "3":{ color:"#8d6b54", img:"3d.png" },
-    "4":{ color:"#826349", img:"4d.png" },
-    "5":{ color:"#746457", img:"5d.png" },
-    "6":{ color:"#67625e", img:"6d.png" },
-    "7":{ color:"#555b57", img:"7d.png" },
-    "8":{ color:"#494a45", img:"8d.png" },
-    "9":{ color:"#3e3f3a", img:"9d.png" } }
+    "1":{ color:"#ad8d70", img:"1d.png", name:"Ultra Light"  },
+    "2":{ color:"#99795f", img:"2d.png", name:"Very Light"   },
+    "3":{ color:"#8d6b54", img:"3d.png", name:"Light"        },
+    "4":{ color:"#826349", img:"4d.png", name:"Medium Light" },
+    "5":{ color:"#746457", img:"5d.png", name:"Medium"       },
+    "6":{ color:"#67625e", img:"6d.png", name:"Medium Dark"  },
+    "7":{ color:"#555b57", img:"7d.png", name:"Dark"         },
+    "8":{ color:"#494a45", img:"8d.png", name:"Very Dark"    },
+    "9":{ color:"#3e3f3a", img:"9d.png", name:"Ultra Dark"   } }
 
   Roast.RoastsBak = {
     "1":{ color:"#ad8d70", img:"1d.png" },
@@ -40,6 +40,7 @@ class Roast
     "9":{ color:"#3c3f36", img:"9.png" }, "A":{ color:"#141e1b", img:"A.png" } }
 
   constructor:( @stream ) ->
+    @max = 100
 
   overview:( pane, spec ) ->
     src = "img/roast/Coffee-Bean-Roast-Ready.jpg"
@@ -68,7 +69,7 @@ class Roast
 
     style  = "position:absolute; left:0; top:81%; width:100%; height:#{16}% ;"
     style += "padding:0; margin:0; z-index:2;"
-    $r.append(     """<input id="RoastInput" type="range" min="1", max="90" style="#{style}"></input>""" )
+    $r.append(     """<input id="RoastInput" type="range" min="0" max="#{@max}" style="#{style}"></input>""" )
     for own key, roast of Roast.Roasts  #
       style  = """position:absolute; left:#{x}%; top:0; width:#{dx}%; height:#{75}%; """
       style += """text-align:center; background:transparent ;"""
@@ -86,75 +87,43 @@ class Roast
     return
 
   doInput:( event ) =>
-    v = parseInt(event.target.value)
-    n = 9
-    p = Math.ceil(v/(n+1))
+    v  = parseInt(event.target.value)
+    n  = 9
+    s  = @max / n
+    p  = Math.min( Math.ceil(v/s), n )
+    [p,m] = if p < 1 then [1,s/2] else [p,(p+0.5)*s]
+    [p1,p2,r] =
+      if      v > m and p <  n-1 then [ p,  p+1,   (v-m)/n ]
+      else if v < m and p >= 2   then [ p-1,p,   1-(m-v)/n ]
+      else                            [ p,  p,   1         ]
 
-    p1 = p
-    p2 = if v > 5 and p < 9 then p+1 else p
+    console.log( "doInput1", { v:v, m:m, r, p1:p1, p:p, p2:p2, s:s } )
     h1 = Vis.cssHex( Roast.Roasts[p1].color )
     h2 = Vis.cssHex( Roast.Roasts[p2].color )
-    m1 = p1*10-5
-    m2 = p2*10-5
-    r1 = (m2-v)/10
-    r2 = 1-r1
-    rgb = Vis.rgbCss( Vis.interpolateHexRgb( h1, r1, h2, r2 ) )
-    #gb = Vis.rndRgb( rgb )
-    #console.log( "doInput", { v:v, p1:p1, p:p, p2:p2, m1:m1, m2:m2, r1:r1, r2:r2, rgb:rgb } )
+    rgb = Vis.rgbCss( Vis.interpolateHexRgb( h1, 1.0-r, h2, r ) )
     $("#RoastColor").css( { background:rgb } )
+    @publish( Roast.Roasts[p].name, null, v )
     return
-
-  ###
-  ready2:( pane, spec ) ->
-    [@pane,@spec] = [pane, spec]
-    dir = "img/roast/"
-    n   = Util.lenObject( Roast.Roasts )
-    x   = 0
-    dx  = 100 / n
-    pane.$.append( """<div #{Jitter.panel( 0, 0,100,100)}></div>""" )
-    pane.$.append( """<div #{Jitter.label( 3,42,  7, 16)}>#{spec.name}</div>""" )
-    $r  = $(       """<div #{Jitter.label(10, 5, 90, 85,"roast")}></div>""" )
-    for own key, roast of Roast.Roasts
-      src   = dir + roast.img
-      $s    = $("""<div #{Jitter.label( x, 0, dx,100,"roast")}></div>""" )
-      $s.append("""<img style="width:80px; height:80px;" src="#{src}"/>""")
-      $s.append("""<div style="width:100%; height:20%; background:#{roast.color};"></div>""")
-      $r.append( $s )
-      x = x + dx
-    pane.$.append( $r )
-    return
-
-
-  ready1:( pane, spec ) ->
-    [@pane,@spec] = [pane, spec]
-    src = "img/roast/RoastsBig.png"
-    pane.$.append( """<div   #{Jitter.panel( 0, 0,100,100)}></div>""" )
-    pane.$.append(  """<div #{Jitter.label( 3,42, 10, 16)}>#{spec.name}</div>""" )
-    $i = $("""#{@image( 16, 8, 75, 78, src, 15 ) }"""  )
-    $i.append("""<div #{Jitter.label( 3,82,16, 10,"roast")}>Light</div>""")
-    $i.append("""<div #{Jitter.label(24,82,16, 10,"roast")}>Medium Light</div>""")
-    $i.append("""<div #{Jitter.label(42,82,16, 10,"roast")}>Medium</div>""")
-    $i.append("""<div #{Jitter.label(66,82,16, 10,"roast")}>Medium Dark</div>""")
-    $i.append("""<div #{Jitter.label(86,82,16, 10,"roast")}>Dark</div>""")
-    pane.$.append( $i  )
-    pane.$.append( "</div></div>"  )
-    $(".roast").on( 'click', (event) => @doClick(event) )
-    return
-  ###
 
   doClick:( event ) =>
     $e    = $(event.target)
     name  = $e.text()
+    color = @publish( name, $e=null )
+    $e.css( { color:color } )
+    return
+
+  publish:( name, $e=null, v=undefined ) ->
     key   = name.replace( " ", "" )
     study = @spec[key]
     study.chosen = if not ( study.chosen? or study.chosen ) then true else false
     addDel       = if study.chosen then UI.AddChoice       else UI.DelChoice
     color        = if study.chosen then Jitter.choiceColor else Jitter.basisColor
-    $e.css( { color:color } )
     choice = UI.select( 'Roast', 'Jitter', addDel, name )
-    choice.$click = $e
+    choice.value = v if v?
+    #choice.$click = $e if $e?
+    console.log( "Roast.publish", choice )
     Jitter.stream.publish( 'Choice', choice )
-    return
+    color
 
   image:( x, y, w, h, src, mh ) -> # max-height:#{mh}vmin;
     klass  = if src? then "image"            else "texts"

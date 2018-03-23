@@ -6,44 +6,9 @@
     class Roast {
       constructor(stream) {
         this.doInput = this.doInput.bind(this);
-        /*
-        ready2:( pane, spec ) ->
-        [@pane,@spec] = [pane, spec]
-        dir = "img/roast/"
-        n   = Util.lenObject( Roast.Roasts )
-        x   = 0
-        dx  = 100 / n
-        pane.$.append( """<div #{Jitter.panel( 0, 0,100,100)}></div>""" )
-        pane.$.append( """<div #{Jitter.label( 3,42,  7, 16)}>#{spec.name}</div>""" )
-        $r  = $(       """<div #{Jitter.label(10, 5, 90, 85,"roast")}></div>""" )
-        for own key, roast of Roast.Roasts
-        src   = dir + roast.img
-        $s    = $("""<div #{Jitter.label( x, 0, dx,100,"roast")}></div>""" )
-        $s.append("""<img style="width:80px; height:80px;" src="#{src}"/>""")
-        $s.append("""<div style="width:100%; height:20%; background:#{roast.color};"></div>""")
-        $r.append( $s )
-        x = x + dx
-        pane.$.append( $r )
-        return
-
-        ready1:( pane, spec ) ->
-        [@pane,@spec] = [pane, spec]
-        src = "img/roast/RoastsBig.png"
-        pane.$.append( """<div   #{Jitter.panel( 0, 0,100,100)}></div>""" )
-        pane.$.append(  """<div #{Jitter.label( 3,42, 10, 16)}>#{spec.name}</div>""" )
-        $i = $("""#{@image( 16, 8, 75, 78, src, 15 ) }"""  )
-        $i.append("""<div #{Jitter.label( 3,82,16, 10,"roast")}>Light</div>""")
-        $i.append("""<div #{Jitter.label(24,82,16, 10,"roast")}>Medium Light</div>""")
-        $i.append("""<div #{Jitter.label(42,82,16, 10,"roast")}>Medium</div>""")
-        $i.append("""<div #{Jitter.label(66,82,16, 10,"roast")}>Medium Dark</div>""")
-        $i.append("""<div #{Jitter.label(86,82,16, 10,"roast")}>Dark</div>""")
-        pane.$.append( $i  )
-        pane.$.append( "</div></div>"  )
-        $(".roast").on( 'click', (event) => @doClick(event) )
-        return
-        */
         this.doClick = this.doClick.bind(this);
         this.stream = stream;
+        this.max = 100;
       }
 
       overview(pane, spec) {
@@ -72,7 +37,7 @@
         $r.append(`<img style="width:100%; height:75%;" src="${src}"/>`);
         style = `position:absolute; left:0; top:81%; width:100%; height:${16}% ;`;
         style += "padding:0; margin:0; z-index:2;";
-        $r.append(`<input id="RoastInput" type="range" min="1", max="90" style="${style}"></input>`);
+        $r.append(`<input id="RoastInput" type="range" min="0" max="${this.max}" style="${style}"></input>`);
         ref = Roast.Roasts;
         
         for (key in ref) {
@@ -98,41 +63,56 @@
       }
 
       doInput(event) {
-        var h1, h2, m1, m2, n, p, p1, p2, r1, r2, rgb, v;
+        var h1, h2, m, n, p, p1, p2, r, rgb, s, v;
         v = parseInt(event.target.value);
         n = 9;
-        p = Math.ceil(v / (n + 1));
-        p1 = p;
-        p2 = v > 5 && p < 9 ? p + 1 : p;
+        s = this.max / n;
+        p = Math.min(Math.ceil(v / s), n);
+        [p, m] = p < 1 ? [1, s / 2] : [p, (p + 0.5) * s];
+        [p1, p2, r] = v > m && p < n - 1 ? [p, p + 1, (v - m) / n] : v < m && p >= 2 ? [p - 1, p, 1 - (m - v) / n] : [p, p, 1];
+        console.log("doInput1", {
+          v: v,
+          m: m,
+          r,
+          p1: p1,
+          p: p,
+          p2: p2,
+          s: s
+        });
         h1 = Vis.cssHex(Roast.Roasts[p1].color);
         h2 = Vis.cssHex(Roast.Roasts[p2].color);
-        m1 = p1 * 10 - 5;
-        m2 = p2 * 10 - 5;
-        r1 = (m2 - v) / 10;
-        r2 = 1 - r1;
-        rgb = Vis.rgbCss(Vis.interpolateHexRgb(h1, r1, h2, r2));
-        //gb = Vis.rndRgb( rgb )
-        //console.log( "doInput", { v:v, p1:p1, p:p, p2:p2, m1:m1, m2:m2, r1:r1, r2:r2, rgb:rgb } )
+        rgb = Vis.rgbCss(Vis.interpolateHexRgb(h1, 1.0 - r, h2, r));
         $("#RoastColor").css({
           background: rgb
         });
+        this.publish(Roast.Roasts[p].name, null, v);
       }
 
       doClick(event) {
-        var $e, addDel, choice, color, key, name, study;
+        var $e, color, name;
         $e = $(event.target);
         name = $e.text();
+        color = this.publish(name, $e = null);
+        $e.css({
+          color: color
+        });
+      }
+
+      publish(name, $e = null, v = void 0) {
+        var addDel, choice, color, key, study;
         key = name.replace(" ", "");
         study = this.spec[key];
         study.chosen = !((study.chosen != null) || study.chosen) ? true : false;
         addDel = study.chosen ? UI.AddChoice : UI.DelChoice;
         color = study.chosen ? Jitter.choiceColor : Jitter.basisColor;
-        $e.css({
-          color: color
-        });
         choice = UI.select('Roast', 'Jitter', addDel, name);
-        choice.$click = $e;
+        if (v != null) {
+          choice.value = v;
+        }
+        //choice.$click = $e if $e?
+        console.log("Roast.publish", choice);
         Jitter.stream.publish('Choice', choice);
+        return color;
       }
 
       image(x, y, w, h, src, mh) { // max-height:#{mh}vmin;
@@ -163,39 +143,48 @@
     Roast.Roasts = {
       "1": {
         color: "#ad8d70",
-        img: "1d.png"
+        img: "1d.png",
+        name: "Ultra Light"
       },
       "2": {
         color: "#99795f",
-        img: "2d.png"
+        img: "2d.png",
+        name: "Very Light"
       },
       "3": {
         color: "#8d6b54",
-        img: "3d.png"
+        img: "3d.png",
+        name: "Light"
       },
       "4": {
         color: "#826349",
-        img: "4d.png"
+        img: "4d.png",
+        name: "Medium Light"
       },
       "5": {
         color: "#746457",
-        img: "5d.png"
+        img: "5d.png",
+        name: "Medium"
       },
       "6": {
         color: "#67625e",
-        img: "6d.png"
+        img: "6d.png",
+        name: "Medium Dark"
       },
       "7": {
         color: "#555b57",
-        img: "7d.png"
+        img: "7d.png",
+        name: "Dark"
       },
       "8": {
         color: "#494a45",
-        img: "8d.png"
+        img: "8d.png",
+        name: "Very Dark"
       },
       "9": {
         color: "#3e3f3a",
-        img: "9d.png"
+        img: "9d.png",
+        name: "Ultra Dark"
       }
     };
 
