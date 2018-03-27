@@ -23,7 +23,7 @@
         [this.pane, this.spec, this.study] = [pane, spec, study];
         pane.$.empty();
         name = study != null ? study.name : "Jitter";
-        url = study != null ? "json/" + study.json + ".json" : "json/flavor.jitter.json";
+        url = study != null ? "json/" + study.json + ".json" : "json/aroma.nine.json";
         scale = study != null ? study.scale : 1.25;
         divId = Util.getHtmlId("Wheel", name);
         pane.$.append(`<div ${Jitter.panel(0, 0, 100, 100)} id="${divId}"></div>`);

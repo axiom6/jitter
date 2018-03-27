@@ -724,6 +724,13 @@
 		"sC": 0,
 		"tS": 0
 		},
+	"\/doc\/wheel\/Roast.txt": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 0,
+		"oAP": "\/doc\/wheel\/Roast.txt",
+		"oF": 0
+		},
 	"\/doc\/wheel\/RoastOld.coffee": {
 		"ft": 32,
 		"ma": 0,
@@ -733,6 +740,16 @@
 		"oF": 0,
 		"oS": 0,
 		"sC": 0,
+		"tS": 0
+		},
+	"\/doc\/wheel\/RoastOld.js": {
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/doc\/wheel\/RoastOld-min.js",
+		"oF": 0,
+		"sC": 3,
 		"tS": 0
 		},
 	"\/doc\/wheel\/Wheel1.coffee": {
@@ -1542,16 +1559,6 @@
 		"oT": 1,
 		"q": 100
 		},
-	"\/public\/img\/wheel\/BfPpo1iCUAEpsmU.jpg": {
-		"ft": 16384,
-		"iS": 44270,
-		"oA": 0,
-		"oAP": "\/public\/img\/wheel\/BfPpo1iCUAEpsmU.jpg",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"q": 100
-		},
 	"\/public\/img\/wheel\/ChoosingBeansInfograhpic_BlogGraphic_r2.jpg": {
 		"ft": 16384,
 		"iS": 773012,
@@ -1617,6 +1624,16 @@
 		"iS": 144423,
 		"oA": 0,
 		"oAP": "\/public\/img\/wheel\/coffeeSpectrum_1000.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/public\/img\/wheel\/FlavorRoast.jpg": {
+		"ft": 16384,
+		"iS": 44270,
+		"oA": 0,
+		"oAP": "\/public\/img\/wheel\/FlavorRoast.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
@@ -1938,6 +1955,22 @@
 		"sC": 3,
 		"tS": 0
 		},
+	"\/public\/json\/aroma.nine.json": {
+		"ft": 524288,
+		"oA": 1,
+		"oAP": "\/public\/json\/aroma.nine-min.json",
+		"oF": 0,
+		"oO": 0,
+		"oS": 1
+		},
+	"\/public\/json\/aroma.roast.json": {
+		"ft": 524288,
+		"oA": 1,
+		"oAP": "\/public\/json\/aroma.roast-min.json",
+		"oF": 0,
+		"oO": 0,
+		"oS": 1
+		},
 	"\/public\/json\/aroma2.json": {
 		"ft": 524288,
 		"oA": 1,
@@ -1978,10 +2011,26 @@
 		"oO": 0,
 		"oS": 1
 		},
+	"\/public\/json\/flavor.howto.json": {
+		"ft": 524288,
+		"oA": 1,
+		"oAP": "\/public\/json\/flavor.howto-min.json",
+		"oF": 0,
+		"oO": 0,
+		"oS": 1
+		},
 	"\/public\/json\/flavor.jitter.json": {
 		"ft": 524288,
 		"oA": 1,
 		"oAP": "\/public\/json\/flavor.jitter-min.json",
+		"oF": 0,
+		"oO": 0,
+		"oS": 1
+		},
+	"\/public\/json\/flavor.roast.json": {
+		"ft": 524288,
+		"oA": 1,
+		"oAP": "\/public\/json\/flavor.roast-min.json",
 		"oF": 0,
 		"oO": 0,
 		"oS": 1

@@ -9,6 +9,7 @@
         this.doClick = this.doClick.bind(this);
         this.stream = stream;
         this.max = 100;
+        this.data = Roast.Table;
       }
 
       overview(pane, spec) {
@@ -24,12 +25,12 @@
         var $r, dx, key, n, ref, roast, spans, src, style, x;
         [this.pane, this.spec] = [pane, spec];
         src = "img/roast/RoastsBig.png";
-        n = Util.lenObject(Roast.Roasts);
+        n = Util.lenObject(this.data);
         x = 0;
         dx = 100 / n; // - 0.07
         pane.$.append(`<div ${Jitter.panel(0, 0, 100, 100)}></div>`);
         style = "position:absolute; left:2%; top:5%; width:9%; height:90% ;";
-        style += `text-align:center; background:${Roast.Roasts["5"].color}; `;
+        style += `text-align:center; background:${this.data["5"].color}; `;
         style += "border:black solid 2px; color:white; font-size:3vmin; font-weight:bold; display: table;";
         spans = " display: table-cell; vertical-align: middle; line-height: normal; ";
         pane.$.append(`<div id="RoastColor" style="${style}"><span style="${spans}">${spec.name}</span></div>`);
@@ -38,7 +39,7 @@
         style = `position:absolute; left:0; top:81%; width:100%; height:${16}% ;`;
         style += "padding:0; margin:0; z-index:2;";
         $r.append(`<input id="RoastInput" type="range" min="0" max="${this.max}" style="${style}"></input>`);
-        ref = Roast.Roasts;
+        ref = this.data;
         
         for (key in ref) {
           if (!hasProp.call(ref, key)) continue;
@@ -68,8 +69,8 @@
         n = 9;
         s = this.max / n;
         p = Math.min(Math.ceil(v / s), n);
-        [p, m] = p < 1 ? [1, s / 2] : [p, (p + 0.5) * s];
-        [p1, p2, r] = v > m && p < n - 1 ? [p, p + 1, (v - m) / n] : v < m && p >= 2 ? [p - 1, p, 1 - (m - v) / n] : [p, p, 1];
+        [p, m] = p < 1 ? [1, s / 2] : [p, (p - 0.5) * s];
+        [p1, p2, r] = v >= m && p < n - 1 ? [p, p + 1, (v - m) / n] : v < m && p >= 2 ? [p - 1, p, 1 - (m - v) / n] : [p, p, 1];
         console.log("doInput1", {
           v: v,
           m: m,
@@ -79,13 +80,13 @@
           p2: p2,
           s: s
         });
-        h1 = Vis.cssHex(Roast.Roasts[p1].color);
-        h2 = Vis.cssHex(Roast.Roasts[p2].color);
+        h1 = Vis.cssHex(this.data[p1].color);
+        h2 = Vis.cssHex(this.data[p2].color);
         rgb = Vis.rgbCss(Vis.interpolateHexRgb(h1, 1.0 - r, h2, r));
         $("#RoastColor").css({
           background: rgb
         });
-        this.publish(Roast.Roasts[p].name, null, v);
+        this.publish(this.data[p], null, v);
       }
 
       doClick(event) {
@@ -98,10 +99,9 @@
         });
       }
 
-      publish(name, $e = null, v = void 0) {
-        var addDel, choice, color, key, study;
-        key = name.replace(" ", "");
-        study = this.spec[key];
+      publish(study, $e = null, v = void 0) {
+        var addDel, choice, color, name;
+        name = study.name;
         study.chosen = !((study.chosen != null) || study.chosen) ? true : false;
         addDel = study.chosen ? UI.AddChoice : UI.DelChoice;
         color = study.chosen ? Jitter.choiceColor : Jitter.basisColor;
@@ -139,6 +139,63 @@
     };
 
     Jitter.Roast = Roast;
+
+    Roast.Table = {
+      "1": {
+        color: "#dba34e",
+        img: "1d.png",
+        name: "Blonde",
+        style: "Half City"
+      },
+      "2": {
+        color: "#c48a43",
+        img: "2d.png",
+        name: "Cinnamon",
+        style: "Cinnamon"
+      },
+      "3": {
+        color: "#996b31",
+        img: "3d.png",
+        name: "Light",
+        style: "City"
+      },
+      "4": {
+        color: "#795424",
+        img: "4d.png",
+        name: "Full",
+        style: "Full City"
+      },
+      "5": {
+        color: "#6d4a1f",
+        img: "5d.png",
+        name: "Medium",
+        style: "Full City Plus"
+      },
+      "6": {
+        color: "#553916",
+        img: "6d.png",
+        name: "Vienna",
+        style: "Vienna"
+      },
+      "7": {
+        color: "#492c0f",
+        img: "7d.png",
+        name: "Dark",
+        style: "Italian"
+      },
+      "8": {
+        color: "#40250d",
+        img: "8d.png",
+        name: "French",
+        style: "French"
+      },
+      "9": {
+        color: "#2f1c09",
+        img: "9d.png",
+        name: "Black",
+        style: "Black"
+      }
+    };
 
     Roast.Roasts = {
       "1": {
@@ -183,6 +240,54 @@
       },
       "9": {
         color: "#3e3f3a",
+        img: "9d.png",
+        name: "Ultra Dark"
+      }
+    };
+
+    Roast.Choice = {
+      "1": {
+        color: "#c99a76",
+        img: "1d.png",
+        name: "Blonde"
+      },
+      "2": {
+        color: "#9d7859",
+        img: "2d.png",
+        name: "Very Light"
+      },
+      "3": {
+        color: "#99795f",
+        img: "3d.png",
+        name: "Light"
+      },
+      "4": {
+        color: "#826349",
+        img: "4d.png",
+        name: "Medium Light"
+      },
+      "5": {
+        color: "#5d462f",
+        img: "5d.png",
+        name: "Medium"
+      },
+      "6": {
+        color: "#432f1c",
+        img: "6d.png",
+        name: "Medium Dark"
+      },
+      "7": {
+        color: "#555b57",
+        img: "7d.png",
+        name: "Dark"
+      },
+      "8": {
+        color: "#494a45",
+        img: "8d.png",
+        name: "Very Dark"
+      },
+      "9": {
+        color: "#2f1c09",
         img: "9d.png",
         name: "Ultra Dark"
       }

@@ -1,0 +1,57 @@
+
+{ "name":"Flavor", "children": [
+  { "name": "Fruity", "region":"Ethiopia", "roast":"Light", "taste":"Sweet", "fill":"#979748", "can":true, "children": [
+    { "name": "Citrus", "fill":"#ffb929" },
+    { "name": "Berry", "fill":"#fc1949" } ] },
+  { "name": "Herby", "region":"Ethiopia", "roast":"Light", "taste":"Sweet", "fill":"#6cc65b", "can":true, "children": [
+    { "name": "Sage", "fill":"#bcb88a" },
+    { "name": "Thyme", "fill":"#7c8071" },
+    { "name": "Hops", "fill":"#c87800" },
+    { "name": "Begamont", "fill":"#a4b335" },
+    { "name": "Oregano", "fill":"#8d8940" },
+    { "name": "Rosemary", "fill":"#98976d" } ] },
+  { "name": "Flowery", "region":"Columbia", "roast":"Light", "taste":"Sweet", "fill":"#f9008e", "can":true, "children": [
+    { "name": "Floral", "fill": "#000000", "children": [
+      { "name": "Jasmine", "fill": "#f8de7e" },
+      { "name": "Rose", "fill": "#ee63a7" } ] },
+    { "name": "Fragrant", "fill": "#000000", "children": [
+      { "name": "Cardamon", "fill": "#000000" },
+      { "name": "Basil", "fill": "#000000" } ] } ] },
+  { "name": "Nutty", "region":"Central America", "roast":"Medium", "taste":"Sweet", "fill":"#967043", "can":true, "children": [
+    { "name": "Hazelnut", "fill":"#995f28" },
+    { "name": "Almond", "fill":"#dea79c" },
+    { "name": "Peanut", "fill":"#eab722" },
+    { "name": "Walnuts", "fill":"#c76d2e" },
+    { "name": "Molassas","fill":"#b98236" } ]  },
+  { "name": "Carmelly", "region":"Central America", "roast":"Medium", "taste":"Sweet", "fill":"#967043", "can":true, "children": [
+    { "name": "Hazelnut", "fill":"#995f28" },
+    { "name": "Almond", "fill":"#dea79c" },
+    { "name": "Peanut", "fill":"#eab722" },
+    { "name": "Walnuts", "fill":"#c76d2e" },
+    { "name": "Molassas","fill":"#b98236" } ]  },
+  { "name": "Chocolate", "region":"Central America", "roast":"Medium", "taste":"Sweet", "fill":"#a97b4c", "can":true, "children": [
+    { "name": "Mexican", "fill":"#b36354" },
+    { "name": "Cocao", "fill":"#a16a4b" },
+    { "name": "Milk", "fill":"#712523" } ]  },
+  { "name": "Spicy", "region":"Indonesia", "roast":"Dark", "taste":"Bitter", "fill":"#c86d80", "can":true, "children": [
+    { "name": "Clove", "fill":"#bc776e" },
+    { "name": "All", "fill":"#dba985" },
+    { "name": "Nutmeg", "fill":"#ae0d20" },
+    { "name": "Cinnimon", "fill":"#ee9239" },
+    { "name": "Cumin", "fill":"#984020" },
+    { "name": "Coriander", "fill":"#c8cfb4" },
+    { "name": "Ginger", "fill":"#d2a45d" },
+    { "name": "Curry", "fill":"#d8df31" },
+    { "name": "Pepper", "fill":"#3b3831" } ]  },
+  { "name": "Earthy", "region":"India SE Asia", "roast":"Dark", "taste":"Bitter", "fill":"#979748", "can":true, "children": [
+    { "name": "Leather", "fill":"#a46730" },
+    { "name": "Soil", "fill":"#cb8b59" },
+    { "name": "Dirt", "fill":"#b69766" },
+    { "name": "Wood", "fill":"#765c29" },
+    { "name": "Hay", "fill":"#a0a12a" } ] },
+  { "name":"Roasted", "fill":"#de2e31", "can":true, "children":[
+    { "name":"Pungent", "region":"Many", "roast":"Dark", "taste":"Bitter", "fill":"#a79663" },
+    { "name":"Smoky", "fill":"#ae7e37" },
+    { "name":"Ashy", "fill":"#90a993" },
+    { "name":"Medicinal", "fill":"#bc7e50" } ] }
+] }

@@ -154,7 +154,7 @@ class Wheel
 
   magnify:( d, eventType ) =>
     
-    if d.data['can']?
+    if true # d.data['can']?
       #console.log( 'magnify', d.data.name )
       y0 = d.y0
       y1 = d.y0 + (d.y1-d.y0) * 1.3

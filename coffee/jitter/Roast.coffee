@@ -3,6 +3,17 @@ class Roast
 
   Jitter.Roast = Roast
 
+  Roast.Table = {
+    "1":{ color:"#dba34e", img:"1d.png", name:"Blonde",   style:"Half City"      },
+    "2":{ color:"#c48a43", img:"2d.png", name:"Cinnamon", style:"Cinnamon"       },
+    "3":{ color:"#996b31", img:"3d.png", name:"Light",    style:"City"           },
+    "4":{ color:"#795424", img:"4d.png", name:"Full",     style:"Full City"      },
+    "5":{ color:"#6d4a1f", img:"5d.png", name:"Medium",   style:"Full City Plus" },
+    "6":{ color:"#553916", img:"6d.png", name:"Vienna",   style:"Vienna"         },
+    "7":{ color:"#492c0f", img:"7d.png", name:"Dark",     style:"Italian"        },
+    "8":{ color:"#40250d", img:"8d.png", name:"French",   style:"French"         },
+    "9":{ color:"#2f1c09", img:"9d.png", name:"Black",    style:"Black"          } }
+
   Roast.Roasts = {
     "1":{ color:"#ad8d70", img:"1d.png", name:"Ultra Light"  },
     "2":{ color:"#99795f", img:"2d.png", name:"Very Light"   },
@@ -13,6 +24,17 @@ class Roast
     "7":{ color:"#555b57", img:"7d.png", name:"Dark"         },
     "8":{ color:"#494a45", img:"8d.png", name:"Very Dark"    },
     "9":{ color:"#3e3f3a", img:"9d.png", name:"Ultra Dark"   } }
+
+  Roast.Choice = {
+    "1":{ color:"#c99a76", img:"1d.png", name:"Blonde"  },
+    "2":{ color:"#9d7859", img:"2d.png", name:"Very Light"   },
+    "3":{ color:"#99795f", img:"3d.png", name:"Light"        },
+    "4":{ color:"#826349", img:"4d.png", name:"Medium Light" },
+    "5":{ color:"#5d462f", img:"5d.png", name:"Medium"       },
+    "6":{ color:"#432f1c", img:"6d.png", name:"Medium Dark"  },
+    "7":{ color:"#555b57", img:"7d.png", name:"Dark"         },
+    "8":{ color:"#494a45", img:"8d.png", name:"Very Dark"    },
+    "9":{ color:"#2f1c09", img:"9d.png", name:"Ultra Dark"   } }
 
   Roast.RoastsBak = {
     "1":{ color:"#ad8d70", img:"1d.png" },
@@ -40,7 +62,8 @@ class Roast
     "9":{ color:"#3c3f36", img:"9.png" }, "A":{ color:"#141e1b", img:"A.png" } }
 
   constructor:( @stream ) ->
-    @max = 100
+    @max  = 100
+    @data = Roast.Table
 
   overview:( pane, spec ) ->
     src = "img/roast/Coffee-Bean-Roast-Ready.jpg"
@@ -53,13 +76,13 @@ class Roast
   ready:( pane, spec ) ->
     [@pane,@spec] = [pane, spec]
     src = "img/roast/RoastsBig.png"
-    n   = Util.lenObject( Roast.Roasts )
+    n   = Util.lenObject( @data )
     x   = 0
     dx  = 100 / n # - 0.07
     pane.$.append( """<div #{Jitter.panel( 0, 0,100,100)}></div>""" )
 
     style  = """position:absolute; left:2%; top:5%; width:9%; height:90% ;"""
-    style += """text-align:center; background:#{Roast.Roasts["5"].color}; """
+    style += """text-align:center; background:#{@data["5"].color}; """
     style += """border:black solid 2px; color:white; font-size:3vmin; font-weight:bold; display: table;"""
     spans  = """ display: table-cell; vertical-align: middle; line-height: normal; """
     pane.$.append("""<div id="RoastColor" style="#{style}"><span style="#{spans}">#{spec.name}</span></div>""")
@@ -70,7 +93,7 @@ class Roast
     style  = "position:absolute; left:0; top:81%; width:100%; height:#{16}% ;"
     style += "padding:0; margin:0; z-index:2;"
     $r.append(     """<input id="RoastInput" type="range" min="0" max="#{@max}" style="#{style}"></input>""" )
-    for own key, roast of Roast.Roasts  #
+    for own key, roast of @data  #
       style  = """position:absolute; left:#{x}%; top:0; width:#{dx}%; height:#{75}%; """
       style += """text-align:center; background:transparent ;"""
       style += """border:black solid 1px;"""
@@ -91,18 +114,18 @@ class Roast
     n  = 9
     s  = @max / n
     p  = Math.min( Math.ceil(v/s), n )
-    [p,m] = if p < 1 then [1,s/2] else [p,(p+0.5)*s]
+    [p,m] = if p < 1 then [1,s/2] else [p,(p-0.5)*s]
     [p1,p2,r] =
-      if      v > m and p <  n-1 then [ p,  p+1,   (v-m)/n ]
-      else if v < m and p >= 2   then [ p-1,p,   1-(m-v)/n ]
+      if      v >= m and p < n-1 then [ p,  p+1,   (v-m)/n ]
+      else if v <  m and p >= 2  then [ p-1,p,   1-(m-v)/n ]
       else                            [ p,  p,   1         ]
 
     console.log( "doInput1", { v:v, m:m, r, p1:p1, p:p, p2:p2, s:s } )
-    h1 = Vis.cssHex( Roast.Roasts[p1].color )
-    h2 = Vis.cssHex( Roast.Roasts[p2].color )
+    h1 = Vis.cssHex( @data[p1].color )
+    h2 = Vis.cssHex( @data[p2].color )
     rgb = Vis.rgbCss( Vis.interpolateHexRgb( h1, 1.0-r, h2, r ) )
     $("#RoastColor").css( { background:rgb } )
-    @publish( Roast.Roasts[p].name, null, v )
+    @publish( @data[p], null, v )
     return
 
   doClick:( event ) =>
@@ -112,9 +135,8 @@ class Roast
     $e.css( { color:color } )
     return
 
-  publish:( name, $e=null, v=undefined ) ->
-    key   = name.replace( " ", "" )
-    study = @spec[key]
+  publish:( study, $e=null, v=undefined ) ->
+    name         = study.name
     study.chosen = if not ( study.chosen? or study.chosen ) then true else false
     addDel       = if study.chosen then UI.AddChoice       else UI.DelChoice
     color        = if study.chosen then Jitter.choiceColor else Jitter.basisColor

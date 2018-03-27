@@ -18,7 +18,7 @@ class Flavor
     [@pane,@spec,@study] = [pane,spec,study]
     pane.$.empty()
     name  = if study? then study.name                  else "Jitter"
-    url   = if study? then  "json/"+study.json+".json" else "json/flavor.jitter.json"
+    url   = if study? then  "json/"+study.json+".json" else "json/aroma.nine.json"
     scale = if study? then study.scale else 1.25
     divId = Util.getHtmlId( "Wheel", name )
     pane.$.append( """<div #{Jitter.panel( 0, 0,100,100)} id="#{divId}"></div>""" )

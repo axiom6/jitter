@@ -1,30 +1,32 @@
 { "name":"aroma", "children": [
-  { "name": "Enzymatic", "children": [
-      { "name": "Flowery", "children": [
+  { "name": "Light", "children": [
+    { "name": "Fruity", "children": [
+      { "name": "Citrus" },
+      { "name": "Berry" } ] },
+    { "name": "Flowery", "children": [
           { "name": "Floral" },
           { "name": "Fragrant" } ] },
-      { "name": "Fruity", "children": [
-          { "name": "Citrus" },
-          { "name": "Berry Like" } ] },
-      { "name": "Herby" } ] },
-  { "name": "Sugar Browning", "children": [
+      { "name": "Herby", "children": [
+        { "name": "Onion" },
+        { "name": "Legume" } ] } ] },
+  { "name": "Medium", "children": [
       { "name": "Nutty", "children": [
-          { "name": "Nut Like" },
-          { "name": "Malt Like" } ] },
+          { "name": "Nut" },
+          { "name": "Malt" } ] },
       { "name": "Carmelly", "children": [
-          { "name": "Candy Like" },
-          { "name": "Syrup Like" } ] },
+          { "name": "Candy" },
+          { "name": "Syrup" } ] },
       { "name": "Chocolatey", "children": [
-          { "name": "Chocolate Like" },
-          { "name": "Vanilla-Like" } ] } ] },
-  { "name": "Dry Distillation", "children": [
-      { "name": "Resinous", "children": [
-          { "name": "Turpeny" },
-          { "name": "Medicinal" } ] },
+          { "name": "Chocolate" },
+          { "name": "Vanilla" } ] } ] },
+  { "name": "Dark", "children": [
       { "name": "Spicy", "children": [
           { "name": "Warming" },
           { "name": "Pungent" } ] },
       { "name": "Carbony", "children": [
           { "name": "Smokey" },
-          { "name": "Ashy" } ] } ] }
+          { "name": "Ashy" } ] },
+    { "name": "Resinous", "children": [
+      { "name": "Turpeny" },
+      { "name": "Medicinal" } ] } ] }
 ] }

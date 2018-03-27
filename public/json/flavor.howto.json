@@ -1,0 +1,47 @@
+
+{ "name":"Flavor", "children": [
+  { "name": "Floral", "region":"Columbia", "roast":"Medium", "taste":"Sweet", "fill":"#f9008e", "children": [
+      { "name": "Honeysuckle", "fill": "#eae86f" },
+      { "name": "Lavender", "fill": "#e6e6fa" },
+      { "name": "Rose", "fill": "#ee63a7" },
+      { "name": "Saffron", "fill": "#ffb036" },
+      { "name": "Oulong.Tea", "fill": "#aa8f04" },
+      { "name": "Jasmine.Tea", "fill": "#f8de7e" },
+      { "name": "Herbal.Tea", "fill": "#b0cb9d" } ] },
+  { "name": "Spicy", "region":"Indonesia", "roast":"Medium", "taste":"Bitter",  "fill":"#c86d80", "children": [
+      { "name": "Clove", "fill":"#bc776e" },
+      { "name": "All.Spice", "fill":"#dba985" },
+      { "name": "Nutmeg", "fill":"#ae0d20" },
+      { "name": "Cinnimon", "fill":"#ee9239" },
+      { "name": "Cumin", "fill":"#984020" },
+      { "name": "Coriander", "fill":"#c8cfb4" },
+      { "name": "Ginger", "fill":"#d2a45d" },
+      { "name": "Curry", "fill":"#d8df31" },
+      { "name": "Pepper", "fill":"#3b3831" } ]  },
+  { "name": "Nutty", "region":"Central America", "roast":"Medium", "taste":"Sweet", "fill":"#967043", "children": [
+      { "name": "Hazelnut", "fill":"#995f28" },
+      { "name": "Almond", "fill":"#dea79c" },
+      { "name": "Peanut", "fill":"#eab722" },
+      { "name": "Walnuts", "fill":"#c76d2e" },
+      { "name": "Molassas","fill":"#b98236" } ]  },
+  { "name": "Chocolate", "region":"Central America", "roast":"Medium", "taste":"Sweet", "fill":"#a97b4c", "children": [
+      { "name": "Mexican", "fill":"#b36354" },
+      { "name": "Cocao", "fill":"#a16a4b" },
+      { "name": "Milk", "fill":"#712523" } ]  },
+  { "name": "Earthy", "region":"India SE Asia", "roast":"Medium", "taste":"Bitter", "fill":"#979748", "children": [
+      { "name": "Leather", "fill":"#a46730" },
+      { "name": "Soil", "fill":"#cb8b59" },
+      { "name": "Dirt", "fill":"#b69766" },
+      { "name": "Wood", "fill":"#765c29" },
+      { "name": "Hay", "fill":"#a0a12a" } ] },
+  { "name": "Fruity", "region":"Ethiopia", "roast":"Light", "taste":"Sweet", "fill":"#979748", "children": [
+      { "name": "Apple", "fill":"#57c372" },
+      { "name": "Pear", "fill":"#85ac2a"  },
+      { "name": "Melon", "fill":"#ffafaf" },
+      { "name": "Tropical", "fill":"#cd8263" },
+      { "name": "Dried", "fill":"#6f3c56" },
+      { "name": "Berry", "fill":"#fc1949" },
+      { "name": "Citrus", "fill":"#ffb929" },
+      { "name": "Sour", "fill":"#e3da35"},
+      { "name": "Fermented", "fill":"#b5a223" } ] }
+] }

@@ -270,7 +270,7 @@
 
       magnify(d, eventType) {
         var resize, y0, y1;
-        if (d.data['can'] != null) {
+        if (true) { // d.data['can']?
           //console.log( 'magnify', d.data.name )
           y0 = d.y0;
           y1 = d.y0 + (d.y1 - d.y0) * 1.3;
