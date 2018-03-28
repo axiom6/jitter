@@ -14,7 +14,7 @@ class Brew
     return
 
   ready:(    pane, spec ) ->
-    Jitter.horz( pane, spec, 'img/brew/', 0.75, 10, 10 )
+    Jitter.vert( pane, spec, 'img/brew/', 0.70, 0, 12 )
     return
 
   create:( pane, spec ) ->

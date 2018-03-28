@@ -4,6 +4,7 @@ class Jitter
   @choiceColor = "yellow"
   @hoverColor  = "wheat"
   @basisColor  = "white"
+  @opacity     = 0.6
 
   @init = () ->
 

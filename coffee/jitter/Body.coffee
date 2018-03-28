@@ -14,7 +14,7 @@ class Body
     return
 
   ready:(    pane, spec ) ->
-    Jitter.vert( pane, spec, 'img/body/', 0.75, 0, 18 )
+    Jitter.vert( pane, spec, 'img/body/', 0.75, 0, 10 )
     return
 
   create:( pane, spec ) ->

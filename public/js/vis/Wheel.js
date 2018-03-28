@@ -6,6 +6,8 @@
       constructor(stream) {
         this.xc = this.xc.bind(this);
         this.yc = this.yc.bind(this);
+        this.s0 = this.s0.bind(this);
+        this.s1 = this.s1.bind(this);
         this.isParentOf = this.isParentOf.bind(this);
         this.fill = this.fill.bind(this);
         this.doText = this.doText.bind(this);
@@ -19,6 +21,18 @@
         this.stream = stream;
         this.numChoices = 0;
         this.maxChoices = 4;
+        this.sc0 = {
+          "0": 1.0,
+          "1": 1.0,
+          "2": 1.0,
+          "3": 1.0
+        };
+        this.sc1 = {
+          "0": 1.0,
+          "1": 1.0,
+          "2": 1.0,
+          "3": 1.0
+        };
       }
 
       create(pane, spec, data) {
@@ -78,10 +92,10 @@
           if (error) {
             throw error;
           }
-          this.root = d3.hierarchy(json);
+          this.root = d3.hierarchy(json); // d.hide = not d.children?
           this.root.sum(function(d) {
             d.chosen = false;
-            d.hide = d.children == null;
+            d.hide = false;
             if (d.children != null) {
               return 0;
             } else {
@@ -97,7 +111,7 @@
             }
           }).attr("d", this.arc).attr("fill-rule", "evenodd").style("fill", (d) => {
             return this.fill(d.data);
-          }).style("display", function(d) {
+          }).style("opacity", Jitter.opacity).style("display", function(d) {
             if (d.data.hide) {
               return "none";
             } else {
@@ -134,19 +148,11 @@
       }
 
       y0(d) {
-        if (d.n0 != null) {
-          return d.n0;
-        } else {
-          return d.y0;
-        }
+        return (d.n0 != null ? d.n0 : d.y0) * this.s1(d);
       }
 
       y1(d) {
-        if (d.n1 != null) {
-          return d.n1;
-        } else {
-          return d.y1;
-        }
+        return (d.n1 != null ? d.n1 : d.y1) * this.s1(d);
       }
 
       xc(d) {
@@ -155,6 +161,14 @@
 
       yc(d) {
         return (this.y0(d) + this.y1(d)) / 2;
+      }
+
+      s0(d) {
+        return this.sc0[d.depth];
+      }
+
+      s1(d) {
+        return this.sc1[d.depth];
       }
 
       sameNode(a, b) {
@@ -166,11 +180,13 @@
         if ((branch != null ? branch.data.name : void 0) === (elem != null ? elem.data.name : void 0)) {
           return true;
         }
-        ref = branch != null ? branch.children : void 0;
-        for (j = 0, len = ref.length; j < len; j++) {
-          child = ref[j];
-          if ((child != null ? child.data.name : void 0) === (elem != null ? elem.data.name : void 0)) {
-            return true;
+        if (branch.children != null) {
+          ref = branch != null ? branch.children : void 0;
+          for (j = 0, len = ref.length; j < len; j++) {
+            child = ref[j];
+            if ((child != null ? child.data.name : void 0) === (elem != null ? elem.data.name : void 0)) {
+              return true;
+            }
           }
         }
         return false;
@@ -271,7 +287,7 @@
       magnify(d, eventType) {
         var resize, y0, y1;
         if (true) { // d.data['can']?
-          //console.log( 'magnify', d.data.name )
+          //console.log( 'magnify', d )
           y0 = d.y0;
           y1 = d.y0 + (d.y1 - d.y0) * 1.3;
           resize = this.doChoice(d, eventType, d.x0, y0, d.x1, y1);
@@ -280,12 +296,14 @@
           if (resize === 'none') {
             return;
           }
-          d.children.forEach((child) => {
-            if (child != null) {
-              child.data.hide = !(d.chosen || eventType === 'mouseover');
-            }
-            return this.resizeElem(child, resize, child != null ? child.x0 : void 0, y0, child != null ? child.x1 : void 0, y1);
-          });
+          if (d.children != null) {
+            d.children.forEach((child) => {
+              if (child != null) {
+                child.data.hide = !(d.chosen || eventType === 'mouseover');
+              }
+              return this.resizeElem(child, resize, child != null ? child.x0 : void 0, y0, child != null ? child.x1 : void 0, y1);
+            });
+          }
           this.g.selectAll('path').data(this.nodes).filter((e) => {
             return this.inBranch(d, e);
           }).transition().duration(this.duration).style("display", function(d) {
@@ -378,7 +396,7 @@
           elem.m1 = void 0;
           elem.n0 = void 0;
           elem.n1 = void 0;
-          elem.data.hide = resize === 'mouseout' && (elem.data.children == null) ? true : false;
+          elem.data.hide = false; // if resize is 'mouseout' and not elem.data.children? then true else false
         } else {
           Util.noop();
         }

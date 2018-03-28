@@ -8,13 +8,13 @@
         Jitter.page = this;
         this.view = null; // Set by ready()
         this.flavor = new Jitter.Flavor(this.stream);
-        this.logo = new Jitter.Logo(this.stream);
+        //logo    = new Jitter.Logo(    @stream )
         this.choices = new Jitter.Choices(this.stream);
         this.roast = new Jitter.Roast(this.stream);
         this.drink = new Jitter.Drink(this.stream);
         this.body = new Jitter.Body(this.stream);
         this.brew = new Jitter.Brew(this.stream);
-        this.aroma = new Jitter.Aroma(this.stream);
+        //aroma   = new Jitter.Aroma(   @stream )
         this.coffee = new Jitter.Coffee(this.stream);
         this.order = new Jitter.Order(this.stream);
       }
@@ -95,9 +95,7 @@
         pane.page = this;
         pane.$.empty();
         switch (pane.name) {
-          case "Logo":
-            this.logo.overview(pane, spec);
-            break;
+          //hen "Logo"    then    @logo.overview( pane, spec )
           case "Flavor":
             this.flavor.overview(pane, spec);
             break;
@@ -116,9 +114,7 @@
           case "Brew":
             this.brew.overview(pane, spec);
             break;
-          case "Aroma":
-            this.aroma.overview(pane, spec);
-            break;
+          //hen "Aroma"   then   @aroma.overview( pane, spec )
           case "Coffee":
             this.coffee.overview(pane, spec);
             break;
@@ -134,9 +130,7 @@
         pane.page = this;
         pane.$.empty();
         switch (pane.name) {
-          case "Logo":
-            this.logo.ready(pane, spec);
-            break;
+          //hen "Logo"    then    @logo.ready( pane, spec )
           case "Flavor":
             this.flavor.ready(pane, spec);
             break;
@@ -155,9 +149,7 @@
           case "Brew":
             this.brew.ready(pane, spec);
             break;
-          case "Aroma":
-            this.aroma.ready(pane, spec);
-            break;
+          //hen "Aroma"   then   @aroma.ready( pane, spec )
           case "Coffee":
             this.coffee.ready(pane, spec);
             break;
@@ -172,9 +164,7 @@
       createContent(pane, spec, study = null) {
         pane.$.empty();
         switch (pane.name) {
-          case "Logo":
-            this.logo.create(pane, spec);
-            break;
+          //hen "Logo"    then    @logo.create( pane, spec )
           case "Flavor":
             this.flavor.create(pane, spec, study);
             break;
@@ -193,9 +183,7 @@
           case "Brew":
             this.brew.create(pane, spec);
             break;
-          case "Aroma":
-            this.aroma.create(pane, spec);
-            break;
+          //hen "Aroma"   then   @aroma.create( pane, spec )
           case "Coffee":
             this.coffee.create(pane, spec);
             break;

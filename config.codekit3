@@ -633,6 +633,141 @@
 		"oT": 1,
 		"q": 100
 		},
+	"\/doc\/fonts\/fontawesome-webfont.eot": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 0,
+		"oAP": "\/doc\/fonts\/fontawesome-webfont.eot",
+		"oF": 0
+		},
+	"\/doc\/fonts\/fontawesome-webfont.svg": {
+		"ft": 2097152,
+		"miP": 0,
+		"oA": 2,
+		"oAP": "\/doc\/fonts\/fontawesome-webfont.svg",
+		"oF": 0,
+		"opt": 0,
+		"plM": 3758088159,
+		"prP": 0
+		},
+	"\/doc\/fonts\/fontawesome-webfont.ttf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 0,
+		"oAP": "\/doc\/fonts\/fontawesome-webfont.ttf",
+		"oF": 0
+		},
+	"\/doc\/fonts\/fontawesome-webfont.woff": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 0,
+		"oAP": "\/doc\/fonts\/fontawesome-webfont.woff",
+		"oF": 0
+		},
+	"\/doc\/fonts\/fontawesome-webfont.woff2": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 0,
+		"oAP": "\/doc\/fonts\/fontawesome-webfont.woff2",
+		"oF": 0
+		},
+	"\/doc\/fonts\/FontAwesome.otf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 0,
+		"oAP": "\/doc\/fonts\/FontAwesome.otf",
+		"oF": 0
+		},
+	"\/doc\/img\/4ec2c629796737.56040d01a9833.jpg": {
+		"ft": 16384,
+		"iS": 272041,
+		"oA": 0,
+		"oAP": "\/doc\/img\/4ec2c629796737.56040d01a9833.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/doc\/img\/altitudes_TRI.jpg": {
+		"ft": 16384,
+		"iS": 1102200,
+		"oA": 0,
+		"oAP": "\/doc\/img\/altitudes_TRI.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/doc\/img\/b0545029796737.56040d01a503c.jpg": {
+		"ft": 16384,
+		"iS": 147135,
+		"oA": 0,
+		"oAP": "\/doc\/img\/b0545029796737.56040d01a503c.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/doc\/img\/blends_cards.jpg": {
+		"ft": 16384,
+		"iS": 1173779,
+		"oA": 0,
+		"oAP": "\/doc\/img\/blends_cards.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/doc\/img\/ChoosingBeansInfograhpic_BlogGraphic_r2.jpg": {
+		"ft": 16384,
+		"iS": 773976,
+		"oA": 0,
+		"oAP": "\/doc\/img\/ChoosingBeansInfograhpic_BlogGraphic_r2.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/doc\/img\/Cm1ads3WIAAxEfY.jpg": {
+		"ft": 16384,
+		"iS": 155390,
+		"oA": 0,
+		"oAP": "\/doc\/img\/Cm1ads3WIAAxEfY.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/doc\/img\/coffee-aroma-spectrum.jpg": {
+		"ft": 16384,
+		"iS": 66597,
+		"oA": 0,
+		"oAP": "\/doc\/img\/coffee-aroma-spectrum.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/doc\/img\/Coffee-Flavour-Wheel-V2-1.jpg": {
+		"ft": 16384,
+		"iS": 296908,
+		"oA": 0,
+		"oAP": "\/doc\/img\/Coffee-Flavour-Wheel-V2-1.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/doc\/img\/coffee_flavor_tree.jpg": {
+		"ft": 16384,
+		"iS": 245930,
+		"oA": 0,
+		"oAP": "\/doc\/img\/coffee_flavor_tree.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
 	"\/doc\/img\/CoffeeColors.jpg": {
 		"ft": 16384,
 		"iS": 144190,
@@ -649,6 +784,109 @@
 		"oA": 0,
 		"oAP": "\/doc\/img\/CoffeeColors.txt",
 		"oF": 0
+		},
+	"\/doc\/img\/CoffeeFamilyTree.jpg": {
+		"ft": 16384,
+		"iS": 226252,
+		"oA": 0,
+		"oAP": "\/doc\/img\/CoffeeFamilyTree.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/doc\/img\/coffees.jpg": {
+		"ft": 16384,
+		"iS": 226252,
+		"oA": 0,
+		"oAP": "\/doc\/img\/coffees.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/doc\/img\/coffeeSpectrum_1000.jpg": {
+		"ft": 16384,
+		"iS": 144423,
+		"oA": 0,
+		"oAP": "\/doc\/img\/coffeeSpectrum_1000.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/doc\/img\/Different-Bags-of-Coffee.jpg": {
+		"ft": 16384,
+		"iS": 485833,
+		"oA": 0,
+		"oAP": "\/doc\/img\/Different-Bags-of-Coffee.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/doc\/img\/FlavorRoast.jpg": {
+		"ft": 16384,
+		"iS": 44270,
+		"oA": 0,
+		"oAP": "\/doc\/img\/FlavorRoast.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/doc\/img\/Food-Chemistry-Maillard-Reaction-1024x724.png": {
+		"ft": 32768,
+		"iS": 299963,
+		"oA": 0,
+		"oAP": "\/doc\/img\/Food-Chemistry-Maillard-Reaction-1024x724.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/doc\/img\/growing-regions_map.jpg": {
+		"ft": 16384,
+		"iS": 1262874,
+		"oA": 0,
+		"oAP": "\/doc\/img\/growing-regions_map.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/doc\/img\/jitter.jpg": {
+		"ft": 16384,
+		"iS": 2751715,
+		"oA": 0,
+		"oAP": "\/doc\/img\/jitter.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/doc\/img\/Jitter.v3.png": {
+		"ft": 32768,
+		"iS": 234556,
+		"oA": 0,
+		"oAP": "\/doc\/img\/Jitter.v3.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/doc\/img\/JitterDoneRight.png": {
+		"ft": 32768,
+		"iS": 397929,
+		"oA": 0,
+		"oAP": "\/doc\/img\/JitterDoneRight.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
 		},
 	"\/doc\/img\/logo - 2018 - RX - BnW.png": {
 		"ft": 32768,
@@ -670,6 +908,26 @@
 		"oIPL": 0,
 		"opt": 0,
 		"oT": 1,
+		"q": 100
+		},
+	"\/doc\/img\/RoastAwesome.jpg": {
+		"ft": 16384,
+		"iS": 63836,
+		"oA": 0,
+		"oAP": "\/doc\/img\/RoastAwesome.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/doc\/img\/RoastingPoint.jpg": {
+		"ft": 16384,
+		"iS": 95734,
+		"oA": 0,
+		"oAP": "\/doc\/img\/RoastingPoint.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
 		"q": 100
 		},
 	"\/doc\/img\/RoastsAll.jpg": {
@@ -702,11 +960,39 @@
 		"opt": 0,
 		"q": 100
 		},
-	"\/doc\/wheel\/JitterDoneRight.png": {
+	"\/doc\/img\/SCA.png": {
 		"ft": 32768,
-		"iS": 397929,
+		"iS": 254377,
 		"oA": 0,
-		"oAP": "\/doc\/wheel\/JitterDoneRight.png",
+		"oAP": "\/doc\/img\/SCA.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/doc\/img\/SCA_TasterWheel_English_.pdf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 0,
+		"oAP": "\/doc\/img\/SCA_TasterWheel_English_.pdf",
+		"oF": 0
+		},
+	"\/doc\/img\/SCAA_FlavorWheel.01.18.15.jpg": {
+		"ft": 16384,
+		"iS": 2656871,
+		"oA": 0,
+		"oAP": "\/doc\/img\/SCAA_FlavorWheel.01.18.15.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/doc\/img\/Screenshot-2018-3-27 Coffee Flavour Wheel.png": {
+		"ft": 32768,
+		"iS": 243523,
+		"oA": 0,
+		"oAP": "\/doc\/img\/Screenshot-2018-3-27 Coffee Flavour Wheel.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
@@ -751,6 +1037,16 @@
 		"oF": 0,
 		"sC": 3,
 		"tS": 0
+		},
+	"\/doc\/wheel\/set-vector-coffee-elements-coffee-machine-icons-illustration-can-be-used-as-logo-icon-premium-quality-style-74581439.jpg": {
+		"ft": 16384,
+		"iS": 118841,
+		"oA": 0,
+		"oAP": "\/doc\/wheel\/set-vector-coffee-elements-coffee-machine-icons-illustration-can-be-used-as-logo-icon-premium-quality-style-74581439.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
 		},
 	"\/doc\/wheel\/Wheel1.coffee": {
 		"ft": 32,
@@ -1104,81 +1400,6 @@
 		"oF": 0,
 		"oS": 3
 		},
-	"\/public\/fonts\/fontawesome-webfont.eot": {
-		"cB": 0,
-		"ft": 8192,
-		"oA": 0,
-		"oAP": "\/public\/fonts\/fontawesome-webfont.eot",
-		"oF": 0
-		},
-	"\/public\/fonts\/fontawesome-webfont.svg": {
-		"ft": 2097152,
-		"miP": 0,
-		"oA": 2,
-		"oAP": "\/public\/fonts\/fontawesome-webfont.svg",
-		"oF": 0,
-		"opt": 0,
-		"plM": 3758088159,
-		"prP": 0
-		},
-	"\/public\/fonts\/fontawesome-webfont.ttf": {
-		"cB": 0,
-		"ft": 8192,
-		"oA": 0,
-		"oAP": "\/public\/fonts\/fontawesome-webfont.ttf",
-		"oF": 0
-		},
-	"\/public\/fonts\/fontawesome-webfont.woff": {
-		"cB": 0,
-		"ft": 8192,
-		"oA": 0,
-		"oAP": "\/public\/fonts\/fontawesome-webfont.woff",
-		"oF": 0
-		},
-	"\/public\/fonts\/fontawesome-webfont.woff2": {
-		"cB": 0,
-		"ft": 8192,
-		"oA": 0,
-		"oAP": "\/public\/fonts\/fontawesome-webfont.woff2",
-		"oF": 0
-		},
-	"\/public\/fonts\/FontAwesome.otf": {
-		"cB": 0,
-		"ft": 8192,
-		"oA": 0,
-		"oAP": "\/public\/fonts\/FontAwesome.otf",
-		"oF": 0
-		},
-	"\/public\/img\/aaa\/4ec2c629796737.56040d01a9833.jpg": {
-		"ft": 16384,
-		"iS": 272041,
-		"oA": 0,
-		"oAP": "\/public\/img\/aaa\/4ec2c629796737.56040d01a9833.jpg",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"q": 100
-		},
-	"\/public\/img\/aaa\/b0545029796737.56040d01a503c.jpg": {
-		"ft": 16384,
-		"iS": 147135,
-		"oA": 0,
-		"oAP": "\/public\/img\/aaa\/b0545029796737.56040d01a503c.jpg",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"q": 100
-		},
-	"\/public\/img\/aaa\/set-vector-coffee-elements-coffee-machine-icons-illustration-can-be-used-as-logo-icon-premium-quality-style-74581439.jpg": {
-		"ft": 16384,
-		"iS": 118841,
-		"oA": 0,
-		"oAP": "\/public\/img\/aaa\/set-vector-coffee-elements-coffee-machine-icons-illustration-can-be-used-as-logo-icon-premium-quality-style-74581439.jpg",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"q": 100
-		},
 	"\/public\/img\/aroma\/AromaReady.png": {
 		"ft": 32768,
 		"iS": 66036,
@@ -1321,6 +1542,17 @@
 		"oT": 1,
 		"q": 100
 		},
+	"\/public\/img\/logo\/JitterBoxBurn.png": {
+		"ft": 32768,
+		"iS": 39545,
+		"oA": 0,
+		"oAP": "\/public\/img\/logo\/JitterBoxBurn.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
 	"\/public\/img\/logo\/JitterBoxLogo.png": {
 		"ft": 32768,
 		"iS": 138275,
@@ -1340,6 +1572,17 @@
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/public\/img\/logo\/JitterBoxTran.png": {
+		"ft": 32768,
+		"iS": 138275,
+		"oA": 0,
+		"oAP": "\/public\/img\/logo\/JitterBoxTran.png",
+		"oF": 0,
+		"oIPL": 1,
+		"opt": 1,
 		"oT": 1,
 		"q": 100
 		},
@@ -1557,135 +1800,6 @@
 		"oIPL": 1,
 		"opt": 1,
 		"oT": 1,
-		"q": 100
-		},
-	"\/public\/img\/wheel\/ChoosingBeansInfograhpic_BlogGraphic_r2.jpg": {
-		"ft": 16384,
-		"iS": 773012,
-		"oA": 0,
-		"oAP": "\/public\/img\/wheel\/ChoosingBeansInfograhpic_BlogGraphic_r2.jpg",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"q": 100
-		},
-	"\/public\/img\/wheel\/Cm1ads3WIAAxEfY.jpg": {
-		"ft": 16384,
-		"iS": 155390,
-		"oA": 0,
-		"oAP": "\/public\/img\/wheel\/Cm1ads3WIAAxEfY.jpg",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"q": 100
-		},
-	"\/public\/img\/wheel\/coffee-aroma-spectrum.jpg": {
-		"ft": 16384,
-		"iS": 66597,
-		"oA": 0,
-		"oAP": "\/public\/img\/wheel\/coffee-aroma-spectrum.jpg",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"q": 100
-		},
-	"\/public\/img\/wheel\/Coffee-Flavour-Wheel-V2-1.jpg": {
-		"ft": 16384,
-		"iS": 296908,
-		"oA": 0,
-		"oAP": "\/public\/img\/wheel\/Coffee-Flavour-Wheel-V2-1.jpg",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"q": 100
-		},
-	"\/public\/img\/wheel\/coffee_flavor_tree.jpg": {
-		"ft": 16384,
-		"iS": 245930,
-		"oA": 0,
-		"oAP": "\/public\/img\/wheel\/coffee_flavor_tree.jpg",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"q": 100
-		},
-	"\/public\/img\/wheel\/coffees.jpg": {
-		"ft": 16384,
-		"iS": 226252,
-		"oA": 0,
-		"oAP": "\/public\/img\/wheel\/coffees.jpg",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"q": 100
-		},
-	"\/public\/img\/wheel\/coffeeSpectrum_1000.jpg": {
-		"ft": 16384,
-		"iS": 144423,
-		"oA": 0,
-		"oAP": "\/public\/img\/wheel\/coffeeSpectrum_1000.jpg",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"q": 100
-		},
-	"\/public\/img\/wheel\/FlavorRoast.jpg": {
-		"ft": 16384,
-		"iS": 44270,
-		"oA": 0,
-		"oAP": "\/public\/img\/wheel\/FlavorRoast.jpg",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"q": 100
-		},
-	"\/public\/img\/wheel\/jitter.jpg": {
-		"ft": 16384,
-		"iS": 2751715,
-		"oA": 0,
-		"oAP": "\/public\/img\/wheel\/jitter.jpg",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"q": 100
-		},
-	"\/public\/img\/wheel\/Jitter.v3.png": {
-		"ft": 32768,
-		"iS": 234556,
-		"oA": 0,
-		"oAP": "\/public\/img\/wheel\/Jitter.v3.png",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"oT": 1,
-		"q": 100
-		},
-	"\/public\/img\/wheel\/SCA.png": {
-		"ft": 32768,
-		"iS": 254377,
-		"oA": 0,
-		"oAP": "\/public\/img\/wheel\/SCA.png",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"oT": 1,
-		"q": 100
-		},
-	"\/public\/img\/wheel\/SCA_TasterWheel_English_.pdf": {
-		"cB": 0,
-		"ft": 8192,
-		"oA": 0,
-		"oAP": "\/public\/img\/wheel\/SCA_TasterWheel_English_.pdf",
-		"oF": 0
-		},
-	"\/public\/img\/wheel\/SCAA_FlavorWheel.01.18.15.jpg": {
-		"ft": 16384,
-		"iS": 2656871,
-		"oA": 0,
-		"oAP": "\/public\/img\/wheel\/SCAA_FlavorWheel.01.18.15.jpg",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
 		"q": 100
 		},
 	"\/public\/index.html": {
@@ -2003,6 +2117,14 @@
 		"oO": 0,
 		"oS": 1
 		},
+	"\/public\/json\/flavor.choice.json": {
+		"ft": 524288,
+		"oA": 1,
+		"oAP": "\/public\/json\/flavor.choice-min.json",
+		"oF": 0,
+		"oO": 0,
+		"oS": 1
+		},
 	"\/public\/json\/flavor.davies.json": {
 		"ft": 524288,
 		"oA": 1,
@@ -2063,6 +2185,14 @@
 		"ft": 524288,
 		"oA": 1,
 		"oAP": "\/public\/json\/tocExtra-min.json",
+		"oF": 0,
+		"oO": 0,
+		"oS": 1
+		},
+	"\/public\/json\/tocLR.json": {
+		"ft": 524288,
+		"oA": 1,
+		"oAP": "\/public\/json\/tocLR-min.json",
 		"oF": 0,
 		"oO": 0,
 		"oS": 1

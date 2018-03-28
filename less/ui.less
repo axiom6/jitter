@@ -23,15 +23,16 @@ html { overflow:hidden; }
 .ui-pane-text         { text-align:center; line-height:1.0; margin-top:4px; }
 .ui-pane-center-div:hover { .mixin-hover; }
 
-.ui-pane .panel  { font-family:Roboto, sans-serif; }
-.ui-pane .label  { font-size:3vmin; color:white; font-weight:bold; }
-.ui-pane .image  { font-size:2vmin; color:white; }
+.ui-pane .panel  { font-family:Roboto, sans-serif; z-index:2; }
+.ui-pane .image  { font-size:2vmin; color:white;   z-index:1;       }
+.ui-pane .label  { font-size:3vmin; color:white; font-weight:bold;  }
 .ui-pane .texts  { font-size:2vmin; color:white; line-height:2vmin; }
 .ui-pane .branch { font-size:2vmin; color:white; line-height:3vmin; }
 .ui-pane .roast  { font-size:2vmin; color:white; z-index:2; } //  border:black solid 4px;
 .ui-pane .roast:hover  { color:wheat; }
 
-  .ui-pane .txt    { font-size:2vmin; color:white; }
+//.ui-pane  svg    { z-index:2; }
+.ui-pane .txt    { font-size:2vmin; color:white; }
 .ui-pane .img    {}
 
 /*

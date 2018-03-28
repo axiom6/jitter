@@ -184,6 +184,8 @@ Jitter = (function() {
 
   Jitter.basisColor = "white";
 
+  Jitter.opacity = 0.6;
+
   return Jitter;
 
 }).call(this);

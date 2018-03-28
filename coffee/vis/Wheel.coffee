@@ -6,6 +6,8 @@ class Wheel
   constructor:( @stream ) ->
     @numChoices = 0
     @maxChoices = 4
+    @sc0 = { "0":1.0, "1":1.0, "2":1.0, "3":1.0 }
+    @sc1 = { "0":1.0, "1":1.0, "2":1.0, "3":1.0 }
 
   create:(  pane, spec, data ) ->
 
@@ -65,8 +67,8 @@ class Wheel
 
     d3.json @url, (error, json ) =>
       throw error if error
-      @root = d3.hierarchy(json)
-      @root.sum(  (d) -> ( d.chosen = false; d.hide = not d.children?; if d.children? then 0 else 1 ) )
+      @root = d3.hierarchy(json)        # d.hide = not d.children?
+      @root.sum(  (d) -> ( d.chosen = false; d.hide = false; if d.children? then 0 else 1 ) )
 
       @nodes = @partition(@root).descendants()
       @path  = @g.selectAll("path")
@@ -76,6 +78,7 @@ class Wheel
         .attr(  "d", @arc )
         .attr(  "fill-rule", "evenodd")
         .style( "fill",    (d) => @fill(d.data)  )
+        .style( "opacity", Jitter.opacity )
         .style( "display", (d) -> if d.data.hide then "none" else "block" )
         .on( "click",      (d) => @magnify( d, 'click'     ) )
         .on( "mouseover",  (d) => @magnify( d, 'mouseover' ) )
@@ -86,20 +89,23 @@ class Wheel
 
     d3.select( self.frameElement).style( "height", @height + "px" )
 
-  x0:(d) -> if d.m0? then d.m0 else d.x0
-  x1:(d) -> if d.m1? then d.m1 else d.x1
-  y0:(d) -> if d.n0? then d.n0 else d.y0
-  y1:(d) -> if d.n1? then d.n1 else d.y1
+  x0:(d) ->  if d.m0? then d.m0 else d.x0
+  x1:(d) ->  if d.m1? then d.m1 else d.x1
+  y0:(d) -> (if d.n0? then d.n0 else d.y0)*@s1(d)
+  y1:(d) -> (if d.n1? then d.n1 else d.y1)*@s1(d)
   xc:(d) => (@x0(d)+@x1(d))/2
   yc:(d) => (@y0(d)+@y1(d))/2
+  s0:(d) => @sc0[d.depth]
+  s1:(d) => @sc1[d.depth]
 
   sameNode:( a, b ) ->
     a?.data.name is b?.data.name
 
   inBranch:( branch, elem ) ->
     return true if  branch?.data.name is elem?.data.name
-    for child in branch?.children
-      return true if child?.data.name is elem?.data.name
+    if branch.children?
+      for child in branch?.children
+        return true if child?.data.name is elem?.data.name
     return false
 
   # http://www.w3.org/WAI/ER/WD-AERT/#color-contrast
@@ -114,7 +120,6 @@ class Wheel
     false
 
   fill:(d) =>
-
     if d.fill?
       d.fill
     else if d.children
@@ -135,7 +140,7 @@ class Wheel
       .on( "mouseover",   (d) => @magnify( d, 'mouseover' ) )
       .on( "mouseout",    (d) => @magnify( d, 'mouseout'  ) )
       .style("font-size", (t) => @fontSize( t ) )
-      .style('fill-opacity', 1)
+      .style('fill-opacity', 1 )
       #style('fill',       (d) => if @brightness( d3.rgb( @fill(d.data) ) ) < 125 then '#eee' else '#000' )
       .style('fill', '#000000' )
       .style('font-weight', 'bold' )
@@ -155,16 +160,17 @@ class Wheel
   magnify:( d, eventType ) =>
     
     if true # d.data['can']?
-      #console.log( 'magnify', d.data.name )
+      #console.log( 'magnify', d )
       y0 = d.y0
       y1 = d.y0 + (d.y1-d.y0) * 1.3
       resize = @doChoice( d, eventType, d.x0, y0, d.x1, y1 )
       y0 = if resize is UI.AddChoice or 'mouseover' then y1 else d.y1
       y1 = y0 + d.y1 - d.y0
       return if resize is 'none'
-      d.children.forEach( (child) =>
-        child?.data.hide = not ( d.chosen or eventType is 'mouseover' )
-        @resizeElem( child, resize, child?.x0, y0, child?.x1, y1 ) )
+      if d.children?
+        d.children.forEach( (child) =>
+          child?.data.hide = not ( d.chosen or eventType is 'mouseover' )
+          @resizeElem( child, resize, child?.x0, y0, child?.x1, y1 ) )
       @g.selectAll('path').data( @nodes )
         .filter( (e) => @inBranch( d, e ) )
         .transition()
@@ -227,7 +233,7 @@ class Wheel
       elem.m1 = undefined
       elem.n0 = undefined
       elem.n1 = undefined
-      elem.data.hide = if resize is 'mouseout' and not elem.data.children? then true else false
+      elem.data.hide = false # if resize is 'mouseout' and not elem.data.children? then true else false
     else
       Util.noop()
     return

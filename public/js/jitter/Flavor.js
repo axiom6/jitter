@@ -7,6 +7,9 @@
         this.resize = this.resize.bind(this);
         this.stream = stream;
         this.wheel = new Vis.Wheel(this.stream);
+        this.srcLg = "img/logo/JitterBoxLogo.png";
+        this.srcRx = "img/logo/JitterBoxRx.png";
+        this.srcRy = "img/logo/JitterBoxRy.png";
       }
 
       overview(pane, spec) {
@@ -23,10 +26,13 @@
         [this.pane, this.spec, this.study] = [pane, spec, study];
         pane.$.empty();
         name = study != null ? study.name : "Jitter";
-        url = study != null ? "json/" + study.json + ".json" : "json/aroma.nine.json";
-        scale = study != null ? study.scale : 1.25;
+        url = study != null ? "json/" + study.json + ".json" : "json/flavor.choice.json";
+        scale = 0.9; // if study? then study.scale else 1.25
         divId = Util.getHtmlId("Wheel", name);
-        pane.$.append(`<div ${Jitter.panel(0, 0, 100, 100)} id="${divId}"></div>`);
+        pane.$.append(`     ${Jitter.image(0, 4, 100, 10, this.srcLg, 15, "", "24px")}`);
+        pane.$.append(`     ${Jitter.image(-4, 0, 15, 10, this.srcRy, 30, "", "24px")}`);
+        pane.$.append(`     ${Jitter.image(75, 0, 15, 10, this.srcRx, 30, "", "24px")}`);
+        pane.$.append(`<div ${Jitter.panel(0, 5, 100, 95)} id="${divId}"></div>`);
         this.wheel.ready(pane, spec, divId, url, scale);
         window.addEventListener("resize", this.resize);
       }

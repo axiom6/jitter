@@ -281,15 +281,17 @@ html {
 }
 .ui-pane .panel {
   font-family: Roboto, sans-serif;
+  z-index: 2;
+}
+.ui-pane .image {
+  font-size: 2vmin;
+  color: white;
+  z-index: 1;
 }
 .ui-pane .label {
   font-size: 3vmin;
   color: white;
   font-weight: bold;
-}
-.ui-pane .image {
-  font-size: 2vmin;
-  color: white;
 }
 .ui-pane .texts {
   font-size: 2vmin;

@@ -29,10 +29,10 @@
         x = 0;
         dx = 100 / n; // - 0.07
         pane.$.append(`<div ${Jitter.panel(0, 0, 100, 100)}></div>`);
-        style = "position:absolute; left:2%; top:5%; width:9%; height:90% ;";
+        style = "position:absolute; left:2%; top:5%; width:9%; height:90%; ";
         style += `text-align:center; background:${this.data["5"].color}; `;
-        style += "border:black solid 2px; color:white; font-size:3vmin; font-weight:bold; display: table;";
-        spans = " display: table-cell; vertical-align: middle; line-height: normal; ";
+        style += `border:black solid 2px; font-size:3vmin; font-weight:bold; display:table; opacity:${Jitter.opacity}; `;
+        spans = "display:table-cell; vertical-align:middle; line-height:normal; "; // opacity:1.0; z-index:4; color:white;
         pane.$.append(`<div id="RoastColor" style="${style}"><span style="${spans}">${spec.name}</span></div>`);
         $r = $(`<div ${Jitter.label(13, 5, 84, 90, "roast")}></div>`);
         $r.append(`<img style="width:100%; height:75%;" src="${src}"/>`);
@@ -52,7 +52,7 @@
           }
           $r.append(`<div style="${style}"></div>`);
           style = `position:absolute; left:${x}%; top:${75}%; width:${dx}%; height:${25}% ;`;
-          style += `text-align:center; background:${roast.color} ;`;
+          style += `text-align:center; background:${roast.color}; opacity:0.5;`;
           style += "border:black solid 2px;";
           $r.append(`<div style="${style}"></div>`);
           x = x + dx;
