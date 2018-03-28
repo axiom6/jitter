@@ -17,10 +17,12 @@
         this.doChoice = this.doChoice.bind(this);
         this.chooseElem = this.chooseElem.bind(this);
         this.textTransform = this.textTransform.bind(this);
+        this.displayAllLeaves = this.displayAllLeaves.bind(this);
         this.zoomTween = this.zoomTween.bind(this);
         this.stream = stream;
         this.numChoices = 0;
         this.maxChoices = 4;
+        this.showAllLeaves = false;
         this.sc0 = {
           "0": 1.0,
           "1": 1.0,
@@ -92,11 +94,11 @@
           if (error) {
             throw error;
           }
-          this.root = d3.hierarchy(json); // d.hide = not d.children?
-          this.root.sum(function(d) {
+          this.root = d3.hierarchy(json);
+          this.root.sum((d) => {
             d.chosen = false;
-            d.hide = false;
-            if (d.children != null) {
+            d.hide = this.isLeaf(d);
+            if (this.isBranch(d)) {
               return 0;
             } else {
               return 1;
@@ -123,9 +125,8 @@
             return this.magnify(d, 'mouseover');
           }).on("mouseout", (d) => {
             return this.magnify(d, 'mouseout');
-          }).append("title").text(function(d) {
-            return d.data.name;
           });
+          //append("title").text( (d) -> d.data.name )
           return this.doText(this.nodes);
         });
         return d3.select(self.frameElement).style("height", this.height + "px");
@@ -192,9 +193,12 @@
         return false;
       }
 
-      // http://www.w3.org/WAI/ER/WD-AERT/#color-contrast
-      brightness(rgb) {
-        return rgb.r * .299 + rgb.g * .587 + rgb.b * .114;
+      isBranch(d) {
+        return d.children != null;
+      }
+
+      isLeaf(d) {
+        return d.children == null;
       }
 
       isParentOf(p, c) {
@@ -207,6 +211,11 @@
           });
         }
         return false;
+      }
+
+      // http://www.w3.org/WAI/ER/WD-AERT/#color-contrast
+      brightness(rgb) {
+        return rgb.r * .299 + rgb.g * .587 + rgb.b * .114;
       }
 
       fill(d) {
@@ -286,47 +295,53 @@
 
       magnify(d, eventType) {
         var resize, y0, y1;
-        if (true) { // d.data['can']?
-          //console.log( 'magnify', d )
-          y0 = d.y0;
-          y1 = d.y0 + (d.y1 - d.y0) * 1.3;
-          resize = this.doChoice(d, eventType, d.x0, y0, d.x1, y1);
-          y0 = resize === UI.AddChoice || 'mouseover' ? y1 : d.y1;
-          y1 = y0 + d.y1 - d.y0;
-          if (resize === 'none') {
-            return;
-          }
-          if (d.children != null) {
-            d.children.forEach((child) => {
-              if (child != null) {
-                child.data.hide = !(d.chosen || eventType === 'mouseover');
-              }
-              return this.resizeElem(child, resize, child != null ? child.x0 : void 0, y0, child != null ? child.x1 : void 0, y1);
-            });
-          }
-          this.g.selectAll('path').data(this.nodes).filter((e) => {
-            return this.inBranch(d, e);
-          }).transition().duration(this.duration).style("display", function(d) {
-            if (d.data.hide) {
-              return "none";
-            } else {
-              return "block";
+        if (eventType === 'click' && (d.parent == null)) {
+          this.displayAllLeaves();
+        }
+        if (d.data['can'] == null) {
+          return;
+        }
+        if (eventType === 'click') {
+          console.log('magnify', d);
+        }
+        y0 = d.y0;
+        y1 = d.y0 + (d.y1 - d.y0) * 1.3;
+        resize = this.doChoice(d, eventType, d.x0, y0, d.x1, y1);
+        y0 = resize === UI.AddChoice || 'mouseover' ? y1 : d.y1;
+        y1 = y0 + d.y1 - d.y0;
+        if (resize === 'none') {
+          return;
+        }
+        if (d.children != null) {
+          d.children.forEach((child) => {
+            if (child != null) {
+              child.data.hide = !(d.chosen || eventType === 'mouseover');
             }
-          }).attr("d", this.arc);
-          this.g.selectAll('text').data(this.nodes).filter((e) => {
-            return this.inBranch(d, e);
-          }).transition().duration(this.duration).attr("transform", (t) => {
-            return this.textTransform(t);
-          }).style("font-size", (t) => {
-            return this.fontSize(t, d);
-          }).style("display", function(d) {
-            if (d.data.hide) {
-              return "none";
-            } else {
-              return "block";
-            }
+            return this.resizeElem(child, resize, child != null ? child.x0 : void 0, y0, child != null ? child.x1 : void 0, y1);
           });
         }
+        this.g.selectAll('path').data(this.nodes).filter((e) => {
+          return this.inBranch(d, e);
+        }).transition().duration(this.duration).style("display", function(d) {
+          if (d.data.hide) {
+            return "none";
+          } else {
+            return "block";
+          }
+        }).attr("d", this.arc);
+        this.g.selectAll('text').data(this.nodes).filter((e) => {
+          return this.inBranch(d, e);
+        }).transition().duration(this.duration).attr("transform", (t) => {
+          return this.textTransform(t);
+        }).style("font-size", (t) => {
+          return this.fontSize(t, d);
+        }).style("display", function(d) {
+          if (d.data.hide) {
+            return "none";
+          } else {
+            return "block";
+          }
+        });
       }
 
       fontSize(t, d = null) {
@@ -396,7 +411,7 @@
           elem.m1 = void 0;
           elem.n0 = void 0;
           elem.n1 = void 0;
-          elem.data.hide = false; // if resize is 'mouseout' and not elem.data.children? then true else false
+          elem.data.hide = resize === 'mouseout' && (elem.data.children == null) ? true : false;
         } else {
           Util.noop();
         }
@@ -408,6 +423,24 @@
         angle = this.xx(this.xc(d)) * 180 / Math.PI - 90;
         rotate = angle + (multiline ? -.5 : 0);
         return 'rotate(' + rotate + ')translate(' + this.yy(this.y0(d)) + this.padding + ')rotate(' + (angle > 90 ? -180 : 0) + ')';
+      }
+
+      displayAllLeaves() {
+        this.showAllLeaves = !this.showAllLeaves;
+        this.g.selectAll("path").style("display", (d) => {
+          if (this.isLeaf(d) && !this.showAllLeaves && !d.parent.chosen) {
+            return "none";
+          } else {
+            return "block";
+          }
+        });
+        return this.g.selectAll('text').style("display", (d) => {
+          if (this.isLeaf(d) && !this.showAllLeaves && !d.parent.chosen) {
+            return "none";
+          } else {
+            return "block";
+          }
+        });
       }
 
       zoomTween(d) {

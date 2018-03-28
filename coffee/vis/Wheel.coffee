@@ -4,8 +4,9 @@ class Wheel
   Vis.Wheel = Wheel
 
   constructor:( @stream ) ->
-    @numChoices = 0
-    @maxChoices = 4
+    @numChoices    = 0
+    @maxChoices    = 4
+    @showAllLeaves = false
     @sc0 = { "0":1.0, "1":1.0, "2":1.0, "3":1.0 }
     @sc1 = { "0":1.0, "1":1.0, "2":1.0, "3":1.0 }
 
@@ -67,8 +68,8 @@ class Wheel
 
     d3.json @url, (error, json ) =>
       throw error if error
-      @root = d3.hierarchy(json)        # d.hide = not d.children?
-      @root.sum(  (d) -> ( d.chosen = false; d.hide = false; if d.children? then 0 else 1 ) )
+      @root = d3.hierarchy(json)
+      @root.sum(  (d) => ( d.chosen = false; d.hide = @isLeaf(d); if @isBranch(d) then 0 else 1 ) )
 
       @nodes = @partition(@root).descendants()
       @path  = @g.selectAll("path")
@@ -83,7 +84,7 @@ class Wheel
         .on( "click",      (d) => @magnify( d, 'click'     ) )
         .on( "mouseover",  (d) => @magnify( d, 'mouseover' ) )
         .on( "mouseout",   (d) => @magnify( d, 'mouseout'  ) )
-        .append("title").text( (d) -> d.data.name )
+        #append("title").text( (d) -> d.data.name )
 
       @doText( @nodes )
 
@@ -108,9 +109,11 @@ class Wheel
         return true if child?.data.name is elem?.data.name
     return false
 
-  # http://www.w3.org/WAI/ER/WD-AERT/#color-contrast
-  brightness:( rgb ) ->
-    rgb.r * .299 + rgb.g * .587 + rgb.b * .114
+  isBranch:( d ) ->
+    d.children?
+
+  isLeaf:( d ) ->
+    not d.children?
 
   isParentOf:( p, c ) =>
     if p == c
@@ -118,6 +121,10 @@ class Wheel
     if p.children
       return p.children.some( (d) => @isParentOf( d, c ) )
     false
+
+  # http://www.w3.org/WAI/ER/WD-AERT/#color-contrast
+  brightness:( rgb ) ->
+    rgb.r * .299 + rgb.g * .587 + rgb.b * .114
 
   fill:(d) =>
     if d.fill?
@@ -158,32 +165,32 @@ class Wheel
     return
 
   magnify:( d, eventType ) =>
-    
-    if true # d.data['can']?
-      #console.log( 'magnify', d )
-      y0 = d.y0
-      y1 = d.y0 + (d.y1-d.y0) * 1.3
-      resize = @doChoice( d, eventType, d.x0, y0, d.x1, y1 )
-      y0 = if resize is UI.AddChoice or 'mouseover' then y1 else d.y1
-      y1 = y0 + d.y1 - d.y0
-      return if resize is 'none'
-      if d.children?
-        d.children.forEach( (child) =>
-          child?.data.hide = not ( d.chosen or eventType is 'mouseover' )
-          @resizeElem( child, resize, child?.x0, y0, child?.x1, y1 ) )
-      @g.selectAll('path').data( @nodes )
-        .filter( (e) => @inBranch( d, e ) )
-        .transition()
-        .duration(@duration)
-        .style( "display", (d) -> if d.data.hide then "none" else "block" )
-        .attr(  "d", @arc )
-      @g.selectAll('text').data( @nodes )
-        .filter( (e) => @inBranch( d, e ) )
-        .transition()
-        .duration(@duration)
-        .attr( "transform", (t) => @textTransform(t) )
-        .style("font-size", (t) => @fontSize( t, d ) )
-        .style( "display", (d) -> if d.data.hide then "none" else "block" )
+    @displayAllLeaves() if eventType is 'click' and not d.parent?
+    return if not d.data['can']?
+    console.log( 'magnify', d ) if eventType is 'click'
+    y0 = d.y0
+    y1 = d.y0 + (d.y1-d.y0) * 1.3
+    resize = @doChoice( d, eventType, d.x0, y0, d.x1, y1 )
+    y0 = if resize is UI.AddChoice or 'mouseover' then y1 else d.y1
+    y1 = y0 + d.y1 - d.y0
+    return if resize is 'none'
+    if d.children?
+      d.children.forEach( (child) =>
+        child?.data.hide = not ( d.chosen or eventType is 'mouseover' )
+        @resizeElem( child, resize, child?.x0, y0, child?.x1, y1 ) )
+    @g.selectAll('path').data( @nodes )
+      .filter( (e) => @inBranch( d, e ) )
+      .transition()
+      .duration(@duration)
+      .style( "display", (d) -> if d.data.hide then "none" else "block" )
+      .attr(  "d", @arc )
+    @g.selectAll('text').data( @nodes )
+      .filter( (e) => @inBranch( d, e ) )
+      .transition()
+      .duration(@duration)
+      .attr( "transform", (t) => @textTransform(t) )
+      .style("font-size", (t) => @fontSize( t, d ) )
+      .style( "display",  (d) -> if d.data.hide then "none" else "block" )
     return
 
   fontSize:( t, d=null ) =>
@@ -233,7 +240,7 @@ class Wheel
       elem.m1 = undefined
       elem.n0 = undefined
       elem.n1 = undefined
-      elem.data.hide = false # if resize is 'mouseout' and not elem.data.children? then true else false
+      elem.data.hide = if resize is 'mouseout' and not elem.data.children? then true else false
     else
       Util.noop()
     return
@@ -243,6 +250,13 @@ class Wheel
     angle  = @xx( @xc(d) ) * 180 / Math.PI - 90
     rotate = angle + (if multiline then -.5 else 0)
     'rotate(' + rotate + ')translate(' + @yy(@y0(d)) + @padding + ')rotate(' + (if angle > 90 then -180 else 0) + ')'
+
+  displayAllLeaves:() =>
+    @showAllLeaves = not @showAllLeaves
+    @g.selectAll("path")
+      .style( "display", (d) => if @isLeaf(d) and not @showAllLeaves and not d.parent.chosen then "none" else "block" )
+    @g.selectAll('text')
+      .style( "display", (d) => if @isLeaf(d) and not @showAllLeaves and not d.parent.chosen then "none" else "block" )
 
   zoomTween:( d ) =>
     @svg.transition()
