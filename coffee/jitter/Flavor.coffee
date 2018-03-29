@@ -22,7 +22,7 @@ class Flavor
     pane.$.empty()
     name  = if study? then study.name                  else "Jitter"
     url   = if study? then  "json/"+study.json+".json" else "json/flavor.choice.json"
-    scale = 0.9 # if study? then study.scale else 1.25
+    scale = 1.1 # if study? then study.scale else 1.25
     divId = Util.getHtmlId( "Wheel", name )
     pane.$.append( """     #{Jitter.image( 0, 4,100, 10,@srcLg,15,"","24px") }""" )
     pane.$.append( """     #{Jitter.image(-4, 0, 15, 10,@srcRy,30,"","24px") }""" )

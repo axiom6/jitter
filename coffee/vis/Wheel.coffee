@@ -7,8 +7,6 @@ class Wheel
     @numChoices    = 0
     @maxChoices    = 4
     @showAllLeaves = false
-    @sc0 = { "0":1.0, "1":1.0, "2":1.0, "3":1.0 }
-    @sc1 = { "0":1.0, "1":1.0, "2":1.0, "3":1.0 }
 
   create:(  pane, spec, data ) ->
 
@@ -66,12 +64,13 @@ class Wheel
       .innerRadius( (d) => Math.max( 0, @yy(@y0(d)) ) )
       .outerRadius( (d) => Math.max( 0, @yy(@y1(d)) ) )
 
-    d3.json @url, (error, json ) =>
-      throw error if error
+    d3.json( @url ).then ( json ) =>
+
       @root = d3.hierarchy(json)
       @root.sum(  (d) => ( d.chosen = false; d.hide = @isLeaf(d); if @isBranch(d) then 0 else 1 ) )
-
       @nodes = @partition(@root).descendants()
+      @adjustRadius( @root )
+
       @path  = @g.selectAll("path")
         .data( @nodes )
         .enter().append("path")
@@ -90,14 +89,27 @@ class Wheel
 
     d3.select( self.frameElement).style( "height", @height + "px" )
 
+  adjustRadius:( d ) =>
+    sc = if d['data'].scale?
+      d['data'].scale
+    else if not d.children?
+      0.8
+    else
+      1.0
+    dy   = ( d.y1 - d.y0 ) * sc
+    d.y0 = d.parent.y1 if d.parent?
+    d.y1 = d.y0 + dy
+    if d.children?
+      d.children.forEach (child) =>
+        @adjustRadius( child )
+    return
+
   x0:(d) ->  if d.m0? then d.m0 else d.x0
   x1:(d) ->  if d.m1? then d.m1 else d.x1
-  y0:(d) -> (if d.n0? then d.n0 else d.y0)*@s1(d)
-  y1:(d) -> (if d.n1? then d.n1 else d.y1)*@s1(d)
+  y0:(d) ->  if d.n0? then d.n0 else d.y0
+  y1:(d) ->  if d.n1? then d.n1 else d.y1
   xc:(d) => (@x0(d)+@x1(d))/2
   yc:(d) => (@y0(d)+@y1(d))/2
-  s0:(d) => @sc0[d.depth]
-  s1:(d) => @sc1[d.depth]
 
   sameNode:( a, b ) ->
     a?.data.name is b?.data.name

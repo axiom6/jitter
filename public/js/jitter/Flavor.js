@@ -27,7 +27,7 @@
         pane.$.empty();
         name = study != null ? study.name : "Jitter";
         url = study != null ? "json/" + study.json + ".json" : "json/flavor.choice.json";
-        scale = 0.9; // if study? then study.scale else 1.25
+        scale = 1.1; // if study? then study.scale else 1.25
         divId = Util.getHtmlId("Wheel", name);
         pane.$.append(`     ${Jitter.image(0, 4, 100, 10, this.srcLg, 15, "", "24px")}`);
         pane.$.append(`     ${Jitter.image(-4, 0, 15, 10, this.srcRy, 30, "", "24px")}`);

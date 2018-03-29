@@ -4,10 +4,9 @@
   Wheel = (function() {
     class Wheel {
       constructor(stream) {
+        this.adjustRadius = this.adjustRadius.bind(this);
         this.xc = this.xc.bind(this);
         this.yc = this.yc.bind(this);
-        this.s0 = this.s0.bind(this);
-        this.s1 = this.s1.bind(this);
         this.isParentOf = this.isParentOf.bind(this);
         this.fill = this.fill.bind(this);
         this.doText = this.doText.bind(this);
@@ -23,18 +22,6 @@
         this.numChoices = 0;
         this.maxChoices = 4;
         this.showAllLeaves = false;
-        this.sc0 = {
-          "0": 1.0,
-          "1": 1.0,
-          "2": 1.0,
-          "3": 1.0
-        };
-        this.sc1 = {
-          "0": 1.0,
-          "1": 1.0,
-          "2": 1.0,
-          "3": 1.0
-        };
       }
 
       create(pane, spec, data) {
@@ -90,10 +77,7 @@
         }).outerRadius((d) => {
           return Math.max(0, this.yy(this.y1(d)));
         });
-        d3.json(this.url, (error, json) => {
-          if (error) {
-            throw error;
-          }
+        d3.json(this.url).then((json) => {
           this.root = d3.hierarchy(json);
           this.root.sum((d) => {
             d.chosen = false;
@@ -105,6 +89,7 @@
             }
           });
           this.nodes = this.partition(this.root).descendants();
+          this.adjustRadius(this.root);
           this.path = this.g.selectAll("path").data(this.nodes).enter().append("path").attr("id", function(d, i) {
             if (d != null) {
               return "path-" + i;
@@ -132,6 +117,21 @@
         return d3.select(self.frameElement).style("height", this.height + "px");
       }
 
+      adjustRadius(d) {
+        var dy, sc;
+        sc = d['data'].scale != null ? d['data'].scale : d.children == null ? 0.8 : 1.0;
+        dy = (d.y1 - d.y0) * sc;
+        if (d.parent != null) {
+          d.y0 = d.parent.y1;
+        }
+        d.y1 = d.y0 + dy;
+        if (d.children != null) {
+          d.children.forEach((child) => {
+            return this.adjustRadius(child);
+          });
+        }
+      }
+
       x0(d) {
         if (d.m0 != null) {
           return d.m0;
@@ -149,11 +149,19 @@
       }
 
       y0(d) {
-        return (d.n0 != null ? d.n0 : d.y0) * this.s1(d);
+        if (d.n0 != null) {
+          return d.n0;
+        } else {
+          return d.y0;
+        }
       }
 
       y1(d) {
-        return (d.n1 != null ? d.n1 : d.y1) * this.s1(d);
+        if (d.n1 != null) {
+          return d.n1;
+        } else {
+          return d.y1;
+        }
       }
 
       xc(d) {
@@ -162,14 +170,6 @@
 
       yc(d) {
         return (this.y0(d) + this.y1(d)) / 2;
-      }
-
-      s0(d) {
-        return this.sc0[d.depth];
-      }
-
-      s1(d) {
-        return this.sc1[d.depth];
       }
 
       sameNode(a, b) {

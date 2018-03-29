@@ -698,6 +698,17 @@
 		"opt": 0,
 		"q": 100
 		},
+	"\/doc\/img\/App.png": {
+		"ft": 32768,
+		"iS": 464281,
+		"oA": 0,
+		"oAP": "\/doc\/img\/App.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
 	"\/doc\/img\/b0545029796737.56040d01a503c.jpg": {
 		"ft": 16384,
 		"iS": 147135,
@@ -823,6 +834,17 @@
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
+		"q": 100
+		},
+	"\/doc\/img\/FlavorLeaves.png": {
+		"ft": 32768,
+		"iS": 373638,
+		"oA": 0,
+		"oAP": "\/doc\/img\/FlavorLeaves.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
 		"q": 100
 		},
 	"\/doc\/img\/FlavorRoast.jpg": {
@@ -998,6 +1020,13 @@
 		"opt": 0,
 		"oT": 1,
 		"q": 100
+		},
+	"\/doc\/wheel\/d3partition.jss": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 0,
+		"oAP": "\/doc\/wheel\/d3partition.jss",
+		"oF": 0
 		},
 	"\/doc\/wheel\/Radar.coffee": {
 		"ft": 32,
@@ -1946,6 +1975,16 @@
 		"mi": 1,
 		"oA": 0,
 		"oAP": "\/public\/js\/lib\/d3-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
+	"\/public\/js\/lib\/d3.v4.js": {
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/public\/js\/lib\/d3.v4-min.js",
 		"oF": 0,
 		"sC": 3,
 		"tS": 0
