@@ -2,39 +2,37 @@ var UI;
 
 UI = (function() {
   class UI {
-    constructor(stream, page) {
+    constructor(stream, onReady) {
       var callback;
       this.resize = this.resize.bind(this);
       this.stream = stream;
-      this.page = page;
+      this.onReady = onReady;
       callback = (data) => {
         this.spec = data;
-        if (UI.showTocs) {
+        if (UI.hasTocs) {
           this.tocs = new UI.Tocs(this, this.stream, this.spec);
         }
         this.view = new UI.View(this, this.stream, this.spec);
-        return this.ready(this.page, this.spec);
+        return this.ready(this.spec);
       };
       UI.readJSON("json/toc.json", callback);
       UI.ui = this;
     }
 
-    ready(page, spec) {
-      this.page = page;
+    ready(spec) {
       this.spec = spec;
       $('#' + Util.htmlId('App')).html(this.html());
-      if (UI.showTocs) {
+      if (UI.hasTocs) {
         this.tocs.ready();
       }
       this.view.ready();
-      this.page.ready(this.view, this.spec);
+      this.onReady(this.view, this.spec);
     }
 
-    
     html() {
       var htm;
       htm = "";
-      if (UI.showTocs) {
+      if (UI.hasTocs) {
         htm += `<div class="layout-tocs tocs" id="${this.htmlId('Tocs')}"></div>`;
       }
       htm += `<div class="layout-view" id="${this.htmlId('View')}"></div>`;
@@ -42,12 +40,16 @@ UI = (function() {
     }
 
     show() {
-      //tocs.show()
+      if (UI.hasTocs) {
+        this.tocs.show();
+      }
       this.view.showAll();
     }
 
     hide() {
-      //tocs.hide()
+      if (UI.hasTocs) {
+        this.tocs.hide();
+      }
       this.view.hideAll();
     }
 
@@ -157,15 +159,9 @@ UI = (function() {
       return [Math.max(j1, j2) + 1, Math.min(j1 + m1, j2 + m2), Math.max(i1, i2) + 1, Math.min(i1 + n1, i2 + n2)];
     }
 
-    static subscribe() {}
-
-    //UI.TheStream.subscribe( 'Plane', (name) => UI.onPlane(name) )  # if not UI.Build? # Subscribe only when ui.ready()
-    //UI.TheStream.subscribe( 'Image', (name) => UI.onImage(name) )
-    static publish() {}
-
   };
 
-  UI.showTocs = false;
+  UI.hasTocs = false;
 
   UI.$empty = $(); // Empty jQuery singleton for intialization
 
@@ -186,11 +182,9 @@ UI = (function() {
     hStudy: 0.5
   };
 
-  UI.SelectReady = 'SelectReady';
+  UI.SelectView = 'SelectView';
 
-  UI.SelectOverview = 'SelectOverview';
-
-  UI.SelectPractice = 'SelectPractice';
+  UI.SelectPane = 'SelectPane';
 
   UI.SelectStudy = 'SelectStudy';
 
@@ -198,10 +192,8 @@ UI = (function() {
 
   UI.DelChoice = 'DelChoice';
 
-  UI.intents = [UI.SelectReady, UI.SelectOverview, UI.SelectPractice, UI.SelectStudy, UI.AddChoice, UI.DelChoice];
+  UI.intents = [UI.SelectPane, UI.SelectView, UI.SelectStudy, UI.AddChoice, UI.DelChoice];
 
   return UI;
 
 }).call(this);
-
-//UI.TheStream.publish( 'Content', UI.Build.content( 'Studies', 'createUI', Build.SelectAllPanes ) )

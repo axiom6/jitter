@@ -22,7 +22,7 @@
         this.margin = this.view.margin;
         this.speed = this.view.speed;
         this.page = null; // set by UI.Page.ready()
-        this.geo = null; // reset by geom() when pageContent() dispatches to page
+        this.geo = null; // reset by geom() when onSelect() dispatches to page
       }
 
       ready() {
@@ -32,7 +32,7 @@
         this.view.$view.append(this.$);
         this.hide();
         this.adjacentPanes();
-        select = UI.select(this.name, 'Pane', UI.SelectOverview);
+        select = UI.select(this.name, 'Pane', UI.SelectPane);
         this.reset(select);
         return this.show();
       }
@@ -165,7 +165,7 @@
           width: this.xs(this.width),
           height: this.ys(this.height)
         });
-        this.pageContent(select);
+        this.onSelect(select);
       }
 
       css(left, top, width, height, select) {
@@ -175,7 +175,7 @@
           width: this.pc(width),
           height: this.pc(height)
         });
-        this.pageContent(select);
+        this.onSelect(select);
       }
 
       animate(left, top, width, height, select, aniLinks = false, callback = null) {
@@ -190,13 +190,13 @@
       }
 
       animateCall(callback, select) {
-        this.pageContent(select);
+        this.onSelect(select);
         if (callback != null) {
           callback(this);
         }
       }
 
-      pageContent(select) {
+      onSelect(select) {
         this.geo = this.geom();
         if (this.page != null) {
           this.page.onSelect(this, select);

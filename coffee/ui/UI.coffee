@@ -1,53 +1,50 @@
 
 class UI
 
-  UI.showTocs     = false
+  UI.hasTocs      = false
   UI.$empty       = $() # Empty jQuery singleton for intialization
   UI.None         = "None"
   UI.ncol         = 36
   UI.nrow         = 36
   UI.margin       =  { width:1, height:1, west :2, north :1, east :2, south :2, wStudy:0.5, hStudy:0.5 }
 
+  UI.SelectView  = 'SelectView'
+  UI.SelectPane  = 'SelectPane'
+  UI.SelectStudy = 'SelectStudy'
+  UI.AddChoice   = 'AddChoice'
+  UI.DelChoice   = 'DelChoice'
 
-  UI.SelectReady     = 'SelectReady'
-  UI.SelectOverview  = 'SelectOverview'
-  UI.SelectPractice  = 'SelectPractice'
-  UI.SelectStudy     = 'SelectStudy'
-  UI.AddChoice       = 'AddChoice'
-  UI.DelChoice       = 'DelChoice'
+  UI.intents = [UI.SelectPane,UI.SelectView,UI.SelectStudy,UI.AddChoice,UI.DelChoice]
 
-  UI.intents = [UI.SelectReady,UI.SelectOverview,UI.SelectPractice,UI.SelectStudy,UI.AddChoice,UI.DelChoice]
-
-  constructor:( @stream, @page ) ->
+  constructor:( @stream, @onReady ) ->
     callback = (data) =>
       @spec  =  data
-      @tocs  = new UI.Tocs( @, @stream, @spec ) if UI.showTocs
+      @tocs  = new UI.Tocs( @, @stream, @spec ) if UI.hasTocs
       @view  = new UI.View( @, @stream, @spec )
-      @ready( @page, @spec )
+      @ready( @spec )
     UI.readJSON( "json/toc.json", callback )
     UI.ui = @
 
-  ready:( @page, @spec ) ->
+  ready:( @spec ) ->
     $('#'+Util.htmlId('App')).html( @html() )
-    @tocs.ready()  if UI.showTocs
+    @tocs.ready()  if UI.hasTocs
     @view.ready()
-    @page.ready( @view, @spec )
+    @onReady( @view, @spec )
     return
 
-  #
   html:() ->
     htm = ""
-    htm += """<div class="layout-tocs tocs" id="#{@htmlId('Tocs')}"></div>""" if UI.showTocs
+    htm += """<div class="layout-tocs tocs" id="#{@htmlId('Tocs')}"></div>""" if UI.hasTocs
     htm += """<div class="layout-view" id="#{@htmlId('View')}"></div>"""
     htm
 
   show:() ->
-    #tocs.show()
+    @tocs.show() if UI.hasTocs
     @view.showAll()
     return
 
   hide:() ->
-    #tocs.hide()
+    @tocs.hide()   if UI.hasTocs
     @view.hideAll()
     return
 
@@ -114,12 +111,5 @@ class UI
     [j2,m2,i2,n2] = UI.jmin( cells2 )
     [ Math.max(j1,j2)+1, Math.min(j1+m1,j2+m2), Math.max(i1,i2)+1, Math.min(i1+n1,i2+n2) ]
 
-  @subscribe:() ->
-    #UI.TheStream.subscribe( 'Plane', (name) => UI.onPlane(name) )  # if not UI.Build? # Subscribe only when ui.ready()
-    #UI.TheStream.subscribe( 'Image', (name) => UI.onImage(name) )
-    return
 
-  @publish:() ->
-    #UI.TheStream.publish( 'Content', UI.Build.content( 'Studies', 'createUI', Build.SelectAllPanes ) )
-    return
 

@@ -3,7 +3,8 @@ class Logo
 
   Jitter.Logo = Logo
 
-  constructor:( @stream ) ->
+  constructor:( @stream, @jitter ) ->
+    @jitter.addContent( 'Logo', @ )
     @chosen     = false
     @$wheelLogo = null
     @src = "img/logo/JitterBoxLogo.png"

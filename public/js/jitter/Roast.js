@@ -4,37 +4,38 @@
 
   Roast = (function() {
     class Roast {
-      constructor(stream) {
+      constructor(stream, jitter) {
         this.doInput = this.doInput.bind(this);
         this.doClick = this.doClick.bind(this);
         this.stream = stream;
+        this.jitter = jitter;
+        this.jitter.addContent('Roast', this);
         this.max = 100;
         this.data = Roast.Table;
       }
 
-      overview(pane, spec) {
-        var $e, src;
+      readyView() {
+        var src;
         src = "img/roast/Coffee-Bean-Roast-Ready.jpg";
-        $e = $(`<div ${Jitter.panel(0, 0, 100, 100)}></div>`);
-        $e.append(`<h1 ${Jitter.label(0, 0, 100, 10)}>${spec.name}</h1>`);
-        $e.append(`  ${Jitter.image(0, 10, 100, 90, src, 150)}`);
-        pane.$.append($e);
+        this.$view = $(`<div ${UI.Dom.panel(0, 0, 100, 100)}></div>`);
+        this.$view.append(`<h1 ${UI.Dom.label(0, 0, 100, 10)}>Roast</h1>`);
+        this.$view.append(`  ${UI.Dom.image(0, 10, 100, 90, src, 150)}`);
+        return this.$view;
       }
 
-      ready(pane, spec) {
-        var $r, dx, key, n, ref, roast, spans, src, style, x;
-        [this.pane, this.spec] = [pane, spec];
+      readyPane() {
+        var $p, $r, dx, key, n, ref, roast, spans, src, style, x;
         src = "img/roast/RoastsBig.png";
         n = Util.lenObject(this.data);
         x = 0;
         dx = 100 / n; // - 0.07
-        pane.$.append(`<div ${Jitter.panel(0, 0, 100, 100)}></div>`);
+        $p = $(`<div ${UI.Dom.panel(0, 0, 100, 100)}></div>`);
         style = "position:absolute; left:2%; top:5%; width:9%; height:90%; ";
         style += `text-align:center; background:${this.data["5"].color}; `;
-        style += `border:black solid 2px; font-size:3vmin; font-weight:bold; display:table; opacity:${Jitter.opacity}; `;
+        style += `border:black solid 2px; font-size:3vmin; font-weight:bold; display:table; opacity:${UI.Dom.opacity}; `;
         spans = "display:table-cell; vertical-align:middle; line-height:normal; "; // opacity:1.0; z-index:4; color:white;
-        pane.$.append(`<div id="RoastColor" style="${style}"><span style="${spans}">${spec.name}</span></div>`);
-        $r = $(`<div ${Jitter.label(13, 5, 84, 90, "roast")}></div>`);
+        $p.append(`<div id="RoastColor" style="${style}"><span style="${spans}">Roast</span></div>`);
+        $r = $(`<div ${UI.Dom.label(13, 5, 84, 90, "roast")}></div>`);
         $r.append(`<img style="width:100%; height:75%;" src="${src}"/>`);
         style = `position:absolute; left:0; top:81%; width:100%; height:${16}% ;`;
         style += "padding:0; margin:0; z-index:2;";
@@ -57,10 +58,11 @@
           $r.append(`<div style="${style}"></div>`);
           x = x + dx;
         }
-        pane.$.append($r);
-        $("#RoastInput").on("change", (event) => {
+        $r.find("#RoastInput").on("change", (event) => {
           return this.doInput(event);
         });
+        $p.append($r);
+        return $p;
       }
 
       doInput(event) {
@@ -83,7 +85,7 @@
         h1 = Vis.cssHex(this.data[p1].color);
         h2 = Vis.cssHex(this.data[p2].color);
         rgb = Vis.rgbCss(Vis.interpolateHexRgb(h1, 1.0 - r, h2, r));
-        $("#RoastColor").css({
+        this.$pane.find("#RoastColor").css({
           background: rgb
         });
         this.publish(this.data[p], null, v);
@@ -104,17 +106,18 @@
         name = study.name;
         study.chosen = !((study.chosen != null) || study.chosen) ? true : false;
         addDel = study.chosen ? UI.AddChoice : UI.DelChoice;
-        color = study.chosen ? Jitter.choiceColor : Jitter.basisColor;
+        color = study.chosen ? UI.Dom.choiceColor : UI.Dom.basisColor;
         choice = UI.select('Roast', 'Jitter', addDel, name);
         if (v != null) {
           choice.value = v;
         }
         //choice.$click = $e if $e?
         console.log("Roast.publish", choice);
-        Jitter.stream.publish('Choice', choice);
+        this.stream.publish('Choice', choice);
         return color;
       }
 
+      // Not used
       image(x, y, w, h, src, mh) { // max-height:#{mh}vmin;
         var htm, klass;
         klass = src != null ? "image" : "texts";
@@ -124,16 +127,6 @@
           htm += `<img style="display:block; margin-left:auto; margin-right:auto;  width:100%; max-height:${mh}vmin; border-radius:24px;" src="${src}"/>`;
         }
         return htm;
-      }
-
-      create(pane, spec) {
-        var $e, src;
-        pane.$.append(`<h1>${spec.name}</h1>`);
-        $e = $(`<div ${Jitter.rel(0, 0, 100, 100)}></div>`);
-        src = "img/roast/FiveRoasts.jpeg";
-        $e.append(`<img ${Jitter.img(src)}/>`);
-        //$e.append( """<div><span>Light</span><span>Medium Light</span><span>Medium</span><span>Medium Dark</span><span>Dark</span></div>""")
-        pane.$.append($e);
       }
 
     };

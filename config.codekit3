@@ -29,17 +29,6 @@
 		"oAP": "\/build\/.idea",
 		"oF": 0
 		},
-	"\/coffee\/jitter\/Aroma.coffee": {
-		"ft": 32,
-		"ma": 0,
-		"mi": 0,
-		"oA": 0,
-		"oAP": "\/public\/js\/jitter\/Aroma.js",
-		"oF": 0,
-		"oS": 0,
-		"sC": 0,
-		"tS": 0
-		},
 	"\/coffee\/jitter\/Body.coffee": {
 		"ft": 32,
 		"ma": 0,
@@ -68,17 +57,6 @@
 		"mi": 0,
 		"oA": 0,
 		"oAP": "\/public\/js\/jitter\/Choices.js",
-		"oF": 0,
-		"oS": 0,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/coffee\/jitter\/Coffee.coffee": {
-		"ft": 32,
-		"ma": 0,
-		"mi": 0,
-		"oA": 0,
-		"oAP": "\/public\/js\/jitter\/Coffee.js",
 		"oF": 0,
 		"oS": 0,
 		"sC": 0,
@@ -117,45 +95,23 @@
 		"sC": 0,
 		"tS": 0
 		},
-	"\/coffee\/jitter\/Logo.coffee": {
-		"ft": 32,
-		"ma": 0,
-		"mi": 0,
-		"oA": 0,
-		"oAP": "\/public\/js\/jitter\/Logo.js",
-		"oF": 0,
-		"oS": 0,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/coffee\/jitter\/Order.coffee": {
-		"ft": 32,
-		"ma": 0,
-		"mi": 0,
-		"oA": 0,
-		"oAP": "\/public\/js\/jitter\/Order.js",
-		"oF": 0,
-		"oS": 0,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/coffee\/jitter\/Page.coffee": {
-		"ft": 32,
-		"ma": 0,
-		"mi": 0,
-		"oA": 0,
-		"oAP": "\/public\/js\/jitter\/Page.js",
-		"oF": 0,
-		"oS": 0,
-		"sC": 0,
-		"tS": 0
-		},
 	"\/coffee\/jitter\/Roast.coffee": {
 		"ft": 32,
 		"ma": 0,
 		"mi": 0,
 		"oA": 0,
 		"oAP": "\/public\/js\/jitter\/Roast.js",
+		"oF": 0,
+		"oS": 0,
+		"sC": 0,
+		"tS": 0
+		},
+	"\/coffee\/ui\/Dom.coffee": {
+		"ft": 32,
+		"ma": 0,
+		"mi": 0,
+		"oA": 0,
+		"oAP": "\/public\/js\/ui\/Dom.js",
 		"oF": 0,
 		"oS": 0,
 		"sC": 0,
@@ -1021,12 +977,45 @@
 		"oT": 1,
 		"q": 100
 		},
+	"\/doc\/wheel\/Aroma.coffee": {
+		"ft": 32,
+		"ma": 0,
+		"mi": 0,
+		"oA": 0,
+		"oAP": "\/doc\/wheel\/Aroma.js",
+		"oF": 0,
+		"oS": 0,
+		"sC": 0,
+		"tS": 0
+		},
 	"\/doc\/wheel\/d3partition.jss": {
 		"cB": 0,
 		"ft": 8192,
 		"oA": 0,
 		"oAP": "\/doc\/wheel\/d3partition.jss",
 		"oF": 0
+		},
+	"\/doc\/wheel\/Logo.coffee": {
+		"ft": 32,
+		"ma": 0,
+		"mi": 0,
+		"oA": 0,
+		"oAP": "\/doc\/wheel\/Logo.js",
+		"oF": 0,
+		"oS": 0,
+		"sC": 0,
+		"tS": 0
+		},
+	"\/doc\/wheel\/Page.coffee": {
+		"ft": 32,
+		"ma": 0,
+		"mi": 0,
+		"oA": 0,
+		"oAP": "\/doc\/wheel\/Page.js",
+		"oF": 0,
+		"oS": 0,
+		"sC": 0,
+		"tS": 0
 		},
 	"\/doc\/wheel\/Radar.coffee": {
 		"ft": 32,
@@ -1520,6 +1509,16 @@
 		"opt": 0,
 		"q": 100
 		},
+	"\/public\/img\/choices\/Choices.jpg": {
+		"ft": 16384,
+		"iS": 6641,
+		"oA": 0,
+		"oAP": "\/public\/img\/choices\/Choices.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
 	"\/public\/img\/drink\/Black.jpg": {
 		"ft": 16384,
 		"iS": 27681,
@@ -1540,11 +1539,11 @@
 		"opt": 0,
 		"q": 100
 		},
-	"\/public\/img\/drink\/DrinkReady.jpg": {
+	"\/public\/img\/drink\/Drink.jpg": {
 		"ft": 16384,
 		"iS": 16472,
 		"oA": 0,
-		"oAP": "\/public\/img\/drink\/DrinkReady.jpg",
+		"oAP": "\/public\/img\/drink\/Drink.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
@@ -1560,11 +1559,11 @@
 		"opt": 0,
 		"q": 100
 		},
-	"\/public\/img\/flavor\/FlavorReady.png": {
+	"\/public\/img\/flavor\/Flavor.png": {
 		"ft": 32768,
 		"iS": 99064,
 		"oA": 0,
-		"oAP": "\/public\/img\/flavor\/FlavorReady.png",
+		"oAP": "\/public\/img\/flavor\/Flavor.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
@@ -1849,16 +1848,6 @@
 		"oAP": "\/public\/index.html",
 		"oF": 0
 		},
-	"\/public\/js\/jitter\/Aroma.js": {
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "\/public\/js\/jitter\/Aroma-min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 0
-		},
 	"\/public\/js\/jitter\/Body.js": {
 		"ft": 64,
 		"ma": 0,
@@ -1889,16 +1878,6 @@
 		"sC": 3,
 		"tS": 0
 		},
-	"\/public\/js\/jitter\/Coffee.js": {
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "\/public\/js\/jitter\/Coffee-min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 0
-		},
 	"\/public\/js\/jitter\/Drink.js": {
 		"ft": 64,
 		"ma": 0,
@@ -1925,36 +1904,6 @@
 		"mi": 1,
 		"oA": 0,
 		"oAP": "\/public\/js\/jitter\/Jitter-min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 0
-		},
-	"\/public\/js\/jitter\/Logo.js": {
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "\/public\/js\/jitter\/Logo-min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 0
-		},
-	"\/public\/js\/jitter\/Order.js": {
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "\/public\/js\/jitter\/Order-min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 0
-		},
-	"\/public\/js\/jitter\/Page.js": {
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "\/public\/js\/jitter\/Page-min.js",
 		"oF": 0,
 		"sC": 3,
 		"tS": 0
@@ -2005,6 +1954,16 @@
 		"mi": 1,
 		"oA": 0,
 		"oAP": "\/public\/js\/lib\/Rx.min-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
+	"\/public\/js\/ui\/Dom.js": {
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/public\/js\/ui\/Dom-min.js",
 		"oF": 0,
 		"sC": 3,
 		"tS": 0

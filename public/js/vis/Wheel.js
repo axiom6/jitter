@@ -24,11 +24,6 @@
         this.showAllLeaves = false;
       }
 
-      create(pane, spec, data) {
-        this.spec = spec;
-        return Util.noop(pane, data);
-      }
-
       resize() {
         var h, sc, sx, sy, w, xc, yc;
         w = this.pane.geo.w;
@@ -42,8 +37,8 @@
         this.g.transition().attr("transform", `translate(${xc},${yc}) scale(${sc})`);
       }
 
-      ready(pane, spec, divId, url, scale = 1.0) {
-        var h, w, xc, yc;
+      ready(pane, spec, elem, url, scale = 1.0) {
+        var div, h, w, xc, yc;
         this.spec = spec;
         this.pane = pane;
         this.url = url;
@@ -58,13 +53,12 @@
         this.formatNumber = d3.format(",d");
         this.padding = 0;
         this.duration = 300;
-        this.div = d3.select('#' + divId);
-        this.$div = $('#' + divId);
+        div = d3.select(elem);
         w = this.width;
         h = this.height;
         xc = this.width / 2;
         yc = this.height / 2;
-        this.svg = this.div.append("svg").attr("width", w).attr("height", h);
+        this.svg = div.append("svg").attr("width", w).attr("height", h);
         this.g = this.svg.append("g").attr("transform", `translate(${xc},${yc}) scale(1,1)`);
         this.g.append("text").text("Flavor").attr('x', -32).attr('y', 12).style('fill', 'white').style("font-size", "3vmin");
         this.partition = d3.partition();

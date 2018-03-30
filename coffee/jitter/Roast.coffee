@@ -61,38 +61,37 @@ class Roast
     "7":{ color:"#6a5b4a", img:"7.png" }, "8":{ color:"#3d4037", img:"8.png" },
     "9":{ color:"#3c3f36", img:"9.png" }, "A":{ color:"#141e1b", img:"A.png" } }
 
-  constructor:( @stream ) ->
+  constructor:( @stream, @jitter ) ->
+    @jitter.addContent( 'Roast', @ )
     @max  = 100
     @data = Roast.Table
 
-  overview:( pane, spec ) ->
+  readyView:() ->
     src = "img/roast/Coffee-Bean-Roast-Ready.jpg"
-    $e = $( """<div #{Jitter.panel(0, 0,100,100)}></div>""" )
-    $e.append( "<h1 #{Jitter.label(0, 0,100, 10)}>#{spec.name}</h1>" )
-    $e.append( """  #{Jitter.image(0,10,100, 90,src,150)}""" )
-    pane.$.append( $e )
-    return
+    @$view = $( """<div #{UI.Dom.panel(0, 0,100,100)}></div>""" )
+    @$view.append( "<h1 #{UI.Dom.label(0, 0,100, 10)}>Roast</h1>" )
+    @$view.append( """  #{UI.Dom.image(0,10,100, 90,src,150)}""" )
+    @$view
 
-  ready:( pane, spec ) ->
-    [@pane,@spec] = [pane, spec]
+  readyPane:() ->
     src = "img/roast/RoastsBig.png"
     n   = Util.lenObject( @data )
     x   = 0
     dx  = 100 / n # - 0.07
-    pane.$.append( """<div #{Jitter.panel( 0, 0,100,100)}></div>""" )
+    $p = $( """<div #{UI.Dom.panel( 0, 0,100,100)}></div>""" )
 
     style  = """position:absolute; left:2%; top:5%; width:9%; height:90%; """
     style += """text-align:center; background:#{@data["5"].color}; """
-    style += """border:black solid 2px; font-size:3vmin; font-weight:bold; display:table; opacity:#{Jitter.opacity}; """
+    style += """border:black solid 2px; font-size:3vmin; font-weight:bold; display:table; opacity:#{UI.Dom.opacity}; """
     spans  = """display:table-cell; vertical-align:middle; line-height:normal; """  # opacity:1.0; z-index:4; color:white;
-    pane.$.append("""<div id="RoastColor" style="#{style}"><span style="#{spans}">#{spec.name}</span></div>""")
+    $p.append("""<div id="RoastColor" style="#{style}"><span style="#{spans}">Roast</span></div>""")
 
-    $r  = $(       """<div #{Jitter.label(13, 5, 84, 90,"roast")}></div>""" )
-    $r.append(     """<img style="width:100%; height:75%;" src="#{src}"/>""")
+    $r =    $( """<div #{UI.Dom.label(13, 5, 84, 90,"roast")}></div>""" )
+    $r.append( """<img style="width:100%; height:75%;" src="#{src}"/>""")
 
     style  = "position:absolute; left:0; top:81%; width:100%; height:#{16}% ;"
     style += "padding:0; margin:0; z-index:2;"
-    $r.append(     """<input id="RoastInput" type="range" min="0" max="#{@max}" style="#{style}"></input>""" )
+    $r.append( """<input id="RoastInput" type="range" min="0" max="#{@max}" style="#{style}"></input>""" )
     for own key, roast of @data  #
       style  = """position:absolute; left:#{x}%; top:0; width:#{dx}%; height:#{75}%; """
       style += """text-align:center; background:transparent ;"""
@@ -104,10 +103,9 @@ class Roast
       style += """border:black solid 2px;"""
       $r.append("""<div style="#{style}"></div>""")
       x = x + dx
-
-    pane.$.append( $r )
-    $("#RoastInput").on( "change", (event) => @doInput(event) )
-    return
+    $r.find("#RoastInput").on( "change", (event) => @doInput(event) )
+    $p.append( $r )
+    $p
 
   doInput:( event ) =>
     v  = parseInt(event.target.value)
@@ -124,7 +122,7 @@ class Roast
     h1 = Vis.cssHex( @data[p1].color )
     h2 = Vis.cssHex( @data[p2].color )
     rgb = Vis.rgbCss( Vis.interpolateHexRgb( h1, 1.0-r, h2, r ) )
-    $("#RoastColor").css( { background:rgb } )
+    @$pane.find("#RoastColor").css( { background:rgb } )
     @publish( @data[p], null, v )
     return
 
@@ -139,14 +137,15 @@ class Roast
     name         = study.name
     study.chosen = if not ( study.chosen? or study.chosen ) then true else false
     addDel       = if study.chosen then UI.AddChoice       else UI.DelChoice
-    color        = if study.chosen then Jitter.choiceColor else Jitter.basisColor
+    color        = if study.chosen then UI.Dom.choiceColor else UI.Dom.basisColor
     choice = UI.select( 'Roast', 'Jitter', addDel, name )
     choice.value = v if v?
     #choice.$click = $e if $e?
     console.log( "Roast.publish", choice )
-    Jitter.stream.publish( 'Choice', choice )
+    @stream.publish( 'Choice', choice )
     color
 
+  # Not used
   image:( x, y, w, h, src, mh ) -> # max-height:#{mh}vmin;
     klass  = if src? then "image"            else "texts"
     htm  = """<div class="#{klass}" style="position:absolute; left:#{x}%; top:#{y}%; width:#{w}%; height:#{h}%; display:table;">"""
@@ -154,11 +153,3 @@ class Roast
     htm += """<img style="display:block; margin-left:auto; margin-right:auto;  width:100%; max-height:#{mh}vmin; border-radius:24px;" src="#{src}"/>""" if src?
     htm
 
-  create:( pane, spec ) ->
-    pane.$.append( "<h1>#{spec.name}</h1>" )
-    $e = $( """<div #{Jitter.rel(0,0,100,100)}></div>""" )
-    src = "img/roast/FiveRoasts.jpeg"
-    $e.append( """<img #{Jitter.img(src)}/>""" )
-    #$e.append( """<div><span>Light</span><span>Medium Light</span><span>Medium</span><span>Medium Dark</span><span>Dark</span></div>""")
-    pane.$.append( $e  )
-    return

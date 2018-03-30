@@ -93,12 +93,9 @@
         if (spec.level === 2) { // Study
           return UI.select(spec.parent.name, 'Tocs', UI.SelectStudy, spec.parent[spec.name]);
         } else {
-          intent = UI.SelectPractice;
+          intent = UI.SelectPane;
           if (spec.name === 'Overview') {
-            intent = UI.SelectOverview;
-          }
-          if (spec.name === 'Ready') {
-            intent = UI.SelectReady;
+            intent = UI.SelectView;
           }
           return UI.select(spec.name, 'Tocs', intent);
         }

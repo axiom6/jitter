@@ -3,21 +3,20 @@ class Choices
 
   Jitter.Choices = Choices
 
-  constructor:( @stream ) ->
+  constructor:( @stream, @jitter ) ->
+    @jitter.addContent( 'Choices', @ )
 
-  overview:(   pane, spec ) ->
-    Util.noop( pane, spec )
-    return
-
-  ready:(    pane, spec ) ->
-    @spec = spec
-    Jitter.tree( pane, spec, 6, 13 )
+  readyPane:() ->
+    @$pane = UI.Dom.tree( @stream, @spec, 6, 13 )
     @subscribe()
-    return
+    @$pane
 
-  create:(     pane, spec ) ->
-    Util.noop( pane, spec )
-    return
+  readyView:() ->
+    src = "img/choices/Choices.jpg"
+    @$view = $( """<div #{UI.Dom.panel(0, 0,100,100)}></div>""" )
+    @$view.append( "<h1 #{UI.Dom.label(0, 0,100, 10)}>Choices</h1>" )
+    @$view.append( """  #{UI.Dom.image(0,10,100, 90,src,150)}""" )
+    @$view
 
   subscribe:() ->
     @stream.subscribe( 'Choice', (choice) => @onChoice(choice) )

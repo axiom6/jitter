@@ -22,7 +22,7 @@
         this.lastPaneName = '';
         this.emptyPane = UI.$empty;
         this.allCells = [1, this.ncol, 1, this.nrow];
-        this.select = UI.select("Overview", "View", UI.SelectOverview);
+        this.select = UI.select("Overview", "View", UI.SelectView);
       }
 
       ready() {
@@ -174,7 +174,7 @@
         var saveId;
         saveId = this.lastPaneName;
         this.lastPaneName = '';
-        this.onSelect(UI.select(saveId, 'View', UI.SelectPractice));
+        this.onSelect(UI.select(saveId, 'View', UI.SelectPane));
         this.lastPaneName = saveId;
       }
 
@@ -219,13 +219,10 @@
         intent = select.intent;
         this.select = select;
         switch (intent) {
-          case UI.SelectReady:
+          case UI.SelectView:
             this.expandAllPanes();
             break;
-          case UI.SelectOverview:
-            this.expandAllPanes();
-            break;
-          case UI.SelectPractice:
+          case UI.SelectPane:
             this.expandPane(this.getPaneOrGroup(name));
             break;
           case UI.SelectStudy:

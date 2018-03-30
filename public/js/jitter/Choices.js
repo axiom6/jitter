@@ -3,23 +3,26 @@
 
   Choices = (function() {
     class Choices {
-      constructor(stream) {
+      constructor(stream, jitter) {
         this.onChoice = this.onChoice.bind(this);
         this.stream = stream;
+        this.jitter = jitter;
+        this.jitter.addContent('Choices', this);
       }
 
-      overview(pane, spec) {
-        Util.noop(pane, spec);
-      }
-
-      ready(pane, spec) {
-        this.spec = spec;
-        Jitter.tree(pane, spec, 6, 13);
+      readyPane() {
+        this.$pane = UI.Dom.tree(this.stream, this.spec, 6, 13);
         this.subscribe();
+        return this.$pane;
       }
 
-      create(pane, spec) {
-        Util.noop(pane, spec);
+      readyView() {
+        var src;
+        src = "img/choices/Choices.jpg";
+        this.$view = $(`<div ${UI.Dom.panel(0, 0, 100, 100)}></div>`);
+        this.$view.append(`<h1 ${UI.Dom.label(0, 0, 100, 10)}>Choices</h1>`);
+        this.$view.append(`  ${UI.Dom.image(0, 10, 100, 90, src, 150)}`);
+        return this.$view;
       }
 
       subscribe() {

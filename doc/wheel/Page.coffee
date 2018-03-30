@@ -1,21 +1,21 @@
 
 class Page
 
-  Jitter.Page = Page
+  UI.Dom.Page = Page
 
   constructor:( @stream ) ->
-    Jitter.page = @
+    UI.Dom.page = @
     @view    = null # Set by ready()
-    @flavor  = new Jitter.Flavor(  @stream )
-    #logo    = new Jitter.Logo(    @stream )
-    @choices = new Jitter.Choices( @stream )
-    @roast   = new Jitter.Roast(   @stream )
-    @drink   = new Jitter.Drink(   @stream )
-    @body    = new Jitter.Body(    @stream )
-    @brew    = new Jitter.Brew(    @stream )
-    #aroma   = new Jitter.Aroma(   @stream )
-    @coffee  = new Jitter.Coffee(  @stream )
-    @order   = new Jitter.Order(   @stream )
+    @flavor  = new UI.Dom.Flavor(  @stream )
+    #logo    = new UI.Dom.Logo(    @stream )
+    @choices = new UI.Dom.Choices( @stream )
+    @roast   = new UI.Dom.Roast(   @stream )
+    @drink   = new UI.Dom.Drink(   @stream )
+    @body    = new UI.Dom.Body(    @stream )
+    @brew    = new UI.Dom.Brew(    @stream )
+    #aroma   = new UI.Dom.Aroma(   @stream )
+    @coffee  = new UI.Dom.Coffee(  @stream )
+    @order   = new UI.Dom.Order(   @stream )
 
   ready:( view, spec ) ->
     @view = view

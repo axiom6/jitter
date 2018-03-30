@@ -16,7 +16,7 @@ class Pane
     @margin      = @view.margin
     @speed       = @view.speed
     @page        = null # set by UI.Page.ready()
-    @geo         = null # reset by geom() when pageContent() dispatches to page
+    @geo         = null # reset by geom() when onSelect() dispatches to page
 
   ready:() ->
     @htmlId = @ui.htmlId( @name, 'Pane' )
@@ -24,7 +24,7 @@ class Pane
     @view.$view.append( @$ )
     @hide()
     @adjacentPanes()
-    select = UI.select( @name, 'Pane', UI.SelectOverview )
+    select = UI.select( @name, 'Pane', UI.SelectPane )
     @reset(select)
     @show()
 
@@ -82,12 +82,12 @@ class Pane
 
   reset:( select ) ->
     @$.css( { left:@xs(@left), top:@ys(@top), width:@xs(@width), height:@ys(@height) } )
-    @pageContent( select )
+    @onSelect( select )
     return
 
   css:(  left, top, width, height, select ) ->
     @$.css( { left:@pc(left), top:@pc(top), width:@pc(width), height:@pc(height) } )
-    @pageContent( select )
+    @onSelect( select )
     return
 
   animate:( left, top, width, height, select, aniLinks=false, callback=null ) ->
@@ -95,11 +95,11 @@ class Pane
     return
 
   animateCall:( callback, select ) =>
-    @pageContent( select )
+    @onSelect( select )
     callback(@) if callback?
     return
 
-  pageContent:( select ) ->
+  onSelect:( select ) ->
     @geo = @geom()
     @page.onSelect( @, select ) if @page?
     return

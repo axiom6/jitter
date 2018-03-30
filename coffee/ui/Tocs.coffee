@@ -60,9 +60,8 @@ class Tocs
     if spec.level is 2 # Study
       UI.select(  spec.parent.name, 'Tocs', UI.SelectStudy, spec.parent[spec.name] )
     else               # Practice and everything else for now
-      intent = UI.SelectPractice
-      intent = UI.SelectOverview if spec.name is 'Overview'
-      intent = UI.SelectReady    if spec.name is 'Ready'
+      intent = UI.SelectPane
+      intent = UI.SelectView if spec.name is 'Overview'
       UI.select(  spec.name, 'Tocs', intent )
 
   subscribe:() ->

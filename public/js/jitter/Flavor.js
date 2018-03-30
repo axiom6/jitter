@@ -3,38 +3,30 @@
 
   Flavor = (function() {
     class Flavor {
-      constructor(stream) {
+      constructor(stream, jitter) {
         this.resize = this.resize.bind(this);
         this.stream = stream;
+        this.jitter = jitter;
+        this.jitter.addContent('Flavor', this);
         this.wheel = new Vis.Wheel(this.stream);
         this.srcLg = "img/logo/JitterBoxLogo.png";
         this.srcRx = "img/logo/JitterBoxRx.png";
         this.srcRy = "img/logo/JitterBoxRy.png";
       }
 
-      overview(pane, spec) {
-        var $e, src;
-        src = "img/flavor/FlavorReady.png";
-        $e = $(`<div ${Jitter.panel(0, 0, 100, 100)}></div>`);
-        $e.append(`<h1 ${Jitter.label(0, 0, 100, 10)}>${spec.name}</h1>`);
-        $e.append(`  ${Jitter.image(0, 10, 100, 90, src, 150)}`);
-        pane.$.append($e);
-      }
-
-      ready(pane, spec, study) {
-        var divId, name, scale, url;
-        [this.pane, this.spec, this.study] = [pane, spec, study];
-        pane.$.empty();
-        name = study != null ? study.name : "Jitter";
-        url = study != null ? "json/" + study.json + ".json" : "json/flavor.choice.json";
-        scale = 1.1; // if study? then study.scale else 1.25
-        divId = Util.getHtmlId("Wheel", name);
-        pane.$.append(`     ${Jitter.image(0, 4, 100, 10, this.srcLg, 15, "", "24px")}`);
-        pane.$.append(`     ${Jitter.image(-4, 0, 15, 10, this.srcRy, 30, "", "24px")}`);
-        pane.$.append(`     ${Jitter.image(75, 0, 15, 10, this.srcRx, 30, "", "24px")}`);
-        pane.$.append(`<div ${Jitter.panel(0, 5, 100, 95)} id="${divId}"></div>`);
-        this.wheel.ready(pane, spec, divId, url, scale);
+      readyPane() {
+        var $p, $w, divId, scale, url;
+        url = "json/flavor.choice.json";
+        scale = 1.1;
+        divId = Util.getHtmlId("Wheel", this.pane.name);
+        $p = this.pane.$;
+        $p.append(`     ${UI.Dom.image(0, 4, 100, 10, this.srcLg, 15, "", "24px")}`);
+        $p.append(`     ${UI.Dom.image(-4, 0, 15, 10, this.srcRy, 30, "", "24px")}`);
+        $p.append(`     ${UI.Dom.image(75, 0, 15, 10, this.srcRx, 30, "", "24px")}`);
+        $w = $(`<div ${UI.Dom.panel(0, 5, 100, 95)} id="${divId}"></div>`);
+        this.wheel.ready(this.pane, this.spec, $w.get(0), url, scale);
         window.addEventListener("resize", this.resize);
+        return $w;
       }
 
       resize() {
@@ -42,8 +34,13 @@
         return this.wheel.resize();
       }
 
-      create(pane, spec) {
-        Util.noop(pane, spec);
+      readyView() {
+        var src;
+        src = "img/flavor/Flavor.png";
+        this.$view.append(`<div ${UI.Dom.panel(0, 0, 100, 100)}></div>`);
+        this.$view.append(`<h1 ${UI.Dom.label(0, 0, 100, 10)}>Flavor</h1>`);
+        this.$view.append(`    ${UI.Dom.image(0, 10, 100, 90, src, 150)}`);
+        return this.$view;
       }
 
     };

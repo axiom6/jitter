@@ -3,7 +3,8 @@ class Aroma
 
   Jitter.Aroma = Aroma
 
-  constructor:( @stream ) ->
+  constructor:( @stream, @jitter ) ->
+    @jitter.addContent( 'Aroma', @ )
     @wheel = new Vis.Wheel()
 
   overview:( pane, spec ) ->

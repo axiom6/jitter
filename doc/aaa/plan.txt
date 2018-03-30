@@ -1,18 +1,32 @@
 
 1. Render
-   a. Jitter
-   b. SCA
-   c. Jitter Condensed
+   a. Jitter Logo Transperant
+   b. Brew Icons  Transperant
+   c. Jitter UI Widget
+   d. Wheel Cleaned Up
+   e. ready ....
+   f. Cell Phone
 
 2. JSON
 
 3. Interaction
-   a. Roast
-   b. Drink
-   c. Body
-   d. Brew
-   e. Aromas
+   Dependencies
+   Messaging
+   Profiles
+   Firebase
+   Email
+
+   a. Flavor
+   b. Roast
+   c. Brew
+   d. Drink
+   e. Body
+   f. Choice
+
 
 4. Deployment
-     a. Google Cloud
-     b. Github
+   a. Google Cloud
+   b. Github
+   c. Test Suite
+
+# joel 612-791-9191

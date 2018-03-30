@@ -17,7 +17,7 @@ class View
     @lastPaneName  = ''
     @emptyPane     = UI.$empty
     @allCells = [ 1, @ncol, 1, @nrow ]
-    @select   = UI.select( "Overview", "View", UI.SelectOverview )
+    @select   = UI.select( "Overview", "View", UI.SelectView )
 
   ready:() ->
     parent = $('#'+@ui.getHtmlId('View') ) # parent is outside of planes
@@ -97,7 +97,7 @@ class View
   resize:() =>
     saveId  = @lastPaneName
     @lastPaneName = ''
-    @onSelect( UI.select( saveId, 'View', UI.SelectPractice ) )
+    @onSelect( UI.select( saveId, 'View', UI.SelectPane ) )
     @lastPaneName  = saveId
     return
 
@@ -127,10 +127,9 @@ class View
     intent  = select.intent
     @select = select
     switch intent
-      when UI.SelectReady     then @expandAllPanes()
-      when UI.SelectOverview  then @expandAllPanes()
-      when UI.SelectPractice  then @expandPane( @getPaneOrGroup(name) )
-      when UI.SelectStudy     then @expandPane( @getPaneOrGroup(name) )
+      when UI.SelectView  then @expandAllPanes()
+      when UI.SelectPane  then @expandPane( @getPaneOrGroup(name) )
+      when UI.SelectStudy then @expandPane( @getPaneOrGroup(name) )
       else Util.error( 'UI.View.onSelect() name not processed for intent', name, select )
     return
 

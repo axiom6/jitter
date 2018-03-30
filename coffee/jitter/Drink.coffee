@@ -3,29 +3,15 @@ class Drink
 
   Jitter.Drink = Drink
 
-  constructor:( @stream ) ->
+  constructor:( @stream, @jitter ) ->
+    @jitter.addContent( 'Drink', @ )
 
-  overview:( pane, spec ) ->
-    src = "img/drink/DrinkReady.jpg"
-    $e = $( """<div #{Jitter.rel(0, 0,100,100)}></div>""" )
-    $e.append( "<h1 #{Jitter.abs(0, 0,100, 10)}>#{spec.name}</h1>" )
-    $e.append( """  #{Jitter.abi(0,10,100, 90,src,150)}""" )
-    pane.$.append( $e )
-    return
+  readyPane:() ->
+    UI.Dom.vert( @stream, @spec, 'img/drink/', 0.75, 0, 10 )
 
-  ready:(    pane, spec ) ->
-    Jitter.vert( pane, spec, 'img/drink/', 0.75, 0, 10 )
-    return
-
-  create:( pane, spec ) ->
-    $e = $( """<div    #{Jitter.rel(0,0,100,100)}></div>""" )
-    $e.append( """<div #{Jitter.abs(0,0,100, 10)}>#{spec.name}</div>""" )
-    where = (key) -> UI.isChild(key)
-    array = Util.toArray( spec, where, 'id')
-    i = 0
-    for y in [10,55]
-      for x in [0,33,66]
-        $e.append( """<div #{Jitter.abs(x,y,33,45)}><h3>#{array[i].name}</h3></div>"""  )
-        i = i + 1
-    pane.$.append( $e )
-    return
+  readyView:() ->
+    src = "img/drink/Drink.jpg"
+    @$view = $( """<div #{UI.Dom.panel(0, 0,100,100)}></div>""" )
+    @$view.append( "<h1 #{UI.Dom.label(0, 0,100, 10)}>Drink</h1>" )
+    @$view.append( """  #{UI.Dom.image(0,10,100, 90,src,150)}""" )
+    @$view

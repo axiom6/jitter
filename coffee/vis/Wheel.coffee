@@ -8,11 +8,6 @@ class Wheel
     @maxChoices    = 4
     @showAllLeaves = false
 
-  create:(  pane, spec, data ) ->
-
-    @spec = spec
-    Util.noop( pane, data )
-
   resize:() ->
     w  = @pane.geo.w
     h  = @pane.geo.h
@@ -25,7 +20,7 @@ class Wheel
     @g.transition().attr("transform", """translate(#{xc},#{yc}) scale(#{sc})""" )
     return
 
-  ready:( pane, spec, divId, url, scale=1.0 ) ->
+  ready:( pane, spec, elem, url, scale=1.0 ) ->
 
     @spec   = spec
     @pane   = pane
@@ -38,14 +33,14 @@ class Wheel
     @formatNumber = d3.format(",d")
     @padding = 0
     @duration = 300
-    @div  = d3.select( '#' + divId )
-    @$div = $(         '#' + divId )
+
+    div = d3.select( elem )
 
     w  = @width
     h  = @height
     xc = @width/2
     yc = @height/2
-    @svg = @div.append("svg")
+    @svg = div.append("svg")
       .attr("width",   w )
       .attr("height",  h )
     @g = @svg.append("g")
@@ -90,12 +85,9 @@ class Wheel
     d3.select( self.frameElement).style( "height", @height + "px" )
 
   adjustRadius:( d ) =>
-    sc = if d['data'].scale?
-      d['data'].scale
-    else if not d.children?
-      0.8
-    else
-      1.0
+    sc = if d['data'].scale? then d['data'].scale
+    else if not d.children?  then 0.8
+    else                          1.0
     dy   = ( d.y1 - d.y0 ) * sc
     d.y0 = d.parent.y1 if d.parent?
     d.y1 = d.y0 + dy
