@@ -1,12 +1,14 @@
-var UI;
+var UI,
+  hasProp = {}.hasOwnProperty;
 
 UI = (function() {
   class UI {
-    constructor(stream, onReady) {
+    constructor(stream) {
       var callback;
+      this.contentReady = this.contentReady.bind(this);
       this.resize = this.resize.bind(this);
       this.stream = stream;
-      this.onReady = onReady;
+      this.contents = {};
       callback = (data) => {
         this.spec = data;
         if (UI.hasTocs) {
@@ -19,6 +21,10 @@ UI = (function() {
       UI.ui = this;
     }
 
+    addContent(name, object) {
+      return this.contents[name] = object;
+    }
+
     ready(spec) {
       this.spec = spec;
       $('#' + Util.htmlId('App')).html(this.html());
@@ -26,7 +32,73 @@ UI = (function() {
         this.tocs.ready();
       }
       this.view.ready();
-      this.onReady(this.view, this.spec);
+      this.contentReady();
+    }
+
+    contentReady() {
+      var content, name, ref;
+      ref = this.contents;
+      for (name in ref) {
+        if (!hasProp.call(ref, name)) continue;
+        content = ref[name];
+        content.pane = this.view.getPaneOrGroup(name);
+        content.spec = this.spec[name];
+        content.$pane = content.readyPane();
+        content.$view = $(); // content.readView() For now view content is not used
+        content.pane.$.append(content.$pane);
+      }
+    }
+
+    onSelect(pane, select) {
+      UI.verifySelect(select, 'Jitter');
+      switch (select.intent) {
+        case UI.SelectView:
+          this.selectView(pane);
+          break;
+        case UI.SelectPane:
+          this.selectPane(pane);
+          break;
+        case UI.SelectStudy:
+          this.selectStudy(pane, select.study);
+          break;
+        default:
+          Util.error("Jitter.onSelect() unknown select", select);
+      }
+    }
+
+    selectView(pane) {
+      var content;
+      content = this.content[pane.name];
+      if (UI.isEmpty(content.$view)) {
+        content.$view = content.readyView();
+        content.pane.$.append(content.$view);
+      }
+      content.$pane.hide();
+      content.$view.show();
+      console.log('Jitter.selectView()', pane.name);
+    }
+
+    selectPane(pane) {
+      var content;
+      content = this.content[pane.name];
+      if (UI.isEmpty(content.$pane)) {
+        content.$pane = content.readyPane();
+        if (UI.isEmpty(content.$pane)) {
+          content.pane.$.append($pane);
+        }
+      }
+      content.$view.hide();
+      content.$pane.show();
+      console.log('Jitter.selectPane()', pane.name);
+    }
+
+    // Study scenarios have not yet been implemented
+    selectStudy(pane, study) {
+      var content;
+      content = this.content[pane.name];
+      content.$view.hide();
+      content.$pane.show();
+      return console.log('Jitter.selectStudy()', pane.name, study.name);
     }
 
     html() {

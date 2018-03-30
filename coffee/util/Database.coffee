@@ -1,7 +1,7 @@
 
 class Database
 
-  module.exports = Database
+  Util.Database = Database
 
   @localImageURI = 'http://localhost:63342/ui/img/aaa'
   @localDataURI  = 'http://localhost:63342/ui/data'

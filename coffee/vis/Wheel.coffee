@@ -7,6 +7,8 @@ class Wheel
     @numChoices    = 0
     @maxChoices    = 4
     @showAllLeaves = false
+    @radiusFactorChoice = 1.3
+    @radiusFactorChild  = 1.0
 
   resize:() ->
     w  = @pane.geo.w
@@ -73,7 +75,7 @@ class Wheel
         .attr(  "d", @arc )
         .attr(  "fill-rule", "evenodd")
         .style( "fill",    (d) => @fill(d.data)  )
-        .style( "opacity", Jitter.opacity )
+        .style( "opacity", UI.Dom.opacity )
         .style( "display", (d) -> if d.data.hide then "none" else "block" )
         .on( "click",      (d) => @magnify( d, 'click'     ) )
         .on( "mouseover",  (d) => @magnify( d, 'mouseover' ) )
@@ -154,7 +156,7 @@ class Wheel
       .style('fill-opacity', 1 )
       #style('fill',       (d) => if @brightness( d3.rgb( @fill(d.data) ) ) < 125 then '#eee' else '#000' )
       .style('fill', '#000000' )
-      .style('font-weight', 'bold' )
+      .style('font-weight', 900 )
       .style( "display",   (d) -> if d.data.hide then "none" else "block" )
       .attr('text-anchor', (d) => if @xx( @xc(d) ) > Math.PI then 'end' else 'start' )
       .attr('dy', '.2em').attr('transform', (d) => @textTransform(d) )
@@ -165,28 +167,30 @@ class Wheel
     @textEnter.append('tspan').attr( 'x', (d) -> xem(d) ).text( (d) -> if d.depth then d.data.name.split(' ')[0] else '' )
     @textEnter.append('tspan').attr( 'x', (d) -> xem(d) ).attr('dy', '1em')
       .text( (d) -> if d.depth? and d.data.name? then d.data.name.split(' ')[1] or '' else '' )
-    @textEnter.append("title").text( (d) -> d.data.name )
+    #textEnter.append("title").text( (d) -> d.data.name )
     return
 
   magnify:( d, eventType ) =>
     @displayAllLeaves() if eventType is 'click' and not d.parent?
     return if not d.data['can']?
     console.log( 'magnify', d ) if eventType is 'click'
-    y0 = d.y0
-    y1 = d.y0 + (d.y1-d.y0) * 1.3
-    resize = @doChoice( d, eventType, d.x0, y0, d.x1, y1 )
-    y0 = if resize is UI.AddChoice or 'mouseover' then y1 else d.y1
-    y1 = y0 + d.y1 - d.y0
+    py0 = d.y0
+    py1 = d.y0 + (d.y1-d.y0) * @radiusFactorChoice
+    resize = @doChoice( d, eventType, d.x0, py0, d.x1, py1 )
+    cy0 = if resize is UI.AddChoice or 'mouseover' then py1 else d.y1
     return if resize is 'none'
     if d.children?
       d.children.forEach( (child) =>
         child?.data.hide = not ( d.chosen or eventType is 'mouseover' )
-        @resizeElem( child, resize, child?.x0, y0, child?.x1, y1 ) )
+        cy1 = cy0 + (child['y1']-child['y0']) * @radiusFactorChild
+        @resizeElem( child, resize, child['x0'], cy0, child['x1'], cy1 ) )
     @g.selectAll('path').data( @nodes )
       .filter( (e) => @inBranch( d, e ) )
       .transition()
       .duration(@duration)
       .style( "display", (d) -> if d.data.hide then "none" else "block" )
+      #style( "stroke",        "black" )
+      #style( "stroke-width", "0.2vim" )
       .attr(  "d", @arc )
     @g.selectAll('text').data( @nodes )
       .filter( (e) => @inBranch( d, e ) )
@@ -199,15 +203,9 @@ class Wheel
 
   fontSize:( t, d=null ) =>
     if d? and @sameNode( t, d ) and t.m0?
-      '2.2vmin'
+      '2.3vmin'
     else
-      if t.children? then '1.9vmin' else '1.7vmin'
-
-  fontSizePt:( t, d=null ) =>
-    if d? and @sameNode( t, d ) and t.m0?
-      '16pt'
-    else
-      if t.children? then '14pt' else '12pt'
+      if t.children? then '1.9vmin' else '1.8vmin'
 
   doChoice:( d, eventType, x0, y0, x1, y1 ) =>
     resize = 'none'
@@ -244,7 +242,7 @@ class Wheel
       elem.m1 = undefined
       elem.n0 = undefined
       elem.n1 = undefined
-      elem.data.hide = if resize is 'mouseout' and not elem.data.children? then true else false
+      elem.data.hide = if resize is 'mouseout' and not (elem.data.children? or @showAllLeaves) then true else false
     else
       Util.noop()
     return

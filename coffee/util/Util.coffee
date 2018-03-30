@@ -9,7 +9,8 @@ class Util
   Util.skipReady  =  false
   Util.isCommonJS =  false
   Util.isWebPack  =  false
-  if typeof module is "object" && typeof module.exports  is "object"
+  Util.module     =  if window['module']? then window['module'] else null
+  if Util.module? and typeof Util.module is "object" and typeof Util.module.exports  is "object"
     Util.isCommonJS = true
   else
     Util.isWebPack  = true
@@ -55,7 +56,7 @@ class Util
       window.require = Util.loadScript
     else
       Util.fixTestGlobals()
-      window.exports        = module.exports
+      window.exports        = Util.module.exports
       window.jasmineRequire = window.exports
     return
 
@@ -636,7 +637,7 @@ class Util
 
   @saveFile:( stuff, fileName, fileType ) ->
     blob = new Blob( [stuff], { type:@mineType(fileType) } )
-    url  = URL.createObjectURL(blob)
+    url  = window['URL'].createObjectURL(blob)
     downloadLink      = document.createElement("a")
     downloadLink.href = url;
     downloadLink.download = fileName

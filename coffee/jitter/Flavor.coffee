@@ -3,8 +3,8 @@ class Flavor
 
   Jitter.Flavor = Flavor
 
-  constructor:( @stream, @jitter ) ->
-    @jitter.addContent( 'Flavor', @ )
+  constructor:( @stream, @ui ) ->
+    @ui.addContent( 'Flavor', @ )
     @wheel = new Vis.Wheel( @stream )
     @srcLg = "img/logo/JitterBoxLogo.png"
     @srcRx = "img/logo/JitterBoxRx.png"

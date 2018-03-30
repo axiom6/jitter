@@ -4,12 +4,12 @@
 
   Roast = (function() {
     class Roast {
-      constructor(stream, jitter) {
+      constructor(stream, ui) {
         this.doInput = this.doInput.bind(this);
         this.doClick = this.doClick.bind(this);
         this.stream = stream;
-        this.jitter = jitter;
-        this.jitter.addContent('Roast', this);
+        this.ui = ui;
+        this.ui.addContent('Roast', this);
         this.max = 100;
         this.data = Roast.Table;
       }
@@ -53,7 +53,7 @@
           }
           $r.append(`<div style="${style}"></div>`);
           style = `position:absolute; left:${x}%; top:${75}%; width:${dx}%; height:${25}% ;`;
-          style += `text-align:center; background:${roast.color}; opacity:0.5;`;
+          style += `text-align:center; background:${roast.color}; opacity:${UI.Dom.opacity};`;
           style += "border:black solid 2px;";
           $r.append(`<div style="${style}"></div>`);
           x = x + dx;

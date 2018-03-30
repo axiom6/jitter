@@ -34,9 +34,9 @@
       static toRadian(h, hueIsRygb = false) {
         var hue, radian;
         hue = hueIsRygb ? Color.toHueRygb(h) : h;
-        radian = 2 * π * (90 - hue) / 360; // Correction for MathBox polar coordinate system
+        radian = 2 * Math.PI * (90 - hue) / 360; // Correction for MathBox polar coordinate system
         if (radian < 0) {
-          radian = 2 * π + radian;
+          radian = 2 * Math.PI + radian;
         }
         return radian;
       }
@@ -276,12 +276,12 @@
         return L / (1 + Math.exp(-k * (x - x0)));
       }
 
-      rgbaStr() {
+      rgbaStr(rgba) {
         var a, b, g, n, r;
         n = function(f) {
           return Math.round(f);
         };
-        [r, g, b, a] = this.rgba;
+        [r, g, b, a] = rgba;
         return `rgba(${n(r)},${n(g)},${n(b)},${n(a)})`;
       }
 

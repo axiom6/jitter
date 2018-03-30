@@ -16,7 +16,8 @@ class UI
 
   UI.intents = [UI.SelectPane,UI.SelectView,UI.SelectStudy,UI.AddChoice,UI.DelChoice]
 
-  constructor:( @stream, @onReady ) ->
+  constructor:( @stream ) ->
+    @contents = {}
     callback = (data) =>
       @spec  =  data
       @tocs  = new UI.Tocs( @, @stream, @spec ) if UI.hasTocs
@@ -25,12 +26,60 @@ class UI
     UI.readJSON( "json/toc.json", callback )
     UI.ui = @
 
+  addContent:( name, object ) ->
+    @contents[name] = object
+
   ready:( @spec ) ->
     $('#'+Util.htmlId('App')).html( @html() )
     @tocs.ready()  if UI.hasTocs
     @view.ready()
-    @onReady( @view, @spec )
+    @contentReady()
     return
+
+  contentReady:() =>
+    for own name, content of @contents
+      content.pane  = @view.getPaneOrGroup( name )
+      content.spec  = @spec[name]
+      content.$pane = content.readyPane()
+      content.$view = $() # content.readView() For now view content is not used
+      content.pane.$.append( content.$pane )
+    return
+
+  onSelect:( pane, select ) ->
+    UI.verifySelect( select, 'Jitter' )
+    switch select.intent
+      when UI.SelectView  then @selectView(  pane )
+      when UI.SelectPane  then @selectPane(  pane )
+      when UI.SelectStudy then @selectStudy( pane, select.study )
+      else Util.error( "Jitter.onSelect() unknown select", select )
+    return
+
+  selectView:( pane ) ->
+    content = @content[pane.name]
+    if UI.isEmpty( content.$view )
+      content.$view = content.readyView()
+      content.pane.$.append( content.$view  )
+    content.$pane.hide()
+    content.$view.show()
+    console.log( 'Jitter.selectView()', pane.name )
+    return
+
+  selectPane:( pane ) ->
+    content = @content[pane.name]
+    if UI.isEmpty( content.$pane )
+      content.$pane = content.readyPane()
+      content.pane.$.append( $pane ) if UI.isEmpty( content.$pane )
+    content.$view.hide()
+    content.$pane.show()
+    console.log( 'Jitter.selectPane()', pane.name )
+    return
+
+  # Study scenarios have not yet been implemented
+  selectStudy:( pane, study ) ->
+    content = @content[pane.name]
+    content.$view.hide()
+    content.$pane.show()
+    console.log( 'Jitter.selectStudy()', pane.name, study.name )
 
   html:() ->
     htm = ""
@@ -110,6 +159,3 @@ class UI
     [j1,m1,i1,n1] = UI.jmin( cells1 )
     [j2,m2,i2,n2] = UI.jmin( cells2 )
     [ Math.max(j1,j2)+1, Math.min(j1+m1,j2+m2), Math.max(i1,i2)+1, Math.min(i1+n1,i2+n2) ]
-
-
-

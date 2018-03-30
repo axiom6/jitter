@@ -3,11 +3,11 @@
 
   Flavor = (function() {
     class Flavor {
-      constructor(stream, jitter) {
+      constructor(stream, ui) {
         this.resize = this.resize.bind(this);
         this.stream = stream;
-        this.jitter = jitter;
-        this.jitter.addContent('Flavor', this);
+        this.ui = ui;
+        this.ui.addContent('Flavor', this);
         this.wheel = new Vis.Wheel(this.stream);
         this.srcLg = "img/logo/JitterBoxLogo.png";
         this.srcRx = "img/logo/JitterBoxRx.png";

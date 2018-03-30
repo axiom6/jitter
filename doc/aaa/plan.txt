@@ -1,32 +1,34 @@
 
-1. Render
-   a. Jitter Logo Transperant
-   b. Brew Icons  Transperant
-   c. Jitter UI Widget
-   d. Wheel Cleaned Up
-   e. ready ....
-   f. Cell Phone
+1. UI
+   a. UI Content
+   b. Dom Improvement
+   c. IKW Migration
 
-2. JSON
+1. Render
+   a. D3 Master
+   b. Wheel Clean Up
+   c. Jitter Logo Transperant
+   d. Brew Icons  Transperant
+   e. Drink
+   f. Body
 
 3. Interaction
-   Dependencies
-   Messaging
-   Profiles
-   Firebase
-   Email
-
-   a. Flavor
-   b. Roast
-   c. Brew
-   d. Drink
-   e. Body
-   f. Choice
-
+   a. Dependencies
+      - Flavor
+      - Roast
+      - Brew
+      - Drink
+      - Body
+      - Choice
+   b. Messaging
+   c. Profiles
+   d. Firebase
+   e. Email
 
 4. Deployment
    a. Google Cloud
    b. Github
    c. Test Suite
+   d. Phone App
 
 # joel 612-791-9191

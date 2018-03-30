@@ -3,8 +3,8 @@ class Body
 
   Jitter.Body = Body
 
-  constructor:( @stream, @jitter ) ->
-    @jitter.addContent( 'Body', @ )
+  constructor:( @stream, @ui ) ->
+    @ui.addContent( 'Body', @ )
 
   readyPane:() ->
     UI.Dom.vert( @stream, @spec, 'img/body/', 0.75, 0, 10 )

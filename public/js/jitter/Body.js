@@ -3,10 +3,10 @@
 
   Body = (function() {
     class Body {
-      constructor(stream, jitter) {
+      constructor(stream, ui) {
         this.stream = stream;
-        this.jitter = jitter;
-        this.jitter.addContent('Body', this);
+        this.ui = ui;
+        this.ui.addContent('Body', this);
       }
 
       readyPane() {

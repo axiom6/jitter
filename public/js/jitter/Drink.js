@@ -3,10 +3,10 @@
 
   Drink = (function() {
     class Drink {
-      constructor(stream, jitter) {
+      constructor(stream, ui) {
         this.stream = stream;
-        this.jitter = jitter;
-        this.jitter.addContent('Drink', this);
+        this.ui = ui;
+        this.ui.addContent('Drink', this);
       }
 
       readyPane() {

@@ -17,8 +17,8 @@ class Color
 
   @toRadian:( h, hueIsRygb=false ) ->
     hue    = if hueIsRygb then Color.toHueRygb(h) else h
-    radian = 2*π*(90-hue)/360  # Correction for MathBox polar coordinate system
-    radian = 2*π + radian if radian < 0
+    radian = 2*Math.PI*(90-hue)/360  # Correction for MathBox polar coordinate system
+    radian = 2*Math.PI + radian if radian < 0
     radian
 
   @svgDeg:( deg ) -> 360-deg
@@ -152,9 +152,9 @@ class Color
   @sigmoidal:( x, k, x0=0.5, L=1 ) ->
     L / ( 1 + Math.exp(-k*(x-x0)) )
 
-  rgbaStr:() ->
+  rgbaStr:( rgba ) ->
     n = (f) -> Math.round(f)
-    [r,g,b,a] = @rgba
+    [r,g,b,a] = rgba
     """rgba(#{n(r)},#{n(g)},#{n(b)},#{n(a)})"""
 
   @toRgbHcs:( H, C, S, toRygb=true ) =>

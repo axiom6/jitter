@@ -10,9 +10,9 @@
         this.isParentOf = this.isParentOf.bind(this);
         this.fill = this.fill.bind(this);
         this.doText = this.doText.bind(this);
+        //textEnter.append("title").text( (d) -> d.data.name )
         this.magnify = this.magnify.bind(this);
         this.fontSize = this.fontSize.bind(this);
-        this.fontSizePt = this.fontSizePt.bind(this);
         this.doChoice = this.doChoice.bind(this);
         this.chooseElem = this.chooseElem.bind(this);
         this.textTransform = this.textTransform.bind(this);
@@ -22,6 +22,8 @@
         this.numChoices = 0;
         this.maxChoices = 4;
         this.showAllLeaves = false;
+        this.radiusFactorChoice = 1.3;
+        this.radiusFactorChild = 1.0;
       }
 
       resize() {
@@ -92,7 +94,7 @@
             }
           }).attr("d", this.arc).attr("fill-rule", "evenodd").style("fill", (d) => {
             return this.fill(d.data);
-          }).style("opacity", Jitter.opacity).style("display", function(d) {
+          }).style("opacity", UI.Dom.opacity).style("display", function(d) {
             if (d.data.hide) {
               return "none";
             } else {
@@ -239,7 +241,7 @@
         }).style("font-size", (t) => {
           return this.fontSize(t);
         //style('fill',       (d) => if @brightness( d3.rgb( @fill(d.data) ) ) < 125 then '#eee' else '#000' )
-        }).style('fill-opacity', 1).style('fill', '#000000').style('font-weight', 'bold').style("display", function(d) {
+        }).style('fill-opacity', 1).style('fill', '#000000').style('font-weight', 900).style("display", function(d) {
           if (d.data.hide) {
             return "none";
           } else {
@@ -282,13 +284,10 @@
             return '';
           }
         });
-        this.textEnter.append("title").text(function(d) {
-          return d.data.name;
-        });
       }
 
       magnify(d, eventType) {
-        var resize, y0, y1;
+        var cy0, py0, py1, resize;
         if (eventType === 'click' && (d.parent == null)) {
           this.displayAllLeaves();
         }
@@ -298,20 +297,21 @@
         if (eventType === 'click') {
           console.log('magnify', d);
         }
-        y0 = d.y0;
-        y1 = d.y0 + (d.y1 - d.y0) * 1.3;
-        resize = this.doChoice(d, eventType, d.x0, y0, d.x1, y1);
-        y0 = resize === UI.AddChoice || 'mouseover' ? y1 : d.y1;
-        y1 = y0 + d.y1 - d.y0;
+        py0 = d.y0;
+        py1 = d.y0 + (d.y1 - d.y0) * this.radiusFactorChoice;
+        resize = this.doChoice(d, eventType, d.x0, py0, d.x1, py1);
+        cy0 = resize === UI.AddChoice || 'mouseover' ? py1 : d.y1;
         if (resize === 'none') {
           return;
         }
         if (d.children != null) {
           d.children.forEach((child) => {
+            var cy1;
             if (child != null) {
               child.data.hide = !(d.chosen || eventType === 'mouseover');
             }
-            return this.resizeElem(child, resize, child != null ? child.x0 : void 0, y0, child != null ? child.x1 : void 0, y1);
+            cy1 = cy0 + (child['y1'] - child['y0']) * this.radiusFactorChild;
+            return this.resizeElem(child, resize, child['x0'], cy0, child['x1'], cy1);
           });
         }
         this.g.selectAll('path').data(this.nodes).filter((e) => {
@@ -322,6 +322,8 @@
           } else {
             return "block";
           }
+        //style( "stroke",        "black" )
+        //style( "stroke-width", "0.2vim" )
         }).attr("d", this.arc);
         this.g.selectAll('text').data(this.nodes).filter((e) => {
           return this.inBranch(d, e);
@@ -340,24 +342,12 @@
 
       fontSize(t, d = null) {
         if ((d != null) && this.sameNode(t, d) && (t.m0 != null)) {
-          return '2.2vmin';
+          return '2.3vmin';
         } else {
           if (t.children != null) {
             return '1.9vmin';
           } else {
-            return '1.7vmin';
-          }
-        }
-      }
-
-      fontSizePt(t, d = null) {
-        if ((d != null) && this.sameNode(t, d) && (t.m0 != null)) {
-          return '16pt';
-        } else {
-          if (t.children != null) {
-            return '14pt';
-          } else {
-            return '12pt';
+            return '1.8vmin';
           }
         }
       }
@@ -405,7 +395,7 @@
           elem.m1 = void 0;
           elem.n0 = void 0;
           elem.n1 = void 0;
-          elem.data.hide = resize === 'mouseout' && (elem.data.children == null) ? true : false;
+          elem.data.hide = resize === 'mouseout' && !((elem.data.children != null) || this.showAllLeaves) ? true : false;
         } else {
           Util.noop();
         }

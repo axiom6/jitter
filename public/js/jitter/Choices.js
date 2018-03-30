@@ -3,11 +3,11 @@
 
   Choices = (function() {
     class Choices {
-      constructor(stream, jitter) {
+      constructor(stream, ui) {
         this.onChoice = this.onChoice.bind(this);
         this.stream = stream;
-        this.jitter = jitter;
-        this.jitter.addContent('Choices', this);
+        this.ui = ui;
+        this.ui.addContent('Choices', this);
       }
 
       readyPane() {

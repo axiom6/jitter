@@ -3,8 +3,8 @@ class Choices
 
   Jitter.Choices = Choices
 
-  constructor:( @stream, @jitter ) ->
-    @jitter.addContent( 'Choices', @ )
+  constructor:( @stream, @ui ) ->
+    @ui.addContent( 'Choices', @ )
 
   readyPane:() ->
     @$pane = UI.Dom.tree( @stream, @spec, 6, 13 )

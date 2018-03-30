@@ -3,8 +3,8 @@ class Drink
 
   Jitter.Drink = Drink
 
-  constructor:( @stream, @jitter ) ->
-    @jitter.addContent( 'Drink', @ )
+  constructor:( @stream, @ui ) ->
+    @ui.addContent( 'Drink', @ )
 
   readyPane:() ->
     UI.Dom.vert( @stream, @spec, 'img/drink/', 0.75, 0, 10 )

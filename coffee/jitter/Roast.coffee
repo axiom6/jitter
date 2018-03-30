@@ -61,8 +61,8 @@ class Roast
     "7":{ color:"#6a5b4a", img:"7.png" }, "8":{ color:"#3d4037", img:"8.png" },
     "9":{ color:"#3c3f36", img:"9.png" }, "A":{ color:"#141e1b", img:"A.png" } }
 
-  constructor:( @stream, @jitter ) ->
-    @jitter.addContent( 'Roast', @ )
+  constructor:( @stream, @ui ) ->
+    @ui.addContent( 'Roast', @ )
     @max  = 100
     @data = Roast.Table
 
@@ -99,7 +99,7 @@ class Roast
       style += """border-right:black solid 3px;""" if key is "9"
       $r.append("""<div style="#{style}"></div>""")
       style  = """position:absolute; left:#{x}%; top:#{75}%; width:#{dx}%; height:#{25}% ;"""
-      style += """text-align:center; background:#{roast.color}; opacity:0.5;"""
+      style += """text-align:center; background:#{roast.color}; opacity:#{UI.Dom.opacity};"""
       style += """border:black solid 2px;"""
       $r.append("""<div style="#{style}"></div>""")
       x = x + dx

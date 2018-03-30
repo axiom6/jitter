@@ -189,8 +189,8 @@
         mousedown = dragTarget.bindAsObservable("mousedown").publish().refCount().map(function(event) { // calculate offsets when mouse down
           event.preventDefault();
           return {
-            left: event.clientX - dragTarget.offset().left,
-            top: event.clientY - dragTarget.offset().top
+            left: event['clientX'] - dragTarget.offset().left,
+            top: event['clientY'] - dragTarget.offset().top
           };
         });
         // Combine mouse down with mouse move until mouse up

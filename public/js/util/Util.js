@@ -28,7 +28,7 @@ Util = (function() {
         window.require = Util.loadScript;
       } else {
         Util.fixTestGlobals();
-        window.exports = module.exports;
+        window.exports = Util.module.exports;
         window.jasmineRequire = window.exports;
       }
     }
@@ -1003,7 +1003,7 @@ Util = (function() {
       blob = new Blob([stuff], {
         type: this.mineType(fileType)
       });
-      url = URL.createObjectURL(blob);
+      url = window['URL'].createObjectURL(blob);
       downloadLink = document.createElement("a");
       downloadLink.href = url;
       downloadLink.download = fileName;
@@ -1022,7 +1022,9 @@ Util = (function() {
 
   Util.isWebPack = false;
 
-  if (typeof module === "object" && typeof module.exports === "object") {
+  Util.module = window['module'] != null ? window['module'] : null;
+
+  if ((Util.module != null) && typeof Util.module === "object" && typeof Util.module.exports === "object") {
     Util.isCommonJS = true;
   } else {
     Util.isWebPack = true;
