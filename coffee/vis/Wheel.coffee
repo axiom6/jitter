@@ -203,6 +203,12 @@ class Wheel
 
   fontSize:( t, d=null ) =>
     if d? and @sameNode( t, d ) and t.m0?
+      '1.5em'
+    else
+      if t.children? then '1.1em' else '0.9em'
+
+  fontSizeVMin:( t, d=null ) =>
+    if d? and @sameNode( t, d ) and t.m0?
       '2.3vmin'
     else
       if t.children? then '1.9vmin' else '1.8vmin'

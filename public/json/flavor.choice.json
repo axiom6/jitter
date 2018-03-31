@@ -1,5 +1,5 @@
 { "name":"Flavors", "fill":"transparent", "children": [
-  { "name": "Grains", "fill":"#f2c83c", "can":true, "scale":1.0, "children": [
+  { "name": "Grains", "fill":"#f2c83c", "can":true, "scale":1.1, "children": [
     { "name": "Cucumber", "fill":"#73AF59" },
     { "name": "Wheat", "fill":"#f4ab4c" },
     { "name": "Rice",  "fill":"#eae86f" } ] },
@@ -50,14 +50,15 @@
     { "name": "Dirt", "fill":"#b69766" },
     { "name": "Wood", "fill":"#765c29" },
     { "name": "Hay", "fill":"#a0a12a" } ] },
-  { "name": "Roasted", "fill":"#995f28", "can":true, "scale":1.0, "children": [
+  { "name": "Roasted", "fill":"#995f28", "can":true, "scale":1.1, "children": [
     { "name": "Popcorn", "fill":"#ebe5c2" },
     { "name": "Toast", "fill":"#9f715f" },
     { "name": "Carbon", "fill":"#666666" } ] },
   { "name": "Smokey", "fill":"#ae7e37", "can":true, "scale":0.9, "children": [
     { "name": "Tobacco", "fill":"#d68481" },
+    { "name": "Pipe",    "fill":"#979748" },
     { "name": "Cigar",   "fill":"#a79663" } ] },
-  { "name": "Medicinal", "fill":"#4ea9c3", "can":true, "scale":1.0, "children": [
+  { "name": "Medicinal", "fill":"#4ea9c3", "can":true, "scale":1.1, "children": [
     { "name": "Peaty",   "fill":"#766d52" },
     { "name": "Phenol",  "fill":"#f27979" },
     { "name": "Rubbery", "fill":"#575757" },
@@ -69,7 +70,7 @@
     { "name": "Lavender", "fill": "#e6e6fa" },
     { "name": "Rose", "fill": "#ee63a7" },
     { "name": "Saffron", "fill": "#ffb036" } ] },
-  { "name": "Tea", "fill": "#85847d", "can":true, "scale":1.0, "children": [
+  { "name": "Tea", "fill": "#85847d", "can":true, "scale":1.1, "children": [
     { "name": "Oulong", "fill": "#aa8f04" },
     { "name": "Jasmine", "fill": "#f8de7e" },
     { "name": "Herbal", "fill": "#b0cb9d" } ] },
@@ -107,7 +108,7 @@
     { "name": "Watermelon", "fill":"#ff5363" },
     { "name": "Honeydew", "fill":"#a6d682" },
     { "name": "Cantalope", "fill":"#f7ad70" } ] } ] },
-  { "name": "Ferment", "fill":"#b5a223", "can":true, "scale":1.0, "children": [
+  { "name": "Ferment", "fill":"#b5a223", "can":true, "scale":1.1, "children": [
     { "name": "Vinegar", "fill":"#f2c200" },
     { "name": "Wine", "fill":"#cf2091" },
     { "name": "Whisky", "fill":"#bb3456" },

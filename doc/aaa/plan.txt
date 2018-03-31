@@ -8,10 +8,11 @@
 1. Render
    a. D3 Master
    b. Wheel Clean Up
-   c. Jitter Logo Transperant
-   d. Brew Icons  Transperant
-   e. Drink
-   f. Body
+   c. Roast Clean Up
+   d. Jitter Logo Transperant
+   e. Brew Icons  Transperant
+   f. Drink
+   g. Body
 
 3. Interaction
    a. Dependencies

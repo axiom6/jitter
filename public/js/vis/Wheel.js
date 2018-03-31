@@ -13,6 +13,7 @@
         //textEnter.append("title").text( (d) -> d.data.name )
         this.magnify = this.magnify.bind(this);
         this.fontSize = this.fontSize.bind(this);
+        this.fontSizeVMin = this.fontSizeVMin.bind(this);
         this.doChoice = this.doChoice.bind(this);
         this.chooseElem = this.chooseElem.bind(this);
         this.textTransform = this.textTransform.bind(this);
@@ -341,6 +342,18 @@
       }
 
       fontSize(t, d = null) {
+        if ((d != null) && this.sameNode(t, d) && (t.m0 != null)) {
+          return '1.5em';
+        } else {
+          if (t.children != null) {
+            return '1.1em';
+          } else {
+            return '0.9em';
+          }
+        }
+      }
+
+      fontSizeVMin(t, d = null) {
         if ((d != null) && this.sameNode(t, d) && (t.m0 != null)) {
           return '2.3vmin';
         } else {
