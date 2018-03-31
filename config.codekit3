@@ -1325,7 +1325,7 @@
 		"ie": 0,
 		"iI": 0,
 		"ma": 0,
-		"oA": 0,
+		"oA": 1,
 		"oAP": "\/public\/css\/tocs.css",
 		"oF": 0,
 		"oS": 0,
@@ -1368,16 +1368,6 @@
 		"sM": 0,
 		"sU": 0
 		},
-	"\/public\/css\/btn.css": {
-		"aP": 1,
-		"bl": 0,
-		"ft": 16,
-		"ma": 0,
-		"oA": 0,
-		"oAP": "\/public\/css\/btn-min.css",
-		"oF": 0,
-		"oS": 3
-		},
 	"\/public\/css\/jitter.css": {
 		"aP": 1,
 		"bl": 0,
@@ -1385,36 +1375,6 @@
 		"ma": 0,
 		"oA": 0,
 		"oAP": "\/public\/css\/jitter-min.css",
-		"oF": 0,
-		"oS": 3
-		},
-	"\/public\/css\/navb.css": {
-		"aP": 1,
-		"bl": 0,
-		"ft": 16,
-		"ma": 0,
-		"oA": 0,
-		"oAP": "\/public\/css\/navb-min.css",
-		"oF": 0,
-		"oS": 3
-		},
-	"\/public\/css\/table.css": {
-		"aP": 1,
-		"bl": 0,
-		"ft": 16,
-		"ma": 0,
-		"oA": 0,
-		"oAP": "\/public\/css\/table-min.css",
-		"oF": 0,
-		"oS": 3
-		},
-	"\/public\/css\/tocs.css": {
-		"aP": 1,
-		"bl": 0,
-		"ft": 16,
-		"ma": 0,
-		"oA": 0,
-		"oAP": "\/public\/css\/tocs-min.css",
 		"oF": 0,
 		"oS": 3
 		},

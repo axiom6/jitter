@@ -2,58 +2,24 @@
 
 /* Linear Gradients 2  Color */
 
-.gradient-left( @cs1, @cs2 )
- {
-  background-image: linear-gradient(to right, @cs1, @cs2);
-}
+.gradient-left(   @cs1, @cs2 ) { .gradient-std-linear( to right,  @cs1, @cs2 ); }
+.gradient-top(    @cs1, @cs2 ) { .gradient-std-linear( to bottom, @cs1, @cs2 ); }
+.gradient-right(  @cs1, @cs2 ) { .gradient-std-linear( to left,   @cs1, @cs2 ); }
+.gradient-bottom( @cs1, @cs2 ) { .gradient-std-linear( to top,    @cs1, @cs2 ); }
 
-.gradient-left2( @cs1, @cs2 )
-{ .gradient-std-linear( left, @cs1, @cs2 );
-  .gradient-ie6-linear( 1,    @cs1, @cs2 );
-  .gradient-w10-linear( left, center, right, center, @cs1, @cs2 ); }
-
-.gradient-top( @cs1, @cs2 )
- { .gradient-std-linear( top, @cs1, @cs2 );
-   .gradient-ie6-linear( 0,   @cs1, @cs2 );
-   .gradient-w10-linear( center, top, center, bottom, @cs1, @cs2 ); }
-
-.gradient-right( @cs1, @cs2 )
- { .gradient-std-linear( right, @cs1, @cs2 );
-   .gradient-ie6-linear( 1,     @cs2, @cs1 );
-   .gradient-w10-linear( right, center, left, center, @cs1, @cs2 ); }
-
-.gradient-bottom( @cs1, @cs2 )
- { .gradient-std-linear( bottom,   @cs1, @cs2 );
-   .gradient-ie6-linear( 0,        @cs2, @cs1 );
-   .gradient-w10-linear( center, bottom, center, top, @cs1, @cs2 ); }
+.gradient-std-linear( @dir, @cs1, @cs2 ) {  background-image: linear-gradient(@dir,@cs1,@cs2); }
 
 /* Center and corner radial gradients */
 
-.gradient-center( @cs1, @cs2 ) { .gradient-std-radial( center, center, farthest-side, x, @cs1, @cs2, ellipse ); }
-.gradient-nw    ( @cs1, @cs2 ) { .gradient-std-radial( right,  bottom, farthest-side, x, @cs2, @cs1, ellipse ); }
-.gradient-ne    ( @cs1, @cs2 ) { .gradient-std-radial( left,   bottom, farthest-side, x, @cs2, @cs1, ellipse ); }
-.gradient-sw    ( @cs1, @cs2 ) { .gradient-std-radial( right,  top,    farthest-side, x, @cs2, @cs1, ellipse ); }
-.gradient-se    ( @cs1, @cs2 ) { .gradient-std-radial( left,   top,    farthest-side, x, @cs2, @cs1, ellipse ); }
-
- /* Standard linear gradients for W3C Firefox Opera IE10 Webkit11 */
-
-.gradient-std-linear( @dir, @cs1, @cs2 )
- {  background-image: -moz-linear-gradient(@dir,@cs1,@cs2); }
-
-.gradient-w10-linear( @begx, @begy, @endx, @endy, @cs1, @cs2 )
- { background-image: -webkit-gradient(linear,@begx @begy,@endx @endy, from(@cs1), to(@cs2) ); }
-
-.gradient-ie6-linear( @type, @cs1, @cs2 ) {}
-
-/* filter:   progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#ffffff'); */ /* IE6 & IE7 */
-/* filter:~"progid:DXImageTransform.Microsoft.Gradient(GradientType="@type~",StartColorStr="@cs1,~"EndColorStr="@cs2~");" } */
-/* -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#000000', endColorstr='#ffffff')"; */ /* IE8+ */
+.gradient-center( @cs1, @cs2 ) { .gradient-std-radial( center, center, farthest-corner, @cs1, @cs2 ); }
+.gradient-nw    ( @cs1, @cs2 ) { .gradient-std-radial( right,  bottom, farthest-side,   @cs2, @cs1 ); }
+.gradient-ne    ( @cs1, @cs2 ) { .gradient-std-radial( left,   bottom, farthest-side,   @cs2, @cs1 ); }
+.gradient-sw    ( @cs1, @cs2 ) { .gradient-std-radial( right,  top,    farthest-side,   @cs2, @cs1 ); }
+.gradient-se    ( @cs1, @cs2 ) { .gradient-std-radial( left,   top,    farthest-side,   @cs2, @cs1 ); }
 
 
-/* Standard radial gradients for W3C Firefox Opera IE10 Webkit11 */
-.gradient-std-radial( @begx, @begy, @endx, @endy, @cs1, @cs2, @shape )
- {  background-image: -moz-radial-gradient(@begx @begy,@endx,@cs1,@cs2);}
+.gradient-std-radial( @posh, @posv, @extent, @cs1, @cs2 )
+  {  background-image: radial-gradient( ellipse @extent at @posh @posv, @cs1, @cs2 ); }
 
-// background-image: -webkit-radial-gradient(@begx @begy,0,@begx @begy, 141, from(@cs1), to(@cs2) );
 
 

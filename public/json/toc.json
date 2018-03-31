@@ -1,5 +1,5 @@
 {
-  "Ready":    { "name":"Ready",    "cells":[1,36,1,36], "toc":false, "pane":false },
+  "Overview": { "name":"Overview", "cells":[1,36,1,36], "toc":false, "pane":false },
   "Flavor":   { "name":"Flavor",   "cells":[1,20,1,36], "toc":true,  "pane":true,
     "Roast":     { "name": "Roast",       "json":"flavor.roast", "scale":"0.8" },
     "Jitter":     { "name": "Jitter",     "json":"flavor.jitter", "scale":"0.8" },

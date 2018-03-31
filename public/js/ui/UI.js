@@ -105,9 +105,30 @@ UI = (function() {
       var htm;
       htm = "";
       if (UI.hasTocs) {
+        htm += `<div class="layout-logo     " id="${this.htmlId('Logo')}"></div>`;
+      }
+      if (UI.hasTocs) {
+        htm += `<div class="layout-corp"      id="${this.htmlId('Corp')}"></div>`;
+      }
+      if (UI.hasTocs) {
+        htm += `<div class="layout-find"      id="${this.htmlId('Find')}"></div>`;
+      }
+      if (UI.hasTocs) {
         htm += `<div class="layout-tocs tocs" id="${this.htmlId('Tocs')}"></div>`;
       }
-      htm += `<div class="layout-view" id="${this.htmlId('View')}"></div>`;
+      htm += `<div class="layout-view"      id="${this.htmlId('View')}"></div>`;
+      if (UI.hasTocs) {
+        htm += `<div class="layout-side"      id="${this.htmlId('Side')}"></div>`;
+      }
+      if (UI.hasTocs) {
+        htm += `<div class="layout-pref     " id="${this.htmlId('Pref')}"></div>`;
+      }
+      if (UI.hasTocs) {
+        htm += `<div class="layout-foot"      id="${this.htmlId('Foot')}"></div>`;
+      }
+      if (UI.hasTocs) {
+        htm += `<div class="layout-trak"      id="${this.htmlId('Trak')}"></div>`;
+      }
       return htm;
     }
 

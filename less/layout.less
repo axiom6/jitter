@@ -4,32 +4,29 @@
 @import "mixin.less";
 @import "gradient.less";
 
-//@layout-west:170px; @layout-north:48px; @layout-east:32px; @layout-south:32px;
-
-//@layout-dark:@color-back60; @layout-lite:@color-back70; @layout-view:@color-back80;
-  @layout-dark:@color-gray60; @layout-lite:@color-gray70; @layout-view:@color-gray80;
-  @layout-stat:@color-gray10; @layout-norm:@color-gray35;
+@layout-dark:@color-gray10; @layout-lite:@color-gray20; @layout-view:@color-back80;
+@layout-stat:@color-gray10; @layout-norm:@color-gray35;
 
 .layout-font{ font-family:Arial, Helvetica, sans-serif; }
 
 .layout-body { overflow:hidden; }
 
 // Header
-.layout-logo { position:absolute; left:           0; top:0; width:@layout-west; height:@layout-north; background:@layout-dark; }
-.layout-corp { position:absolute; left:@layout-west; top:0; right:@layout-east; height:@layout-north; .gradient-top(@layout-dark,@layout-lite); }
-.layout-find { position:absolute; right:          0; top:0; width:@layout-east; height:@layout-north; background:@layout-dark; }
+.layout-logo { position:absolute; left:           0; top:0; width:@layout-west; height:@layout-north; .gradient-nw(  @layout-dark,@layout-lite); }
+.layout-corp { position:absolute; left:@layout-west; top:0; right:@layout-east; height:@layout-north; .gradient-top( @layout-dark,@layout-lite); }
+.layout-find { position:absolute; right:          0; top:0; width:@layout-east; height:@layout-north; .gradient-ne(  @layout-dark,@layout-lite); }
 
-// Middle                                                                                                         .gradient-left(@layout-dark,@layout-lite);
-.layout-tocs { position:absolute; left:           0; top:@layout-north; width:@layout-west; bottom:@layout-south; background: @layout-dark;   .layout-font; }
-.layout-view { position:absolute; left:@layout-west; top:@layout-north; right:0;            height:100%;          background:@layout-view; overflow:visible;   }
-.layout-page { position:absolute; left:@layout-west; top:@layout-north; right:@layout-east; bottom:@layout-south; .gradient-center(@layout-view,@layout-lite); display: none; }
-.layout-back { position:absolute; left:@layout-west; top:@layout-north; right:0;            height:100%;        background:@layout-view; overflow:visible;   }
-.layout-side { position:absolute; right:          0; top:@layout-north; width:@layout-east; bottom:@layout-south; .gradient-right(@layout-dark,@layout-lite);  .layout-font; }
+// Middle
+.layout-tocs { position:absolute; left:           0; top:@layout-north; width:@layout-west; bottom:@layout-south; .gradient-left(   @layout-dark,@layout-lite);  .layout-font; }
+.layout-view { position:absolute; left:@layout-west; top:@layout-north; right:@layout-east; bottom:@layout-south; .gradient-center( @layout-view,@layout-lite); overflow:visible;   }
+.layout-page { position:absolute; left:@layout-west; top:@layout-north; right:@layout-east; bottom:@layout-south; .gradient-center( @layout-view,@layout-lite); display: none; }
+.layout-back { position:absolute; left:@layout-west; top:@layout-north; right:0;            height:100%;          .gradient-center( @layout-view,@layout-lite); overflow:visible;   }
+.layout-side { position:absolute; right:          0; top:@layout-north; width:@layout-east; bottom:@layout-south; .gradient-right(  @layout-dark,@layout-lite);  .layout-font; }
 
 // Bottom
-.layout-pref { position:absolute; left:           0; bottom:0; width:@layout-west; height:@layout-south; background:@layout-dark; }
-.layout-foot { position:absolute; left:@layout-west; bottom:0; right:@layout-east; height:@layout-south; .gradient-bottom(@layout-dark,@layout-lite); }
-.layout-trak { position:absolute; right:          0; bottom:0; width:@layout-east; height:@layout-south; background:@layout-dark; }
+.layout-pref { position:absolute; left:           0; bottom:0; width:@layout-west; height:@layout-south; .gradient-sw(     @layout-dark,@layout-lite); }
+.layout-foot { position:absolute; left:@layout-west; bottom:0; right:@layout-east; height:@layout-south; .gradient-bottom( @layout-dark,@layout-lite); }
+.layout-trak { position:absolute; right:          0; bottom:0; width:@layout-east; height:@layout-south; .gradient-se(     @layout-dark,@layout-lite); }
 
 
 .layout-menu { position:absolute; left:@layout-west; top:0; right:0; height:@layout-north; .gradient-top( @layout-dark,@layout-lite);   }

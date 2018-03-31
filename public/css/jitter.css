@@ -69,13 +69,6 @@
 }
 /* Linear Gradients 2  Color */
 /* Center and corner radial gradients */
-/* Standard linear gradients for W3C Firefox Opera IE10 Webkit11 */
-/* filter:   progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#ffffff'); */
-/* IE6 & IE7 */
-/* filter:~"progid:DXImageTransform.Microsoft.Gradient(GradientType="@type~",StartColorStr="@cs1,~"EndColorStr="@cs2~");" } */
-/* -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#000000', endColorstr='#ffffff')"; */
-/* IE8+ */
-/* Standard radial gradients for W3C Firefox Opera IE10 Webkit11 */
 .layout-font {
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -88,7 +81,7 @@
   top: 0;
   width: 0;
   height: 0;
-  background: #999999;
+  background-image: radial-gradient(ellipse farthest-side at right bottom, #333333, #1a1a1a);
 }
 .layout-corp {
   position: absolute;
@@ -96,8 +89,7 @@
   top: 0;
   right: 0;
   height: 0;
-  background-image: -moz-linear-gradient(top, #999999, #b3b3b3);
-  background-image: -webkit-gradient(linear, center top, center bottom, from(#999999), to(#b3b3b3));
+  background-image: linear-gradient(to bottom, #1a1a1a, #333333);
 }
 .layout-find {
   position: absolute;
@@ -105,7 +97,7 @@
   top: 0;
   width: 0;
   height: 0;
-  background: #999999;
+  background-image: radial-gradient(ellipse farthest-side at left bottom, #333333, #1a1a1a);
 }
 .layout-tocs {
   position: absolute;
@@ -113,7 +105,7 @@
   top: 0;
   width: 0;
   bottom: 0;
-  background: #999999;
+  background-image: linear-gradient(to right, #1a1a1a, #333333);
   font-family: Arial, Helvetica, sans-serif;
 }
 .layout-view {
@@ -121,8 +113,8 @@
   left: 0;
   top: 0;
   right: 0;
-  height: 100%;
-  background: #cccccc;
+  bottom: 0;
+  background-image: radial-gradient(ellipse farthest-corner at center center, #dabebe, #333333);
   overflow: visible;
 }
 .layout-page {
@@ -131,7 +123,7 @@
   top: 0;
   right: 0;
   bottom: 0;
-  background-image: -moz-radial-gradient(center center, farthest-side, #cccccc, #b3b3b3);
+  background-image: radial-gradient(ellipse farthest-corner at center center, #dabebe, #333333);
   display: none;
 }
 .layout-back {
@@ -140,7 +132,7 @@
   top: 0;
   right: 0;
   height: 100%;
-  background: #cccccc;
+  background-image: radial-gradient(ellipse farthest-corner at center center, #dabebe, #333333);
   overflow: visible;
 }
 .layout-side {
@@ -149,8 +141,7 @@
   top: 0;
   width: 0;
   bottom: 0;
-  background-image: -moz-linear-gradient(right, #999999, #b3b3b3);
-  background-image: -webkit-gradient(linear, right center, left center, from(#999999), to(#b3b3b3));
+  background-image: linear-gradient(to left, #1a1a1a, #333333);
   font-family: Arial, Helvetica, sans-serif;
 }
 .layout-pref {
@@ -159,7 +150,7 @@
   bottom: 0;
   width: 0;
   height: 0;
-  background: #999999;
+  background-image: radial-gradient(ellipse farthest-side at right top, #333333, #1a1a1a);
 }
 .layout-foot {
   position: absolute;
@@ -167,8 +158,7 @@
   bottom: 0;
   right: 0;
   height: 0;
-  background-image: -moz-linear-gradient(bottom, #999999, #b3b3b3);
-  background-image: -webkit-gradient(linear, center bottom, center top, from(#999999), to(#b3b3b3));
+  background-image: linear-gradient(to top, #1a1a1a, #333333);
 }
 .layout-trak {
   position: absolute;
@@ -176,7 +166,7 @@
   bottom: 0;
   width: 0;
   height: 0;
-  background: #999999;
+  background-image: radial-gradient(ellipse farthest-side at left top, #333333, #1a1a1a);
 }
 .layout-menu {
   position: absolute;
@@ -184,8 +174,7 @@
   top: 0;
   right: 0;
   height: 0;
-  background-image: -moz-linear-gradient(top, #999999, #b3b3b3);
-  background-image: -webkit-gradient(linear, center top, center bottom, from(#999999), to(#b3b3b3));
+  background-image: linear-gradient(to bottom, #1a1a1a, #333333);
 }
 .layout-logo .text {
   position: relative;
@@ -215,6 +204,208 @@
   top: 5px;
   bottom: 6px;
   width: 14px;
+}
+.tocs-ul1 {
+  background: transparent;
+}
+.tocs-li1 {
+  background-color: #412525;
+}
+.tocs-ul2 {
+  background-image: linear-gradient(to bottom, #dabebe, #ecdfdf);
+}
+.tocs-li2 {
+  background-color: #613838;
+}
+.tocs-ul3 {
+  background-image: linear-gradient(to bottom, #dabebe, #ecdfdf);
+}
+.tocs-li3 {
+  background-color: #814b4b;
+}
+.tocs-ul4 {
+  background-image: linear-gradient(to bottom, #dabebe, #ecdfdf);
+}
+.tocs-li4 {
+  background-color: #a25d5d;
+}
+.tocs-li1b {
+  background-image: linear-gradient(to bottom, #c79e9e, #d0aeae);
+}
+.tocs {
+  padding-top: 24px;
+}
+.tocs ul {
+  padding: 0 0 0 0;
+  list-style: none none;
+  margin: 0;
+}
+.tocs ul > li {
+  padding: 0.2em 0 0.2em 0.5em;
+}
+.tocs ul > li > ul {
+  padding: 0 0 0 0;
+  list-style: none none;
+  margin: 0;
+  display: none;
+}
+.tocs ul > li > ul > li {
+  padding: 0.2em 0 0.2em 1.3em;
+}
+.tocs ul > li > ul > li > ul {
+  padding: 0 0 0 0;
+  list-style: none none;
+  margin: 0;
+  display: none;
+}
+.tocs ul > li > ul > li > ul > li {
+  padding: 0.2em 0 0.2em 1.3em;
+}
+.tocs ul > li > ul > li > ul > li > ul {
+  padding: 0 0 0 0;
+  list-style: none none;
+  margin: 0;
+  display: none;
+}
+.tocs ul > li > ul > li > ul > li > ul > li {
+  padding: 0.2em 0 0.2em 1.3em;
+}
+.tocs ul li:hover {
+  cursor: pointer;
+  background: #240f1a;
+  color: #f7edf2;
+}
+.tocs-font {
+  font-family: Arial, Helvetica, sans-serif;
+}
+.tocs-1 > div {
+  color: #000000;
+  font-family: Arial, Helvetica, sans-serif;
+  width: 100%;
+  height: 100%;
+}
+.tocs-1 > ul {
+  list-style: none none;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  height: 100%;
+}
+.tocs-1 ul > li:hover {
+  background-color: #412525;
+}
+.tocs-1 ul > li {
+  position: relative;
+  left: 0;
+  top: 5px;
+  display: block;
+  font-size: 14px;
+  padding: 5px;
+  margin-right: 14px;
+  font-weight: bold;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  background-image: linear-gradient(to bottom, #c79e9e, #d0aeae);
+}
+.tocs-1 ul > li > div {
+  display: inline;
+}
+.tocs-1 ul > li:hover > ul {
+  display: block;
+}
+.tocs-1 ul > li > ul {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 28px;
+  padding: 6px 0 6px 6px;
+  background-image: linear-gradient(to bottom, #dabebe, #ecdfdf);
+  z-index: 100;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+.tocs-1 ul > li:hover > ul:hover > li:hover {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  background-color: #613838;
+}
+.tocs-1 ul > li:hover > ul:hover > .only:hover {
+  border-radius: 8px;
+  background-color: #613838;
+}
+.tocs-1 ul > li > ul > li {
+  display: block;
+  position: relative;
+  padding: 4px 10px 4px 4px;
+  z-index: 200;
+  font-size: 0.8em;
+  font-weight: bold;
+}
+.tocs-1 ul > li > ul > .only {
+  padding-right: 4px;
+  margin-right: 6px;
+}
+.tocs-1 ul > li:hover > ul:hover > li:hover > ul {
+  display: block;
+}
+.tocs-1 ul > li:hover > ul:hover > li:hover > .only {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+.tocs-1 ul > li > ul > li > ul {
+  display: none;
+  position: absolute;
+  left: 100%;
+  top: -6px;
+  width: auto;
+  padding: 6px 0 6px 0;
+  background-image: linear-gradient(to bottom, #dabebe, #ecdfdf);
+  z-index: 100;
+}
+.tocs-1 ul > li > ul > li > .only {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+.tocs-1 ul > li:hover > ul:hover > li:hover > ul:hover > li:hover {
+  display: block;
+  background-color: #814b4b;
+}
+.tocs-1 ul > li:hover > ul:hover > li:hover > ul:hover > .only:hover {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+.tocs-1 ul > li > ul > li > ul > li {
+  padding: 4px 10px 4px 10px;
+  z-index: 200;
+}
+.tocs-1 ul > li > ul > li > ul > .only {
+  padding-right: 4px;
+  margin-right: 6px;
+}
+.tocs-1 ul > li:hover > ul:hover > li:hover > ul > li:hover > ul {
+  display: block;
+}
+.tocs-1 ul > li > ul > li > ul > li > ul {
+  display: none;
+  position: absolute;
+  left: 100%;
+  top: 0;
+  width: auto;
+  padding: 6px 6px 6px 0;
+  background-image: linear-gradient(to bottom, #dabebe, #ecdfdf);
+  z-index: 100;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+.tocs-1 ul > li:hover > ul:hover > li:hover > ul:hover > li:hover > ul:hover > li:hover {
+  display: block;
+  background-color: #a25d5d;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+.tocs-1 ul > li > ul > li > ul > li > ul > li {
+  padding: 4px 4px 4px 10px;
+  z-index: 200;
 }
 html {
   overflow: hidden;

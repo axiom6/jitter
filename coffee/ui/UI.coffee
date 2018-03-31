@@ -83,8 +83,15 @@ class UI
 
   html:() ->
     htm = ""
+    htm += """<div class="layout-logo     " id="#{@htmlId('Logo')}"></div>""" if UI.hasTocs
+    htm += """<div class="layout-corp"      id="#{@htmlId('Corp')}"></div>""" if UI.hasTocs
+    htm += """<div class="layout-find"      id="#{@htmlId('Find')}"></div>""" if UI.hasTocs
     htm += """<div class="layout-tocs tocs" id="#{@htmlId('Tocs')}"></div>""" if UI.hasTocs
-    htm += """<div class="layout-view" id="#{@htmlId('View')}"></div>"""
+    htm += """<div class="layout-view"      id="#{@htmlId('View')}"></div>"""
+    htm += """<div class="layout-side"      id="#{@htmlId('Side')}"></div>""" if UI.hasTocs
+    htm += """<div class="layout-pref     " id="#{@htmlId('Pref')}"></div>""" if UI.hasTocs
+    htm += """<div class="layout-foot"      id="#{@htmlId('Foot')}"></div>""" if UI.hasTocs
+    htm += """<div class="layout-trak"      id="#{@htmlId('Trak')}"></div>""" if UI.hasTocs
     htm
 
   show:() ->
