@@ -6,7 +6,7 @@ class UI
   UI.None         = "None"
   UI.ncol         = 36
   UI.nrow         = 36
-  UI.margin       =  { width:1, height:1, west :2, north :1, east :2, south :2, wStudy:0.5, hStudy:0.5 }
+  UI.margin       =  { width:0.00, height:0.00, west :0.5, north :0, east :0.5, south :0, wStudy:0.5, hStudy:0.5 }
 
   UI.SelectView  = 'SelectView'
   UI.SelectPane  = 'SelectPane'

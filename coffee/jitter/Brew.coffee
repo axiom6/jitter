@@ -7,7 +7,7 @@ class Brew
     @ui.addContent( 'Brew', @ )
 
   readyPane:() ->
-    UI.Dom.vert( @stream, @spec, 'img/brew/', 0.70, 0, 12 )
+    UI.Dom.vert( @stream, @spec, 'img/brew/', 0.50, 0, 12 )
 
   readyView:() ->
     src = "img/brew/"+spec['AutoDrip'].icon

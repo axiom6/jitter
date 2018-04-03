@@ -12,6 +12,8 @@ class Jitter
     return
 
   constructor:( @stream, @ui ) ->
+    @head1   = new Jitter.Head(    @stream, @ui, "Head1" )
+    @head2   = new Jitter.Head(    @stream, @ui, "Head2" )
     @flavor  = new Jitter.Flavor(  @stream, @ui )
     @choices = new Jitter.Choices( @stream, @ui )
     @roast   = new Jitter.Roast(   @stream, @ui )

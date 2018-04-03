@@ -74,7 +74,7 @@ class Wheel
         .attr( "id", (d, i) -> ( if d? then "path-" + i else "path-" + i ) )
         .attr(  "d", @arc )
         .attr(  "fill-rule", "evenodd")
-        .style( "fill",    (d) => @fill(d.data)  )
+        .style( "fill",    (d) => @fill(d)  )
         .style( "opacity", UI.Dom.opacity )
         .style( "display", (d) -> if d.data.hide then "none" else "block" )
         .on( "click",      (d) => @magnify( d, 'click'     ) )
@@ -133,9 +133,12 @@ class Wheel
     rgb.r * .299 + rgb.g * .587 + rgb.b * .114
 
   fill:(d) =>
-    if d.fill?
-      d.fill
-    else if d.children
+    # console.log( 'fill', d )
+    if d.data.fill? and d.children?
+      d.data.fill
+    else if  d.data.fill? and not d.children? and d.parent?  and d.parent.data.fill?
+      d.parent.data.fill
+    else if d.children?
       colours = d.children.map(@fill)
       a = d3.hsl(colours[0])
       b = d3.hsl(colours[1])

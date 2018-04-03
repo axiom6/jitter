@@ -10,7 +10,7 @@
       }
 
       readyPane() {
-        return UI.Dom.vert(this.stream, this.spec, 'img/brew/', 0.70, 0, 12);
+        return UI.Dom.vert(this.stream, this.spec, 'img/brew/', 0.50, 0, 12);
       }
 
       readyView() {

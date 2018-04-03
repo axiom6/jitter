@@ -84,6 +84,17 @@
 		"sC": 0,
 		"tS": 0
 		},
+	"\/coffee\/jitter\/Head.coffee": {
+		"ft": 32,
+		"ma": 0,
+		"mi": 0,
+		"oA": 0,
+		"oAP": "\/public\/js\/jitter\/Head.js",
+		"oF": 0,
+		"oS": 0,
+		"sC": 0,
+		"tS": 0
+		},
 	"\/coffee\/jitter\/Jitter.coffee": {
 		"ft": 32,
 		"ma": 0,
@@ -977,6 +988,28 @@
 		"oT": 1,
 		"q": 100
 		},
+	"\/doc\/site\/Jitter.png": {
+		"ft": 32768,
+		"iS": 122703,
+		"oA": 0,
+		"oAP": "\/doc\/site\/Jitter.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/doc\/site\/Rx.png": {
+		"ft": 32768,
+		"iS": 6956,
+		"oA": 0,
+		"oAP": "\/doc\/site\/Rx.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
 	"\/doc\/wheel\/Aroma.coffee": {
 		"ft": 32,
 		"ma": 0,
@@ -1368,6 +1401,26 @@
 		"sM": 0,
 		"sU": 0
 		},
+	"\/public\/css\/btn.css": {
+		"aP": 1,
+		"bl": 0,
+		"ft": 16,
+		"ma": 0,
+		"oA": 0,
+		"oAP": "\/public\/css\/btn-min.css",
+		"oF": 0,
+		"oS": 3
+		},
+	"\/public\/css\/ikw.css": {
+		"aP": 1,
+		"bl": 0,
+		"ft": 16,
+		"ma": 0,
+		"oA": 0,
+		"oAP": "\/public\/css\/ikw-min.css",
+		"oF": 0,
+		"oS": 3
+		},
 	"\/public\/css\/jitter.css": {
 		"aP": 1,
 		"bl": 0,
@@ -1375,6 +1428,26 @@
 		"ma": 0,
 		"oA": 0,
 		"oAP": "\/public\/css\/jitter-min.css",
+		"oF": 0,
+		"oS": 3
+		},
+	"\/public\/css\/navb.css": {
+		"aP": 1,
+		"bl": 0,
+		"ft": 16,
+		"ma": 0,
+		"oA": 0,
+		"oAP": "\/public\/css\/navb-min.css",
+		"oF": 0,
+		"oS": 3
+		},
+	"\/public\/css\/table.css": {
+		"aP": 1,
+		"bl": 0,
+		"ft": 16,
+		"ma": 0,
+		"oA": 0,
+		"oAP": "\/public\/css\/table-min.css",
 		"oF": 0,
 		"oS": 3
 		},
@@ -1530,11 +1603,44 @@
 		"oT": 1,
 		"q": 100
 		},
+	"\/public\/img\/flavor\/JitterPourOverBg.png": {
+		"ft": 32768,
+		"iS": 658361,
+		"oA": 0,
+		"oAP": "\/public\/img\/flavor\/JitterPourOverBg.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
 	"\/public\/img\/logo\/JitterBoxBurn.png": {
 		"ft": 32768,
 		"iS": 39545,
 		"oA": 0,
 		"oAP": "\/public\/img\/logo\/JitterBoxBurn.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/public\/img\/logo\/JitterBoxFoot.png": {
+		"ft": 32768,
+		"iS": 109000,
+		"oA": 0,
+		"oAP": "\/public\/img\/logo\/JitterBoxFoot.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/public\/img\/logo\/JitterBoxHead.png": {
+		"ft": 32768,
+		"iS": 197382,
+		"oA": 0,
+		"oAP": "\/public\/img\/logo\/JitterBoxHead.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,

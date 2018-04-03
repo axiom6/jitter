@@ -94,7 +94,7 @@
               return "path-" + i;
             }
           }).attr("d", this.arc).attr("fill-rule", "evenodd").style("fill", (d) => {
-            return this.fill(d.data);
+            return this.fill(d);
           }).style("opacity", UI.Dom.opacity).style("display", function(d) {
             if (d.data.hide) {
               return "none";
@@ -217,9 +217,12 @@
 
       fill(d) {
         var a, b, colours;
-        if (d.fill != null) {
-          return d.fill;
-        } else if (d.children) {
+        // console.log( 'fill', d )
+        if ((d.data.fill != null) && (d.children != null)) {
+          return d.data.fill;
+        } else if ((d.data.fill != null) && (d.children == null) && (d.parent != null) && (d.parent.data.fill != null)) {
+          return d.parent.data.fill;
+        } else if (d.children != null) {
           colours = d.children.map(this.fill);
           a = d3.hsl(colours[0]);
           b = d3.hsl(colours[1]);

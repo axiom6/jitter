@@ -15,6 +15,8 @@ Jitter = class Jitter {
   constructor(stream1, ui1) {
     this.stream = stream1;
     this.ui = ui1;
+    this.head1 = new Jitter.Head(this.stream, this.ui, "Head1");
+    this.head2 = new Jitter.Head(this.stream, this.ui, "Head2");
     this.flavor = new Jitter.Flavor(this.stream, this.ui);
     this.choices = new Jitter.Choices(this.stream, this.ui);
     this.roast = new Jitter.Roast(this.stream, this.ui);

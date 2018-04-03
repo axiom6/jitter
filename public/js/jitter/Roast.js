@@ -30,6 +30,10 @@
         x = 0;
         dx = 100 / n; // - 0.07
         $p = $(`<div ${UI.Dom.panel(0, 0, 100, 100)}></div>`);
+        $p.css({
+          "background-color": "#8d6566",
+          "border-radius": "24px"
+        });
         style = "position:absolute; left:2%; top:5%; width:9%; height:90%; ";
         style += `text-align:center; background:${this.data["5"].color}; `;
         style += `border:black solid 2px; font-size:3vmin; font-weight:bold; display:table; opacity:${UI.Dom.opacity}; `;

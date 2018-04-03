@@ -14,12 +14,12 @@ class Dom
   @label:( x, y, w, h, klass="label" ) ->
     """class="#{klass}" style="position:absolute; left:#{x}%; top:#{y}%; width:#{w}%; height:#{h}%; text-align:center;" """
 
-  @image:( x, y, w, h, src, mh, label="", radius="6px" ) ->
+  @image:( x, y, w, h, src, mh, label="", radius="6px", mw=60 ) ->
     klass  = if src? then "image"            else "texts"
     tstyle = if src? then "padding-top:3px;" else ""                # max-width:#{mh*4}vmin;
     htm  = """<div class="#{klass}" style="position:absolute; left:#{x}%; top:#{y}%; width:#{w}%; height:#{h}%; display:table;">"""
     htm += """<div style="display:table-cell; vertical-align:middle;">"""
-    htm += """<img style="display:block; margin-left:auto; margin-right:auto; max-height:#{mh}vmin; border-radius:#{radius};" src="#{src}"/>""" if src?
+    htm += """<img style="display:block; margin-left:auto; margin-right:auto; max-height:#{mh}vmin; max-width:#{mw}vmin; border-radius:#{radius};" src="#{src}"/>""" if src?
     htm += """<div style="#{tstyle}">#{label}</div>"""  if Util.isStr(label)
     htm += """</div></div>"""
     htm
