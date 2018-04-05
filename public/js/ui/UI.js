@@ -1,7 +1,13 @@
 var UI,
   hasProp = {}.hasOwnProperty;
 
-UI = (function() {
+import Util from '../util/Util.js';
+
+import Tocs from '../ui/Tocs.js';
+
+import View from '../ui/View.js';
+
+export default UI = (function() {
   class UI {
     constructor(stream) {
       var callback;
@@ -12,9 +18,9 @@ UI = (function() {
       callback = (data) => {
         this.spec = data;
         if (UI.hasTocs) {
-          this.tocs = new UI.Tocs(this, this.stream, this.spec);
+          this.tocs = new Tocs(this, this.stream, this.spec);
         }
-        this.view = new UI.View(this, this.stream, this.spec);
+        this.view = new View(this, this.stream, this.spec);
         return this.ready(this.spec);
       };
       UI.readJSON("json/toc.json", callback);
@@ -27,7 +33,7 @@ UI = (function() {
 
     ready(spec) {
       this.spec = spec;
-      $('#' + Util.htmlId('App')).html(this.html());
+      $('#' + UI.htmlId('App')).html(this.html());
       if (UI.hasTocs) {
         this.tocs.ready();
       }
@@ -62,7 +68,7 @@ UI = (function() {
           this.selectStudy(pane, select.study);
           break;
         default:
-          Util.error("Jitter.onSelect() unknown select", select);
+          console.error("Jitter.onSelect() unknown select", select);
       }
     }
 
@@ -105,29 +111,29 @@ UI = (function() {
       var htm;
       htm = "";
       if (UI.hasTocs) {
-        htm += `<div class="layout-logo     " id="${this.htmlId('Logo')}"></div>`;
+        htm += `<div class="layout-logo     " id="${UI.htmlId('Logo')}"></div>`;
       }
       if (UI.hasTocs) {
-        htm += `<div class="layout-corp"      id="${this.htmlId('Corp')}"></div>`;
+        htm += `<div class="layout-corp"      id="${UI.htmlId('Corp')}"></div>`;
       }
       if (UI.hasTocs) {
-        htm += `<div class="layout-find"      id="${this.htmlId('Find')}"></div>`;
+        htm += `<div class="layout-find"      id="${UI.htmlId('Find')}"></div>`;
       }
       if (UI.hasTocs) {
-        htm += `<div class="layout-tocs tocs" id="${this.htmlId('Tocs')}"></div>`;
+        htm += `<div class="layout-tocs tocs" id="${UI.htmlId('Tocs')}"></div>`;
       }
-      htm += `<div class="layout-view"      id="${this.htmlId('View')}"></div>`;
+      htm += `<div class="layout-view"      id="${UI.htmlId('View')}"></div>`;
       if (UI.hasTocs) {
-        htm += `<div class="layout-side"      id="${this.htmlId('Side')}"></div>`;
-      }
-      if (UI.hasTocs) {
-        htm += `<div class="layout-pref     " id="${this.htmlId('Pref')}"></div>`;
+        htm += `<div class="layout-side"      id="${UI.htmlId('Side')}"></div>`;
       }
       if (UI.hasTocs) {
-        htm += `<div class="layout-foot"      id="${this.htmlId('Foot')}"></div>`;
+        htm += `<div class="layout-pref     " id="${UI.htmlId('Pref')}"></div>`;
       }
       if (UI.hasTocs) {
-        htm += `<div class="layout-trak"      id="${this.htmlId('Trak')}"></div>`;
+        htm += `<div class="layout-foot"      id="${UI.htmlId('Foot')}"></div>`;
+      }
+      if (UI.hasTocs) {
+        htm += `<div class="layout-trak"      id="${UI.htmlId('Trak')}"></div>`;
       }
       return htm;
     }
@@ -150,12 +156,20 @@ UI = (function() {
       this.view.resize();
     }
 
-    htmlId(name, type = '', ext = '') {
-      return Util.htmlId(name, type, ext);
+    static getHtmlId(name, type = '', ext = '') {
+      var id;
+      id = name + type + ext;
+      return id.replace(/[ \.]/g, "");
     }
 
-    getHtmlId(name, ext = '') {
-      return Util.getHtmlId(name, "", ext);
+    static htmlId(name, type = '', ext = '') {
+      var id;
+      id = UI.getHtmlId(name, type, ext);
+      if (UI.htmlIds[id] != null) {
+        console.error('UI.htmlId() duplicate html id', id);
+      }
+      UI.htmlIds[id] = id;
+      return id;
     }
 
     static baseUrl() {
@@ -183,7 +197,7 @@ UI = (function() {
       };
       settings.error = (jqXHR, status, error) => {
         Util.noop(jqXHR);
-        return Util.error("UI.readJSON()", {
+        return console.error("UI.readJSON()", {
           url: url,
           status: status,
           error: error
@@ -214,7 +228,7 @@ UI = (function() {
       var verify;
       verify = Util.isStr(select.name) && Util.isStr(select.source) && Util.inArray(UI.intents, select.intent);
       if (!verify) {
-        Util.trace('UI.verifySelect()', select, source);
+        console.trace('UI.verifySelect()', select, source);
       }
       return verify;
     }
@@ -229,7 +243,7 @@ UI = (function() {
 
     static jmin(cells) {
       if (cells == null) {
-        Util.trace('UI.jmin');
+        console.trace('UI.jmin');
       }
       return [cells[0] - 1, cells[1], cells[2] - 1, cells[3]];
     }
@@ -286,6 +300,9 @@ UI = (function() {
   UI.DelChoice = 'DelChoice';
 
   UI.intents = [UI.SelectPane, UI.SelectView, UI.SelectStudy, UI.AddChoice, UI.DelChoice];
+
+  // ------ Html ------------
+  UI.htmlIds = {};
 
   return UI;
 

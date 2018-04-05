@@ -1,7 +1,8 @@
 
-class Dom
+import Util    from '../util/Util.js'
+import UI      from '../ui/UI.js'
 
-  UI.Dom = Dom
+export default class Dom
 
   @choiceColor = "yellow"
   @hoverColor  = "wheat"

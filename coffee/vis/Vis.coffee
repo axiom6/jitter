@@ -1,5 +1,5 @@
 
-class Vis
+export default class Vis
   
   @rad:( deg ) -> deg * Math.PI / 180
   @deg:( rad ) -> rad * 180 / Math.PI

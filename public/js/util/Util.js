@@ -1,15 +1,12 @@
-  // Static method utilities       - Util is a global without a functional wrapper
-  // coffee -c -bare Util.coffee   - prevents function wrap to put Util in global namespace
-  // Very important requires that Util.js be loaded first
 var Util,
   hasProp = {}.hasOwnProperty;
 
-Util = (function() {
+export default Util = (function() {
   class Util {
     // ------ Modules ------
     static init(moduleCommonJS = void 0, moduleWebPack = void 0, root = '../../') {
       Util.root = root;
-      Util.rootJS = Util.root + 'js/';
+      Util.rootJS = Util.root + '/js/';
       Util.resetModuleExports();
       Util.fixTestGlobals();
       if (Util.isCommonJS && (moduleCommonJS != null)) {
@@ -18,7 +15,7 @@ Util = (function() {
         Util.skipReady = true;
         Util.loadScript(moduleWebPack);
       } else {
-        Util.error(`Bad arguments for Util.init() isCommonJS=${Util.isCommonJS},\nroot=${root}, moduleCommonJS=${(moduleCommonJS != null)}, moduleWebPack=${moduleWebPack}`);
+        console.error(`Bad arguments for Util.init() isCommonJS=${Util.isCommonJS},\nroot=${root}, moduleCommonJS=${(moduleCommonJS != null)}, moduleWebPack=${moduleWebPack}`);
       }
     }
 
@@ -87,7 +84,7 @@ Util = (function() {
       var has;
       has = typeof obj[method] === 'function';
       if (!has && issue) {
-        Util.log('Util.hasMethod()', method, has);
+        console.log('Util.hasMethod()', method, has);
       }
       return has;
     }
@@ -96,7 +93,7 @@ Util = (function() {
       var has;
       has = window[global] != null;
       if (!has && issue) {
-        Util.error(`Util.hasGlobal() ${global} not present`);
+        console.error(`Util.hasGlobal() ${global} not present`);
       }
       return has;
     }
@@ -115,7 +112,7 @@ Util = (function() {
       plug = Util.lastTok(plugin, '.');
       has = (window[glob] != null) && (window[glob][plug] != null);
       if (!has && issue) {
-        Util.error(`Util.hasPlugin()  $${glob + '.' + plug} not present`);
+        console.error(`Util.hasPlugin()  $${glob + '.' + plug} not present`);
       }
       return has;
     }
@@ -124,7 +121,7 @@ Util = (function() {
       var has;
       has = Util.modules[path] != null;
       if (!has && issue) {
-        Util.error(`Util.hasModule() ${path} not present`);
+        console.error(`Util.hasModule() ${path} not present`);
       }
       return has;
     }
@@ -136,7 +133,7 @@ Util = (function() {
         arg = arguments[j];
         has = Util.hasGlobal(arg, false) || Util.hasModule(arg, false) || Util.hasPlugin(arg, false);
         if (!has) {
-          Util.error('Missing Dependency', arg);
+          console.error('Missing Dependency', arg);
         }
         if (has === false) {
           ok = has;
@@ -147,11 +144,11 @@ Util = (function() {
 
     // ---- Instances ----
     static setInstance(instance, path) {
-      Util.log('Util.setInstance()', path);
+      console.log('Util.setInstance()', path);
       if ((instance == null) && (path != null)) {
-        Util.error('Util.setInstance() instance not defined for path', path);
+        console.error('Util.setInstance() instance not defined for path', path);
       } else if ((instance != null) && (path == null)) {
-        Util.error('Util.setInstance() path not defined for instance', instance.toString());
+        console.error('Util.setInstance() path not defined for instance', instance.toString());
       } else {
         Util.instances[path] = instance;
       }
@@ -160,11 +157,11 @@ Util = (function() {
     static getInstance(path, dbg = false) {
       var instance;
       if (dbg) {
-        Util.log('getInstance', path);
+        console.log('getInstance', path);
       }
       instance = Util.instances[path];
       if (instance == null) {
-        Util.error('Util.getInstance() instance not defined for path', path);
+        console.error('Util.getInstance() instance not defined for path', path);
       }
       return instance;
     }
@@ -259,94 +256,76 @@ Util = (function() {
     // Consume unused but mandated variable to pass code inspections
     static noop() {
       if (false) {
-        Util.log(arguments);
+        console.log(arguments);
       }
     }
 
     // Conditional log arguments through console
-    static dbg() {
-      var str;
-      if (!Util.debug) {
-        return;
-      }
-      str = Util.toStrArgs('', arguments);
-      Util.consoleLog(str);
-    }
+    // DEpreciated due to improvements we now use console directly
+    /*
+    @dbg:() ->
+    return if not Util.debug
+    str = Util.toStrArgs( '', arguments )
+    Util.consoleLog( str )
+    #@gritter( { title:'Log', time:2000 }, str )
+    return
 
-    //@gritter( { title:'Log', time:2000 }, str )
-    static msg() {
-      var str;
-      if (!Util.message) {
-        return;
-      }
-      str = Util.toStrArgs('', arguments);
-      Util.consoleLog(str);
-    }
+    @msg:() ->
+    return if not Util.message
+    str = Util.toStrArgs( '', arguments )
+    Util.consoleLog( str )
+    return
 
-    // Log Error and arguments through console and Gritter
-    static error() {
-      var str;
-      str = Util.toStrArgs('Error:', arguments);
-      Util.consoleLog(str);
-    }
+     * Log Error and arguments through console and Gritter
+    @error:() ->
+    str  = Util.toStrArgs( 'Error:', arguments )
+    Util.consoleLog( str )
+     * console.trace( 'Trace:' )
+    return
 
-    // Log Warning and arguments through console and Gritter
-    // Util.trace( 'Trace:' )
-    static warn() {
-      var str;
-      str = Util.toStrArgs('Warning:', arguments);
-      Util.consoleLog(str);
-    }
+     * Log Warning and arguments through console and Gritter
+    @warn:() ->
+    str  = Util.toStrArgs( 'Warning:', arguments )
+    Util.consoleLog( str )
+    return
 
-    static toError() {
-      var str;
-      str = Util.toStrArgs('Error:', arguments);
-      return new Error(str);
-    }
+    @toError:() ->
+    str = Util.toStrArgs( 'Error:', arguments )
+    new Error( str )
 
-    // Log arguments through console if it exists
-    static log() {
-      var str;
-      str = Util.toStrArgs('', arguments);
-      Util.consoleLog(str);
-    }
+     * Log arguments through console if it exists
+    @log:() ->
+    str = Util.toStrArgs( '', arguments )
+    Util.consoleLog( str )
+    return
 
-    // Log arguments through gritter if it exists
-    static called() {
-      var str;
-      str = Util.toStrArgs('', arguments);
-      Util.consoleLog(str);
-    }
+     * Log arguments through gritter if it exists
+    @called:() ->
+    str = Util.toStrArgs( '', arguments )
+    Util.consoleLog( str )
+    #@gritter( { title:'Called', time:2000 }, str )
+    return
 
-    //@gritter( { title:'Called', time:2000 }, str )
-    static gritter(opts, ...args) {
-      var str;
-      if (!(Util.hasGlobal('$', false) && ($['gritter'] != null))) {
-        return;
-      }
-      str = Util.toStrArgs('', args);
-      opts.title = opts.title != null ? opts.title : 'Gritter';
-      opts.text = str;
-    }
+    @gritter:( opts, args... ) ->
+    return if not ( Util.hasGlobal('$',false)  and $['gritter']? )
+    str = Util.toStrArgs( '', args )
+    opts.title = if opts.title? then opts.title else 'Gritter'
+    opts.text  = str
+    return
 
-    static consoleLog(str) {
-      if (typeof console !== "undefined" && console !== null) {
-        console.log(str);
-      }
-    }
+    @consoleLog:( str ) ->
+    console.log(str) if console?
+    return
 
-    static trace() {
-      var error, str;
-      str = Util.toStrArgs('Trace:', arguments);
-      Util.consoleLog(str);
-      try {
-        throw new Error(str);
-      } catch (error1) {
-        error = error1;
-        Util.log(error.stack);
-      }
-    }
-
+    @trace:(  ) ->
+    str = Util.toStrArgs( 'Trace:', arguments )
+    Util.consoleLog( str )
+    try
+    throw new Error( str )
+    catch error
+    console.log( error.stack )
+    return
+     */
     static alert() {
       var str;
       str = Util.toStrArgs('', arguments);
@@ -540,23 +519,18 @@ Util = (function() {
       };
     }
 
-    // ------ Html ------------
-    static getHtmlId(name, type = '', ext = '') {
-      var id;
-      id = name + type + ext;
-      return id.replace(/[ \.]/g, "");
-    }
+    // ------ Html Moved to UI  ------------
+    /*
+    @getHtmlId:( name, type='', ext='' ) ->
+    id = name + type + ext
+    id.replace( /[ \.]/g, "" )
 
-    static htmlId(name, type = '', ext = '') {
-      var id;
-      id = Util.getHtmlId(name, type, ext);
-      if (Util.htmlIds[id] != null) {
-        Util.error('Util.htmlId() duplicate html id', id);
-      }
-      Util.htmlIds[id] = id;
-      return id;
-    }
-
+    @htmlId:( name, type='', ext='' ) ->
+    id = Util.getHtmlId( name, type, ext )
+    console.error( 'Util.htmlId() duplicate html id', id ) if Util.htmlIds[id]?
+    Util.htmlIds[id] = id
+    id
+    */
     // ------ Converters ------
     static extend(obj, mixin) {
       var method, name;
@@ -625,7 +599,7 @@ Util = (function() {
       if (Util.isStr(str) && (str.split != null)) {
         return str.split(delim)[0];
       } else {
-        Util.error("Util.firstTok() str is not at string", str);
+        console.error("Util.firstTok() str is not at string", str);
         return '';
       }
     }
@@ -736,8 +710,8 @@ Util = (function() {
     static isoDateTime(dateIn) {
       var date, pad;
       date = dateIn != null ? dateIn : new Date();
-      Util.log('Util.isoDatetime()', date);
-      Util.log('Util.isoDatetime()', date.getUTCMonth(), date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes, date.getUTCSeconds);
+      console.log('Util.isoDatetime()', date);
+      console.log('Util.isoDatetime()', date.getUTCMonth(), date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes, date.getUTCSeconds);
       pad = function(n) {
         return Util.pad(n);
       };
@@ -948,16 +922,16 @@ Util = (function() {
     }
 
     static match_test() {
-      Util.log(Util.match_args("ex", "some text"));
-      Util.log(Util.match_args("s..t", "spit"));
-      Util.log(Util.match_args("^..t", "buttercup"));
-      Util.log(Util.match_args("i..$", "cherries"));
-      Util.log(Util.match_args("o*m", "vrooooommm!"));
-      return Util.log(Util.match_args("^hel*o$", "hellllllo"));
+      console.log(Util.match_args("ex", "some text"));
+      console.log(Util.match_args("s..t", "spit"));
+      console.log(Util.match_args("^..t", "buttercup"));
+      console.log(Util.match_args("i..$", "cherries"));
+      console.log(Util.match_args("o*m", "vrooooommm!"));
+      return console.log(Util.match_args("^hel*o$", "hellllllo"));
     }
 
     static match_args(regexp, text) {
-      return Util.log(regexp, text, Util.match(regexp, text));
+      return console.log(regexp, text, Util.match(regexp, text));
     }
 
     static svgId(name, type, svgType, check = false) {
@@ -1052,11 +1026,9 @@ Util = (function() {
 
   Util.root = '../../'; // Used internally
 
-  Util.rootJS = Util.root + 'js/';
+  Util.rootJS = Util.root + '/js/';
 
   Util.databases = {};
-
-  Util.htmlIds = {}; // Object of unique Html Ids
 
   Util.logStackNum = 0;
 
@@ -1067,7 +1039,3 @@ Util = (function() {
   return Util;
 
 }).call(this);
-
-// Export Util as a convenience, since it is not really needed since Util is a global
-// Need to export at the end of the file.
-// module.exports = # Util.Export( Util, 'js/util/Util' )

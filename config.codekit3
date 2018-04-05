@@ -37,7 +37,7 @@
 		"oAP": "\/public\/js\/jitter\/Body.js",
 		"oF": 0,
 		"oS": 0,
-		"sC": 0,
+		"sC": 1,
 		"tS": 0
 		},
 	"\/coffee\/jitter\/Brew.coffee": {
@@ -102,7 +102,7 @@
 		"oA": 0,
 		"oAP": "\/public\/js\/jitter\/Jitter.js",
 		"oF": 0,
-		"oS": 1,
+		"oS": 0,
 		"sC": 0,
 		"tS": 0
 		},
@@ -157,7 +157,7 @@
 		"oA": 0,
 		"oAP": "\/public\/js\/ui\/UI.js",
 		"oF": 0,
-		"oS": 1,
+		"oS": 0,
 		"sC": 0,
 		"tS": 0
 		},
@@ -212,7 +212,7 @@
 		"oA": 0,
 		"oAP": "\/public\/js\/util\/Util.js",
 		"oF": 0,
-		"oS": 1,
+		"oS": 0,
 		"sC": 0,
 		"tS": 0
 		},
@@ -223,7 +223,7 @@
 		"oA": 0,
 		"oAP": "\/public\/js\/vis\/Vis.js",
 		"oF": 0,
-		"oS": 1,
+		"oS": 0,
 		"sC": 0,
 		"tS": 0
 		},
@@ -1960,6 +1960,16 @@
 		"mi": 1,
 		"oA": 0,
 		"oAP": "\/public\/js\/jitter\/Flavor-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
+	"\/public\/js\/jitter\/Head.js": {
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/public\/js\/jitter\/Head-min.js",
 		"oF": 0,
 		"sC": 3,
 		"tS": 0

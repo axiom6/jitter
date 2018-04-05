@@ -1,7 +1,9 @@
 
-class View
+import Util    from '../util/Util.js'
+import UI      from '../ui/UI.js'
+import Pane    from '../ui/Pane.js'
 
-  UI.View = View
+export default class View
 
   constructor:( @ui, @stream, @practices ) ->
     @speed       = 400
@@ -20,8 +22,8 @@ class View
     @select   = UI.select( "Overview", "View", UI.SelectView )
 
   ready:() ->
-    parent = $('#'+@ui.getHtmlId('View') ) # parent is outside of planes
-    htmlId = @ui.htmlId( 'View','Plane' )
+    parent = $('#'+UI.getHtmlId('View') ) # parent is outside of planes
+    htmlId = UI.htmlId( 'View','Plane' )
     html   = $( """<div id="#{htmlId}" class="#{@classPrefix}"></div>""" )
     parent.append( html )
     @$view = parent.find('#'+htmlId )
@@ -130,7 +132,7 @@ class View
       when UI.SelectView  then @expandAllPanes()
       when UI.SelectPane  then @expandPane( @getPaneOrGroup(name) )
       when UI.SelectStudy then @expandPane( @getPaneOrGroup(name) )
-      else Util.error( 'UI.View.onSelect() name not processed for intent', name, select )
+      else console.error( 'UI.View.onSelect() name not processed for intent', name, select )
     return
 
   expandAllPanes:() ->
@@ -157,13 +159,13 @@ class View
     if @groups?
       for group in @groups
         return group if group.name is key
-    Util.error( 'UI.View.getPaneOrGroup() null for key ', key ) if issueError
+    console.error( 'UI.View.getPaneOrGroup() null for key ', key ) if issueError
     @emptyPane
 
   createPanes:( practices ) ->
     panes = []
     for own keyPractice, practice of practices when practice.pane
-      pane = new UI.Pane( @ui, @stream, @, practice )
+      pane = new Pane( @ui, @stream, @, practice )
       panes.push( pane )
       practice.pane = pane
       # @createStudyPanes( practice, panes )

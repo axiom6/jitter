@@ -1,7 +1,10 @@
 
-class Roast
+import Util    from '../util/Util.js'
+import UI      from '../ui/UI.js'
+import Dom     from '../ui/Dom.js'
+import Vis     from '../vis/Vis.js'
 
-  Jitter.Roast = Roast
+export default class Roast
 
   Roast.Table = {
     "1":{ color:"#dba34e", img:"1d.png", name:"Blonde",   style:"Half City"      },
@@ -68,9 +71,9 @@ class Roast
 
   readyView:() ->
     src = "img/roast/Coffee-Bean-Roast-Ready.jpg"
-    @$view = $( """<div #{UI.Dom.panel(0, 0,100,100)}></div>""" )
-    @$view.append( "<h1 #{UI.Dom.label(0, 0,100, 10)}>Roast</h1>" )
-    @$view.append( """  #{UI.Dom.image(0,10,100, 90,src,150)}""" )
+    @$view = $( """<div #{Dom.panel(0, 0,100,100)}></div>""" )
+    @$view.append( "<h1 #{Dom.label(0, 0,100, 10)}>Roast</h1>" )
+    @$view.append( """  #{Dom.image(0,10,100, 90,src,150)}""" )
     @$view
 
   readyPane:() ->
@@ -78,16 +81,16 @@ class Roast
     n   = Util.lenObject( @data )
     x   = 0
     dx  = 100 / n # - 0.07
-    $p = $( """<div #{UI.Dom.panel( 0, 0,100,100)}></div>""" )
+    $p = $( """<div #{Dom.panel( 0, 0,100,100)}></div>""" )
     $p.css( { "background-color":"#8d6566", "border-radius":"24px" } )
 
     style  = """position:absolute; left:2%; top:5%; width:9%; height:90%; """
     style += """text-align:center; background:#{@data["5"].color}; """
-    style += """border:black solid 2px; font-size:3vmin; font-weight:bold; display:table; opacity:#{UI.Dom.opacity}; """
+    style += """border:black solid 2px; font-size:3vmin; font-weight:bold; display:table; opacity:#{Dom.opacity}; """
     spans  = """display:table-cell; vertical-align:middle; line-height:normal; """  # opacity:1.0; z-index:4; color:white;
     $p.append("""<div id="RoastColor" style="#{style}"><span style="#{spans}">Roast</span></div>""")
 
-    $r =    $( """<div #{UI.Dom.label(13, 5, 84, 90,"roast")}></div>""" )
+    $r =    $( """<div #{Dom.label(13, 5, 84, 90,"roast")}></div>""" )
     $r.append( """<img style="width:100%; height:75%;" src="#{src}"/>""")
 
     style  = "position:absolute; left:0; top:81%; width:100%; height:#{16}% ;"
@@ -100,7 +103,7 @@ class Roast
       style += """border-right:black solid 3px;""" if key is "9"
       $r.append("""<div style="#{style}"></div>""")
       style  = """position:absolute; left:#{x}%; top:#{75}%; width:#{dx}%; height:#{25}% ;"""
-      style += """text-align:center; background:#{roast.color}; opacity:#{UI.Dom.opacity};"""
+      style += """text-align:center; background:#{roast.color}; opacity:#{Dom.opacity};"""
       style += """border:black solid 2px;"""
       $r.append("""<div style="#{style}"></div>""")
       x = x + dx
@@ -119,7 +122,7 @@ class Roast
       else if v <  m and p >= 2  then [ p-1,p,   1-(m-v)/n ]
       else                            [ p,  p,   1         ]
 
-    console.log( "doInput1", { v:v, m:m, r, p1:p1, p:p, p2:p2, s:s } )
+    #console.log( "doInput1", { v:v, m:m, r, p1:p1, p:p, p2:p2, s:s } )
     h1 = Vis.cssHex( @data[p1].color )
     h2 = Vis.cssHex( @data[p2].color )
     rgb = Vis.rgbCss( Vis.interpolateHexRgb( h1, 1.0-r, h2, r ) )
@@ -137,12 +140,12 @@ class Roast
   publish:( study, $e=null, v=undefined ) ->
     name         = study.name
     study.chosen = if not ( study.chosen? or study.chosen ) then true else false
-    addDel       = if study.chosen then UI.AddChoice       else UI.DelChoice
-    color        = if study.chosen then UI.Dom.choiceColor else UI.Dom.basisColor
+    addDel       = if study.chosen then UI.AddChoice    else UI.DelChoice
+    color        = if study.chosen then Dom.choiceColor else Dom.basisColor
     choice = UI.select( 'Roast', 'Jitter', addDel, name )
     choice.value = v if v?
     #choice.$click = $e if $e?
-    console.log( "Roast.publish", choice )
+    #console.log( "Roast.publish", choice )
     @stream.publish( 'Choice', choice )
     color
 

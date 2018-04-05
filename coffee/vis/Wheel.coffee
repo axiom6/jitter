@@ -1,7 +1,9 @@
 
-class Wheel
+import Util from '../util/Util.js'
+import UI   from '../ui/UI.js'
+import Dom  from '../ui/Dom.js'
 
-  Vis.Wheel = Wheel
+export default class Wheel
 
   constructor:( @stream ) ->
     @numChoices    = 0
@@ -75,7 +77,7 @@ class Wheel
         .attr(  "d", @arc )
         .attr(  "fill-rule", "evenodd")
         .style( "fill",    (d) => @fill(d)  )
-        .style( "opacity", UI.Dom.opacity )
+        .style( "opacity", Dom.opacity )
         .style( "display", (d) -> if d.data.hide then "none" else "block" )
         .on( "click",      (d) => @magnify( d, 'click'     ) )
         .on( "mouseover",  (d) => @magnify( d, 'mouseover' ) )
@@ -176,7 +178,7 @@ class Wheel
   magnify:( d, eventType ) =>
     @displayAllLeaves() if eventType is 'click' and not d.parent?
     return if not d.data['can']?
-    console.log( 'magnify', d ) if eventType is 'click'
+    #console.log( 'magnify', d ) if eventType is 'click'
     py0 = d.y0
     py1 = d.y0 + (d.y1-d.y0) * @radiusFactorChoice
     resize = @doChoice( d, eventType, d.x0, py0, d.x1, py1 )

@@ -1,6 +1,6 @@
 var Vis;
 
-Vis = class Vis {
+export default Vis = class Vis {
   static rad(deg) {
     return deg * Math.PI / 180;
   }

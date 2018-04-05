@@ -1,7 +1,8 @@
 
-class Pane
+import Util    from '../util/Util.js'
+import UI      from '../ui/UI.js'
 
-  UI.Pane = Pane
+export default class Pane
 
   constructor:( @ui, @stream, @view, @spec ) ->
     @spec.pane   = @
@@ -19,7 +20,7 @@ class Pane
     @geo         = null # reset by geom() when onSelect() dispatches to page
 
   ready:() ->
-    @htmlId = @ui.htmlId( @name, 'Pane' )
+    @htmlId = UI.htmlId( @name, 'Pane' )
     @$      = $( @createHtml() )
     @view.$view.append( @$ )
     @hide()
@@ -45,7 +46,7 @@ class Pane
     s  = Math.min( sx, sy )
     ex = wv*0.9 < w and w < wv*1.1
     geo = { w:w, h:h, wi:wi, hi:hi, wp:wp, hp:hp, wv:wv, hv:hv, r:r, x0:x0, y0:y0, sx:sx, sy:sy, s:s, ex:ex }
-    #Util.log( 'Pane.geom()', geo )
+    #console.log( 'Pane.geom()', geo )
     geo
 
   show:()  -> @$.show()

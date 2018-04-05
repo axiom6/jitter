@@ -1,7 +1,7 @@
 
-class Database
+import Util    from '../util/Util.js'
 
-  Util.Database = Database
+export default class Database
 
   @localImageURI = 'http://localhost:63342/ui/img/aaa'
   @localDataURI  = 'http://localhost:63342/ui/data'
@@ -72,19 +72,21 @@ class Database
 
   @readFile:( fileObj, doJson ) ->
     fileReader = new FileReader()
-    fileReader.onerror = (e) -> Util.error( 'Store.readFile', fileObj.name, e.target.error )
+    fileReader.onerror = (e) -> console.error( 'Store.readFile', fileObj.name, e.target.error )
     fileReader.onload  = (e) -> doJson( JSON.parse(e.target.result) )
     fileReader.readAsText( fileObj )
     return
 
+  ###
   @readRequire:( url, doJson ) ->
     path = url.substring(5)
     json = Util.require( path ) # Util.require prevents dynamic resolve in webpack
     if json?
       doJson( json )
     else
-      Util.error( 'Store.req require(json)  failed for url', url )
+      console.error( 'Store.req require(json)  failed for url', url )
     return
+  ###
 
   @readAjax:( url, doJson ) ->                   #jsonp
     settings  = { url:url, type:'get', dataType:'json', processData:false, contentType:'application/json', accepts:'application/json' }
@@ -93,13 +95,15 @@ class Database
       json   = JSON.parse( data )
       doJson( json )
     settings.error   = ( jqXHR, status, error ) =>
-      Util.error( 'Store.ajaxGet', { url:url, status:status, error:error } )
+      console.error( 'Store.ajaxGet', { url:url, status:status, error:error } )
     $.ajax( settings )
     return
 
   # A quick in and out method to select JSON data
+  ###
   @selectJson:( stream, uri, table, doData ) ->
     rest = new Store.Rest( stream, uri )
     rest.remember()
     rest.select( table )
     rest.subscribe( table, 'none', 'select', doData )
+  ###

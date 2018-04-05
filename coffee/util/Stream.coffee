@@ -1,11 +1,8 @@
 
-#$  = require('jquery'  )
-#Rx = require('rxjs/Rx' )
+import Util    from '../util/Util.js'
 
-class Stream
+export default class Stream
 
-  #module.exports = Stream # Util.Export( Stream, 'util/Stream' )
-  Util.Stream = Stream
   Stream.SubjectNames  = ['Select','Content','Connect','Test','Plane','About','Slide',
                           'Cursor','Navigate','Settings','Submit','Toggle','Layout']
 
@@ -20,7 +17,7 @@ class Stream
     if @subjects[name]?
        @subjects[name]
     else
-      Util.warn( 'Stream.getSubject() unknown subject so returning new subject for', name ) if warn
+      console.warn( 'Stream.getSubject() unknown subject so returning new subject for', name ) if warn
       @subjects[name] = new Rx.Subject()
     @subjects[name]
 
@@ -49,7 +46,7 @@ class Stream
 
   notElement:( element, name ) ->
     status = element? and element.id? and Util.isStr( element.id )
-    Util.log( 'Stream.notElement()', name ) if not status
+    console.log( 'Stream.notElement()', name ) if not status
     not status
 
   unsubscribe:( name ) ->
@@ -82,13 +79,13 @@ class Stream
       sub = @getSubject(source).take(1)
       subs.push( sub )
     @subjects[name] = Rx.Observable.concat( subs ).take(subs.length)
-    #Util.log( 'Stream.concat() subs.length', subs.length )
+    #console.log( 'Stream.concat() subs.length', subs.length )
     onNext = (object) ->
       params = if object.params? then object.params else 'none'
       Util.noop( params )
-      #Util.log( 'Stream.concat() next params', params )
+      #console.log( 'Stream.concat() next params', params )
     onError = (err) ->
-      Util.log( 'Stream.concat() error', err)
+      console.log( 'Stream.concat() error', err)
     @subscribe( name, onNext, onError, onComplete )
     return
 
@@ -100,26 +97,26 @@ class Stream
 
   domElement:( jQuerySelector, htmlId="" ) ->
     if @isJQuery(  jQuerySelector )
-       Util.warn("Stream.domElement() jQuerySelector empty", { htmlId:htmlId } ) if @isEmpty(jQuerySelector)
+       console.warn("Stream.domElement() jQuerySelector empty", { htmlId:htmlId } ) if @isEmpty(jQuerySelector)
        jQuerySelector.get(0)
     else if Util.isStr( jQuerySelector )
        $(jQuerySelector).get(0)
     else
-       Util.error('Stream.domElement( jqSel )', typeof(jQuerySelector), jQuerySelector, 'jQuerySelector is neither jQuery object nor selector', { htmlId:htmlId } )
+       console.error('Stream.domElement( jqSel )', typeof(jQuerySelector), jQuerySelector, 'jQuerySelector is neither jQuery object nor selector', { htmlId:htmlId } )
        $().get(0)
 
   onNext:( object ) ->
-    Util.log(   'Stream.onNext()',     object      )
+    console.log(   'Stream.onNext()',     object      )
 
   onError:( error ) ->
-    Util.error( 'Stream.onError()',    error       )
+    console.error( 'Stream.onError()',    error       )
 
   onComplete:()     ->
-    Util.dbg(   'Stream.onComplete()', 'Completed' )
+    console.log(   'Stream.onComplete()', 'Completed' )
 
   logSubjects:() ->
     for key, obj of @subjects
-      Util.log( 'Stream.logSubjects', key )
+      console.log( 'Stream.logSubjects', key )
 
   drag:( jqSel ) ->
 

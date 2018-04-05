@@ -1,8 +1,10 @@
 
-class Color
+import Util    from '../util/Util.js'
+
+export default class Color
 
   #module.exports = Color
-  #Color.Palettes = require( 'js/d3d/Palettes' )
+  #Color.Palettes = require( '/js/d3d/Palettes' )
   #Color.chroma   = require( 'chroma-js' )
 
   @rad:( deg ) -> deg * Math.PI / 180
@@ -104,7 +106,7 @@ class Color
     else if studyPrac.fill.length <= 5
       Color.toRgbCode( studyPrac.fill )
     else
-      Util.error( 'Color.toRgba() unknown fill code', studyPrac.name, studyPrac.fill )
+      console.error( 'Color.toRgba() unknown fill code', studyPrac.name, studyPrac.fill )
       '#888888'
 
   @toHsvHex:( hexStr ) ->
@@ -146,7 +148,7 @@ class Color
     rgba[i]   = Math.round(rgba[i]) for i in [0...3]
     [r,g,b,a] = rgba
     str = """rgba(#{r},#{g},#{b},#{a})"""
-    #Util.log( "Color.toRgbHsvStr()", {h:hsv[0],s:hsv[1],v:hsv[2]}, str )
+    #console.log( "Color.toRgbHsvStr()", {h:hsv[0],s:hsv[1],v:hsv[2]}, str )
     str
 
   @sigmoidal:( x, k, x0=0.5, L=1 ) ->
@@ -225,7 +227,7 @@ class Color
     s = n.toString()
     if  0 <= n && n <= 9 then s = '&nbsp;&nbsp;' + s
     if 10 <= n && n <=99 then s = '&nbsp;'  + s
-    #Util.dbg( 'pad', { s:'|'+s+'|', n:n,  } )
+    #console.log( 'pad', { s:'|'+s+'|', n:n,  } )
     s
 
   @dec:( f )      -> Math.round(f*100) / 100
@@ -283,10 +285,10 @@ class Color
       hsl  = { h:parseInt(toks[1]), s:parseInt(toks[2]), l:parseInt(toks[3]) }
       rgb  = Color.hslToRgb(hsl)
     else
-      Util.error( 'Color.cssRgb() unknown CSS color', str )
+      console.error( 'Color.cssRgb() unknown CSS color', str )
     rgb
 
-  # Util.dbg( 'Color.cssRgb', toks.length, { r:toks[1], g:toks[2], b:toks[3] } )
+  # console.log( 'Color.cssRgb', toks.length, { r:toks[1], g:toks[2], b:toks[3] } )
 
   @rgbToHsi:( rgb ) ->
     sum = Color.sumRgb( rgb )
@@ -308,7 +310,7 @@ class Color
     rgb = { r:z(240), g:x,      b:y(240) }  if 240 <= h && h < 360
     max = Color.maxRgb(rgb) * i
     fac = if max > 255 then i*255/max else i
-    #Util.dbg('Color.hsiToRgb', hsi, Color.roundRgb(rgb,fac), Color.fixedDec(rgb), Color.dec(max) )
+    #console.log('Color.hsiToRgb', hsi, Color.roundRgb(rgb,fac), Color.fixedDec(rgb), Color.dec(max) )
     Color.roundRgb( rgb, fac )
 
   @hsvToRgb:( hsv ) ->
@@ -325,7 +327,7 @@ class Color
       when 3 then { r:p, g:q, b:v }
       when 4 then { r:t, g:p, b:v }
       when 5 then { r:v, g:p, b:q }
-      else Util.error('Color.hsvToRgb()'); { r:v, g:t, b:p } # Should never happend
+      else console.error('Color.hsvToRgb()'); { r:v, g:t, b:p } # Should never happend
     Color.roundRgb( rgb, 255 )
 
   @rgbToHsv:( rgb ) ->
@@ -342,7 +344,7 @@ class Color
           ( rgb.g - rgb.b ) / d + if g < b then 6 else 0
         when g then  ( rgb.b - rgb.r ) / d + 2
         when b then  ( rgb.r - rgb.g ) / d + 4
-        else Util.error('Color.rgbToHsv')
+        else console.error('Color.rgbToHsv')
     { h:Math.round(h*60), s:Color.dec(s), v:Color.dec(v) }
 
   @hslToRgb:( hsl ) ->
@@ -382,7 +384,7 @@ class Color
           ( g - b ) / d + if g < b then 6 else 0
         when g then ( b - r ) / d + 2
         when b then ( r - g ) / d + 4
-        else Util.error('Color.@rgbToHsl()'); 0
+        else console.error('Color.@rgbToHsl()'); 0
     { h:Math.round(h*60), s:Color.dec(s), l:Color.dec(l) }
 
   @FontAwesomeUnicodes: {
@@ -520,14 +522,14 @@ class Color
   }
 
   #for key, uc of Prac.FontAwesomeUnicodes
-  #Util.log( 'Awesome', key, "#{uc}" )
+  #console.log( 'Awesome', key, "#{uc}" )
 
   @unicode:( icon ) ->
     uc = Color.FontAwesomeUnicodes[icon]
     if not uc?
       #uc = Color.uniawe( icon )
       #if not uc?
-        Util.error( 'Color.unicode() missing icon in Color.FontAwesomeUnicodes for', icon )
+        console.error( 'Color.unicode() missing icon in Color.FontAwesomeUnicodes for', icon )
         uc = "\uf111" # Circle
     uc
 
@@ -536,7 +538,7 @@ class Color
     uc = if not uc? then "\uf111" else uc
     un = Number.parseInt( '0xf0ad', 16 )
     us = String.fromCharCode( un )
-    Util.log( 'Color.unichar', { icon:icon, uc:uc, un:un, us:us } )
+    console.log( 'Color.unichar', { icon:icon, uc:uc, un:un, us:us } )
     "\uF000"
 
   @uniawe:( icon ) ->
@@ -544,7 +546,7 @@ class Color
     temp.className = icon
     document.body.appendChild(temp)
     uni = window.getComputedStyle( document.querySelector('.' + icon), ':before' ).getPropertyValue('content')
-    Util.log( 'uniawe', icon, uni )
+    console.log( 'uniawe', icon, uni )
     temp.remove()
     uni
 

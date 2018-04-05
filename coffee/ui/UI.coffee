@@ -1,5 +1,9 @@
 
-class UI
+import Util    from '../util/Util.js'
+import Tocs    from '../ui/Tocs.js'
+import View    from '../ui/View.js'
+
+export default class UI
 
   UI.hasTocs      = false
   UI.$empty       = $() # Empty jQuery singleton for intialization
@@ -20,8 +24,8 @@ class UI
     @contents = {}
     callback = (data) =>
       @spec  =  data
-      @tocs  = new UI.Tocs( @, @stream, @spec ) if UI.hasTocs
-      @view  = new UI.View( @, @stream, @spec )
+      @tocs  = new Tocs( @, @stream, @spec ) if UI.hasTocs
+      @view  = new View( @, @stream, @spec )
       @ready( @spec )
     UI.readJSON( "json/toc.json", callback )
     UI.ui = @
@@ -30,7 +34,7 @@ class UI
     @contents[name] = object
 
   ready:( @spec ) ->
-    $('#'+Util.htmlId('App')).html( @html() )
+    $('#'+UI.htmlId('App')).html( @html() )
     @tocs.ready()  if UI.hasTocs
     @view.ready()
     @contentReady()
@@ -51,7 +55,7 @@ class UI
       when UI.SelectView  then @selectView(  pane )
       when UI.SelectPane  then @selectPane(  pane )
       when UI.SelectStudy then @selectStudy( pane, select.study )
-      else Util.error( "Jitter.onSelect() unknown select", select )
+      else console.error( "Jitter.onSelect() unknown select", select )
     return
 
   selectView:( pane ) ->
@@ -83,15 +87,15 @@ class UI
 
   html:() ->
     htm = ""
-    htm += """<div class="layout-logo     " id="#{@htmlId('Logo')}"></div>""" if UI.hasTocs
-    htm += """<div class="layout-corp"      id="#{@htmlId('Corp')}"></div>""" if UI.hasTocs
-    htm += """<div class="layout-find"      id="#{@htmlId('Find')}"></div>""" if UI.hasTocs
-    htm += """<div class="layout-tocs tocs" id="#{@htmlId('Tocs')}"></div>""" if UI.hasTocs
-    htm += """<div class="layout-view"      id="#{@htmlId('View')}"></div>"""
-    htm += """<div class="layout-side"      id="#{@htmlId('Side')}"></div>""" if UI.hasTocs
-    htm += """<div class="layout-pref     " id="#{@htmlId('Pref')}"></div>""" if UI.hasTocs
-    htm += """<div class="layout-foot"      id="#{@htmlId('Foot')}"></div>""" if UI.hasTocs
-    htm += """<div class="layout-trak"      id="#{@htmlId('Trak')}"></div>""" if UI.hasTocs
+    htm += """<div class="layout-logo     " id="#{UI.htmlId('Logo')}"></div>""" if UI.hasTocs
+    htm += """<div class="layout-corp"      id="#{UI.htmlId('Corp')}"></div>""" if UI.hasTocs
+    htm += """<div class="layout-find"      id="#{UI.htmlId('Find')}"></div>""" if UI.hasTocs
+    htm += """<div class="layout-tocs tocs" id="#{UI.htmlId('Tocs')}"></div>""" if UI.hasTocs
+    htm += """<div class="layout-view"      id="#{UI.htmlId('View')}"></div>"""
+    htm += """<div class="layout-side"      id="#{UI.htmlId('Side')}"></div>""" if UI.hasTocs
+    htm += """<div class="layout-pref     " id="#{UI.htmlId('Pref')}"></div>""" if UI.hasTocs
+    htm += """<div class="layout-foot"      id="#{UI.htmlId('Foot')}"></div>""" if UI.hasTocs
+    htm += """<div class="layout-trak"      id="#{UI.htmlId('Trak')}"></div>""" if UI.hasTocs
     htm
 
   show:() ->
@@ -108,11 +112,19 @@ class UI
     @view.resize()
     return
 
-  htmlId:( name, type='', ext='' ) ->
-    Util.htmlId( name, type, ext )
+  # ------ Html ------------
 
-  getHtmlId:( name, ext='' ) ->
-    Util.getHtmlId( name, "", ext )
+  @htmlIds = {}
+
+  @getHtmlId:( name, type='', ext='' ) ->
+    id = name + type + ext
+    id.replace( /[ \.]/g, "" )
+
+  @htmlId:( name, type='', ext='' ) ->
+    id = UI.getHtmlId( name, type, ext )
+    console.error( 'UI.htmlId() duplicate html id', id ) if UI.htmlIds[id]?
+    UI.htmlIds[id] = id
+    id
 
   @baseUrl:( ) ->
     if window.location.href.includes('localhost')
@@ -128,7 +140,7 @@ class UI
       callback( data )
     settings.error   = ( jqXHR, status, error ) =>
       Util.noop( jqXHR )
-      Util.error( "UI.readJSON()", { url:url, status:status, error:error } )
+      console.error( "UI.readJSON()", { url:url, status:status, error:error } )
     $.ajax( settings )
     return
 
@@ -143,7 +155,7 @@ class UI
 
   @verifySelect:( select, source ) ->
     verify = Util.isStr(select.name) and Util.isStr(select.source) and Util.inArray(UI.intents,select.intent)
-    Util.trace('UI.verifySelect()', select, source ) if not verify
+    console.trace('UI.verifySelect()', select, source ) if not verify
     verify
 
   @isEmpty:( $elem ) -> $elem? and $elem.length? and $elem.length is 0
@@ -151,7 +163,7 @@ class UI
   @isElem:(  $elem ) -> not UI.isEmpty( $elem )
 
   @jmin:( cells ) ->
-    Util.trace('UI.jmin') if not cells?
+    console.trace('UI.jmin') if not cells?
     [ cells[0]-1,cells[1],cells[2]-1,cells[3] ]
 
   @toCells:( jmin ) ->

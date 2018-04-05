@@ -1,7 +1,9 @@
 
-class Tocs
+import Util    from '../util/Util.js'
+import UI      from '../ui/UI.js'
 
-  UI.Tocs = Tocs
+export default class Tocs
+
   Tocs.MaxTocLevel  = 12
 
   constructor:( @ui, @stream, @practices ) ->
@@ -31,7 +33,7 @@ class Tocs
 
   logSpecs:() ->
     for spec in @specs
-      Util.log( 'UI.Tocs.spec', Util.indent(spec.level*2), spec.name, spec.hasChild )
+      console.log( 'UI.Tocs.spec', Util.indent(spec.level*2), spec.name, spec.hasChild )
     return
 
   enrichSpec:( key, spec, specs, level, parent, hasChild, isRow ) ->
@@ -70,12 +72,12 @@ class Tocs
 
   htmlId:( spec, ext = '' ) ->
     suffix = if spec.parent? then ext + spec.parent.name else ext
-    @ui.htmlId( spec.name, 'Tocs', suffix )
+    UI.htmlId( spec.name, 'Tocs', suffix )
 
   getSpec:( select, issueError=true ) ->
     for spec in @specs
       return spec if spec.name is select.name
-    Util.error( 'UI.Tocs.getSpec(id) spec null for select', select ) if issueError and @nameNotOk(select.name)
+    console.error( 'UI.Tocs.getSpec(id) spec null for select', select ) if issueError and @nameNotOk(select.name)
     null
 
   nameNotOk:( name ) ->
@@ -115,7 +117,7 @@ class Tocs
   htmlBeg:( spec ) ->
     spec.liId = @htmlId(spec,'LI')
     spec.ulId = @htmlId(spec,'UL')
-    #Util.log( 'UI.Tocs htmlBeg()', spec.id, spec.liId, spec.ulId )
+    #console.log( 'UI.Tocs htmlBeg()', spec.id, spec.liId, spec.ulId )
     htm  = """<li class="#{@classPrefix}li#{spec.level}" id="#{spec.liId}" >"""
     htm += """#{@htmIconName(spec)}"""
     htm += """<ul class="#{@classPrefix}ul#{spec.level}" id="#{spec.ulId}">""" if spec.hasChild

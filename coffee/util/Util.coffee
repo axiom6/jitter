@@ -1,9 +1,6 @@
 
-# Static method utilities       - Util is a global without a functional wrapper
-# coffee -c -bare Util.coffee   - prevents function wrap to put Util in global namespace
-# Very important requires that Util.js be loaded first
 
-class Util
+export default class Util
 
   Util.myVar      =  'myVar'
   Util.skipReady  =  false
@@ -26,9 +23,8 @@ class Util
   Util.instances     = []
   Util.globalPaths   = []
   Util.root          = '../../' # Used internally
-  Util.rootJS        =  Util.root + 'js/'
+  Util.rootJS        =  Util.root + '/js/'
   Util.databases     = {}
-  Util.htmlIds       = {} # Object of unique Html Ids
   Util.logStackNum   = 0
   Util.logStackMax   = 100
   Util.fills         = {}
@@ -37,7 +33,7 @@ class Util
 
   @init:( moduleCommonJS=undefined, moduleWebPack=undefined, root='../../'  ) ->
     Util.root   = root
-    Util.rootJS = Util.root + 'js/'
+    Util.rootJS = Util.root + '/js/'
     Util.resetModuleExports()
     Util.fixTestGlobals()
     if     Util.isCommonJS and moduleCommonJS?
@@ -46,7 +42,7 @@ class Util
       Util.skipReady = true
       Util.loadScript( moduleWebPack )
     else
-      Util.error( """Bad arguments for Util.init() isCommonJS=#{Util.isCommonJS},
+      console.error( """Bad arguments for Util.init() isCommonJS=#{Util.isCommonJS},
         root=#{root}, moduleCommonJS=#{moduleCommonJS?}, moduleWebPack=#{moduleWebPack}""" )
     return
 
@@ -105,12 +101,12 @@ class Util
 
   @hasMethod:( obj, method, issue=false ) ->
     has = typeof obj[method] is 'function'
-    Util.log( 'Util.hasMethod()', method, has )  if not has and issue
+    console.log( 'Util.hasMethod()', method, has )  if not has and issue
     has
 
   @hasGlobal:( global, issue=true ) ->
     has = window[global]?
-    Util.error( "Util.hasGlobal() #{global} not present" )  if not has and issue
+    console.error( "Util.hasGlobal() #{global} not present" )  if not has and issue
     has
 
   @getGlobal:( global, issue=true ) ->
@@ -120,39 +116,39 @@ class Util
     glob = Util.firstTok(plugin,'.')
     plug = Util.lastTok( plugin,'.')
     has  = window[glob]? and window[glob][plug]?
-    Util.error( "Util.hasPlugin()  $#{glob+'.'+plug} not present" )  if not has and issue
+    console.error( "Util.hasPlugin()  $#{glob+'.'+plug} not present" )  if not has and issue
     has
 
   @hasModule:( path, issue=true ) ->
     has = Util.modules[path]?
-    Util.error( "Util.hasModule() #{path} not present" )  if not has and issue
+    console.error( "Util.hasModule() #{path} not present" )  if not has and issue
     has
 
   @dependsOn:() ->
     ok = true
     for arg in arguments
       has = Util.hasGlobal(arg,false) or Util.hasModule(arg,false) or Util.hasPlugin(arg,false)
-      Util.error( 'Missing Dependency', arg ) if not has
+      console.error( 'Missing Dependency', arg ) if not has
       ok = has if has is false
     ok
 
   # ---- Instances ----
 
   @setInstance:( instance, path ) ->
-    Util.log( 'Util.setInstance()', path )
+    console.log( 'Util.setInstance()', path )
     if not instance? and path?
-      Util.error('Util.setInstance() instance not defined for path', path )
+      console.error('Util.setInstance() instance not defined for path', path )
     else if instance? and not path?
-      Util.error('Util.setInstance() path not defined for instance', instance.toString() )
+      console.error('Util.setInstance() path not defined for instance', instance.toString() )
     else
       Util.instances[path] = instance
     return
 
   @getInstance:( path, dbg=false ) ->
-    Util.log( 'getInstance', path ) if dbg
+    console.log( 'getInstance', path ) if dbg
     instance = Util.instances[path]
     if not instance?
-      Util.error('Util.getInstance() instance not defined for path', path )
+      console.error('Util.getInstance() instance not defined for path', path )
     instance
 
   # ---- Logging -------
@@ -210,10 +206,12 @@ class Util
 
   # Consume unused but mandated variable to pass code inspections
   @noop:() ->
-    Util.log( arguments ) if false
+    console.log( arguments ) if false
     return
 
   # Conditional log arguments through console
+  # DEpreciated due to improvements we now use console directly
+  ###
   @dbg:() ->
     return if not Util.debug
     str = Util.toStrArgs( '', arguments )
@@ -231,7 +229,7 @@ class Util
   @error:() ->
     str  = Util.toStrArgs( 'Error:', arguments )
     Util.consoleLog( str )
-    # Util.trace( 'Trace:' )
+    # console.trace( 'Trace:' )
     return
 
   # Log Warning and arguments through console and Gritter
@@ -274,8 +272,9 @@ class Util
     try
       throw new Error( str )
     catch error
-      Util.log( error.stack )
+      console.log( error.stack )
     return
+  ###
 
   @alert:(  ) ->
     str = Util.toStrArgs( '', arguments )
@@ -363,17 +362,18 @@ class Util
       timeout = setTimeout( callback, 100 )
     return
 
-  # ------ Html ------------
-
+  # ------ Html Moved to UI  ------------
+  ###
   @getHtmlId:( name, type='', ext='' ) ->
     id = name + type + ext
     id.replace( /[ \.]/g, "" )
 
   @htmlId:( name, type='', ext='' ) ->
     id = Util.getHtmlId( name, type, ext )
-    Util.error( 'Util.htmlId() duplicate html id', id ) if Util.htmlIds[id]?
+    console.error( 'Util.htmlId() duplicate html id', id ) if Util.htmlIds[id]?
     Util.htmlIds[id] = id
     id
+  ###
 
   # ------ Converters ------
 
@@ -422,7 +422,7 @@ class Util
     if Util.isStr(str) and str.split?
       str.split(delim)[0]
     else
-      Util.error( "Util.firstTok() str is not at string", str )
+      console.error( "Util.firstTok() str is not at string", str )
       ''
   ###
     parse = document.createElement('a')
@@ -488,8 +488,8 @@ class Util
   # Return and ISO formated data string
   @isoDateTime:( dateIn ) ->
     date = if dateIn? then dateIn else new Date()
-    Util.log( 'Util.isoDatetime()', date )
-    Util.log( 'Util.isoDatetime()', date.getUTCMonth(), date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes, date.getUTCSeconds )
+    console.log( 'Util.isoDatetime()', date )
+    console.log( 'Util.isoDatetime()', date.getUTCMonth(), date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes, date.getUTCSeconds )
     pad = (n) -> Util.pad(n)
     date.getFullYear()     +'-'+pad(date.getUTCMonth()+1)+'-'+pad(date.getUTCDate())+'T'+
     pad(date.getUTCHours())+':'+pad(date.getUTCMinutes())+':'+pad(date.getUTCSeconds())+'Z'
@@ -607,15 +607,15 @@ class Util
       text = text.slice(1)
 
   @match_test:() ->
-    Util.log( Util.match_args("ex", "some text") )
-    Util.log( Util.match_args("s..t", "spit") )
-    Util.log( Util.match_args("^..t", "buttercup") )
-    Util.log( Util.match_args("i..$", "cherries") )
-    Util.log( Util.match_args("o*m", "vrooooommm!") )
-    Util.log( Util.match_args("^hel*o$", "hellllllo") )
+    console.log( Util.match_args("ex", "some text") )
+    console.log( Util.match_args("s..t", "spit") )
+    console.log( Util.match_args("^..t", "buttercup") )
+    console.log( Util.match_args("i..$", "cherries") )
+    console.log( Util.match_args("o*m", "vrooooommm!") )
+    console.log( Util.match_args("^hel*o$", "hellllllo") )
 
   @match_args:( regexp, text ) ->
-    Util.log( regexp, text, Util.match(regexp,text) )
+    console.log( regexp, text, Util.match(regexp,text) )
 
   @svgId:( name, type, svgType, check=false ) ->
     if check then @id( name, type, svgType ) else name + type + svgType
@@ -646,9 +646,7 @@ class Util
     document.body.removeChild(downloadLink)
     return
 
-# Export Util as a convenience, since it is not really needed since Util is a global
-# Need to export at the end of the file.
-# module.exports = # Util.Export( Util, 'js/util/Util' )
+
 
 
 
