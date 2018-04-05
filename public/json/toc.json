@@ -2,6 +2,7 @@
   "Overview": { "name":"Overview", "cells":[ 1,36,1,36], "toc":false, "pane":false },
   "Head1":    { "name":"Head1",    "cells":[ 1,18,1, 6], "toc":false, "pane":true  },
   "Head2":    { "name":"Head2",    "cells":[19,18,1, 6], "toc":false, "pane":true  },
+  "Map":      { "name":"Map",      "cells":[19,18,1,36], "toc":false, "pane":false },
   "Flavor":   { "name":"Flavor",   "cells":[ 1,18,7,30], "toc":true,  "pane":true,
     "Roast":     { "name": "Roast",       "json":"flavor.roast", "scale":"0.8" },
     "Jitter":     { "name": "Jitter",     "json":"flavor.jitter", "scale":"0.8" },

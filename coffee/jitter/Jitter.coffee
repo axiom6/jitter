@@ -9,6 +9,7 @@ import Roast   from '../jitter/Roast.js'
 import Drink   from '../jitter/Drink.js'
 import Body    from '../jitter/Body.js'
 import Brew    from '../jitter/Brew.js'
+import Map     from '../jitter/Map.js'
 
 export default class Jitter
 
@@ -16,7 +17,7 @@ export default class Jitter
     Util.ready ->
       subjects = ['Select','Choice']
       stream   = new Stream( subjects )
-      ui       = new UI( stream )
+      ui       = new UI( stream, "json/toc.json" )
       jitter   = new Jitter( stream, ui )
       Util.noop( jitter  )
       return
@@ -31,6 +32,7 @@ export default class Jitter
     @drink   = new Drink(   @stream, @ui )
     @body    = new Body(    @stream, @ui )
     @brew    = new Brew(    @stream, @ui )
+    @map     = new Map(     @stream, @ui )
 
 
 #console.log( 'window', window )

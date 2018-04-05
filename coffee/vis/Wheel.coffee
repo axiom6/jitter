@@ -136,7 +136,7 @@ export default class Wheel
 
   fill:(d) =>
     # console.log( 'fill', d )
-    if d.data.fill? and d.children?
+    if d.data.fill? #and d.children?
       d.data.fill
     else if  d.data.fill? and not d.children? and d.parent?  and d.parent.data.fill?
       d.parent.data.fill

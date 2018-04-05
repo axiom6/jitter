@@ -9,11 +9,12 @@ import View from '../ui/View.js';
 
 export default UI = (function() {
   class UI {
-    constructor(stream) {
+    constructor(stream, appFile) {
       var callback;
       this.contentReady = this.contentReady.bind(this);
       this.resize = this.resize.bind(this);
       this.stream = stream;
+      this.appFile = appFile;
       this.contents = {};
       callback = (data) => {
         this.spec = data;
@@ -23,7 +24,7 @@ export default UI = (function() {
         this.view = new View(this, this.stream, this.spec);
         return this.ready(this.spec);
       };
-      UI.readJSON("json/toc.json", callback);
+      UI.readJSON(this.appFile, callback);
       UI.ui = this;
     }
 
@@ -47,6 +48,9 @@ export default UI = (function() {
       for (name in ref) {
         if (!hasProp.call(ref, name)) continue;
         content = ref[name];
+        if (!this.spec[name].pane) {
+          continue;
+        }
         content.pane = this.view.getPaneOrGroup(name);
         content.spec = this.spec[name];
         content.$pane = content.readyPane();

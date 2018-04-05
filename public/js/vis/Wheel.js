@@ -222,7 +222,7 @@ export default Wheel = class Wheel {
   fill(d) {
     var a, b, colours;
     // console.log( 'fill', d )
-    if ((d.data.fill != null) && (d.children != null)) {
+    if (d.data.fill != null) {
       return d.data.fill;
     } else if ((d.data.fill != null) && (d.children == null) && (d.parent != null) && (d.parent.data.fill != null)) {
       return d.parent.data.fill;
@@ -233,7 +233,7 @@ export default Wheel = class Wheel {
       // L*a*b* might be better here...
       return d3.hsl((a.h + b.h) / 2, a.s * 1.2, a.l / 1.2);
     } else {
-      return '#666666';
+      return '#666666'; //and d.children?
     }
   }
 

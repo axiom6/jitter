@@ -20,13 +20,15 @@ import Body from '../jitter/Body.js';
 
 import Brew from '../jitter/Brew.js';
 
+import Map from '../jitter/Map.js';
+
 export default Jitter = class Jitter {
   static init() {
     Util.ready(function() {
       var jitter, stream, subjects, ui;
       subjects = ['Select', 'Choice'];
       stream = new Stream(subjects);
-      ui = new UI(stream);
+      ui = new UI(stream, "json/toc.json");
       jitter = new Jitter(stream, ui);
       Util.noop(jitter);
     });
@@ -43,6 +45,7 @@ export default Jitter = class Jitter {
     this.drink = new Drink(this.stream, this.ui);
     this.body = new Body(this.stream, this.ui);
     this.brew = new Brew(this.stream, this.ui);
+    this.map = new Map(this.stream, this.ui);
   }
 
 };

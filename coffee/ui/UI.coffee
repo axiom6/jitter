@@ -20,17 +20,17 @@ export default class UI
 
   UI.intents = [UI.SelectPane,UI.SelectView,UI.SelectStudy,UI.AddChoice,UI.DelChoice]
 
-  constructor:( @stream ) ->
+  constructor:( @stream, @appFile ) ->
     @contents = {}
     callback = (data) =>
       @spec  =  data
       @tocs  = new Tocs( @, @stream, @spec ) if UI.hasTocs
       @view  = new View( @, @stream, @spec )
       @ready( @spec )
-    UI.readJSON( "json/toc.json", callback )
+    UI.readJSON( @appFile, callback )
     UI.ui = @
 
-  addContent:( name, object ) ->
+  addContent:( name,  object ) ->
     @contents[name] = object
 
   ready:( @spec ) ->
@@ -41,7 +41,7 @@ export default class UI
     return
 
   contentReady:() =>
-    for own name, content of @contents
+    for own name, content of @contents when @spec[name].pane
       content.pane  = @view.getPaneOrGroup( name )
       content.spec  = @spec[name]
       content.$pane = content.readyPane()

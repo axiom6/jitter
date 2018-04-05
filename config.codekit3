@@ -106,6 +106,17 @@
 		"sC": 0,
 		"tS": 0
 		},
+	"\/coffee\/jitter\/Map.coffee": {
+		"ft": 32,
+		"ma": 0,
+		"mi": 0,
+		"oA": 0,
+		"oAP": "\/public\/js\/jitter\/Map.js",
+		"oF": 0,
+		"oS": 0,
+		"sC": 0,
+		"tS": 0
+		},
 	"\/coffee\/jitter\/Roast.coffee": {
 		"ft": 32,
 		"ma": 0,
@@ -803,6 +814,17 @@
 		"opt": 0,
 		"q": 100
 		},
+	"\/doc\/img\/FlavorColor.png": {
+		"ft": 32768,
+		"iS": 133884,
+		"oA": 0,
+		"oAP": "\/doc\/img\/FlavorColor.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
 	"\/doc\/img\/FlavorLeaves.png": {
 		"ft": 32768,
 		"iS": 373638,
@@ -871,6 +893,28 @@
 		"iS": 397929,
 		"oA": 0,
 		"oAP": "\/doc\/img\/JitterDoneRight.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/doc\/img\/JitterFlavor.png": {
+		"ft": 32768,
+		"iS": 175399,
+		"oA": 0,
+		"oAP": "\/doc\/img\/JitterFlavor.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/doc\/img\/JitterRoast.png": {
+		"ft": 32768,
+		"iS": 335340,
+		"oA": 0,
+		"oAP": "\/doc\/img\/JitterRoast.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
@@ -1984,6 +2028,16 @@
 		"sC": 3,
 		"tS": 0
 		},
+	"\/public\/js\/jitter\/Map.js": {
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/public\/js\/jitter\/Map-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
 	"\/public\/js\/jitter\/Roast.js": {
 		"ft": 64,
 		"ma": 0,
@@ -2218,6 +2272,14 @@
 		"oO": 0,
 		"oS": 1
 		},
+	"\/public\/json\/flavor.extra.json": {
+		"ft": 524288,
+		"oA": 1,
+		"oAP": "\/public\/json\/flavor.extra-min.json",
+		"oF": 0,
+		"oO": 0,
+		"oS": 1
+		},
 	"\/public\/json\/flavor.howto.json": {
 		"ft": 524288,
 		"oA": 1,
@@ -2254,6 +2316,14 @@
 		"ft": 524288,
 		"oA": 1,
 		"oAP": "\/public\/json\/flavor.wheel-min.json",
+		"oF": 0,
+		"oO": 0,
+		"oS": 1
+		},
+	"\/public\/json\/region.json": {
+		"ft": 524288,
+		"oA": 1,
+		"oAP": "\/public\/json\/region-min.json",
 		"oF": 0,
 		"oO": 0,
 		"oS": 1

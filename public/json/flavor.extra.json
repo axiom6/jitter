@@ -1,0 +1,9 @@
+[
+  { "name": "Savory", "fill":"#d67315", "can":true, "scale":1.0, "children": [
+    { "name": "Meaty", "fill":"#d37f7a" },
+    { "name": "Tomato", "fill":"#ff6347" },
+    { "name": "Fishy", "fill":"#ffd083" },
+    { "name": "Umami", "fill":"#a35307" } ] },
+  { "name": "Mexican", "fill":"#b36354" },
+  { "name": "Dirt", "fill":"#b69766" }
+  ]
