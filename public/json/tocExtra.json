@@ -1,4 +1,6 @@
 {
+  "Head1":    { "name":"Head1",    "cells":[ 1,18,1, 6], "toc":false, "pane":true  },
+  "Head2":    { "name":"Head2",    "cells":[19,18,1, 6], "toc":false, "pane":true  },
   "Choice": { "name":"Choice", "cells":[ 1,12,25,12], "toc":false,
     "Flavor": { "name": "Flavor" },
     "Roast":  { "name": "Roast"  },

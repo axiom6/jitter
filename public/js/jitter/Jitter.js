@@ -20,13 +20,15 @@ import Body from '../jitter/Body.js';
 
 import Brew from '../jitter/Brew.js';
 
-import Map from '../jitter/Map.js';
+import World from '../jitter/World.js';
+
+import Region from '../jitter/Region.js';
 
 export default Jitter = class Jitter {
   static init() {
     Util.ready(function() {
       var jitter, stream, subjects, ui;
-      subjects = ['Select', 'Choice'];
+      subjects = ['Select', 'Choice', "Region"];
       stream = new Stream(subjects);
       ui = new UI(stream, "json/toc.json");
       jitter = new Jitter(stream, ui);
@@ -37,15 +39,16 @@ export default Jitter = class Jitter {
   constructor(stream1, ui1) {
     this.stream = stream1;
     this.ui = ui1;
-    this.head1 = new Head(this.stream, this.ui, "Head1");
-    this.head2 = new Head(this.stream, this.ui, "Head2");
+    //head1   = new Head(    @stream, @ui, "Head1" )
+    //head2   = new Head(    @stream, @ui, "Head2" )
+    this.world = new World(this.stream, this.ui);
+    this.region = new Region(this.stream, this.ui);
     this.flavor = new Flavor(this.stream, this.ui);
     this.choices = new Choices(this.stream, this.ui);
     this.roast = new Roast(this.stream, this.ui);
     this.drink = new Drink(this.stream, this.ui);
     this.body = new Body(this.stream, this.ui);
     this.brew = new Brew(this.stream, this.ui);
-    this.map = new Map(this.stream, this.ui);
   }
 
 };

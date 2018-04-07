@@ -9,13 +9,14 @@ import Roast   from '../jitter/Roast.js'
 import Drink   from '../jitter/Drink.js'
 import Body    from '../jitter/Body.js'
 import Brew    from '../jitter/Brew.js'
-import Map     from '../jitter/Map.js'
+import World   from '../jitter/World.js'
+import Region  from '../jitter/Region.js'
 
 export default class Jitter
 
   @init = () ->
     Util.ready ->
-      subjects = ['Select','Choice']
+      subjects = ['Select','Choice',"Region"]
       stream   = new Stream( subjects )
       ui       = new UI( stream, "json/toc.json" )
       jitter   = new Jitter( stream, ui )
@@ -24,16 +25,16 @@ export default class Jitter
     return
 
   constructor:( @stream, @ui ) ->
-    @head1   = new Head(    @stream, @ui, "Head1" )
-    @head2   = new Head(    @stream, @ui, "Head2" )
+    #head1   = new Head(    @stream, @ui, "Head1" )
+    #head2   = new Head(    @stream, @ui, "Head2" )
+    @world   = new World(   @stream, @ui )
+    @region  = new Region(  @stream, @ui )
     @flavor  = new Flavor(  @stream, @ui )
     @choices = new Choices( @stream, @ui )
     @roast   = new Roast(   @stream, @ui )
     @drink   = new Drink(   @stream, @ui )
     @body    = new Body(    @stream, @ui )
     @brew    = new Brew(    @stream, @ui )
-    @map     = new Map(     @stream, @ui )
-
 
 #console.log( 'window', window )
 Jitter.init()
