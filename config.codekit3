@@ -95,6 +95,17 @@
 		"sC": 0,
 		"tS": 0
 		},
+	"\/coffee\/jitter\/Interact.coffee": {
+		"ft": 32,
+		"ma": 0,
+		"mi": 0,
+		"oA": 0,
+		"oAP": "\/public\/js\/jitter\/Interact.js",
+		"oF": 0,
+		"oS": 0,
+		"sC": 0,
+		"tS": 0
+		},
 	"\/coffee\/jitter\/Jitter.coffee": {
 		"ft": 32,
 		"ma": 0,
@@ -1885,6 +1896,17 @@
 		"oT": 1,
 		"q": 100
 		},
+	"\/public\/img\/region\/Ethiopia1.png": {
+		"ft": 32768,
+		"iS": 663821,
+		"oA": 0,
+		"oAP": "\/public\/img\/region\/Ethiopia1.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
 	"\/public\/img\/region\/Guatemala.png": {
 		"ft": 32768,
 		"iS": 459408,
@@ -2402,16 +2424,6 @@
 		"mi": 1,
 		"oA": 0,
 		"oAP": "\/public\/js\/jitter\/Jitter-min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 0
-		},
-	"\/public\/js\/jitter\/Map.js": {
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "\/public\/js\/jitter\/Map-min.js",
 		"oF": 0,
 		"sC": 3,
 		"tS": 0

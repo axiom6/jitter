@@ -14,6 +14,9 @@ export default class World
     @regions = {}
     callback =  (data) =>
       @regions = data
+      for own name, region of @regions
+        region.name = name
+        #console.log( "Region Data", region )
     UI.readJSON( "json/region.json", callback )
 
   readyPane:() ->
@@ -31,23 +34,24 @@ export default class World
     offset = $elem.parent().offset()
     x = ( event.pageX - offset.left ) * @wImg / $elem.width()
     y = ( event.pageY - offset.top  ) * @hImg / $elem.height()
-    name = @findRegion( x, y )
-    console.log( 'World.onClick()', { x:x, y:y, name:name } )
-    @showRegion( name )
+    region = @findRegion( x, y )
+    console.log( 'World.onClick()', { x:x, y:y, region:region } )
+    @showRegion( region )
     return
 
   findRegion:( x, y ) ->
     abs = Math.abs
-    f = { name:"None", x:@wImg, y:@hImg }
-    for own  name, r of @regions when r.img?
+    f   = @regions['None']
+    for own name, r of @regions
       if r.x-@dw <= x and x <= r.x+@dw and r.y-@dh <= y and y <= r.y+@dh
-        if abs(r.x-x) < abs(f.x-x) and abs(r.y-y) < abs(f.y-y)
-         [f.name,f.x,f.y] = [name,r.x, r.y]
-    f.name
+        dr = abs(r.x-x) + abs(r.y-y)
+        df = abs(f.x-x) + abs(f.y-y)
+        [f.name,f.x,f.y] = [name,r.x, r.y] if dr < df
+    @regions[f.name]
 
-  showRegion:( name ) ->
-    return if name is "None"
-    show = UI.select( 'Region', 'World', UI.SelectStudy, name )
-    @stream.publish(  'Region', show )
+  showRegion:( region ) ->
+    return if  region.name is "None"
+    select = UI.select( 'Region', 'World', UI.SelectStudy, region )
+    @stream.publish(    'Region', select )
     return
 

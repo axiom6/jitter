@@ -18,14 +18,14 @@ export default Dom = (function() {
     static image(x, y, w, h, src, mh, label = "", radius = "6px", mw = 60) {
       var htm, klass, tstyle;
       klass = src != null ? "image" : "texts";
-      tstyle = src != null ? "padding-top:3px;" : ""; // max-width:#{mh*4}vmin;
+      tstyle = src != null ? "text-align:center; padding-top:3px;" : "text-align:center;"; // max-width:#{mh*4}vmin;
       htm = `<div class="${klass}" style="position:absolute; left:${x}%; top:${y}%; width:${w}%; height:${h}%; display:table;">`;
       htm += "<div style=\"display:table-cell; vertical-align:middle;\">";
       if (src != null) {
         htm += `<img style="display:block; margin-left:auto; margin-right:auto; max-height:${mh}vmin; max-width:${mw}vmin; border-radius:${radius};" src="${src}"/>`;
       }
       if (Util.isStr(label)) {
-        htm += `<div style="${tstyle}">${label}</div>`;
+        htm += `<div class="label" style="${tstyle}">${label}</div>`;
       }
       htm += "</div></div>";
       return htm;

@@ -1,9 +1,10 @@
 {
   "Overview": { "name":"Overview", "cells":[ 1,36,1,36], "toc":false, "pane":false },
 
-  "World":    { "name":"World",  "cells":[ 1,24, 1,12], "toc":false, "pane":true },
-  "Region":   { "name":"Region", "cells":[25,12, 1,36], "toc":false, "pane":true },
-  "Flavor":   { "name":"Flavor", "cells":[ 1,24,13,24], "toc":true,  "pane":true,
+  "World":    { "name":"World",    "cells":[ 1,24, 1,12], "toc":false, "pane":true },
+  "Region":   { "name":"Region",   "cells":[25,12, 1,36], "toc":false, "pane":true },
+  "Interact": { "name":"Interact", "cells":[ 1,24,13, 6], "toc":false, "pane":true },
+  "Flavor":   { "name":"Flavor",   "cells":[ 1,24,19,18], "toc":true,  "pane":true,
     "Roast":     { "name": "Roast",       "json":"flavor.roast", "scale":"0.8" },
     "Jitter":     { "name": "Jitter",     "json":"flavor.jitter", "scale":"0.8" },
     "Wheel":      { "name": "Wheel",      "json":"flavor.wheel",  "scale":"1.0" },

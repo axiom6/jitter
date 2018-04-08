@@ -8,7 +8,7 @@
     "India":{ "x":1297, "y":121,  "Flavor":["Spicy","Tropical"],"Body":"Full", "Acidity":"Medium" },
     "Uganda":{ "x":1297, "y":212,  "Flavor":["Chocolate","Creamy","Vanilla"],"Body":"Full" },
     "CostaRica":{ "x":354, "y":149, "img":true,  "Flavor":["Citrus","Nutty",""],"Body":"Medium" },
-    "Guatemala":{ "x":323, "y":99, "img":true, "coord":"14°36′48″N 90°32′7″W" "Flavor":["Spicy","Smokey","Earthy","Floral"], "Taste":"Sweet" },
+    "Guatemala":{ "x":323, "y":99, "img":true, "Flavor":["Spicy","Smokey","Earthy","Floral"], "Taste":"Sweet" },
     "Peru":{ "x":399, "y":289, "img":true,  "Flavor":["Spicy","Earthy","Nutty","Chocolate"],"Body":"Medium", "Acidity":"Medium" },
     "Yunnan":{ "x":1417, "y":44,  "Flavor":["Chocolate"],"Body":"Medium", "Taste":"Smooth" },
     "Rwanda":{ "x":1025, "y":239, "img":true,  "Flavor":["Chocolate","Floral","Nutty"],"Body":"Medium" },
@@ -19,7 +19,7 @@
     "Yemen":{ "x":1110, "y":114, "img":true,  "Flavor":["Winey","Chocolate"],"Body":"Full" },
     "Australia":{ "x":1673, "y":336,  "Flavor":["Syrup"],"Body":"Medium", "Acidity":"Medium", "Taste":"Juicy" },
     "Tanzania":{ "x":1053, "y":275, "img":true },
-    "Kenya":{ "x":1053, "y":275, "img":true },
+    "Kenya":{ "x":1069, "y":238, "img":true },
     "IvoryCoast":{ "x":1101, "y":290 },
     "Vietnam":{ "x":1466, "y":140 },
     "Nicaragua":{ "x":350, "y":130, "img":true },
@@ -32,7 +32,7 @@
     "Gabon":{ "x":916, "y":228  },
     "Thailand":{ "x":1390, "y":63 },
     "Venezuela":{ "x":459, "y":170  },
-    "Domincan":{ "x":440, "y":82 },
+    "DomincanRepublic":{ "x":440, "y":82 },
     "Haiti":{ "x":428, "y":82  },
     "Congo":{ "x":974, "y":240, "img":true   },
     "Burundi":{ "x":1021, "y":252, "img":true   },
@@ -43,7 +43,7 @@
     "Boliva":{ "x":472, "y":352   },
     "EastTimor":{ "x":1573, "y":288   },
     "Sulawesi":{ "x":1573, "y":288, "img":true   },
-    "CentralAfrica":{ "x":971, "y":242   },
+    "CentralAfricanRepublic":{ "x":971, "y":242   },
     "Nigeria":{ "x":839, "y":169   },
     "Ghana":{ "x":813, "y":164   },
     "SierraLeone":{ "x":766, "y":165   },
@@ -60,5 +60,6 @@
     
     "Americas":{ "x":0, "y":0, "Flavor":["Nutty","Spicy"], "Acidity":"Mild" },
     "Africa":{   "x":0, "y":0, "Flavor":["Fruit","Bright"],"Body":"Medium", "Acidity":"High" },
-    "Asia":{     "x":0, "y":0, "Flavor":["Earthy","Chocolate"],"Body":"Heavy", "Acidity":"High", "Taste":"Sweet" }
+    "Asia":{     "x":0, "y":0, "Flavor":["Earthy","Chocolate"],"Body":"Heavy", "Acidity":"High", "Taste":"Sweet" },
+    "None":{     "x":0, "y":0 }
 }

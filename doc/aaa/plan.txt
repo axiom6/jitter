@@ -4,6 +4,7 @@
    b. Dom Improvement
    c. IKW Migration
    d. Less Colors
+   e. Group
 
 1. Render
    a. D3 Master
@@ -13,6 +14,7 @@
    e. Brew Icons  Transperant
    f. Drink
    g. Body
+   h. Regions Black
 
 3. Interaction
    a. Dependencies
@@ -26,6 +28,7 @@
    c. Profiles
    d. Firebase
    e. Email
+   f. Regions without img
 
 4. Deployment
    a. Google Cloud
