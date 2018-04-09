@@ -31,7 +31,7 @@ export default Jitter = (function() {
     static init() {
       Util.ready(function() {
         var jitter, stream, subjects, ui;
-        subjects = ['Select', 'Choice', "Region"];
+        subjects = ['Select', 'Choice', "Region", "Flavors"];
         stream = new Stream(subjects);
         ui = new UI(stream, "json/toc.json");
         jitter = new Jitter(stream, ui);
@@ -47,7 +47,8 @@ export default Jitter = (function() {
       this.world = new World(this.stream, this.ui);
       this.region = new Region(this.stream, this.ui);
       this.interact = new Interact(this.stream, this.ui, "Interact", Jitter.SpecInteract);
-      this.flavor = new Flavor(this.stream, this.ui);
+      this.flavor = new Flavor(this.stream, this.ui, "Flavor");
+      this.flavors = new Flavor(this.stream, this.ui, "Flavors");
       this.choices = new Choices(this.stream, this.ui);
       this.roast = new Roast(this.stream, this.ui);
       this.drink = new Drink(this.stream, this.ui);
@@ -58,11 +59,42 @@ export default Jitter = (function() {
   };
 
   Jitter.SpecInteract = {
-    Flavor: {},
-    Roast: {},
-    Brew: {},
-    Drink: {},
-    Body: {}
+    Taste: {
+      type: "group"
+    },
+    Flavor: {
+      type: "pane"
+    },
+    Roast: {
+      type: "pane"
+    },
+    Prepare: {
+      type: "group"
+    },
+    Brew: {
+      type: "pane"
+    },
+    Drink: {
+      type: "pane"
+    },
+    Body: {
+      type: "pane"
+    },
+    Choices: {
+      type: "pane"
+    },
+    Maps: {
+      type: "group"
+    },
+    World: {
+      type: "pane"
+    },
+    Region: {
+      type: "pane"
+    },
+    Flavors: {
+      type: "pane"
+    }
   };
 
   return Jitter;

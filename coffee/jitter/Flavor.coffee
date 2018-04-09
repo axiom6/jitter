@@ -7,8 +7,8 @@ import Wheel from '../vis/Wheel.js'
 
 export default class Flavor
 
-  constructor:( @stream, @ui ) ->
-    @ui.addContent( 'Flavor', @ )
+  constructor:( @stream, @ui, @name ) ->
+    @ui.addContent( @name, @ )
     @wheel = new Wheel( @stream )
     @srcLg = "img/logo/JitterBoxHead.png"
     @srcRx = "img/logo/JitterBoxRx.png"
@@ -27,11 +27,22 @@ export default class Flavor
     #w.css( { "background-color":"#8d6566" } )
     @wheel.ready( @pane, @spec, $w.get(0), url, scale )
     window.addEventListener("resize", @resize );
+    @subscribe( @name )
     $w
 
   resize:() =>
     @pane.geo = @pane.geom()
     @wheel.resize()
+
+  subscribe:( name ) ->
+    @stream.subscribe( 'Flavors', (flavor) => @onFlavors(flavor) ) if name is 'Flavors'
+    return
+
+  onFlavors:( flavor ) =>
+    console.log( 'Flavor', flavor )
+    d = @wheel.lookup[flavor]
+    @wheel.magnify( d, 'click' ) if d?
+    return
 
   readyView:() ->
     src = "img/flavor/Flavor.png"

@@ -9,6 +9,7 @@ export default class Brew
   readyPane:() ->
     Dom.vert( @stream, @spec, 'img/brew/', 0.50, 0, 12 )
 
+
   readyView:() ->
     src = "img/brew/"+spec['AutoDrip'].icon
     @$view = $( """<div #{Dom.panel(0, 0,100,100)}></div>""" )

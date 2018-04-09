@@ -9,11 +9,13 @@ import Vis from '../vis/Vis.js';
 import Wheel from '../vis/Wheel.js';
 
 export default Flavor = class Flavor {
-  constructor(stream, ui) {
+  constructor(stream, ui, name1) {
     this.resize = this.resize.bind(this);
+    this.onFlavors = this.onFlavors.bind(this);
     this.stream = stream;
     this.ui = ui;
-    this.ui.addContent('Flavor', this);
+    this.name = name1;
+    this.ui.addContent(this.name, this);
     this.wheel = new Wheel(this.stream);
     this.srcLg = "img/logo/JitterBoxHead.png";
     this.srcRx = "img/logo/JitterBoxRx.png";
@@ -34,12 +36,30 @@ export default Flavor = class Flavor {
     //w.css( { "background-color":"#8d6566" } )
     this.wheel.ready(this.pane, this.spec, $w.get(0), url, scale);
     window.addEventListener("resize", this.resize);
+    this.subscribe(this.name);
     return $w;
   }
 
   resize() {
     this.pane.geo = this.pane.geom();
     return this.wheel.resize();
+  }
+
+  subscribe(name) {
+    if (name === 'Flavors') {
+      this.stream.subscribe('Flavors', (flavor) => {
+        return this.onFlavors(flavor);
+      });
+    }
+  }
+
+  onFlavors(flavor) {
+    var d;
+    console.log('Flavor', flavor);
+    d = this.wheel.lookup[flavor];
+    if (d != null) {
+      this.wheel.magnify(d, 'click');
+    }
   }
 
   readyView() {

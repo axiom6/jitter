@@ -1,6 +1,6 @@
 
-import UI  from '../ui/UI.js'
-import Dom from '../ui/Dom.js'
+import UI   from '../ui/UI.js'
+import Dom  from '../ui/Dom.js'
 
 export default class World
 
@@ -21,7 +21,9 @@ export default class World
 
   readyPane:() ->
     src   = "img/region/WorldBelt.png"
-    $p    = $( """  #{Dom.image(0,0,100,100,src,30,"","24px",180)}""" )
+    mh    = @pane.toVh(96)
+    mw    = @pane.toVw(96)
+    $p    = $( """  #{Dom.image(0,0,100,100,src,mh,"","24px",mw)}""" )
     @$img = $p.find('img')
     @$img.click( (event) => @onClick(event) )
     $p
@@ -35,7 +37,7 @@ export default class World
     x = ( event.pageX - offset.left ) * @wImg / $elem.width()
     y = ( event.pageY - offset.top  ) * @hImg / $elem.height()
     region = @findRegion( x, y )
-    console.log( 'World.onClick()', { x:x, y:y, region:region } )
+    #console.log( 'World.onClick()', { x:x, y:y, region:region } )
     @showRegion( region )
     return
 
@@ -53,5 +55,10 @@ export default class World
     return if  region.name is "None"
     select = UI.select( 'Region', 'World', UI.SelectStudy, region )
     @stream.publish(    'Region', select )
+    if false # region.Flavor?
+      for flavor in region.Flavor
+        console.log( 'World', flavor )
+        #choice = UI.select( 'Flavors', 'World', UI.AddChoice, flavor )
+        @stream.publish(    'Flavors', flavor )
     return
 

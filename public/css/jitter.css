@@ -418,13 +418,19 @@ html {
   height: 100%;
   background-color: #333333;
 }
+.ui-group {
+  background-color: #856372;
+  position: absolute;
+  z-index: 1;
+  border-radius: 24px;
+}
 .ui-pane {
   background-color: #856372;
   position: absolute;
-  font-family: Arial, Helvetica, sans-serif;
   z-index: 2;
-  overflow: visible;
   border-radius: 24px;
+  font-family: Arial, Helvetica, sans-serif;
+  overflow: visible;
 }
 .ui-pane-center {
   position: absolute;
@@ -484,6 +490,11 @@ html {
   color: white;
   font-weight: bold;
 }
+.ui-pane .circle {
+  background-color: #333333;
+  color: white;
+  font-weight: bold;
+}
 .ui-pane .texts {
   font-size: 2vmin;
   color: white;
@@ -505,6 +516,24 @@ html {
 .ui-pane .txt {
   font-size: 2vmin;
   color: white;
+}
+.ui-group-icon {
+  position: absolute;
+  display: table;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+}
+.ui-group-icon:hover {
+  cursor: pointer;
+  background: #240f1a;
+  color: #f7edf2;
+  border-radius: 8px;
+}
+.ui-group-icon > i {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 20px;
 }
 /*
 .ui-pane-study-ul     { list-style:none; margin-left:0.1em;  line-height:1.2; margin-top:0; }

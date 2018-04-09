@@ -77,6 +77,21 @@ export default Pane = class Pane {
     return geo;
   }
 
+  // Converts a pane percent to vmin unit by determining the correct pane scaling factor
+  toVmin(pc) {
+    var sc;
+    sc = this.view.widthpx() > this.view.heightpx() ? this.height : this.width;
+    return sc * pc * 0.01; // (pc * sc).toString() + 'vmin'
+  }
+
+  toVw(pc) {
+    return this.width * pc * 0.01;
+  }
+
+  toVh(pc) {
+    return this.height * pc * 0.01;
+  }
+
   show() {
     return this.$.show();
   }

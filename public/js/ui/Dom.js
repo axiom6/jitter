@@ -18,11 +18,13 @@ export default Dom = (function() {
     static image(x, y, w, h, src, mh, label = "", radius = "6px", mw = 60) {
       var htm, klass, tstyle;
       klass = src != null ? "image" : "texts";
-      tstyle = src != null ? "text-align:center; padding-top:3px;" : "text-align:center;"; // max-width:#{mh*4}vmin;
+      tstyle = src != null ? `text-align:center; padding-top:3px; font-size:${mh * 0.3}vh` : `text-align:center; font-size:${mh * 0.3
+      // max-width:#{mh*4}vmin;
+}vh;`;
       htm = `<div class="${klass}" style="position:absolute; left:${x}%; top:${y}%; width:${w}%; height:${h}%; display:table;">`;
       htm += "<div style=\"display:table-cell; vertical-align:middle;\">";
       if (src != null) {
-        htm += `<img style="display:block; margin-left:auto; margin-right:auto; max-height:${mh}vmin; max-width:${mw}vmin; border-radius:${radius};" src="${src}"/>`;
+        htm += `<img style="display:block; margin-left:auto; margin-right:auto; max-height:${mh}vh; max-width:${mw}vw; border-radius:${radius};" src="${src}"/>`;
       }
       if (Util.isStr(label)) {
         htm += `<div class="label" style="${tstyle}">${label}</div>`;
@@ -124,7 +126,7 @@ export default Dom = (function() {
     }
 
     static vert(stream, spec, imgDir, hpc = 1.00, x0 = 0, y0 = 0, align = "center") {
-      var $e, $p, dy, key, n, src, study, x, y;
+      var $e, $p, dy, key, mh, n, src, study, x, y;
       $p = $(`<div    ${Dom.panel(0, 0, 100, 100, align)}></div>`);
       $p.append(`<div ${Dom.label(0, 3, 100, 10)}>${spec.name}</div>`);
       n = Util.lenObject(spec, UI.isChild);
@@ -138,7 +140,8 @@ export default Dom = (function() {
           continue;
         }
         src = study.icon != null ? imgDir + study.icon : null;
-        $e = $(`${Dom.image(x, y, 100, dy * hpc, src, 9 * hpc, study.name)}`);
+        mh = spec.pane.toVh(dy) * 0.6;
+        $e = $(`${Dom.image(x, y, 100, dy * hpc, src, mh, study.name)}`);
         Dom.onEvents(stream, $e, spec, key, study);
         $p.append($e);
         y = y + dy;

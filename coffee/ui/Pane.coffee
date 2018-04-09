@@ -49,6 +49,15 @@ export default class Pane
     #console.log( 'Pane.geom()', geo )
     geo
 
+  # Converts a pane percent to vmin unit by determining the correct pane scaling factor
+  toVmin:( pc ) ->
+    sc = if @view.widthpx() > @view.heightpx() then @height else @width
+    sc * pc * 0.01 # (pc * sc).toString() + 'vmin'
+
+  toVw:( pc ) -> @width  * pc * 0.01
+  toVh:( pc ) -> @height * pc * 0.01
+
+
   show:()  -> @$.show()
   hide:()  -> @$.hide()
 

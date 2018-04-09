@@ -17,7 +17,7 @@ export default class Jitter
 
   @init = () ->
     Util.ready ->
-      subjects = ['Select','Choice',"Region"]
+      subjects = ['Select','Choice',"Region","Flavors"]
       stream   = new Stream( subjects )
       ui       = new UI( stream, "json/toc.json" )
       jitter   = new Jitter( stream, ui )
@@ -25,7 +25,10 @@ export default class Jitter
       return
     return
 
-  @SpecInteract = { Flavor:{}, Roast:{}, Brew:{}, Drink:{}, Body:{} }
+  @SpecInteract = {
+    Taste:   { type:"group" }, Flavor:{ type:"pane" }, Roast:{  type:"pane" },
+    Prepare: { type:"group" }, Brew:{   type:"pane" }, Drink:{  type:"pane" }, Body:   { type:"pane" }, Choices:{ type:"pane" },
+    Maps:    { type:"group" }, World:{  type:"pane" }, Region:{ type:"pane" }, Flavors:{ type:"pane" }  }
 
   constructor:( @stream, @ui ) ->
     #head1    = new Head(     @stream, @ui, "Head1" )
@@ -33,7 +36,8 @@ export default class Jitter
     @world    = new World(    @stream, @ui )
     @region   = new Region(   @stream, @ui )
     @interact = new Interact( @stream, @ui, "Interact", Jitter.SpecInteract )
-    @flavor   = new Flavor(   @stream, @ui )
+    @flavor   = new Flavor(   @stream, @ui, "Flavor"  )
+    @flavors  = new Flavor(   @stream, @ui, "Flavors" )
     @choices  = new Choices(  @stream, @ui )
     @roast    = new Roast(    @stream, @ui )
     @drink    = new Drink(    @stream, @ui )

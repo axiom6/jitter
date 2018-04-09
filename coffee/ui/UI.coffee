@@ -13,37 +13,43 @@ export default class UI
   UI.margin       =  { width:0.00, height:0.00, west :0.5, north :0, east :0.5, south :0, wStudy:0.5, hStudy:0.5 }
 
   UI.SelectView  = 'SelectView'
+  UI.SelectGroup = 'SelectGroup'
   UI.SelectPane  = 'SelectPane'
   UI.SelectStudy = 'SelectStudy'
+  UI.SelectRow   = 'SelectRow'
+  UI.SelectCol   = 'SelectCol'
   UI.AddChoice   = 'AddChoice'
   UI.DelChoice   = 'DelChoice'
 
-  UI.intents = [UI.SelectPane,UI.SelectView,UI.SelectStudy,UI.AddChoice,UI.DelChoice]
+  UI.intents = [UI.SelectPane,UI.SelectGroup,UI.SelectView,UI.SelectRow,UI.SelectCol,UI.SelectStudy,UI.AddChoice,UI.DelChoice]
 
   constructor:( @stream, @appFile ) ->
     @contents = {}
     callback = (data) =>
-      @spec  =  data
-      @tocs  = new Tocs( @, @stream, @spec ) if UI.hasTocs
-      @view  = new View( @, @stream, @spec )
-      @ready( @spec )
+      @specs  =  data
+      @tocs  = new Tocs( @, @stream, @specs ) if UI.hasTocs
+      @view  = new View( @, @stream, @specs )
+      @ready( @specs )
     UI.readJSON( @appFile, callback )
     UI.ui = @
 
   addContent:( name,  object ) ->
     @contents[name] = object
 
-  ready:( @spec ) ->
+  ready:( specs ) ->
     $('#'+UI.htmlId('App')).html( @html() )
     @tocs.ready()  if UI.hasTocs
     @view.ready()
-    @contentReady()
+    @contentReady( specs )
+    @view.hideAll( 'Interact' )
+    select = UI.select( 'Maps', 'UI', UI.SelectGroup )
+    @stream.publish( 'Select', select )
     return
 
-  contentReady:() =>
-    for own name, content of @contents when @spec[name].pane
+  contentReady:( specs ) =>
+    for own name, content of @contents # when specs[name].show
       content.pane  = @view.getPaneOrGroup( name )
-      content.spec  = @spec[name]
+      content.spec  = content.pane.spec # specs[name]
       content.$pane = content.readyPane()
       content.$view = $() # content.readView() For now view content is not used
       content.pane.$.append( content.$pane )
@@ -53,6 +59,7 @@ export default class UI
     UI.verifySelect( select, 'Jitter' )
     switch select.intent
       when UI.SelectView  then @selectView(  pane )
+      when UI.SelectGroup then @selectGroup( pane )
       when UI.SelectPane  then @selectPane(  pane )
       when UI.SelectStudy then @selectStudy( pane, select.study )
       else console.error( "Jitter.onSelect() unknown select", select )
@@ -66,6 +73,16 @@ export default class UI
     content.$pane.hide()
     content.$view.show()
     console.log( 'Jitter.selectView()', pane.name )
+    return
+
+  selectGroup:( pane ) ->
+    content = @content[pane.name]
+    if UI.isEmpty( content.$pane )
+      content.$pane = content.readyPane()
+      content.pane.$.append( $pane ) if UI.isEmpty( content.$pane )
+    content.$view.hide()
+    content.$pane.show()
+    console.log( 'Jitter.selectGroup()', pane.name )
     return
 
   selectPane:( pane ) ->
@@ -155,7 +172,9 @@ export default class UI
 
   @verifySelect:( select, source ) ->
     verify = Util.isStr(select.name) and Util.isStr(select.source) and Util.inArray(UI.intents,select.intent)
-    console.trace('UI.verifySelect()', select, source ) if not verify
+    if not verify
+      console.log( 'UI.verifySelect()', select, source, select.intent )
+      console.trace()
     verify
 
   @isEmpty:( $elem ) -> $elem? and $elem.length? and $elem.length is 0

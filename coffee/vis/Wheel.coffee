@@ -37,6 +37,7 @@ export default class Wheel
     @formatNumber = d3.format(",d")
     @padding = 0
     @duration = 300
+    @lookup = {}
 
     div = d3.select( elem )
 
@@ -89,6 +90,7 @@ export default class Wheel
     d3.select( self.frameElement).style( "height", @height + "px" )
 
   adjustRadius:( d ) =>
+    @lookup[d.data.name] = d
     sc = if d['data'].scale? then d['data'].scale
     else if not d.children?  then 0.8
     else                          1.0

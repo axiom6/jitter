@@ -14,9 +14,12 @@ export default class Region
 
   readyPane:() ->
     src   = "img/region/Ethiopia.png"
-    $p    = $( """  #{Dom.image(0,0,100,100,src,100,"Ethopia","24px",66)}""" )
+    mh    = @pane.toVh(96)
+    mw    = @pane.toVw(96)
+    $p    = $( """  #{Dom.image(0,0,100,100,src,mh,"Ethopia","24px",mw)}""" )
     @$image = $p.find('img')
     @$label = $p.find('.label')
+    @$label.css( "font-size", "#{@pane.toVh(10)}vh" )
     @$label.hide()
     @subscribe()
     $p

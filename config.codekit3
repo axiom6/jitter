@@ -161,6 +161,17 @@
 		"sC": 0,
 		"tS": 0
 		},
+	"\/coffee\/ui\/Group.coffee": {
+		"ft": 32,
+		"ma": 0,
+		"mi": 0,
+		"oA": 0,
+		"oAP": "\/public\/js\/ui\/Group.js",
+		"oF": 0,
+		"oS": 0,
+		"sC": 0,
+		"tS": 0
+		},
 	"\/coffee\/ui\/Pane.coffee": {
 		"ft": 32,
 		"ma": 0,
@@ -1896,17 +1907,6 @@
 		"oT": 1,
 		"q": 100
 		},
-	"\/public\/img\/region\/Ethiopia1.png": {
-		"ft": 32768,
-		"iS": 663821,
-		"oA": 0,
-		"oAP": "\/public\/img\/region\/Ethiopia1.png",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"oT": 1,
-		"q": 100
-		},
 	"\/public\/img\/region\/Guatemala.png": {
 		"ft": 32768,
 		"iS": 459408,
@@ -2418,6 +2418,16 @@
 		"sC": 3,
 		"tS": 0
 		},
+	"\/public\/js\/jitter\/Interact.js": {
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/public\/js\/jitter\/Interact-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
 	"\/public\/js\/jitter\/Jitter.js": {
 		"ft": 64,
 		"ma": 0,
@@ -2504,6 +2514,16 @@
 		"mi": 1,
 		"oA": 1,
 		"oAP": "\/public\/js\/ui\/Dom-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
+	"\/public\/js\/ui\/Group.js": {
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/public\/js\/ui\/Group-min.js",
 		"oF": 0,
 		"sC": 3,
 		"tS": 0
@@ -2758,6 +2778,14 @@
 		"ft": 524288,
 		"oA": 1,
 		"oAP": "\/public\/json\/tocLR-min.json",
+		"oF": 0,
+		"oO": 0,
+		"oS": 1
+		},
+	"\/public\/json\/tocs.panes.json": {
+		"ft": 524288,
+		"oA": 1,
+		"oAP": "\/public\/json\/tocs.panes-min.json",
 		"oF": 0,
 		"oO": 0,
 		"oS": 1

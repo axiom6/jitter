@@ -20,11 +20,14 @@ export default Region = class Region {
   }
 
   readyPane() {
-    var $p, src;
+    var $p, mh, mw, src;
     src = "img/region/Ethiopia.png";
-    $p = $(`  ${Dom.image(0, 0, 100, 100, src, 100, "Ethopia", "24px", 66)}`);
+    mh = this.pane.toVh(96);
+    mw = this.pane.toVw(96);
+    $p = $(`  ${Dom.image(0, 0, 100, 100, src, mh, "Ethopia", "24px", mw)}`);
     this.$image = $p.find('img');
     this.$label = $p.find('.label');
+    this.$label.css("font-size", `${this.pane.toVh(10)}vh`);
     this.$label.hide();
     this.subscribe();
     return $p;

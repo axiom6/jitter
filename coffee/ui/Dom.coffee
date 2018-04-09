@@ -17,10 +17,10 @@ export default class Dom
 
   @image:( x, y, w, h, src, mh, label="", radius="6px", mw=60 ) ->
     klass  = if src? then "image"            else "texts"
-    tstyle = if src? then "text-align:center; padding-top:3px;" else "text-align:center;"                # max-width:#{mh*4}vmin;
+    tstyle = if src? then "text-align:center; padding-top:3px; font-size:#{mh*0.3}vh" else "text-align:center; font-size:#{mh*0.3}vh;"                # max-width:#{mh*4}vmin;
     htm  = """<div class="#{klass}" style="position:absolute; left:#{x}%; top:#{y}%; width:#{w}%; height:#{h}%; display:table;">"""
     htm += """<div style="display:table-cell; vertical-align:middle;">"""
-    htm += """<img style="display:block; margin-left:auto; margin-right:auto; max-height:#{mh}vmin; max-width:#{mw}vmin; border-radius:#{radius};" src="#{src}"/>""" if src?
+    htm += """<img style="display:block; margin-left:auto; margin-right:auto; max-height:#{mh}vh; max-width:#{mw}vw; border-radius:#{radius};" src="#{src}"/>""" if src?
     htm += """<div class="label" style="#{tstyle}">#{label}</div>"""  if Util.isStr(label)
     htm += """</div></div>"""
     htm
@@ -86,7 +86,8 @@ export default class Dom
     dy = (100-y0-5) / n
     for own key, study of spec when UI.isChild(key)
       src = if study.icon? then imgDir + study.icon else null
-      $e = $( """#{Dom.image(x,y,100,dy*hpc,src,9*hpc,study.name)}"""  )
+      mh = spec.pane.toVh(dy) * 0.6
+      $e = $( """#{Dom.image(x,y,100,dy*hpc,src,mh,study.name)}"""  )
       Dom.onEvents( stream, $e, spec, key, study )
       $p.append( $e )
       y =   y + dy

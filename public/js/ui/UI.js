@@ -17,12 +17,12 @@ export default UI = (function() {
       this.appFile = appFile;
       this.contents = {};
       callback = (data) => {
-        this.spec = data;
+        this.specs = data;
         if (UI.hasTocs) {
-          this.tocs = new Tocs(this, this.stream, this.spec);
+          this.tocs = new Tocs(this, this.stream, this.specs);
         }
-        this.view = new View(this, this.stream, this.spec);
-        return this.ready(this.spec);
+        this.view = new View(this, this.stream, this.specs);
+        return this.ready(this.specs);
       };
       UI.readJSON(this.appFile, callback);
       UI.ui = this;
@@ -32,27 +32,28 @@ export default UI = (function() {
       return this.contents[name] = object;
     }
 
-    ready(spec) {
-      this.spec = spec;
+    ready(specs) {
+      var select;
       $('#' + UI.htmlId('App')).html(this.html());
       if (UI.hasTocs) {
         this.tocs.ready();
       }
       this.view.ready();
-      this.contentReady();
+      this.contentReady(specs);
+      this.view.hideAll('Interact');
+      select = UI.select('Maps', 'UI', UI.SelectGroup);
+      this.stream.publish('Select', select);
     }
 
-    contentReady() {
+    contentReady(specs) {
       var content, name, ref;
       ref = this.contents;
+      // when specs[name].show
       for (name in ref) {
         if (!hasProp.call(ref, name)) continue;
         content = ref[name];
-        if (!this.spec[name].pane) {
-          continue;
-        }
         content.pane = this.view.getPaneOrGroup(name);
-        content.spec = this.spec[name];
+        content.spec = content.pane.spec; // specs[name]
         content.$pane = content.readyPane();
         content.$view = $(); // content.readView() For now view content is not used
         content.pane.$.append(content.$pane);
@@ -64,6 +65,9 @@ export default UI = (function() {
       switch (select.intent) {
         case UI.SelectView:
           this.selectView(pane);
+          break;
+        case UI.SelectGroup:
+          this.selectGroup(pane);
           break;
         case UI.SelectPane:
           this.selectPane(pane);
@@ -86,6 +90,20 @@ export default UI = (function() {
       content.$pane.hide();
       content.$view.show();
       console.log('Jitter.selectView()', pane.name);
+    }
+
+    selectGroup(pane) {
+      var content;
+      content = this.content[pane.name];
+      if (UI.isEmpty(content.$pane)) {
+        content.$pane = content.readyPane();
+        if (UI.isEmpty(content.$pane)) {
+          content.pane.$.append($pane);
+        }
+      }
+      content.$view.hide();
+      content.$pane.show();
+      console.log('Jitter.selectGroup()', pane.name);
     }
 
     selectPane(pane) {
@@ -232,7 +250,8 @@ export default UI = (function() {
       var verify;
       verify = Util.isStr(select.name) && Util.isStr(select.source) && Util.inArray(UI.intents, select.intent);
       if (!verify) {
-        console.trace('UI.verifySelect()', select, source);
+        console.log('UI.verifySelect()', select, source, select.intent);
+        console.trace();
       }
       return verify;
     }
@@ -295,15 +314,21 @@ export default UI = (function() {
 
   UI.SelectView = 'SelectView';
 
+  UI.SelectGroup = 'SelectGroup';
+
   UI.SelectPane = 'SelectPane';
 
   UI.SelectStudy = 'SelectStudy';
+
+  UI.SelectRow = 'SelectRow';
+
+  UI.SelectCol = 'SelectCol';
 
   UI.AddChoice = 'AddChoice';
 
   UI.DelChoice = 'DelChoice';
 
-  UI.intents = [UI.SelectPane, UI.SelectView, UI.SelectStudy, UI.AddChoice, UI.DelChoice];
+  UI.intents = [UI.SelectPane, UI.SelectGroup, UI.SelectView, UI.SelectRow, UI.SelectCol, UI.SelectStudy, UI.AddChoice, UI.DelChoice];
 
   // ------ Html ------------
   UI.htmlIds = {};

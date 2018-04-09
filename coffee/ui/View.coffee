@@ -2,20 +2,20 @@
 import Util    from '../util/Util.js'
 import UI      from '../ui/UI.js'
 import Pane    from '../ui/Pane.js'
+import Group   from '../ui/Group.js'
 
 export default class View
 
-  constructor:( @ui, @stream, @practices ) ->
+  constructor:( @ui, @stream, @specs ) ->
     @speed       = 400
     @$view       = UI.$empty
     @margin      = UI.margin
     @ncol        = UI.ncol
     @nrow        = UI.nrow
-    @classPrefix = if Util.isStr(@practices.css) then @spec.css else 'ui-view'
+    @classPrefix = 'ui-view'
     [@wpane,@hpane,@wview,@hview,@wscale,@hscale] = @percents( @nrow, @ncol, @margin )
-    @panes     = @createPanes( @practices )
+    [@groups,@panes] = @createGroupsPanes( @specs )
     @sizeCallback  = null
-    @paneCallback  = null
     @lastPaneName  = ''
     @emptyPane     = UI.$empty
     @allCells = [ 1, @ncol, 1, @nrow ]
@@ -73,6 +73,10 @@ export default class View
     [jp,mp,ip,np] = UI.jmin(  paneCells )
     @position( (jp-ju)*@ncol/mu, mp*@ncol/mu, (ip-iu)*@nrow/nu, np*@nrow/nu, spec, xscale, yscale )
 
+  positionPane:( paneCells, spec, xscale=1.0, yscale=1.0 ) ->
+    [j,m,i,n] = UI.jmin( paneCells )
+    @position( j,m,i,n, spec, xscale, yscale )
+
   positionGroup:( groupCells, spec, xscale=1.0, yscale=1.0 ) ->
     [j,m,i,n] = UI.jmin( groupCells )
     @position( j,m,i,n, spec, xscale, yscale )
@@ -111,8 +115,8 @@ export default class View
     @$view.show()
     return
 
-  hideAll:() ->
-    pane. hide() for pane  in @panes
+  hideAll:( name='None' ) ->
+    pane. hide() for pane  in @panes when pane.name isnt name
     @$view.hide()
     return
 
@@ -129,24 +133,37 @@ export default class View
     intent  = select.intent
     @select = select
     switch intent
-      when UI.SelectView  then @expandAllPanes()
-      when UI.SelectPane  then @expandPane( @getPaneOrGroup(name) )
-      when UI.SelectStudy then @expandPane( @getPaneOrGroup(name) )
-      else console.error( 'UI.View.onSelect() name not processed for intent', name, select )
+      when UI.SelectView  then @expandView()
+      when UI.SelectGroup then @expandGroup( @getPaneOrGroup(name) )
+      when UI.SelectPane  then @expandPane(  @getPaneOrGroup(name) )
+      when UI.SelectStudy then @expandPane(  @getPaneOrGroup(name) )
+      else console.error( 'View.onSelect() name not processed for intent', name, select )
     return
 
-  expandAllPanes:() ->
+  expandView:() ->
     @hideAll()
     @reset( @select )
     @showAll()
 
+  expandGroup:( group, callback=null ) ->
+    @hideAll('Interact')
+    if  group.panes?
+      for pane in group.panes
+        pane.show()
+        #left,top,width,height] = @positionUnionPane( group.cells, pane.cells, pane.spec, @wscale, @hscale )
+        [left,top,width,height] = @positionPane( pane.cells, pane.spec, @wscale, @hscale )
+        pane.animate( left, top, width, height, @select, true, callback )
+    else
+      console.error( 'View.expandGroup group.panes null' )
+    @show()
+    @lastPaneName  = 'None'
+    return
+
   expandPane:( pane,  callback=null ) ->  # , study=null
-    paneCallback = if callback? then callback else @paneCallback
-    pane = @getPaneOrGroup( pane, false ) # don't issue errors
     return unless pane?
     @hideAll()
     pane.show()
-    pane.animate( @margin.west, @margin.north, 100*@wview, 100*@hview, @select, true, paneCallback )
+    pane.animate( @margin.west, @margin.north, 100*@wview, 100*@hview, @select, true, callback )
     @show()
     @lastPaneName   = pane.name
     return
@@ -162,14 +179,22 @@ export default class View
     console.error( 'UI.View.getPaneOrGroup() null for key ', key ) if issueError
     @emptyPane
 
-  createPanes:( practices ) ->
-    panes = []
-    for own keyPractice, practice of practices when practice.pane
-      pane = new Pane( @ui, @stream, @, practice )
-      panes.push( pane )
-      practice.pane = pane
-      # @createStudyPanes( practice, panes )
-    panes
+  createGroupsPanes:( specs ) ->
+    groups   = []
+    panes    = []
+    interact = new Pane( @ui, @stream, @, specs['Interact'] )
+    panes.push( interact )
+    specs['Interact'].pane = pane
+    for own gkey, gspec of specs when gspec.type is 'group'
+      group = new Group( @ui, @stream, @, gspec )
+      groups.push( group )
+      gspec.group = group
+      for own pkey, pspec of gspec when UI.isChild(pkey) and pspec.type is 'pane'
+        pane = new Pane( @ui, @stream, @, pspec )
+        panes.push( pane )
+        group.panes.push( pane )
+        pspec.pane = pane
+    [groups,panes]
 
   paneInUnion:( paneCells, unionCells ) ->
     [jp,mp,ip,np] = UI.jmin(  paneCells )

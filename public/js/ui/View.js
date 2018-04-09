@@ -7,22 +7,23 @@ import UI from '../ui/UI.js';
 
 import Pane from '../ui/Pane.js';
 
+import Group from '../ui/Group.js';
+
 export default View = class View {
-  constructor(ui, stream, practices1) {
+  constructor(ui, stream, specs1) {
     this.resize = this.resize.bind(this);
     this.ui = ui;
     this.stream = stream;
-    this.practices = practices1;
+    this.specs = specs1;
     this.speed = 400;
     this.$view = UI.$empty;
     this.margin = UI.margin;
     this.ncol = UI.ncol;
     this.nrow = UI.nrow;
-    this.classPrefix = Util.isStr(this.practices.css) ? this.spec.css : 'ui-view';
+    this.classPrefix = 'ui-view';
     [this.wpane, this.hpane, this.wview, this.hview, this.wscale, this.hscale] = this.percents(this.nrow, this.ncol, this.margin);
-    this.panes = this.createPanes(this.practices);
+    [this.groups, this.panes] = this.createGroupsPanes(this.specs);
     this.sizeCallback = null;
-    this.paneCallback = null;
     this.lastPaneName = '';
     this.emptyPane = UI.$empty;
     this.allCells = [1, this.ncol, 1, this.nrow];
@@ -140,6 +141,12 @@ export default View = class View {
     return this.position((jp - ju) * this.ncol / mu, mp * this.ncol / mu, (ip - iu) * this.nrow / nu, np * this.nrow / nu, spec, xscale, yscale);
   }
 
+  positionPane(paneCells, spec, xscale = 1.0, yscale = 1.0) {
+    var i, j, m, n;
+    [j, m, i, n] = UI.jmin(paneCells);
+    return this.position(j, m, i, n, spec, xscale, yscale);
+  }
+
   positionGroup(groupCells, spec, xscale = 1.0, yscale = 1.0) {
     var i, j, m, n;
     [j, m, i, n] = UI.jmin(groupCells);
@@ -190,12 +197,14 @@ export default View = class View {
     this.$view.show();
   }
 
-  hideAll() {
+  hideAll(name = 'None') {
     var k, len, pane, ref;
     ref = this.panes;
     for (k = 0, len = ref.length; k < len; k++) {
       pane = ref[k];
-      pane.hide();
+      if (pane.name !== name) {
+        pane.hide();
+      }
     }
     this.$view.hide();
   }
@@ -224,7 +233,10 @@ export default View = class View {
     this.select = select;
     switch (intent) {
       case UI.SelectView:
-        this.expandAllPanes();
+        this.expandView();
+        break;
+      case UI.SelectGroup:
+        this.expandGroup(this.getPaneOrGroup(name));
         break;
       case UI.SelectPane:
         this.expandPane(this.getPaneOrGroup(name));
@@ -233,26 +245,42 @@ export default View = class View {
         this.expandPane(this.getPaneOrGroup(name));
         break;
       default:
-        console.error('UI.View.onSelect() name not processed for intent', name, select);
+        console.error('View.onSelect() name not processed for intent', name, select);
     }
   }
 
-  expandAllPanes() {
+  expandView() {
     this.hideAll();
     this.reset(this.select);
     return this.showAll();
   }
 
+  expandGroup(group, callback = null) {
+    var height, k, left, len, pane, ref, top, width;
+    this.hideAll('Interact');
+    if (group.panes != null) {
+      ref = group.panes;
+      for (k = 0, len = ref.length; k < len; k++) {
+        pane = ref[k];
+        pane.show();
+        //left,top,width,height] = @positionUnionPane( group.cells, pane.cells, pane.spec, @wscale, @hscale )
+        [left, top, width, height] = this.positionPane(pane.cells, pane.spec, this.wscale, this.hscale);
+        pane.animate(left, top, width, height, this.select, true, callback);
+      }
+    } else {
+      console.error('View.expandGroup group.panes null');
+    }
+    this.show();
+    this.lastPaneName = 'None';
+  }
+
   expandPane(pane, callback = null) { // , study=null
-    var paneCallback;
-    paneCallback = callback != null ? callback : this.paneCallback;
-    pane = this.getPaneOrGroup(pane, false); // don't issue errors
     if (pane == null) {
       return;
     }
     this.hideAll();
     pane.show();
-    pane.animate(this.margin.west, this.margin.north, 100 * this.wview, 100 * this.hview, this.select, true, paneCallback);
+    pane.animate(this.margin.west, this.margin.north, 100 * this.wview, 100 * this.hview, this.select, true, callback);
     this.show();
     this.lastPaneName = pane.name;
   }
@@ -285,21 +313,35 @@ export default View = class View {
     return this.emptyPane;
   }
 
-  createPanes(practices) {
-    var keyPractice, pane, panes, practice;
+  createGroupsPanes(specs) {
+    var gkey, group, groups, gspec, interact, pane, panes, pkey, pspec;
+    groups = [];
     panes = [];
-    for (keyPractice in practices) {
-      if (!hasProp.call(practices, keyPractice)) continue;
-      practice = practices[keyPractice];
-      if (!practice.pane) {
+    interact = new Pane(this.ui, this.stream, this, specs['Interact']);
+    panes.push(interact);
+    specs['Interact'].pane = pane;
+    for (gkey in specs) {
+      if (!hasProp.call(specs, gkey)) continue;
+      gspec = specs[gkey];
+      if (!(gspec.type === 'group')) {
         continue;
       }
-      pane = new Pane(this.ui, this.stream, this, practice);
-      panes.push(pane);
-      practice.pane = pane;
+      group = new Group(this.ui, this.stream, this, gspec);
+      groups.push(group);
+      gspec.group = group;
+      for (pkey in gspec) {
+        if (!hasProp.call(gspec, pkey)) continue;
+        pspec = gspec[pkey];
+        if (!(UI.isChild(pkey) && pspec.type === 'pane')) {
+          continue;
+        }
+        pane = new Pane(this.ui, this.stream, this, pspec);
+        panes.push(pane);
+        group.panes.push(pane);
+        pspec.pane = pane;
+      }
     }
-    // @createStudyPanes( practice, panes )
-    return panes;
+    return [groups, panes];
   }
 
   paneInUnion(paneCells, unionCells) {

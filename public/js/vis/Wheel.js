@@ -60,6 +60,7 @@ export default Wheel = class Wheel {
     this.formatNumber = d3.format(",d");
     this.padding = 0;
     this.duration = 300;
+    this.lookup = {};
     div = d3.select(elem);
     w = this.width;
     h = this.height;
@@ -120,6 +121,7 @@ export default Wheel = class Wheel {
 
   adjustRadius(d) {
     var dy, sc;
+    this.lookup[d.data.name] = d;
     sc = d['data'].scale != null ? d['data'].scale : d.children == null ? 0.8 : 1.0;
     dy = (d.y1 - d.y0) * sc;
     if (d.parent != null) {

@@ -35,9 +35,11 @@ export default World = class World {
   }
 
   readyPane() {
-    var $p, src;
+    var $p, mh, mw, src;
     src = "img/region/WorldBelt.png";
-    $p = $(`  ${Dom.image(0, 0, 100, 100, src, 30, "", "24px", 180)}`);
+    mh = this.pane.toVh(96);
+    mw = this.pane.toVw(96);
+    $p = $(`  ${Dom.image(0, 0, 100, 100, src, mh, "", "24px", mw)}`);
     this.$img = $p.find('img');
     this.$img.click((event) => {
       return this.onClick(event);
@@ -56,11 +58,7 @@ export default World = class World {
     x = (event.pageX - offset.left) * this.wImg / $elem.width();
     y = (event.pageY - offset.top) * this.hImg / $elem.height();
     region = this.findRegion(x, y);
-    console.log('World.onClick()', {
-      x: x,
-      y: y,
-      region: region
-    });
+    //console.log( 'World.onClick()', { x:x, y:y, region:region } )
     this.showRegion(region);
   }
 
@@ -84,12 +82,21 @@ export default World = class World {
   }
 
   showRegion(region) {
-    var select;
+    var flavor, i, len, ref, select;
     if (region.name === "None") {
       return;
     }
     select = UI.select('Region', 'World', UI.SelectStudy, region);
     this.stream.publish('Region', select);
+    if (false) { // region.Flavor?
+      ref = region.Flavor;
+      for (i = 0, len = ref.length; i < len; i++) {
+        flavor = ref[i];
+        console.log('World', flavor);
+        //choice = UI.select( 'Flavors', 'World', UI.AddChoice, flavor )
+        this.stream.publish('Flavors', flavor);
+      }
+    }
   }
 
 };
