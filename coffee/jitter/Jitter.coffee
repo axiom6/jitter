@@ -26,9 +26,9 @@ export default class Jitter
     return
 
   @SpecInteract = {
+    Maps:    { type:"group" }, World:{  type:"pane" }, Region:{ type:"pane" }, Flavors:{ type:"pane" },
     Taste:   { type:"group" }, Flavor:{ type:"pane" }, Roast:{  type:"pane" },
-    Prepare: { type:"group" }, Brew:{   type:"pane" }, Drink:{  type:"pane" }, Body:   { type:"pane" }, Choices:{ type:"pane" },
-    Maps:    { type:"group" }, World:{  type:"pane" }, Region:{ type:"pane" }, Flavors:{ type:"pane" }  }
+    Prepare: { type:"group" }, Brew:{   type:"pane" }, Drink:{  type:"pane" }, Body:   { type:"pane" }, Choices:{ type:"pane" } }
 
   constructor:( @stream, @ui ) ->
     #head1    = new Head(     @stream, @ui, "Head1" )

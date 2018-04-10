@@ -10,7 +10,7 @@ export default Brew = class Brew {
   }
 
   readyPane() {
-    return Dom.vert(this.stream, this.spec, 'img/brew/', 0.50, 0, 12);
+    return Dom.vertBtns(this.stream, this.spec, 'img/brew/', 0.50, 0, 12);
   }
 
   readyView() {

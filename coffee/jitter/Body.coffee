@@ -7,7 +7,7 @@ export default class Body
     @ui.addContent( 'Body', @ )
 
   readyPane:() ->
-    Dom.vert( @stream, @spec, 'img/body/', 0.75, 0, 10 )
+    Dom.vertBtns( @stream, @spec, 'img/body/', 0.75, 0, 10 )
 
   readyView:() ->
     src = "img/body/Body.jpg"

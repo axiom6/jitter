@@ -42,12 +42,14 @@ export default class Dom
     if study?.chosen
       study.chosen = false
       $e.css( { color:Dom.basisColor } )
+      $e.find("button").removeClass( "btn-cool-active" )
       choice = UI.select( spec.name, 'Dom', UI.DelChoice, key )
       choice.$click = $e
       stream.publish( 'Choice', choice )
     else
       study.chosen = true
       $e.css( { color:Dom.choiceColor } )
+      $e.find("button").addClass( "btn-cool-active" )
       choice = UI.select( spec.name, 'Dom', UI.AddChoice, key )
       choice.$click = $e
       stream.publish( 'Choice', choice )
@@ -93,6 +95,33 @@ export default class Dom
       y =   y + dy
     $p
 
+  @vertBtns:( stream, spec, imgDir, hpc=1.00, x0=0, y0=0 ) ->
+    $p = $( """<div    #{Dom.panel(0,0,100,100)}></div>""" )
+    $p.append( """<div #{Dom.label(0,3,100, 10)}>#{spec.name}</div>""" )
+    n  =  Util.lenObject( spec, UI.isChild )
+    x  = x0
+    y  = y0
+    dy = (100-y0-5) / n
+    for own key, study of spec when UI.isChild(key)
+      src  = if study.icon? then imgDir + study.icon else null
+      icon = if not src?    then "fa-coffee"         else null
+      mh = spec.pane.toVh(dy) * ( if src? then 0.6 else 0.4 )
+      $e = $( Dom.btn( x, y, 100, dy, study.name, "btn-cool", icon, src, mh ) )
+      Dom.onEvents( stream, $e, spec, key, study )
+      $p.append( $e )
+      y =   y + dy
+    $p
+
+  @btn:( x, y, w, h, label="", klass="btn-cool", icon=null, src=null, mh=null ) ->
+    mtf  = if src? then 0.3 else 0.17
+    htm  = """<div  style="position:absolute; left:#{x}%; top:#{y}%; width:#{w}%; height:#{h}%; display:table;">"""
+    htm += """<div  style="display:table-cell; vertical-align:middle;">"""
+    htm += """<button class="#{klass}" style="height:#{mh*1.25}vh; width:#{w*0.70}%;">"""
+    htm += """<i class="fa #{icon} fa-lg"  style="float:left;"></i>""" if icon?
+    htm += """<img style="display:inline-block; float:left; max-height:#{mh}vh;" src="#{src}"/>""" if src? and mh?
+    htm += """<div style="text-align:left;">#{label}</div>""" # margin-top:#{mh*mtf}vh;
+    htm += """</button></div></div>"""
+    htm
 
   @tree:( stream, spec, x0=0, y0=0 ) ->
     $p = $( """<div    #{Dom.panel(0,0,100,100,"left")}></div>""" )

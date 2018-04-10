@@ -59,6 +59,7 @@ export default Dom = (function() {
         $e.css({
           color: Dom.basisColor
         });
+        $e.find("button").removeClass("btn-cool-active");
         choice = UI.select(spec.name, 'Dom', UI.DelChoice, key);
         choice.$click = $e;
         stream.publish('Choice', choice);
@@ -67,6 +68,7 @@ export default Dom = (function() {
         $e.css({
           color: Dom.choiceColor
         });
+        $e.find("button").addClass("btn-cool-active");
         choice = UI.select(spec.name, 'Dom', UI.AddChoice, key);
         choice.$click = $e;
         stream.publish('Choice', choice);
@@ -147,6 +149,50 @@ export default Dom = (function() {
         y = y + dy;
       }
       return $p;
+    }
+
+    static vertBtns(stream, spec, imgDir, hpc = 1.00, x0 = 0, y0 = 0) {
+      var $e, $p, dy, icon, key, mh, n, src, study, x, y;
+      $p = $(`<div    ${Dom.panel(0, 0, 100, 100)}></div>`);
+      $p.append(`<div ${Dom.label(0, 3, 100, 10)}>${spec.name}</div>`);
+      n = Util.lenObject(spec, UI.isChild);
+      x = x0;
+      y = y0;
+      dy = (100 - y0 - 5) / n;
+      for (key in spec) {
+        if (!hasProp.call(spec, key)) continue;
+        study = spec[key];
+        if (!(UI.isChild(key))) {
+          continue;
+        }
+        src = study.icon != null ? imgDir + study.icon : null;
+        icon = src == null ? "fa-coffee" : null;
+        mh = spec.pane.toVh(dy) * (src != null ? 0.6 : 0.4);
+        $e = $(Dom.btn(x, y, 100, dy, study.name, "btn-cool", icon, src, mh));
+        Dom.onEvents(stream, $e, spec, key, study);
+        $p.append($e);
+        y = y + dy;
+      }
+      return $p;
+    }
+
+    static btn(x, y, w, h, label = "", klass = "btn-cool", icon = null, src = null, mh = null) {
+      var htm, mtf;
+      mtf = src != null ? 0.3 : 0.17;
+      htm = `<div  style="position:absolute; left:${x}%; top:${y}%; width:${w}%; height:${h}%; display:table;">`;
+      htm += "<div  style=\"display:table-cell; vertical-align:middle;\">";
+      htm += `<button class="${klass}" style="height:${mh * 1.25}vh; width:${w * 0.70}%;">`;
+      if (icon != null) {
+        htm += `<i class="fa ${icon} fa-lg"  style="float:left;"></i>`;
+      }
+      if ((src != null) && (mh != null)) {
+        htm += `<img style="display:inline-block; float:left; max-height:${mh}vh;" src="${src}"/>`;
+      }
+      htm += `<div style="text-align:left;">${label
+      // margin-top:#{mh*mtf}vh;
+}</div>`;
+      htm += "</button></div></div>";
+      return htm;
     }
 
     static tree(stream, spec, x0 = 0, y0 = 0) {

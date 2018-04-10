@@ -7,8 +7,7 @@ export default class Brew
     @ui.addContent( 'Brew', @ )
 
   readyPane:() ->
-    Dom.vert( @stream, @spec, 'img/brew/', 0.50, 0, 12 )
-
+    Dom.vertBtns( @stream, @spec, 'img/brew/', 0.50, 0, 12 )
 
   readyView:() ->
     src = "img/brew/"+spec['AutoDrip'].icon

@@ -7,7 +7,7 @@ export default class Drink
     @ui.addContent( 'Drink', @ )
 
   readyPane:() ->
-    Dom.vert( @stream, @spec, 'img/drink/', 0.75, 0, 10 )
+    Dom.vertBtns( @stream, @spec, 'img/drink/', 0.75, 0, 10 )
 
   readyView:() ->
     src = "img/drink/Drink.jpg"

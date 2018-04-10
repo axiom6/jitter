@@ -59,6 +59,18 @@ export default Jitter = (function() {
   };
 
   Jitter.SpecInteract = {
+    Maps: {
+      type: "group"
+    },
+    World: {
+      type: "pane"
+    },
+    Region: {
+      type: "pane"
+    },
+    Flavors: {
+      type: "pane"
+    },
     Taste: {
       type: "group"
     },
@@ -81,18 +93,6 @@ export default Jitter = (function() {
       type: "pane"
     },
     Choices: {
-      type: "pane"
-    },
-    Maps: {
-      type: "group"
-    },
-    World: {
-      type: "pane"
-    },
-    Region: {
-      type: "pane"
-    },
-    Flavors: {
       type: "pane"
     }
   };
