@@ -1,15 +1,15 @@
-var Choices;
+var Summary;
 
 import UI from '../ui/UI.js';
 
 import Dom from '../ui/Dom.js';
 
-export default Choices = class Choices {
+export default Summary = class Summary {
   constructor(stream, ui) {
     this.onChoice = this.onChoice.bind(this);
     this.stream = stream;
     this.ui = ui;
-    this.ui.addContent('Choices', this);
+    this.ui.addContent('Summary', this);
   }
 
   readyPane() {
@@ -20,9 +20,9 @@ export default Choices = class Choices {
 
   readyView() {
     var src;
-    src = "img/choices/Choices.jpg";
+    src = "img/summary/Summary.jpg";
     this.$view = $(`<div ${Dom.panel(0, 0, 100, 100)}></div>`);
-    this.$view.append(`<h1 ${Dom.label(0, 0, 100, 10)}>Choices</h1>`);
+    this.$view.append(`<h1 ${Dom.label(0, 0, 100, 10)}>Summary</h1>`);
     this.$view.append(`  ${Dom.image(0, 10, 100, 90, src, 150)}`);
     return this.$view;
   }

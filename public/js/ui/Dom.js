@@ -59,7 +59,7 @@ export default Dom = (function() {
         $e.css({
           color: Dom.basisColor
         });
-        $e.find("button").removeClass("btn-cool-active");
+        $e.find("button").removeClass("btn-nice-active");
         choice = UI.select(spec.name, 'Dom', UI.DelChoice, key);
         choice.$click = $e;
         stream.publish('Choice', choice);
@@ -68,7 +68,7 @@ export default Dom = (function() {
         $e.css({
           color: Dom.choiceColor
         });
-        $e.find("button").addClass("btn-cool-active");
+        $e.find("button").addClass("btn-nice-active");
         choice = UI.select(spec.name, 'Dom', UI.AddChoice, key);
         choice.$click = $e;
         stream.publish('Choice', choice);
@@ -151,8 +151,8 @@ export default Dom = (function() {
       return $p;
     }
 
-    static vertBtns(stream, spec, imgDir, hpc = 1.00, x0 = 0, y0 = 0) {
-      var $e, $p, dy, icon, key, mh, n, src, study, x, y;
+    static vertBtns(stream, spec, imgDir, w = 60, x0 = 0, y0 = 0) {
+      var $e, $p, dy, h, icon, key, klass, mh, n, src, study, tall, x, y;
       $p = $(`<div    ${Dom.panel(0, 0, 100, 100)}></div>`);
       $p.append(`<div ${Dom.label(0, 3, 100, 10)}>${spec.name}</div>`);
       n = Util.lenObject(spec, UI.isChild);
@@ -165,10 +165,13 @@ export default Dom = (function() {
         if (!(UI.isChild(key))) {
           continue;
         }
+        tall = Util.inString(study.name, "</br>");
         src = study.icon != null ? imgDir + study.icon : null;
         icon = src == null ? "fa-coffee" : null;
-        mh = spec.pane.toVh(dy) * (src != null ? 0.6 : 0.4);
-        $e = $(Dom.btn(x, y, 100, dy, study.name, "btn-cool", icon, src, mh));
+        klass = tall || (src != null) ? "btn-nice btn-tall" : "btn-nice";
+        h = tall && (src == null) ? dy * 0.7 : dy * 0.6;
+        mh = spec.pane.toVh(h);
+        $e = $(Dom.btn(x, y, w, h, study.name, klass, tall, icon, src, mh));
         Dom.onEvents(stream, $e, spec, key, study);
         $p.append($e);
         y = y + dy;
@@ -176,22 +179,23 @@ export default Dom = (function() {
       return $p;
     }
 
-    static btn(x, y, w, h, label = "", klass = "btn-cool", icon = null, src = null, mh = null) {
-      var htm, mtf;
-      mtf = src != null ? 0.3 : 0.17;
-      htm = `<div  style="position:absolute; left:${x}%; top:${y}%; width:${w}%; height:${h}%; display:table;">`;
-      htm += "<div  style=\"display:table-cell; vertical-align:middle;\">";
-      htm += `<button class="${klass}" style="height:${mh * 1.25}vh; width:${w * 0.70}%;">`;
+    static btn(x, y, w, h, label = "", klass = "btn-nice", tall = false, icon = null, src = null, mh = null) {
+      var htm, iconsClass, labelClass;
+      labelClass = src != null ? "btn-label btn-tall1" : "btn-label";
+      iconsClass = tall ? "btn-icons btn-tall2" : "btn-icons";
+      htm = `<div style="position:absolute; left:${x}%; top:${y}%; width:100%; height:${h}%; display:table;">`;
+      htm += "<div style=\"display:table-cell; vertical-align:middle;\">";
+      htm += `<button class="${klass}" style="width:${w}%; height:${mh}vmin;">`;
+      htm += "<div class=\"btn-table\">";
+      htm += "<div class=\"btn-align\">";
       if (icon != null) {
-        htm += `<i class="fa ${icon} fa-lg"  style="float:left;"></i>`;
+        htm += `<i   class="${iconsClass} fas ${icon} fa-lg"></i>`;
       }
       if ((src != null) && (mh != null)) {
-        htm += `<img style="display:inline-block; float:left; max-height:${mh}vh;" src="${src}"/>`;
+        htm += `<img class="btn-image" style="max-height:${mh * 0.9}vmin;" src="${src}"/>`;
       }
-      htm += `<div style="text-align:left;">${label
-      // margin-top:#{mh*mtf}vh;
-}</div>`;
-      htm += "</button></div></div>";
+      htm += `<div class="${labelClass}">${label}</div>`;
+      htm += "</button></div></div></div></div>";
       return htm;
     }
 

@@ -2,10 +2,10 @@
 import UI   from '../ui/UI.js'
 import Dom  from '../ui/Dom.js'
 
-export default class Choices
+export default class Summary
 
   constructor:( @stream, @ui ) ->
-    @ui.addContent( 'Choices', @ )
+    @ui.addContent( 'Summary', @ )
 
   readyPane:() ->
     @$pane = Dom.tree( @stream, @spec, 6, 13 )
@@ -13,9 +13,9 @@ export default class Choices
     @$pane
 
   readyView:() ->
-    src = "img/choices/Choices.jpg"
+    src = "img/summary/Summary.jpg"
     @$view = $( """<div #{Dom.panel(0, 0,100,100)}></div>""" )
-    @$view.append( "<h1 #{Dom.label(0, 0,100, 10)}>Choices</h1>" )
+    @$view.append( "<h1 #{Dom.label(0, 0,100, 10)}>Summary</h1>" )
     @$view.append( """  #{Dom.image(0,10,100, 90,src,150)}""" )
     @$view
 

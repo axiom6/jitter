@@ -10,7 +10,7 @@ export default Drink = class Drink {
   }
 
   readyPane() {
-    return Dom.vertBtns(this.stream, this.spec, 'img/drink/', 0.75, 0, 10);
+    return Dom.vertBtns(this.stream, this.spec, 'img/drink/', 80, 0, 8);
   }
 
   readyView() {

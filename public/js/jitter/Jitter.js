@@ -12,7 +12,7 @@ import Flavor from '../jitter/Flavor.js';
 
 import Interact from '../jitter/Interact.js';
 
-import Choices from '../jitter/Choices.js';
+import Summary from '../jitter/Summary.js';
 
 import Roast from '../jitter/Roast.js';
 
@@ -49,7 +49,7 @@ export default Jitter = (function() {
       this.interact = new Interact(this.stream, this.ui, "Interact", Jitter.SpecInteract);
       this.flavor = new Flavor(this.stream, this.ui, "Flavor");
       this.flavors = new Flavor(this.stream, this.ui, "Flavors");
-      this.choices = new Choices(this.stream, this.ui);
+      this.summary = new Summary(this.stream, this.ui);
       this.roast = new Roast(this.stream, this.ui);
       this.drink = new Drink(this.stream, this.ui);
       this.body = new Body(this.stream, this.ui);
@@ -92,7 +92,7 @@ export default Jitter = (function() {
     Body: {
       type: "pane"
     },
-    Choices: {
+    Summary: {
       type: "pane"
     }
   };

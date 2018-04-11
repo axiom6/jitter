@@ -5,7 +5,7 @@ import UI       from '../ui/UI.js'
 import Head     from '../jitter/Head.js'
 import Flavor   from '../jitter/Flavor.js'
 import Interact from '../jitter/Interact.js'
-import Choices  from '../jitter/Choices.js'
+import Summary  from '../jitter/Summary.js'
 import Roast    from '../jitter/Roast.js'
 import Drink    from '../jitter/Drink.js'
 import Body     from '../jitter/Body.js'
@@ -28,7 +28,7 @@ export default class Jitter
   @SpecInteract = {
     Maps:    { type:"group" }, World:{  type:"pane" }, Region:{ type:"pane" }, Flavors:{ type:"pane" },
     Taste:   { type:"group" }, Flavor:{ type:"pane" }, Roast:{  type:"pane" },
-    Prepare: { type:"group" }, Brew:{   type:"pane" }, Drink:{  type:"pane" }, Body:   { type:"pane" }, Choices:{ type:"pane" } }
+    Prepare: { type:"group" }, Brew:{   type:"pane" }, Drink:{  type:"pane" }, Body:   { type:"pane" }, Summary:{ type:"pane" } }
 
   constructor:( @stream, @ui ) ->
     #head1    = new Head(     @stream, @ui, "Head1" )
@@ -38,7 +38,7 @@ export default class Jitter
     @interact = new Interact( @stream, @ui, "Interact", Jitter.SpecInteract )
     @flavor   = new Flavor(   @stream, @ui, "Flavor"  )
     @flavors  = new Flavor(   @stream, @ui, "Flavors" )
-    @choices  = new Choices(  @stream, @ui )
+    @summary  = new Summary(  @stream, @ui )
     @roast    = new Roast(    @stream, @ui )
     @drink    = new Drink(    @stream, @ui )
     @body     = new Body(     @stream, @ui )

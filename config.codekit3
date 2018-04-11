@@ -7,7 +7,7 @@
 		"uuidString": "05CD4362-52FB-49EC-B4AE-6DD3F0E73526"
 		}
 	],
-"creatorBuild": "26330",
+"creatorBuild": "26680",
 "files": {
 	"\/.firebaserc": {
 		"cB": 0,
@@ -46,17 +46,6 @@
 		"mi": 0,
 		"oA": 0,
 		"oAP": "\/public\/js\/jitter\/Brew.js",
-		"oF": 0,
-		"oS": 0,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/coffee\/jitter\/Choices.coffee": {
-		"ft": 32,
-		"ma": 0,
-		"mi": 0,
-		"oA": 0,
-		"oAP": "\/public\/js\/jitter\/Choices.js",
 		"oF": 0,
 		"oS": 0,
 		"sC": 0,
@@ -134,6 +123,17 @@
 		"mi": 0,
 		"oA": 0,
 		"oAP": "\/public\/js\/jitter\/Roast.js",
+		"oF": 0,
+		"oS": 0,
+		"sC": 0,
+		"tS": 0
+		},
+	"\/coffee\/jitter\/Summary.coffee": {
+		"ft": 32,
+		"ma": 0,
+		"mi": 0,
+		"oA": 0,
+		"oAP": "\/public\/js\/jitter\/Summary.js",
 		"oF": 0,
 		"oS": 0,
 		"sC": 0,
@@ -350,6 +350,7 @@
 	"\/doc\/angles-cup\/AngelsCup'Acidity.jpg": {
 		"ft": 16384,
 		"iS": 92481,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/doc\/angles-cup\/AngelsCup'Acidity.jpg",
 		"oF": 0,
@@ -360,6 +361,7 @@
 	"\/doc\/angles-cup\/AngelsCup.Art.jpg": {
 		"ft": 16384,
 		"iS": 127604,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/doc\/angles-cup\/AngelsCup.Art.jpg",
 		"oF": 0,
@@ -370,6 +372,7 @@
 	"\/doc\/angles-cup\/AngelsCup.Color.Taste.Flavor.jpg": {
 		"ft": 16384,
 		"iS": 100129,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/doc\/angles-cup\/AngelsCup.Color.Taste.Flavor.jpg",
 		"oF": 0,
@@ -390,6 +393,7 @@
 	"\/doc\/angles-cup\/AngelsCup.Notes.jpg": {
 		"ft": 16384,
 		"iS": 167810,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/doc\/angles-cup\/AngelsCup.Notes.jpg",
 		"oF": 0,
@@ -400,6 +404,7 @@
 	"\/doc\/angles-cup\/AngelsCup.Results.jpg": {
 		"ft": 16384,
 		"iS": 72966,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/doc\/angles-cup\/AngelsCup.Results.jpg",
 		"oF": 0,
@@ -410,6 +415,7 @@
 	"\/doc\/angles-cup\/Angles-Cup.Flavor.Results.jpg": {
 		"ft": 16384,
 		"iS": 7331,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/doc\/angles-cup\/Angles-Cup.Flavor.Results.jpg",
 		"oF": 0,
@@ -420,6 +426,7 @@
 	"\/doc\/angles-cup\/AnglesCup.Tasting.jpg": {
 		"ft": 16384,
 		"iS": 26114,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/doc\/angles-cup\/AnglesCup.Tasting.jpg",
 		"oF": 0,
@@ -430,6 +437,7 @@
 	"\/doc\/angles-cup\/AnglesCupRating.jpg": {
 		"ft": 16384,
 		"iS": 22222,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/doc\/angles-cup\/AnglesCupRating.jpg",
 		"oF": 0,
@@ -440,6 +448,7 @@
 	"\/doc\/angles-cup\/Taints.jpg": {
 		"ft": 16384,
 		"iS": 476261,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/doc\/angles-cup\/Taints.jpg",
 		"oF": 0,
@@ -471,6 +480,7 @@
 	"\/doc\/brew1\/AutoDrip.jpg": {
 		"ft": 16384,
 		"iS": 5847,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/doc\/brew1\/AutoDrip.jpg",
 		"oF": 0,
@@ -502,6 +512,7 @@
 	"\/doc\/brew1\/BrewMethods.jpg": {
 		"ft": 16384,
 		"iS": 56471,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/doc\/brew1\/BrewMethods.jpg",
 		"oF": 0,
@@ -534,6 +545,7 @@
 	"\/doc\/brew1\/Expresso.jpg": {
 		"ft": 16384,
 		"iS": 8049,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/doc\/brew1\/Expresso.jpg",
 		"oF": 0,
@@ -699,6 +711,7 @@
 	"\/doc\/img\/4ec2c629796737.56040d01a9833.jpg": {
 		"ft": 16384,
 		"iS": 272041,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/doc\/img\/4ec2c629796737.56040d01a9833.jpg",
 		"oF": 0,
@@ -709,6 +722,7 @@
 	"\/doc\/img\/altitudes_TRI.jpg": {
 		"ft": 16384,
 		"iS": 1102200,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/doc\/img\/altitudes_TRI.jpg",
 		"oF": 0,
@@ -730,6 +744,7 @@
 	"\/doc\/img\/b0545029796737.56040d01a503c.jpg": {
 		"ft": 16384,
 		"iS": 147135,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/doc\/img\/b0545029796737.56040d01a503c.jpg",
 		"oF": 0,
@@ -740,6 +755,7 @@
 	"\/doc\/img\/blends_cards.jpg": {
 		"ft": 16384,
 		"iS": 1173779,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/doc\/img\/blends_cards.jpg",
 		"oF": 0,
@@ -750,6 +766,7 @@
 	"\/doc\/img\/ChoosingBeansInfograhpic_BlogGraphic_r2.jpg": {
 		"ft": 16384,
 		"iS": 773976,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/doc\/img\/ChoosingBeansInfograhpic_BlogGraphic_r2.jpg",
 		"oF": 0,
@@ -760,6 +777,7 @@
 	"\/doc\/img\/Cm1ads3WIAAxEfY.jpg": {
 		"ft": 16384,
 		"iS": 155390,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/doc\/img\/Cm1ads3WIAAxEfY.jpg",
 		"oF": 0,
@@ -770,6 +788,7 @@
 	"\/doc\/img\/coffee-aroma-spectrum.jpg": {
 		"ft": 16384,
 		"iS": 66597,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/doc\/img\/coffee-aroma-spectrum.jpg",
 		"oF": 0,
@@ -780,6 +799,7 @@
 	"\/doc\/img\/Coffee-Flavour-Wheel-V2-1.jpg": {
 		"ft": 16384,
 		"iS": 296908,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/doc\/img\/Coffee-Flavour-Wheel-V2-1.jpg",
 		"oF": 0,
@@ -790,6 +810,7 @@
 	"\/doc\/img\/coffee_flavor_tree.jpg": {
 		"ft": 16384,
 		"iS": 245930,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/doc\/img\/coffee_flavor_tree.jpg",
 		"oF": 0,
@@ -800,6 +821,7 @@
 	"\/doc\/img\/CoffeeColors.jpg": {
 		"ft": 16384,
 		"iS": 144190,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/doc\/img\/CoffeeColors.jpg",
 		"oF": 0,
@@ -817,6 +839,7 @@
 	"\/doc\/img\/CoffeeFamilyTree.jpg": {
 		"ft": 16384,
 		"iS": 226252,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/doc\/img\/CoffeeFamilyTree.jpg",
 		"oF": 0,
@@ -827,6 +850,7 @@
 	"\/doc\/img\/coffees.jpg": {
 		"ft": 16384,
 		"iS": 226252,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/doc\/img\/coffees.jpg",
 		"oF": 0,
@@ -837,6 +861,7 @@
 	"\/doc\/img\/coffeeSpectrum_1000.jpg": {
 		"ft": 16384,
 		"iS": 144423,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/doc\/img\/coffeeSpectrum_1000.jpg",
 		"oF": 0,
@@ -847,6 +872,7 @@
 	"\/doc\/img\/Different-Bags-of-Coffee.jpg": {
 		"ft": 16384,
 		"iS": 485833,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/doc\/img\/Different-Bags-of-Coffee.jpg",
 		"oF": 0,
@@ -879,6 +905,7 @@
 	"\/doc\/img\/FlavorRoast.jpg": {
 		"ft": 16384,
 		"iS": 44270,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/doc\/img\/FlavorRoast.jpg",
 		"oF": 0,
@@ -900,6 +927,7 @@
 	"\/doc\/img\/growing-regions_map.jpg": {
 		"ft": 16384,
 		"iS": 1262874,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/doc\/img\/growing-regions_map.jpg",
 		"oF": 0,
@@ -910,6 +938,7 @@
 	"\/doc\/img\/jitter.jpg": {
 		"ft": 16384,
 		"iS": 2751715,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/doc\/img\/jitter.jpg",
 		"oF": 0,
@@ -986,6 +1015,7 @@
 	"\/doc\/img\/RoastAwesome.jpg": {
 		"ft": 16384,
 		"iS": 63836,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/doc\/img\/RoastAwesome.jpg",
 		"oF": 0,
@@ -996,6 +1026,7 @@
 	"\/doc\/img\/RoastingPoint.jpg": {
 		"ft": 16384,
 		"iS": 95734,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/doc\/img\/RoastingPoint.jpg",
 		"oF": 0,
@@ -1006,6 +1037,7 @@
 	"\/doc\/img\/RoastsAll.jpg": {
 		"ft": 16384,
 		"iS": 11172,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/doc\/img\/RoastsAll.jpg",
 		"oF": 0,
@@ -1016,6 +1048,7 @@
 	"\/doc\/img\/RoastsBig copy.jpg": {
 		"ft": 16384,
 		"iS": 374286,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/doc\/img\/RoastsBig copy.jpg",
 		"oF": 0,
@@ -1026,6 +1059,7 @@
 	"\/doc\/img\/RoastsBig.jpg": {
 		"ft": 16384,
 		"iS": 142724,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/doc\/img\/RoastsBig.jpg",
 		"oF": 0,
@@ -1054,6 +1088,7 @@
 	"\/doc\/img\/SCAA_FlavorWheel.01.18.15.jpg": {
 		"ft": 16384,
 		"iS": 2656871,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/doc\/img\/SCAA_FlavorWheel.01.18.15.jpg",
 		"oF": 0,
@@ -1176,6 +1211,7 @@
 	"\/doc\/wheel\/set-vector-coffee-elements-coffee-machine-icons-illustration-can-be-used-as-logo-icon-premium-quality-style-74581439.jpg": {
 		"ft": 16384,
 		"iS": 118841,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/doc\/wheel\/set-vector-coffee-elements-coffee-machine-icons-illustration-can-be-used-as-logo-icon-premium-quality-style-74581439.jpg",
 		"oF": 0,
@@ -1238,9 +1274,9 @@
 		"ie": 0,
 		"iI": 0,
 		"ma": 0,
-		"oA": 1,
+		"oA": 0,
 		"oAP": "\/public\/css\/btn.css",
-		"oF": 0,
+		"oF": 1,
 		"oS": 0,
 		"rU": 0,
 		"sI": 0,
@@ -1510,7 +1546,7 @@
 		"ie": 0,
 		"iI": 0,
 		"ma": 0,
-		"oA": 0,
+		"oA": 1,
 		"oAP": "\/public\/css\/fontawesome\/fa-regular.css",
 		"oF": 0,
 		"oS": 0,
@@ -1764,16 +1800,6 @@
 		"oAP": "\/public\/btn.html",
 		"oF": 0
 		},
-	"\/public\/css\/btn-exa-min.css": {
-		"aP": 1,
-		"bl": 0,
-		"ft": 16,
-		"ma": 0,
-		"oA": 0,
-		"oAP": "\/public\/css\/btn-exa-min-min.css",
-		"oF": 0,
-		"oS": 3
-		},
 	"\/public\/css\/btn-exa.css": {
 		"aP": 1,
 		"bl": 0,
@@ -1848,6 +1874,7 @@
 	"\/public\/img\/body\/Body.jpg": {
 		"ft": 16384,
 		"iS": 6641,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/public\/img\/body\/Body.jpg",
 		"oF": 0,
@@ -1858,6 +1885,7 @@
 	"\/public\/img\/brew\/AeroPress.jpg": {
 		"ft": 16384,
 		"iS": 6539,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/public\/img\/brew\/AeroPress.jpg",
 		"oF": 0,
@@ -1868,6 +1896,7 @@
 	"\/public\/img\/brew\/AutoDrip.jpg": {
 		"ft": 16384,
 		"iS": 59936,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/public\/img\/brew\/AutoDrip.jpg",
 		"oF": 0,
@@ -1878,6 +1907,7 @@
 	"\/public\/img\/brew\/ColdBrew.jpg": {
 		"ft": 16384,
 		"iS": 5429,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/public\/img\/brew\/ColdBrew.jpg",
 		"oF": 0,
@@ -1888,6 +1918,7 @@
 	"\/public\/img\/brew\/Expresso.jpg": {
 		"ft": 16384,
 		"iS": 62811,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/public\/img\/brew\/Expresso.jpg",
 		"oF": 0,
@@ -1898,6 +1929,7 @@
 	"\/public\/img\/brew\/FrenchPress.jpg": {
 		"ft": 16384,
 		"iS": 5660,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/public\/img\/brew\/FrenchPress.jpg",
 		"oF": 0,
@@ -1908,6 +1940,7 @@
 	"\/public\/img\/brew\/PourOver.jpg": {
 		"ft": 16384,
 		"iS": 4467,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/public\/img\/brew\/PourOver.jpg",
 		"oF": 0,
@@ -1918,18 +1951,9 @@
 	"\/public\/img\/brew\/SyphonPot.jpg": {
 		"ft": 16384,
 		"iS": 5357,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/public\/img\/brew\/SyphonPot.jpg",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"q": 100
-		},
-	"\/public\/img\/choices\/Choices.jpg": {
-		"ft": 16384,
-		"iS": 6641,
-		"oA": 0,
-		"oAP": "\/public\/img\/choices\/Choices.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
@@ -1938,6 +1962,7 @@
 	"\/public\/img\/drink\/Black.jpg": {
 		"ft": 16384,
 		"iS": 27681,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/public\/img\/drink\/Black.jpg",
 		"oF": 0,
@@ -1948,6 +1973,7 @@
 	"\/public\/img\/drink\/Cream.jpg": {
 		"ft": 16384,
 		"iS": 5291,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/public\/img\/drink\/Cream.jpg",
 		"oF": 0,
@@ -1958,6 +1984,7 @@
 	"\/public\/img\/drink\/Drink.jpg": {
 		"ft": 16384,
 		"iS": 16472,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/public\/img\/drink\/Drink.jpg",
 		"oF": 0,
@@ -1968,6 +1995,7 @@
 	"\/public\/img\/drink\/Sugar.jpg": {
 		"ft": 16384,
 		"iS": 5034,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/public\/img\/drink\/Sugar.jpg",
 		"oF": 0,
@@ -2088,6 +2116,7 @@
 	"\/public\/img\/region\/Brazil2.jpg": {
 		"ft": 16384,
 		"iS": 346814,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/public\/img\/region\/Brazil2.jpg",
 		"oF": 0,
@@ -2098,6 +2127,7 @@
 	"\/public\/img\/region\/Brazil3.jpg": {
 		"ft": 16384,
 		"iS": 67424,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/public\/img\/region\/Brazil3.jpg",
 		"oF": 0,
@@ -2119,6 +2149,7 @@
 	"\/public\/img\/region\/Cambodia.jpg": {
 		"ft": 16384,
 		"iS": 227317,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/public\/img\/region\/Cambodia.jpg",
 		"oF": 0,
@@ -2140,6 +2171,7 @@
 	"\/public\/img\/region\/Columba3.jpg": {
 		"ft": 16384,
 		"iS": 28360,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/public\/img\/region\/Columba3.jpg",
 		"oF": 0,
@@ -2249,6 +2281,7 @@
 	"\/public\/img\/region\/Indonesia.jpg": {
 		"ft": 16384,
 		"iS": 595276,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/public\/img\/region\/Indonesia.jpg",
 		"oF": 0,
@@ -2424,6 +2457,7 @@
 	"\/public\/img\/region\/Yemen2.jpg": {
 		"ft": 16384,
 		"iS": 269637,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/public\/img\/region\/Yemen2.jpg",
 		"oF": 0,
@@ -2434,6 +2468,7 @@
 	"\/public\/img\/region\/Yunnan.jpg": {
 		"ft": 16384,
 		"iS": 65282,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/public\/img\/region\/Yunnan.jpg",
 		"oF": 0,
@@ -2554,6 +2589,7 @@
 	"\/public\/img\/roast\/Coffee-Bean-Roast-Levels.jpg": {
 		"ft": 16384,
 		"iS": 102472,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/public\/img\/roast\/Coffee-Bean-Roast-Levels.jpg",
 		"oF": 0,
@@ -2564,6 +2600,7 @@
 	"\/public\/img\/roast\/Coffee-Bean-Roast-Ready.jpg": {
 		"ft": 16384,
 		"iS": 29569,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/public\/img\/roast\/Coffee-Bean-Roast-Ready.jpg",
 		"oF": 0,
@@ -2585,6 +2622,7 @@
 	"\/public\/img\/roast\/FiveRoasts.jpeg": {
 		"ft": 16384,
 		"iS": 109783,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/public\/img\/roast\/FiveRoasts.jpg",
 		"oF": 0,
@@ -2639,6 +2677,7 @@
 	"\/public\/img\/roast\/Roasts.jpg": {
 		"ft": 16384,
 		"iS": 6398,
+		"jF": 0,
 		"oA": 0,
 		"oAP": "\/public\/img\/roast\/Roasts.jpg",
 		"oF": 0,
@@ -2655,6 +2694,17 @@
 		"oIPL": 1,
 		"opt": 1,
 		"oT": 1,
+		"q": 100
+		},
+	"\/public\/img\/summary\/Summary.jpg": {
+		"ft": 16384,
+		"iS": 6641,
+		"jF": 0,
+		"oA": 0,
+		"oAP": "\/public\/img\/summary\/Summary.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
 		"q": 100
 		},
 	"\/public\/index.html": {
@@ -2680,16 +2730,6 @@
 		"mi": 1,
 		"oA": 0,
 		"oAP": "\/public\/js\/jitter\/Brew-min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 0
-		},
-	"\/public\/js\/jitter\/Choices.js": {
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "\/public\/js\/jitter\/Choices-min.js",
 		"oF": 0,
 		"sC": 3,
 		"tS": 0
@@ -2760,6 +2800,16 @@
 		"mi": 1,
 		"oA": 0,
 		"oAP": "\/public\/js\/jitter\/Roast-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
+	"\/public\/js\/jitter\/Summary.js": {
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/public\/js\/jitter\/Summary-min.js",
 		"oF": 0,
 		"sC": 3,
 		"tS": 0
@@ -2858,7 +2908,7 @@
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
-		"oA": 0,
+		"oA": 1,
 		"oAP": "\/public\/js\/ui\/UI-min.js",
 		"oF": 0,
 		"sC": 3,
@@ -3104,6 +3154,13 @@
 		"oO": 0,
 		"oS": 1
 		},
+	"\/public\/webfonts\/fa-regular-400.woff": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 0,
+		"oAP": "\/public\/webfonts\/fa-regular-400.woff",
+		"oF": 0
+		},
 	"\/public\/webfonts\/fa-solid-900.woff2": {
 		"cB": 0,
 		"ft": 8192,
@@ -3138,7 +3195,8 @@
 	"creationDate": 541891933,
 	"displayValue": "jitter",
 	"displayValueWasSetByUser": 0,
-	"iconImageName": "meme-facepalm"
+	"iconImageName": "meme-facepalm",
+	"iconImageWasSetByUser": 0
 	},
 "projectSettings": {
 	"abortBuildOnError": 1,
@@ -4941,6 +4999,7 @@
 		"autoOutputPathReplace1": "",
 		"autoOutputPathReplace2": "",
 		"autoOutputPathStyle": 0,
+		"outputFormat": 0,
 		"quality": 100
 		},
 	"languageDefaultsJS": {

@@ -414,9 +414,9 @@
   color: #000000;
   font-family: Roboto, sans-serif;
   background-image: linear-gradient(to bottom, #c79eb3, #dabecc);
-  font-size: 6vh;
-  border-radius: 7.5vh;
-  padding: 2vh 2vh 2vh 2vh;
+  font-size: 6vmin;
+  border-radius: 7.5vmin;
+  padding: 2vmin 2vmin 2vmin 2vmin;
   display: inline;
   cursor: pointer;
   text-align: center;
@@ -426,9 +426,9 @@
   color: #000000;
   font-family: Roboto, sans-serif;
   background-image: linear-gradient(to bottom, #c79eb3, #dabecc);
-  font-size: 6vh;
-  border-radius: 6vh;
-  padding: 2vh 2vh 2vh 2vh;
+  font-size: 6vmin;
+  border-radius: 6vmin;
+  padding: 2vmin 2vmin 2vmin 2vmin;
   display: inline;
   cursor: pointer;
   text-align: center;
@@ -438,9 +438,9 @@
   color: #000000;
   font-family: Roboto, sans-serif;
   background-image: linear-gradient(to bottom, #c79eb3, #dabecc);
-  font-size: 6vh;
-  border-radius: 4.5vh;
-  padding: 2vh 2vh 2vh 2vh;
+  font-size: 6vmin;
+  border-radius: 4.5vmin;
+  padding: 2vmin 2vmin 2vmin 2vmin;
   display: inline;
   cursor: pointer;
   text-align: center;
@@ -450,9 +450,9 @@
   color: #000000;
   font-family: Roboto, sans-serif;
   background-image: linear-gradient(to bottom, #c79eb3, #dabecc);
-  font-size: 6vh;
-  border-radius: 4.5vh;
-  padding: 2vh 2vh 2vh 2vh;
+  font-size: 6vmin;
+  border-radius: 4.5vmin;
+  padding: 2vmin 2vmin 2vmin 2vmin;
   display: inline;
   cursor: pointer;
   text-align: center;
@@ -462,9 +462,9 @@
   color: #000000;
   font-family: Roboto, sans-serif;
   background-image: linear-gradient(to bottom, #c79eb3, #dabecc);
-  font-size: 6vh;
-  border-radius: 3vh;
-  padding: 2vh 2vh 2vh 2vh;
+  font-size: 6vmin;
+  border-radius: 3vmin;
+  padding: 2vmin 2vmin 2vmin 2vmin;
   display: inline;
   cursor: pointer;
   text-align: center;
@@ -474,9 +474,9 @@
   color: #000000;
   font-family: Roboto, sans-serif;
   background-image: linear-gradient(to bottom, #c79eb3, #dabecc);
-  font-size: 6vh;
-  border-radius: 3vh;
-  padding: 2vh 2vh 2vh 2vh;
+  font-size: 6vmin;
+  border-radius: 3vmin;
+  padding: 2vmin 2vmin 2vmin 2vmin;
   display: inline;
   cursor: pointer;
   text-align: center;
@@ -507,22 +507,22 @@
   color: #000000;
 }
 .btn-page i {
-  padding-right: 2vh;
+  padding-right: 2vmin;
 }
 .btn-pane i {
-  padding-right: 2vh;
+  padding-right: 2vmin;
 }
 .btn-over i {
-  padding-right: 2vh;
+  padding-right: 2vmin;
 }
 .btn-form i {
-  padding-right: 2vh;
+  padding-right: 2vmin;
 }
 .btn-grid i {
-  padding-right: 2vh;
+  padding-right: 2vmin;
 }
 .btn-link i {
-  padding-right: 2vh;
+  padding-right: 2vmin;
 }
 .btn-base:hover {
   color: yellow;
@@ -537,65 +537,128 @@
 }
 .btn-cool {
   transition: all 0s ease-out;
-  height: 6vh;
+  height: 6vmin;
   display: block;
   font-family: Roboto, sans-serif;
-  font-size: 2.3vh;
+  font-size: 2.3vmin;
   color: #fff;
   text-decoration: none;
   text-align: center;
-  text-shadow: 0 -0.2vh 0 rgba(0, 0, 0, 0.4);
-  padding: 2vh 4vh 0;
-  margin: 4vh auto;
+  text-shadow: 0 -0.2vmin 0 rgba(0, 0, 0, 0.4);
+  padding: 2vmin 4vmin;
+  margin: 4vmin auto;
   left: 0;
   position: relative;
   cursor: pointer;
   border: none;
-  border-top-right-radius: 1vh;
-  border-bottom-right-radius: 1vh;
-  border-left: solid 0.2vh #2E4476;
+  border-top-right-radius: 2vmin;
+  border-bottom-right-radius: 2vmin;
+  border-left: solid 0.2vmin #2E4476;
   background: #3B5999;
-  box-shadow: 0 1vh 0 0 #2E4476;
+  box-shadow: 0 1vmin 0 0 #2E4476;
 }
 .btn-cool img {
-  padding-bottom: 2.4vh;
-  padding-right: 2vh;
+  padding-bottom: 3.4vmin;
+  padding-right: 2vmin;
 }
 .btn-cool i {
-  padding-bottom: 2.4vh;
-  padding-right: 2vh;
+  padding-bottom: 3.4vmin;
+  padding-right: 2vmin;
 }
 .btn-cool div {
-  padding-bottom: 2.4vh;
+  padding-bottom: 3.4vmin;
 }
 .btn-cool:active,
 .btn-cool-active {
-  top: 0.6vh;
-  box-shadow: 0 1vh 0 0 #2E4476;
+  top: 0.6vmin;
+  box-shadow: 0 0.2vmin 0 0 #2E4476;
 }
-.btn-cool:before {
+.btn-cool::before {
   content: " ";
-  width: 6vh;
-  height: 4vh;
+  width: 6vmin;
+  height: 4vmin;
   display: block;
   position: absolute;
-  padding-top: 2vh;
-  line-height: 4vh;
+  padding-top: 2vmin;
+  line-height: 4vmin;
   top: 0;
-  margin-left: -11vh;
-  font-size: 1.61vh;
+  margin-left: -10vmin;
+  font-size: 1.61vmin;
   font-weight: bold;
-  border-top-left-radius: 1vh;
-  border-bottom-left-radius: 1vh;
-  border-right: solid 0.2vh #2E4476;
+  border-top-right-radius: 2vmin;
+  border-bottom-right-radius: 2vmin;
+  border-right: solid 0.4vmin #2E4476;
   background: #3B5999;
-  box-shadow: 0 1vh 0 0 #2E4476;
+  box-shadow: 0 1vmin 0 0 #2E4476;
 }
-.btn-cool:active:before,
-.btn-cool-active:before {
+.btn-cool:active::before,
+.btn-cool-active::before {
   content: "\2713";
-  top: -0.6vh;
-  box-shadow: 0 1vh 0 0 #2E4476, 1vh 1vh 0.2vh rgba(0, 0, 0, 0.3);
+  top: -0.6vmin;
+  box-shadow: 0 1vmin 0 0 #2E4476, 1vmin 1vmin 0.2vmin rgba(0, 0, 0, 0.3);
+}
+.btn-nice {
+  transition: all 0s ease-out;
+  height: 6vmin;
+  font-family: Roboto, sans-serif;
+  font-size: 2.3vmin;
+  color: #fff;
+  text-decoration: none;
+  text-align: center;
+  text-shadow: 0 -0.2vmin 0 rgba(0, 0, 0, 0.4);
+  margin: 4vmin auto;
+  left: 0;
+  position: relative;
+  cursor: pointer;
+  border: none;
+  border-radius: 2vmin;
+  border-left: solid 0.2vmin #2E4476;
+  background: #3B5999;
+  box-shadow: 0 1vmin 0 0 #2E4476;
+}
+.btn-nice:active,
+.btn-nice-active {
+  top: 0.6vmin;
+  box-shadow: 0 0.2vmin 0 0 #2E4476;
+}
+.btn-nice::before {
+  position: absolute;
+  left: 2vmin;
+  content: " ";
+}
+.btn-tall::before {
+  padding-top: 2vmin;
+}
+.btn-nice:active::before,
+.btn-nice-active::before {
+  content: "\2713";
+}
+.btn-nice .btn-table {
+  display: table;
+}
+.btn-nice .btn-align {
+  display: table-cell;
+  vertical-align: middle;
+}
+.btn-nice .btn-image {
+  float: left;
+  padding-left: 4vmin;
+  border-radius: 1vmin;
+}
+.btn-nice .btn-icons {
+  float: left;
+  padding-left: 4vmin;
+}
+.btn-nice .btn-label {
+  float: left;
+  padding-left: 2vmin;
+  text-align: center;
+}
+.btn-nice .btn-tall1 {
+  padding-top: 1vmin;
+}
+.btn-nice .btn-tall2 {
+  padding-top: 2vmin;
 }
 html {
   overflow: hidden;
@@ -3572,4 +3635,19 @@ html {
 .fas {
   font-family: 'Font Awesome 5 Free';
   font-weight: 900;
+}
+/*!
+ * Font Awesome Free 5.0.9 by @fontawesome - https://fontawesome.com
+ * License - https://fontawesome.com/license (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+ */
+@font-face {
+  font-family: 'Font Awesome 5 Free';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../webfonts/fa-regular-400.eot');
+  src: url('../webfonts/fa-regular-400.eot?#iefix') format('embedded-opentype'), url('../webfonts/fa-regular-400.woff2') format('woff2'), url('../webfonts/fa-regular-400.woff') format('woff'), url('../webfonts/fa-regular-400.ttf') format('truetype'), url('../webfonts/fa-regular-400.svg#fontawesome') format('svg');
+}
+.far {
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 400;
 }
