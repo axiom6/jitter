@@ -1,8 +1,7 @@
+import Dom  from '../ui/Dom.js';
 var Drink;
 
-import Dom from '../ui/Dom.js';
-
-export default Drink = class Drink {
+Drink = class Drink {
   constructor(stream, ui) {
     this.stream = stream;
     this.ui = ui;
@@ -23,3 +22,5 @@ export default Drink = class Drink {
   }
 
 };
+
+export default Drink;

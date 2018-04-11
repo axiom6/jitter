@@ -1,13 +1,10 @@
+import Util    from '../util/Util.js';
+import Tocs    from '../ui/Tocs.js';
+import View    from '../ui/View.js';
 var UI,
   hasProp = {}.hasOwnProperty;
 
-import Util from '../util/Util.js';
-
-import Tocs from '../ui/Tocs.js';
-
-import View from '../ui/View.js';
-
-export default UI = (function() {
+UI = (function() {
   class UI {
     constructor(stream, appFile) {
       var callback;
@@ -336,3 +333,5 @@ export default UI = (function() {
   return UI;
 
 }).call(this);
+
+export default UI;

@@ -1,5 +1,5 @@
 
-export default class Vis
+class Vis
   
   @rad:( deg ) -> deg * Math.PI / 180
   @deg:( rad ) -> rad * 180 / Math.PI
@@ -40,3 +40,5 @@ export default class Vis
 
   @interpolateRgb:( rgb1, r1, rgb2, r2 ) ->
     { r:rgb1.r * r1 + rgb2.r * r2, g:rgb1.g * r1 + rgb2.g * r2, b:rgb1.b * r1 + rgb2.b * r2 }
+
+`export default Vis`

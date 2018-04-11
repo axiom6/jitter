@@ -1,7 +1,7 @@
 
-import Util    from '../util/Util.js'
+`import Util    from '../util/Util.js'`
 
-export default class Color
+class Color
 
   #module.exports = Color
   #Color.Palettes = require( '/js/d3d/Palettes' )
@@ -561,3 +561,4 @@ export default class Color
       tempElement.remove();
   ###
 
+`export default Color`

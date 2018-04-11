@@ -1,8 +1,8 @@
 
-import UI   from '../ui/UI.js'
-import Dom  from '../ui/Dom.js'
+`import UI   from '../ui/UI.js'`
+`import Dom  from '../ui/Dom.js'`
 
-export default class Summary
+class Summary
 
   constructor:( @stream, @ui ) ->
     @ui.addContent( 'Summary', @ )
@@ -26,6 +26,7 @@ export default class Summary
   onChoice:( choice ) =>
     #console.log( 'Choice', choice )
     study  = @spec[choice.name]
+    return if not study?
     htmlId = UI.getHtmlId( choice.name, 'Choice',  choice.study )
     value  = if choice.value? then ":"+choice.value else ""
     if choice.intent is UI.AddChoice
@@ -40,3 +41,4 @@ export default class Summary
       study.$e.find('#'+htmlId).remove()
     return
 
+`export default Summary`

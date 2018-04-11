@@ -1,11 +1,9 @@
+import UI   from '../ui/UI.js';
+import Dom  from '../ui/Dom.js';
 var World,
   hasProp = {}.hasOwnProperty;
 
-import UI from '../ui/UI.js';
-
-import Dom from '../ui/Dom.js';
-
-export default World = class World {
+World = class World {
   constructor(stream, ui) {
     var callback;
     this.onClick = this.onClick.bind(this);
@@ -54,11 +52,11 @@ export default World = class World {
   onClick(event) {
     var $elem, offset, region, x, y;
     $elem = $(event.target);
-    offset = $elem.parent().offset();
+    offset = $elem.offset();
     x = (event.pageX - offset.left) * this.wImg / $elem.width();
     y = (event.pageY - offset.top) * this.hImg / $elem.height();
     region = this.findRegion(x, y);
-    //console.log( 'World.onClick()', { x:x, y:y, region:region } )
+    //console.log( 'World.onClick()', { x:x, y:y, w:$elem.width(), h:$elem.height(), l:offset.left, t:offset.top, region:region } )
     this.showRegion(region);
   }
 
@@ -82,21 +80,17 @@ export default World = class World {
   }
 
   showRegion(region) {
-    var flavor, i, len, ref, select;
+    var select;
     if (region.name === "None") {
       return;
     }
     select = UI.select('Region', 'World', UI.SelectStudy, region);
     this.stream.publish('Region', select);
-    if (false) { // region.Flavor?
-      ref = region.Flavor;
-      for (i = 0, len = ref.length; i < len; i++) {
-        flavor = ref[i];
-        console.log('World', flavor);
-        //choice = UI.select( 'Flavors', 'World', UI.AddChoice, flavor )
-        this.stream.publish('Flavors', flavor);
-      }
-    }
+    console.log('World.showRegion()', {
+      region: region
+    });
   }
 
 };
+
+export default World;

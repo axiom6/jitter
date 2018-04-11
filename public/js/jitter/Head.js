@@ -1,8 +1,7 @@
+import Dom  from '../ui/Dom.js';
 var Head;
 
-import Dom from '../ui/Dom.js';
-
-export default Head = class Head {
+Head = class Head {
   constructor(stream, ui, name) {
     this.stream = stream;
     this.ui = ui;
@@ -21,3 +20,5 @@ export default Head = class Head {
   }
 
 };
+
+export default Head;

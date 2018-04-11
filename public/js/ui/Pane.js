@@ -1,10 +1,8 @@
+import Util    from '../util/Util.js';
+import UI      from '../ui/UI.js';
 var Pane;
 
-import Util from '../util/Util.js';
-
-import UI from '../ui/UI.js';
-
-export default Pane = class Pane {
+Pane = class Pane {
   constructor(ui, stream, view, spec) {
     var i, j, m, n;
     this.animateCall = this.animateCall.bind(this);
@@ -221,3 +219,5 @@ export default Pane = class Pane {
   }
 
 };
+
+export default Pane;

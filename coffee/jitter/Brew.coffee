@@ -1,7 +1,7 @@
 
-import Dom from '../ui/Dom.js'
+`import Dom from '../ui/Dom.js'`
 
-export default class Brew
+class Brew
 
   constructor:( @stream, @ui ) ->
     @ui.addContent( 'Brew', @ )
@@ -16,6 +16,6 @@ export default class Brew
     @$view.append( """  #{Dom.image(0,10,100, 90,src,150)}""" )
     @$view
 
-
+`export default Brew`
 
 

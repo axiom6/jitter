@@ -1,7 +1,7 @@
 var Util,
   hasProp = {}.hasOwnProperty;
 
-export default Util = (function() {
+Util = (function() {
   class Util {
     // ------ Modules ------
     static init(moduleCommonJS = void 0, moduleWebPack = void 0, root = '../../') {
@@ -576,7 +576,7 @@ export default Util = (function() {
     static indent(n) {
       var i, j, ref, str;
       str = '';
-      for (i = j = 0, ref = n; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
+      for (i = j = 0, ref = n; (0 <= ref ? j < ref : j > ref); i = 0 <= ref ? ++j : --j) {
         str += ' ';
       }
       return str;
@@ -585,7 +585,7 @@ export default Util = (function() {
     static hashCode(str) {
       var hash, i, j, ref;
       hash = 0;
-      for (i = j = 0, ref = str.length; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
+      for (i = j = 0, ref = str.length; (0 <= ref ? j < ref : j > ref); i = 0 <= ref ? ++j : --j) {
         hash = (hash << 5) - hash + str.charCodeAt(i);
       }
       return hash;
@@ -1039,3 +1039,5 @@ export default Util = (function() {
   return Util;
 
 }).call(this);
+
+export default Util;

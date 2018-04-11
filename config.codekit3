@@ -36,8 +36,8 @@
 		"oA": 0,
 		"oAP": "\/public\/js\/jitter\/Body.js",
 		"oF": 0,
-		"oS": 0,
-		"sC": 1,
+		"oS": 1,
+		"sC": 0,
 		"tS": 0
 		},
 	"\/coffee\/jitter\/Brew.coffee": {
@@ -47,7 +47,7 @@
 		"oA": 0,
 		"oAP": "\/public\/js\/jitter\/Brew.js",
 		"oF": 0,
-		"oS": 0,
+		"oS": 1,
 		"sC": 0,
 		"tS": 0
 		},
@@ -58,7 +58,7 @@
 		"oA": 0,
 		"oAP": "\/public\/js\/jitter\/Drink.js",
 		"oF": 0,
-		"oS": 0,
+		"oS": 1,
 		"sC": 0,
 		"tS": 0
 		},
@@ -69,7 +69,7 @@
 		"oA": 0,
 		"oAP": "\/public\/js\/jitter\/Flavor.js",
 		"oF": 0,
-		"oS": 0,
+		"oS": 1,
 		"sC": 0,
 		"tS": 0
 		},
@@ -80,7 +80,7 @@
 		"oA": 0,
 		"oAP": "\/public\/js\/jitter\/Head.js",
 		"oF": 0,
-		"oS": 0,
+		"oS": 1,
 		"sC": 0,
 		"tS": 0
 		},
@@ -91,7 +91,7 @@
 		"oA": 0,
 		"oAP": "\/public\/js\/jitter\/Interact.js",
 		"oF": 0,
-		"oS": 0,
+		"oS": 1,
 		"sC": 0,
 		"tS": 0
 		},
@@ -102,7 +102,7 @@
 		"oA": 0,
 		"oAP": "\/public\/js\/jitter\/Jitter.js",
 		"oF": 0,
-		"oS": 0,
+		"oS": 1,
 		"sC": 0,
 		"tS": 0
 		},
@@ -113,7 +113,7 @@
 		"oA": 0,
 		"oAP": "\/public\/js\/jitter\/Region.js",
 		"oF": 0,
-		"oS": 0,
+		"oS": 1,
 		"sC": 0,
 		"tS": 0
 		},
@@ -124,7 +124,7 @@
 		"oA": 0,
 		"oAP": "\/public\/js\/jitter\/Roast.js",
 		"oF": 0,
-		"oS": 0,
+		"oS": 1,
 		"sC": 0,
 		"tS": 0
 		},
@@ -135,7 +135,7 @@
 		"oA": 0,
 		"oAP": "\/public\/js\/jitter\/Summary.js",
 		"oF": 0,
-		"oS": 0,
+		"oS": 1,
 		"sC": 0,
 		"tS": 0
 		},
@@ -146,7 +146,7 @@
 		"oA": 0,
 		"oAP": "\/public\/js\/jitter\/World.js",
 		"oF": 0,
-		"oS": 0,
+		"oS": 1,
 		"sC": 0,
 		"tS": 0
 		},
@@ -157,7 +157,7 @@
 		"oA": 0,
 		"oAP": "\/public\/js\/ui\/Dom.js",
 		"oF": 0,
-		"oS": 0,
+		"oS": 1,
 		"sC": 0,
 		"tS": 0
 		},
@@ -168,7 +168,7 @@
 		"oA": 0,
 		"oAP": "\/public\/js\/ui\/Group.js",
 		"oF": 0,
-		"oS": 0,
+		"oS": 1,
 		"sC": 0,
 		"tS": 0
 		},
@@ -179,7 +179,7 @@
 		"oA": 0,
 		"oAP": "\/public\/js\/ui\/Pane.js",
 		"oF": 2,
-		"oS": 0,
+		"oS": 1,
 		"sC": 0,
 		"tS": 0
 		},
@@ -190,7 +190,7 @@
 		"oA": 0,
 		"oAP": "\/public\/js\/ui\/Tocs.js",
 		"oF": 0,
-		"oS": 0,
+		"oS": 1,
 		"sC": 0,
 		"tS": 0
 		},
@@ -201,7 +201,7 @@
 		"oA": 0,
 		"oAP": "\/public\/js\/ui\/UI.js",
 		"oF": 0,
-		"oS": 0,
+		"oS": 1,
 		"sC": 0,
 		"tS": 0
 		},
@@ -212,7 +212,7 @@
 		"oA": 0,
 		"oAP": "\/public\/js\/ui\/View.js",
 		"oF": 0,
-		"oS": 0,
+		"oS": 1,
 		"sC": 0,
 		"tS": 0
 		},
@@ -223,7 +223,7 @@
 		"oA": 0,
 		"oAP": "\/public\/js\/util\/Color.js",
 		"oF": 0,
-		"oS": 0,
+		"oS": 1,
 		"sC": 0,
 		"tS": 0
 		},
@@ -234,7 +234,7 @@
 		"oA": 0,
 		"oAP": "\/public\/js\/util\/Database.js",
 		"oF": 0,
-		"oS": 0,
+		"oS": 1,
 		"sC": 0,
 		"tS": 0
 		},
@@ -245,7 +245,7 @@
 		"oA": 0,
 		"oAP": "\/public\/js\/util\/Stream.js",
 		"oF": 0,
-		"oS": 0,
+		"oS": 1,
 		"sC": 0,
 		"tS": 0
 		},
@@ -256,7 +256,7 @@
 		"oA": 0,
 		"oAP": "\/public\/js\/util\/Util.js",
 		"oF": 0,
-		"oS": 0,
+		"oS": 1,
 		"sC": 0,
 		"tS": 0
 		},
@@ -267,7 +267,7 @@
 		"oA": 0,
 		"oAP": "\/public\/js\/vis\/Vis.js",
 		"oF": 0,
-		"oS": 0,
+		"oS": 1,
 		"sC": 0,
 		"tS": 0
 		},
@@ -278,8 +278,8 @@
 		"oA": 0,
 		"oAP": "\/public\/js\/vis\/Wheel.js",
 		"oF": 0,
-		"oS": 0,
-		"sC": 1,
+		"oS": 1,
+		"sC": 0,
 		"tS": 0
 		},
 	"\/doc\/aaa\/CoffeeCare.txt": {
@@ -1136,7 +1136,7 @@
 		"oA": 0,
 		"oAP": "\/doc\/wheel\/Aroma.js",
 		"oF": 0,
-		"oS": 0,
+		"oS": 1,
 		"sC": 0,
 		"tS": 0
 		},
@@ -1154,7 +1154,7 @@
 		"oA": 0,
 		"oAP": "\/doc\/wheel\/Logo.js",
 		"oF": 0,
-		"oS": 0,
+		"oS": 1,
 		"sC": 0,
 		"tS": 0
 		},
@@ -1165,7 +1165,7 @@
 		"oA": 0,
 		"oAP": "\/doc\/wheel\/Page.js",
 		"oF": 0,
-		"oS": 0,
+		"oS": 1,
 		"sC": 0,
 		"tS": 0
 		},
@@ -1176,7 +1176,7 @@
 		"oA": 0,
 		"oAP": "\/doc\/wheel\/Radar.js",
 		"oF": 0,
-		"oS": 0,
+		"oS": 1,
 		"sC": 0,
 		"tS": 0
 		},
@@ -1194,7 +1194,7 @@
 		"oA": 0,
 		"oAP": "\/doc\/wheel\/RoastOld.js",
 		"oF": 0,
-		"oS": 0,
+		"oS": 1,
 		"sC": 0,
 		"tS": 0
 		},
@@ -1226,7 +1226,7 @@
 		"oA": 0,
 		"oAP": "\/doc\/wheel\/Wheel1.js",
 		"oF": 0,
-		"oS": 0,
+		"oS": 1,
 		"sC": 0,
 		"tS": 0
 		},
@@ -1247,7 +1247,7 @@
 		"oA": 0,
 		"oAP": "\/doc\/wheel\/WheelColor.js",
 		"oF": 0,
-		"oS": 0,
+		"oS": 1,
 		"sC": 0,
 		"tS": 0
 		},
@@ -4952,7 +4952,7 @@
 		"autoOutputPathStyle": 3,
 		"createSourceMap": 0,
 		"minifyOutput": 0,
-		"outputStyle": 0,
+		"outputStyle": 1,
 		"syntaxCheckerStyle": 0,
 		"transpilerStyle": 0
 		},

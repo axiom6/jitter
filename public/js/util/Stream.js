@@ -1,9 +1,8 @@
+import Util    from '../util/Util.js';
 var Stream,
   indexOf = [].indexOf;
 
-import Util from '../util/Util.js';
-
-export default Stream = (function() {
+Stream = (function() {
   class Stream {
     constructor(subjectNames = Stream.SubjectNames) {
       var i, len, name, ref;
@@ -253,3 +252,4 @@ subject.mapTo( topic )
 @resetSubject( name, subject )
 return
  */
+export default Stream;

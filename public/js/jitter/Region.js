@@ -1,10 +1,8 @@
+import Util from '../util/Util.js';
+import Dom  from '../ui/Dom.js';
 var Region;
 
-import Util from '../util/Util.js';
-
-import Dom from '../ui/Dom.js';
-
-export default Region = class Region {
+Region = class Region {
   constructor(stream, ui) {
     this.onRegion = this.onRegion.bind(this);
     this.stream = stream;
@@ -52,3 +50,5 @@ export default Region = class Region {
   }
 
 };
+
+export default Region;

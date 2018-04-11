@@ -1,10 +1,8 @@
+import UI   from '../ui/UI.js';
+import Dom  from '../ui/Dom.js';
 var Summary;
 
-import UI from '../ui/UI.js';
-
-import Dom from '../ui/Dom.js';
-
-export default Summary = class Summary {
+Summary = class Summary {
   constructor(stream, ui) {
     this.onChoice = this.onChoice.bind(this);
     this.stream = stream;
@@ -37,6 +35,9 @@ export default Summary = class Summary {
     var htmlId, study, value;
     //console.log( 'Choice', choice )
     study = this.spec[choice.name];
+    if (study == null) {
+      return;
+    }
     htmlId = UI.getHtmlId(choice.name, 'Choice', choice.study);
     value = choice.value != null ? ":" + choice.value : "";
     if (choice.intent === UI.AddChoice) {
@@ -58,3 +59,5 @@ export default Summary = class Summary {
   }
 
 };
+
+export default Summary;

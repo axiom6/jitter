@@ -1,13 +1,10 @@
+import Util from '../util/Util.js';
+import UI   from '../ui/UI.js';
+import Dom  from '../ui/Dom.js';
 var Interact,
   hasProp = {}.hasOwnProperty;
 
-import Util from '../util/Util.js';
-
-import UI from '../ui/UI.js';
-
-import Dom from '../ui/Dom.js';
-
-export default Interact = class Interact {
+Interact = class Interact {
   constructor(stream1, ui, name, specInteract) {
     this.onEvents = this.onEvents.bind(this);
     this.stream = stream1;
@@ -116,8 +113,8 @@ export default Interact = class Interact {
   }
 
   onEvents(stream, $e, key, study) {
-    $e.on('click', (event) => {
-      return this.doClick(stream, $e, key, study);
+    $e.on('click', () => {
+      return this.doClick(stream, $e, key, study); // (event)
     });
     $e.on('mouseenter', () => {
       return this.doEnter($e, study);
@@ -128,3 +125,5 @@ export default Interact = class Interact {
   }
 
 };
+
+export default Interact;

@@ -1,9 +1,9 @@
 
-import Util    from '../util/Util.js'
-import UI      from '../ui/UI.js'
-import Pane    from '../ui/Pane.js'
+`import Util    from '../util/Util.js'`
+`import UI      from '../ui/UI.js'`
+`import Pane    from '../ui/Pane.js'`
 
-export default class Group extends Pane
+class Group extends Pane
 
   constructor:( ui, stream, view, spec ) ->
     super(      ui, stream, view, spec )
@@ -103,3 +103,5 @@ export default class Group extends Pane
   animate:( left, top, width, height, parent=null, callback=null ) ->
     @$.animate( { left:@pc(left), top:@pc(top), width:@pc(width), height:@pc(height) }, @speed, () => callback(@) if callback? )
     return
+
+`export default Group`

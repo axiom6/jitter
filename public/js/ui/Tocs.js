@@ -1,11 +1,9 @@
+import Util    from '../util/Util.js';
+import UI      from '../ui/UI.js';
 var Tocs,
   hasProp = {}.hasOwnProperty;
 
-import Util from '../util/Util.js';
-
-import UI from '../ui/UI.js';
-
-export default Tocs = (function() {
+Tocs = (function() {
   class Tocs {
     constructor(ui, stream, practices1) {
       this.ui = ui;
@@ -147,7 +145,7 @@ export default Tocs = (function() {
       var htm, i, j, ref;
       this.specs[0].ulId = this.htmlId(this.specs[0], 'UL');
       htm = `<ul class="${this.classPrefix}ul0" id="${this.specs[0].ulId}">`;
-      for (i = j = 1, ref = this.specs.length; 1 <= ref ? j < ref : j > ref; i = 1 <= ref ? ++j : --j) {
+      for (i = j = 1, ref = this.specs.length; (1 <= ref ? j < ref : j > ref); i = 1 <= ref ? ++j : --j) {
         htm += this.process(i);
       }
       return htm;
@@ -170,7 +168,7 @@ export default Tocs = (function() {
         htm += this.htmlBeg(spec);
         this.stack[spec.level] = spec;
       } else {
-        for (level = j = ref = prev.level, ref1 = spec.level; ref <= ref1 ? j <= ref1 : j >= ref1; level = ref <= ref1 ? ++j : --j) {
+        for (level = j = ref = prev.level, ref1 = spec.level; (ref <= ref1 ? j <= ref1 : j >= ref1); level = ref <= ref1 ? ++j : --j) {
           if (this.stack[level] != null) {
             htm += this.htmlEnd(this.stack[level]);
           }
@@ -228,19 +226,19 @@ export default Tocs = (function() {
     update(spec) {
       var j, k, l, last, level, ref, ref1, ref2;
       this.stack[spec.level] = spec;
-      // Build stack to turn on spec levels
+// Build stack to turn on spec levels
       for (level = j = ref = spec.level; j >= 2; level = j += -1) {
         this.stack[level - 1] = this.stack[level].parent;
       }
       last = this.last;
-      // Turn off items that are different or below level
+// Turn off items that are different or below level
       for (level = k = ref1 = this.last.level; k >= 1; level = k += -1) {
         if (last.name !== this.stack[level].name || level > spec.level) {
           this.reveal(last);
         }
         last = last.parent;
       }
-      // Turn  on  items in the spec stack
+// Turn  on  items in the spec stack
       for (level = l = 1, ref2 = spec.level; l <= ref2; level = l += 1) {
         if (!this.stack[level].on) {
           this.reveal(this.stack[level]);
@@ -270,3 +268,5 @@ export default Tocs = (function() {
   return Tocs;
 
 }).call(this);
+
+export default Tocs;

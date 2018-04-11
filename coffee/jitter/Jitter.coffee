@@ -1,23 +1,23 @@
 
-import Util     from '../util/Util.js'
-import Stream   from '../util/Stream.js'
-import UI       from '../ui/UI.js'
-import Head     from '../jitter/Head.js'
-import Flavor   from '../jitter/Flavor.js'
-import Interact from '../jitter/Interact.js'
-import Summary  from '../jitter/Summary.js'
-import Roast    from '../jitter/Roast.js'
-import Drink    from '../jitter/Drink.js'
-import Body     from '../jitter/Body.js'
-import Brew     from '../jitter/Brew.js'
-import World    from '../jitter/World.js'
-import Region   from '../jitter/Region.js'
+`import Util     from '../util/Util.js'`
+`import Stream   from '../util/Stream.js'`
+`import UI       from '../ui/UI.js'`
+`import Head     from '../jitter/Head.js'`
+`import Flavor   from '../jitter/Flavor.js'`
+`import Interact from '../jitter/Interact.js'`
+`import Summary  from '../jitter/Summary.js'`
+`import Roast    from '../jitter/Roast.js'`
+`import Drink    from '../jitter/Drink.js'`
+`import Body     from '../jitter/Body.js'`
+`import Brew     from '../jitter/Brew.js'`
+`import World    from '../jitter/World.js'`
+`import Region   from '../jitter/Region.js'`
 
-export default class Jitter
+class Jitter
 
   @init = () ->
     Util.ready ->
-      subjects = ['Select','Choice',"Region","Flavors"]
+      subjects = ["Select","Choice","Region"]
       stream   = new Stream( subjects )
       ui       = new UI( stream, "json/toc.json" )
       jitter   = new Jitter( stream, ui )
@@ -46,4 +46,6 @@ export default class Jitter
 
 #console.log( 'window', window )
 Jitter.init()
+
+`export default Jitter`
 

@@ -1,15 +1,15 @@
 
-import UI    from '../ui/UI.js'
+`import UI    from '../ui/UI.js'`
+`import Dom   from '../ui/Dom.js'`
+`import Vis   from '../vis/Vis.js'`
+`import Wheel from '../vis/Wheel.js'`
 
-import Dom   from '../ui/Dom.js'
-import Vis   from '../vis/Vis.js'
-import Wheel from '../vis/Wheel.js'
-
-export default class Flavor
+class  Flavor
 
   constructor:( @stream, @ui, @name ) ->
     @ui.addContent( @name, @ )
     @wheel = new Wheel( @stream )
+    @prevRegion = null
     @srcLg = "img/logo/JitterBoxHead.png"
     @srcRx = "img/logo/JitterBoxRx.png"
     @srcRy = "img/logo/JitterBoxRy.png"
@@ -18,7 +18,7 @@ export default class Flavor
     url   = "json/flavor.choice.json"
     scale = 1.3
     divId = UI.getHtmlId( "Wheel", @pane.name )
-    $p = @pane.$
+    #p = @pane.$
     #p.append( """     #{Dom.image( 0, 0,100, 10,@srcLg,15,"","24px") }""" )
     #p.append( """     #{Dom.image(-4, 0, 15, 10,@srcRy,30,"","24px") }""" )
     #p.append( """     #{Dom.image(75, 0, 15, 10,@srcRx,30,"","24px") }""" )
@@ -35,13 +35,22 @@ export default class Flavor
     @wheel.resize()
 
   subscribe:( name ) ->
-    @stream.subscribe( 'Flavors', (flavor) => @onFlavors(flavor) ) if name is 'Flavors'
+    @stream.subscribe( 'Region', (select) => @onRegion(select) ) if name is 'Flavors'
     return
 
-  onFlavors:( flavor ) =>
-    console.log( 'Flavor', flavor )
-    d = @wheel.lookup[flavor]
-    @wheel.magnify( d, 'click' ) if d?
+  onRegion:( select ) =>
+    region = select.study
+    console.log( 'Flavors.onRegion()', { name:region.name, flavors:region.flavors } ) if region?
+    return if true
+    if @prevRegion? and @prevRegion.flavors?
+      for  flavor  in   @prevRegion.flavors
+        d = @wheel.lookup[flavor]
+        @wheel.magnify( d, 'click' ) if d?
+    if region? and  region.flavors?
+      for flavor in region.flavors
+        d = @wheel.lookup[flavor]
+        @wheel.magnify( d, 'click' ) if d?
+      @prevRegion = region
     return
 
   readyView:() ->
@@ -51,6 +60,5 @@ export default class Flavor
     @$view.append( """     #{Dom.image(0,10,100, 90,src,150)}""" )
     @$view
 
-
-
+`export default Flavor`
 

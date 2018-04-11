@@ -1,8 +1,8 @@
 
-import Util    from '../util/Util.js'
-import UI      from '../ui/UI.js'
+`import Util    from '../util/Util.js'`
+`import UI      from '../ui/UI.js'`
 
-export default class Dom
+class Dom
 
   @choiceColor = "yellow"
   @hoverColor  = "wheat"
@@ -143,3 +143,5 @@ export default class Dom
       $p.append( study.$e )
       y =   y + dy
     $p
+
+`export default Dom`

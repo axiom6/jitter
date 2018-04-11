@@ -1,12 +1,9 @@
+import Util    from '../util/Util.js';
+import UI      from '../ui/UI.js';
+import Pane    from '../ui/Pane.js';
 var Group;
 
-import Util from '../util/Util.js';
-
-import UI from '../ui/UI.js';
-
-import Pane from '../ui/Pane.js';
-
-export default Group = class Group extends Pane {
+Group = class Group extends Pane {
   constructor(ui, stream, view, spec) {
     super(ui, stream, view, spec);
     this.panes = []; // @collectPanes( ) Done by grouping
@@ -189,3 +186,5 @@ export default Group = class Group extends Pane {
   }
 
 };
+
+export default Group;

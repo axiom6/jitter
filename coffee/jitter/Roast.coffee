@@ -1,10 +1,10 @@
 
-import Util    from '../util/Util.js'
-import UI      from '../ui/UI.js'
-import Dom     from '../ui/Dom.js'
-import Vis     from '../vis/Vis.js'
+`import Util    from '../util/Util.js'`
+`import UI      from '../ui/UI.js'`
+`import Dom     from '../ui/Dom.js'`
+`import Vis     from '../vis/Vis.js'`
 
-export default class Roast
+class Roast
 
   Roast.Table = {
     "1":{ color:"#dba34e", img:"1d.png", name:"Blonde",   style:"Half City"      },
@@ -110,3 +110,4 @@ export default class Roast
     htm += """<img style="display:block; margin-left:auto; margin-right:auto;  width:100%; max-height:#{mh}vmin; border-radius:24px;" src="#{src}"/>""" if src?
     htm
 
+`export default Roast`

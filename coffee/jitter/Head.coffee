@@ -1,7 +1,7 @@
 
-import Dom  from '../ui/Dom.js'
+`import Dom  from '../ui/Dom.js'`
 
-export default class Head
+class Head
 
   constructor:( @stream, @ui, @name ) ->
     @ui.addContent( @name, @ )
@@ -12,5 +12,7 @@ export default class Head
 
   readyView:() ->
     @readyPane()
+
+`export default Head`
 
 

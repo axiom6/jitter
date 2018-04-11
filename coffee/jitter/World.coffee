@@ -1,8 +1,8 @@
 
-import UI   from '../ui/UI.js'
-import Dom  from '../ui/Dom.js'
+`import UI   from '../ui/UI.js'`
+`import Dom  from '../ui/Dom.js'`
 
-export default class World
+class World
 
   constructor:( @stream, @ui ) ->
     @ui.addContent( 'World', @ )
@@ -33,11 +33,11 @@ export default class World
 
   onClick:( event ) =>
     $elem  = $(event.target)
-    offset = $elem.parent().offset()
+    offset = $elem.offset()
     x = ( event.pageX - offset.left ) * @wImg / $elem.width()
     y = ( event.pageY - offset.top  ) * @hImg / $elem.height()
     region = @findRegion( x, y )
-    #console.log( 'World.onClick()', { x:x, y:y, region:region } )
+    #console.log( 'World.onClick()', { x:x, y:y, w:$elem.width(), h:$elem.height(), l:offset.left, t:offset.top, region:region } )
     @showRegion( region )
     return
 
@@ -55,10 +55,7 @@ export default class World
     return if  region.name is "None"
     select = UI.select( 'Region', 'World', UI.SelectStudy, region )
     @stream.publish(    'Region', select )
-    if false # region.Flavor?
-      for flavor in region.Flavor
-        console.log( 'World', flavor )
-        #choice = UI.select( 'Flavors', 'World', UI.AddChoice, flavor )
-        @stream.publish(    'Flavors', flavor )
+    console.log( 'World.showRegion()', { region:region } )
     return
 
+`export default World`

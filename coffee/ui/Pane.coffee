@@ -1,8 +1,8 @@
 
-import Util    from '../util/Util.js'
-import UI      from '../ui/UI.js'
+`import Util    from '../util/Util.js'`
+`import UI      from '../ui/UI.js'`
 
-export default class Pane
+class Pane
 
   constructor:( @ui, @stream, @view, @spec ) ->
     @spec.pane   = @
@@ -113,3 +113,5 @@ export default class Pane
     @geo = @geom()
     @page.onSelect( @, select ) if @page?
     return
+
+`export default Pane`

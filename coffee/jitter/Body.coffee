@@ -1,7 +1,7 @@
 
-import Dom from '../ui/Dom.js'
+`import Dom from '../ui/Dom.js'`
 
-export default class Body
+class Body
 
   constructor:( @stream, @ui ) ->
     @ui.addContent( 'Body', @ )
@@ -15,3 +15,5 @@ export default class Body
     @$view.append( "<h1 #{Dom.label(0, 0,100, 10)}>Body</h1>" )
     @$view.append( """  #{Dom.image(0,10,100, 90,src,150)}""" )
     @$view
+
+`export default Body`

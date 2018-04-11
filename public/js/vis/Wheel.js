@@ -1,12 +1,9 @@
+import Util from '../util/Util.js';
+import UI   from '../ui/UI.js';
+import Dom  from '../ui/Dom.js';
 var Wheel;
 
-import Util from '../util/Util.js';
-
-import UI from '../ui/UI.js';
-
-import Dom from '../ui/Dom.js';
-
-export default Wheel = class Wheel {
+Wheel = class Wheel {
   constructor(stream) {
     this.adjustRadius = this.adjustRadius.bind(this);
     this.xc = this.xc.bind(this);
@@ -224,7 +221,7 @@ export default Wheel = class Wheel {
   fill(d) {
     var a, b, colours;
     // console.log( 'fill', d )
-    if (d.data.fill != null) {
+    if ((d.data.fill != null) && (d.children != null)) {
       return d.data.fill;
     } else if ((d.data.fill != null) && (d.children == null) && (d.parent != null) && (d.parent.data.fill != null)) {
       return d.parent.data.fill;
@@ -235,7 +232,7 @@ export default Wheel = class Wheel {
       // L*a*b* might be better here...
       return d3.hsl((a.h + b.h) / 2, a.s * 1.2, a.l / 1.2);
     } else {
-      return '#666666'; //and d.children?
+      return '#666666';
     }
   }
 
@@ -392,7 +389,7 @@ export default Wheel = class Wheel {
     var addDel, choice;
     elem.chosen = elem.chosen ? false : true;
     addDel = elem.chosen ? UI.AddChoice : UI.DelChoice;
-    if (elem.chosen && this.numChoices >= this.maxChoices) {
+    if (false) { // elem.chosen and @numChoices >= @maxChoices
       alert(`You can only make ${this.maxChoices} choices for Flavor`);
       elem.chosen = false;
       return 'none';
@@ -465,3 +462,5 @@ export default Wheel = class Wheel {
   }
 
 };
+
+export default Wheel;

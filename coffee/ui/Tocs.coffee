@@ -1,8 +1,8 @@
 
-import Util    from '../util/Util.js'
-import UI      from '../ui/UI.js'
+`import Util    from '../util/Util.js'`
+`import UI      from '../ui/UI.js'`
 
-export default class Tocs
+class Tocs
 
   Tocs.MaxTocLevel  = 12
 
@@ -162,3 +162,5 @@ export default class Tocs
     else
       spec.$elem.css( color: if spec.on then '#FFFF00' else '#FFFFFF' )
     return
+
+`export default Tocs`

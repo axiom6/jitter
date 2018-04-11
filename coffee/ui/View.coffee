@@ -1,10 +1,10 @@
 
-import Util    from '../util/Util.js'
-import UI      from '../ui/UI.js'
-import Pane    from '../ui/Pane.js'
-import Group   from '../ui/Group.js'
+`import Util    from '../util/Util.js'`
+`import UI      from '../ui/UI.js'`
+`import Pane    from '../ui/Pane.js'`
+`import Group   from '../ui/Group.js'`
 
-export default class View
+class View
 
   constructor:( @ui, @stream, @specs ) ->
     @speed       = 400
@@ -205,3 +205,5 @@ export default class View
     [ju,mu,iu,nu] = UI.jmin( unionCells )
     [ja,ma,ia,na] = UI.jmin(   allCells )
     [ (ju-ja)*ma/mu, ma, (iu-ia)*na/nu, na ]
+
+`export default View`

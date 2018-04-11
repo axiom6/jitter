@@ -1,11 +1,9 @@
+import Util    from '../util/Util.js';
+import UI      from '../ui/UI.js';
 var Dom,
   hasProp = {}.hasOwnProperty;
 
-import Util from '../util/Util.js';
-
-import UI from '../ui/UI.js';
-
-export default Dom = (function() {
+Dom = (function() {
   class Dom {
     static panel(x, y, w, h, align = "center") {
       return `class="panel" style="position:relative; left:${x}%; top:${y}%; width:${w}%; height:${h}%; text-align:${align};" `;
@@ -235,3 +233,5 @@ export default Dom = (function() {
   return Dom;
 
 }).call(this);
+
+export default Dom;

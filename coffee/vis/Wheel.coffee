@@ -1,9 +1,9 @@
 
-import Util from '../util/Util.js'
-import UI   from '../ui/UI.js'
-import Dom  from '../ui/Dom.js'
+`import Util from '../util/Util.js'`
+`import UI   from '../ui/UI.js'`
+`import Dom  from '../ui/Dom.js'`
 
-export default class Wheel
+class Wheel
 
   constructor:( @stream ) ->
     @numChoices    = 0
@@ -138,7 +138,7 @@ export default class Wheel
 
   fill:(d) =>
     # console.log( 'fill', d )
-    if d.data.fill? #and d.children?
+    if d.data.fill? and d.children?
       d.data.fill
     else if  d.data.fill? and not d.children? and d.parent?  and d.parent.data.fill?
       d.parent.data.fill
@@ -234,7 +234,7 @@ export default class Wheel
   chooseElem:( elem ) =>
     elem.chosen = if elem.chosen then false           else true
     addDel      = if elem.chosen then UI.AddChoice    else UI.DelChoice
-    if elem.chosen and @numChoices >= @maxChoices
+    if false # elem.chosen and @numChoices >= @maxChoices
       alert( "You can only make #{@maxChoices} choices for Flavor" )
       elem.chosen = false
       return 'none'
@@ -283,3 +283,5 @@ export default class Wheel
         (t) => ( @xx.domain(xd(t)); @yy.domain(yd(t)).range(yr(t)) ) )
     .selectAll("path")
       .attrTween( "d", (d) => ( () => @arc(d) ) )
+
+`export default Wheel`

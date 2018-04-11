@@ -1,7 +1,7 @@
 
-import Util    from '../util/Util.js'
+`import Util    from '../util/Util.js'`
 
-export default class Database
+class Database
 
   @localImageURI = 'http://localhost:63342/ui/img/aaa'
   @localDataURI  = 'http://localhost:63342/ui/data'
@@ -64,7 +64,7 @@ export default class Database
   @read:( url, doJson ) ->
     if Util.isObj( url )
       Database.readFile( url, doJson )
-    else if 'file:' is Util.parseURI( uri ).protocol
+    else if 'file:' is Util.parseURI( url ).protocol
       Database.readRequire( url, doJson )
     else
       Database.readAjax( url, doJson )
@@ -107,3 +107,5 @@ export default class Database
     rest.select( table )
     rest.subscribe( table, 'none', 'select', doData )
   ###
+
+`export default Database`

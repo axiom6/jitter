@@ -1,8 +1,7 @@
+import Util    from '../util/Util.js';
 var Database;
 
-import Util from '../util/Util.js';
-
-export default Database = (function() {
+Database = (function() {
   class Database {
     //nodejDataURI = 'file:../../data'
     static dataURI() {
@@ -17,7 +16,7 @@ export default Database = (function() {
     static read(url, doJson) {
       if (Util.isObj(url)) {
         Database.readFile(url, doJson);
-      } else if ('file:' === Util.parseURI(uri).protocol) {
+      } else if ('file:' === Util.parseURI(url).protocol) {
         Database.readRequire(url, doJson);
       } else {
         Database.readAjax(url, doJson);
@@ -149,3 +148,4 @@ rest.remember()
 rest.select( table )
 rest.subscribe( table, 'none', 'select', doData )
 */
+export default Database;

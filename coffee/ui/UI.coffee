@@ -1,9 +1,9 @@
 
-import Util    from '../util/Util.js'
-import Tocs    from '../ui/Tocs.js'
-import View    from '../ui/View.js'
+`import Util    from '../util/Util.js'`
+`import Tocs    from '../ui/Tocs.js'`
+`import View    from '../ui/View.js'`
 
-export default class UI
+class UI
 
   UI.hasTocs      = false
   UI.$empty       = $() # Empty jQuery singleton for intialization
@@ -197,3 +197,5 @@ export default class UI
     [j1,m1,i1,n1] = UI.jmin( cells1 )
     [j2,m2,i2,n2] = UI.jmin( cells2 )
     [ Math.max(j1,j2)+1, Math.min(j1+m1,j2+m2), Math.max(i1,i2)+1, Math.min(i1+n1,i2+n2) ]
+
+`export default UI`

@@ -1,8 +1,7 @@
+import Util    from '../util/Util.js';
 var Color;
 
-import Util from '../util/Util.js';
-
-export default Color = (function() {
+Color = (function() {
   class Color {
     //module.exports = Color
     //Color.Palettes = require( '/js/d3d/Palettes' )
@@ -996,3 +995,4 @@ var character = window.getComputedStyle(
 ).getPropertyValue('content');
 tempElement.remove();
 */
+export default Color;

@@ -1,15 +1,11 @@
+import Util    from '../util/Util.js';
+import UI      from '../ui/UI.js';
+import Dom     from '../ui/Dom.js';
+import Vis     from '../vis/Vis.js';
 var Roast,
   hasProp = {}.hasOwnProperty;
 
-import Util from '../util/Util.js';
-
-import UI from '../ui/UI.js';
-
-import Dom from '../ui/Dom.js';
-
-import Vis from '../vis/Vis.js';
-
-export default Roast = (function() {
+Roast = (function() {
   class Roast {
     constructor(stream, ui) {
       this.doInput = this.doInput.bind(this);
@@ -194,3 +190,5 @@ export default Roast = (function() {
   return Roast;
 
 }).call(this);
+
+export default Roast;

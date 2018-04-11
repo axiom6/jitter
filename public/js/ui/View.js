@@ -1,15 +1,11 @@
+import Util    from '../util/Util.js';
+import UI      from '../ui/UI.js';
+import Pane    from '../ui/Pane.js';
+import Group   from '../ui/Group.js';
 var View,
   hasProp = {}.hasOwnProperty;
 
-import Util from '../util/Util.js';
-
-import UI from '../ui/UI.js';
-
-import Pane from '../ui/Pane.js';
-
-import Group from '../ui/Group.js';
-
-export default View = class View {
+View = class View {
   constructor(ui, stream, specs1) {
     this.resize = this.resize.bind(this);
     this.ui = ui;
@@ -359,3 +355,5 @@ export default View = class View {
   }
 
 };
+
+export default View;

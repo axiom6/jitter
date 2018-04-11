@@ -1,7 +1,7 @@
 
-import Util    from '../util/Util.js'
+`import Util    from '../util/Util.js'`
 
-export default class Stream
+class Stream
 
   Stream.SubjectNames  = ['Select','Content','Connect','Test','Plane','About','Slide',
                           'Cursor','Navigate','Settings','Submit','Toggle','Layout']
@@ -175,3 +175,5 @@ export default class Stream
     @resetSubject( name, subject )
     return
   ###
+
+`export default Stream`

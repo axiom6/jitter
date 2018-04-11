@@ -1,9 +1,9 @@
 
-import Util from '../util/Util.js'
-import UI   from '../ui/UI.js'
-import Dom  from '../ui/Dom.js'
+`import Util from '../util/Util.js'`
+`import UI   from '../ui/UI.js'`
+`import Dom  from '../ui/Dom.js'`
 
-export default class Interact
+class Interact
 
   constructor:( @stream, @ui, @name, @specInteract ) ->
     @ui.addContent( @name, @ )
@@ -76,6 +76,8 @@ export default class Interact
   doLeave:( $e, study ) -> $e.css( { color:Dom.basisColor } ) if not study?.chosen
 
   onEvents:( stream, $e, key, study ) =>
-    $e.on( 'click',      (event) => @doClick( stream, $e, key, study ) )
-    $e.on( 'mouseenter', (     ) => @doEnter( $e, study ) )
-    $e.on( 'mouseleave', (     ) => @doLeave( $e, study ) )
+    $e.on( 'click',      () => @doClick( stream, $e, key, study ) ) # (event)
+    $e.on( 'mouseenter', () => @doEnter( $e, study ) )
+    $e.on( 'mouseleave', () => @doLeave( $e, study ) )
+
+`export default Interact`

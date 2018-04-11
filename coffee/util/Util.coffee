@@ -1,6 +1,6 @@
 
 
-export default class Util
+class Util
 
   Util.myVar      =  'myVar'
   Util.skipReady  =  false
@@ -646,6 +646,7 @@ export default class Util
     document.body.removeChild(downloadLink)
     return
 
+`export default Util`
 
 
 

@@ -1,8 +1,8 @@
 
-import Util from '../util/Util.js'
-import Dom  from '../ui/Dom.js'
+`import Util from '../util/Util.js'`
+`import Dom  from '../ui/Dom.js'`
 
-export default class Region
+class Region
 
   constructor:( @stream, @ui ) ->
     @ui.addContent( 'Region', @ )
@@ -38,3 +38,5 @@ export default class Region
       @$image.hide()
       @$label.text(label).show()
     return
+
+`export default Region`

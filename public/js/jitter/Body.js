@@ -1,8 +1,7 @@
+import Dom from '../ui/Dom.js';
 var Body;
 
-import Dom from '../ui/Dom.js';
-
-export default Body = class Body {
+Body = class Body {
   constructor(stream, ui) {
     this.stream = stream;
     this.ui = ui;
@@ -23,3 +22,5 @@ export default Body = class Body {
   }
 
 };
+
+export default Body;
