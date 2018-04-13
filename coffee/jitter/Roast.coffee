@@ -95,11 +95,14 @@ class Roast
     study.chosen = if not ( study.chosen? or study.chosen ) then true else false
     addDel       = if study.chosen then UI.AddChoice    else UI.DelChoice
     color        = if study.chosen then Dom.choiceColor else Dom.basisColor
-    choice = UI.select( 'Roast', 'Jitter', addDel, name )
-    choice.value = v if v?
-    #choice.$click = $e if $e?
-    #console.log( "Roast.publish", choice )
-    @stream.publish( 'Choice', choice )
+    @spec.num++
+    if @spec.num <= @spec.max
+      choice = UI.select( 'Roast', 'Roast', addDel, name )
+      choice.value = v if v?
+      @stream.publish( 'Choice', choice )
+    else
+      @spec.num--
+      alert( "You can only make #{@spec.max} choices for Roast" )
     color
 
   # Not used

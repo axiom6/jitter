@@ -9,7 +9,7 @@ Brew = class Brew {
   }
 
   readyPane() {
-    return Dom.vertBtns(this.stream, this.spec, 'img/brew/', 80, 0, 6);
+    return Dom.vertBtns(this.stream, this.spec, 'img/brew/', 84, 0, 6);
   }
 
   readyView() {

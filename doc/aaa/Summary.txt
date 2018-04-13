@@ -1,0 +1,44 @@
+
+1. Map
+  +a. Fix the World map so that the mouse clicks select the countries correctly.
+  ~b. Have the Flavor Wheel display the flavors for each country, but as mentioned this
+      could be misleading, so we will see what happens and evaluate the results.
+  ~c. We will want to indicate to the customer that not all international coffees will be
+      initially available - i.e managing expectations.
+
+2. Taste
+  -a. Correlate the Flavor Wheel with Roasts
+  -b. Make Roast more visually appealing in its expanded size.
+
+3. Prepare
+  +a. Work on the Brew, Drink and Body button is underway with check marks, image and icon
+      integration and a nice tactile feel when pushed.
+  -b. I will work to fixed all the alignments, colors and look into making the Font Awesome
+      icons more meaningful.
+  -c. The good news is the all the Choices that the customer makes are displayed vividly,
+      so it will be possible to replace the Choices panel with a more meaningful summary of all
+      the choices.
+
+4. Profile
+  -a. Now that the app has taken shape I can persist the choices with Firebase into a meaningful
+      profile that can be accessed with an email address.
+  -b. Profiles can then populate Flavor, Roast and Prepare panel on start up.
+
+5. Interact
+  -a. The circles will highlight where the customer is and where they are going.
+  -b. In addition Interact can suggest the next step for screen navigation.
+
+6. Styling
+  -a. Plan to improve CSS styling and add icons across the entire app.
+  -b. Will send screen shots to gather feedback and recommendations along the way.
+
+7. Research
+
+  -a. I will study all the correlation references that were sent to me and create a data model in JSON.
+  -b. I think I have enough information to pull this off.
+  -c. It should be possible to create an expert Taster Cup scenario with Interact that will be marketable.
+  -d. We should be able to show this capability at the Denver Coffee Convention in August.
+
+
+
+

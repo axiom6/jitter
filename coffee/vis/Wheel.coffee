@@ -1,11 +1,7 @@
 
-`import Util from '../util/Util.js'`
-`import UI   from '../ui/UI.js'`
-`import Dom  from '../ui/Dom.js'`
-
 class Wheel
 
-  constructor:( @stream ) ->
+  constructor:( @publish, @opacity ) ->
     @numChoices    = 0
     @maxChoices    = 4
     @showAllLeaves = false
@@ -78,16 +74,17 @@ class Wheel
         .attr(  "d", @arc )
         .attr(  "fill-rule", "evenodd")
         .style( "fill",    (d) => @fill(d)  )
-        .style( "opacity", Dom.opacity )
+        .style( "opacity", @opacity )
         .style( "display", (d) -> if d.data.hide then "none" else "block" )
-        .on( "click",      (d) => @magnify( d, 'click'     ) )
-        .on( "mouseover",  (d) => @magnify( d, 'mouseover' ) )
-        .on( "mouseout",   (d) => @magnify( d, 'mouseout'  ) )
+        .on( "click",      (d) => @onEvent( d, 'click'     ) )
+        .on( "mouseover",  (d) => @onEvent( d, 'mouseover' ) )
+        .on( "mouseout",   (d) => @onEvent( d, 'mouseout'  ) )
         #append("title").text( (d) -> d.data.name )
 
       @doText( @nodes )
 
     d3.select( self.frameElement).style( "height", @height + "px" )
+    return
 
   adjustRadius:( d ) =>
     @lookup[d.data.name] = d
@@ -156,9 +153,9 @@ class Wheel
     @text = @g.selectAll('text').data(nodes)
 
     @textEnter = @text.enter().append('text')
-      .on( "click",       (d) => @magnify( d, 'click'     ) )
-      .on( "mouseover",   (d) => @magnify( d, 'mouseover' ) )
-      .on( "mouseout",    (d) => @magnify( d, 'mouseout'  ) )
+      .on( "click",       (d) => @onEvent( d, 'click'     ) )
+      .on( "mouseover",   (d) => @onEvent( d, 'mouseover' ) )
+      .on( "mouseout",    (d) => @onEvent( d, 'mouseout'  ) )
       .style("font-size", (t) => @fontSize( t ) )
       .style('fill-opacity', 1 )
       #style('fill',       (d) => if @brightness( d3.rgb( @fill(d.data) ) ) < 125 then '#eee' else '#000' )
@@ -177,18 +174,18 @@ class Wheel
     #textEnter.append("title").text( (d) -> d.data.name )
     return
 
-  magnify:( d, eventType ) =>
+  # eventType is click mouseover mouseout AddChoice DelChoice
+  onEvent:( d, eventType ) =>
     @displayAllLeaves() if eventType is 'click' and not d.parent?
     return if not d.data['can']?
-    #console.log( 'magnify', d ) if eventType is 'click'
-    py0 = d.y0
-    py1 = d.y0 + (d.y1-d.y0) * @radiusFactorChoice
-    resize = @doChoice( d, eventType, d.x0, py0, d.x1, py1 )
-    cy0 = if resize is UI.AddChoice or 'mouseover' then py1 else d.y1
-    return if resize is 'none'
+    #console.log( 'onEvent', d ) if eventType is 'click'
+    py0    = d.y0
+    py1    = d.y0 + (d.y1-d.y0) * @radiusFactorChoice
+    resize = @doChoiceResize( d, eventType, d.x0, py0, d.x1, py1 )
+    cy0    = if resize then py1 else d.y1
     if d.children?
       d.children.forEach( (child) =>
-        child?.data.hide = not ( d.chosen or eventType is 'mouseover' )
+        child?.data.hide = resize
         cy1 = cy0 + (child['y1']-child['y0']) * @radiusFactorChild
         @resizeElem( child, resize, child['x0'], cy0, child['x1'], cy1 ) )
     @g.selectAll('path').data( @nodes )
@@ -216,48 +213,45 @@ class Wheel
 
   fontSizeVMin:( t, d=null ) =>
     if d? and @sameNode( t, d ) and t.m0?
-      '2.3vmin'
+      '2.2vmin'
     else
-      if t.children? then '1.9vmin' else '1.8vmin'
+      if t.children? then '1.8vmin' else '1.7vmin'
 
-  doChoice:( d, eventType, x0, y0, x1, y1 ) =>
-    resize = 'none'
+  # eventType is click mouseover mouseout AddChoice DelChoice
+  doChoiceResize:( elem, eventType, x0, y0, x1, y1 ) =>
+    resizeChild = true
     if eventType is 'click'
-      resize = @chooseElem( d )
-      @resizeElem( d, resize, x0, y0, x1, y1 )
-    else if not d.chosen
-      resize = eventType
-      @resizeElem( d, resize, x0, y0, x1, y1 )
-    resize = 'none' if d.chosen and eventType is 'mouseout'
-    resize
-
-  chooseElem:( elem ) =>
-    elem.chosen = if elem.chosen then false           else true
-    addDel      = if elem.chosen then UI.AddChoice    else UI.DelChoice
-    if false # elem.chosen and @numChoices >= @maxChoices
-      alert( "You can only make #{@maxChoices} choices for Flavor" )
-      elem.chosen = false
-      return 'none'
-    @numChoices = if elem.chosen then @numChoices + 1 else @numChoices - 1
-    choice      = UI.select( @spec.name, 'Wheel', addDel, elem.data.name )
-    @stream.publish( 'Choice', choice )
-    addDel
+      elem.chosen = not elem.chosen
+      @resizeElem( elem, elem.chosen, x0, y0, x1, y1 )
+      # This publish function is supplied to the constructor
+      # elem.chosen is true/false for add/del
+      # elem.data.name is the flavor
+      @publish( elem.chosen, elem.data.name )
+      resizeChild = elem.chosen
+    else if eventType is 'AddChoice' or eventType is 'DelChoice'
+      elem.chosen = eventType is 'AddChoice'
+      @resizeElem( elem, elem.chosen, x0, y0, x1, y1 )
+      resizeChild = elem.chosen
+    # Mouse event do not affect chosen elements
+    else if not elem.chosen and ( eventType is 'mouseover' or eventType is 'mouseout' )
+      resizeChild = eventType is 'mouseover'
+      @resizeElem( elem, resizeChild, x0, y0, x1, y1 )
+    #console.log( "Wheel.doChoiceResize()", { flavor:elem.data.name, eventType:eventType, resizeChild:resizeChild } )
+    resizeChild
 
   resizeElem:( elem, resize, x0, y0, x1, y1 ) ->
-    if resize is UI.AddChoice or resize is 'mouseover'
+    if resize
       elem.m0 = x0
       elem.m1 = x1
       elem.n0 = y0
       elem.n1 = y1
       elem.data.hide = false
-    else if resize is UI.DelChoice or resize is 'mouseout'
+    else
       elem.m0 = undefined
       elem.m1 = undefined
       elem.n0 = undefined
       elem.n1 = undefined
-      elem.data.hide = if resize is 'mouseout' and not (elem.data.children? or @showAllLeaves) then true else false
-    else
-      Util.noop()
+      elem.data.hide = if not (elem.data.children? or @showAllLeaves) then true else false
     return
 
   textTransform:( d ) =>
@@ -272,6 +266,7 @@ class Wheel
       .style( "display", (d) => if @isLeaf(d) and not @showAllLeaves and not d.parent.chosen then "none" else "block" )
     @g.selectAll('text')
       .style( "display", (d) => if @isLeaf(d) and not @showAllLeaves and not d.parent.chosen then "none" else "block" )
+    return
 
   zoomTween:( d ) =>
     @svg.transition()
@@ -283,5 +278,6 @@ class Wheel
         (t) => ( @xx.domain(xd(t)); @yy.domain(yd(t)).range(yr(t)) ) )
     .selectAll("path")
       .attrTween( "d", (d) => ( () => @arc(d) ) )
+    return
 
 `export default Wheel`

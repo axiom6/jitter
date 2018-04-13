@@ -282,6 +282,17 @@
 		"sC": 0,
 		"tS": 0
 		},
+	"\/doc\/4f633b5c3c5e10a7afbfc7e7f9ca99a5.jpg": {
+		"ft": 16384,
+		"iS": 135210,
+		"jF": 0,
+		"oA": 0,
+		"oAP": "\/doc\/4f633b5c3c5e10a7afbfc7e7f9ca99a5.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
 	"\/doc\/aaa\/CoffeeCare.txt": {
 		"cB": 0,
 		"ft": 8192,
@@ -335,6 +346,13 @@
 		"ft": 8192,
 		"oA": 0,
 		"oAP": "\/doc\/aaa\/plan.txt",
+		"oF": 0
+		},
+	"\/doc\/aaa\/Summary.txt": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 0,
+		"oAP": "\/doc\/aaa\/Summary.txt",
 		"oF": 0
 		},
 	"\/doc\/aaa\/webpack.js": {
@@ -796,6 +814,17 @@
 		"opt": 0,
 		"q": 100
 		},
+	"\/doc\/img\/coffee-flavor-wheels.jpg": {
+		"ft": 16384,
+		"iS": 88975,
+		"jF": 0,
+		"oA": 0,
+		"oAP": "\/doc\/img\/coffee-flavor-wheels.jpg",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"q": 100
+		},
 	"\/doc\/img\/Coffee-Flavour-Wheel-V2-1.jpg": {
 		"ft": 16384,
 		"iS": 296908,
@@ -878,6 +907,35 @@
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
+		"q": 100
+		},
+	"\/doc\/img\/Ethiopa.afphoto": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 0,
+		"oAP": "\/doc\/img\/Ethiopa.afphoto",
+		"oF": 0
+		},
+	"\/doc\/img\/Ethiopia.png": {
+		"ft": 32768,
+		"iS": 2281050,
+		"oA": 0,
+		"oAP": "\/doc\/img\/Ethiopia.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/doc\/img\/Ethiopia1.png": {
+		"ft": 32768,
+		"iS": 663821,
+		"oA": 0,
+		"oAP": "\/doc\/img\/Ethiopia1.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
 		"q": 100
 		},
 	"\/doc\/img\/FlavorColor.png": {
@@ -1006,6 +1064,17 @@
 		"iS": 19603,
 		"oA": 0,
 		"oAP": "\/doc\/img\/Logo - 2018 Full - BnW.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
+		},
+	"\/doc\/img\/NiceColorWheel.png": {
+		"ft": 32768,
+		"iS": 68506,
+		"oA": 0,
+		"oAP": "\/doc\/img\/NiceColorWheel.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
@@ -3154,11 +3223,111 @@
 		"oO": 0,
 		"oS": 1
 		},
+	"\/public\/webfonts\/fa-brands-400.eot": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 0,
+		"oAP": "\/public\/webfonts\/fa-brands-400.eot",
+		"oF": 0
+		},
+	"\/public\/webfonts\/fa-brands-400.svg": {
+		"ft": 2097152,
+		"miP": 0,
+		"oA": 2,
+		"oAP": "\/public\/webfonts\/fa-brands-400.svg",
+		"oF": 0,
+		"opt": 0,
+		"plM": 3758088159,
+		"prP": 0
+		},
+	"\/public\/webfonts\/fa-brands-400.ttf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 0,
+		"oAP": "\/public\/webfonts\/fa-brands-400.ttf",
+		"oF": 0
+		},
+	"\/public\/webfonts\/fa-brands-400.woff": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 0,
+		"oAP": "\/public\/webfonts\/fa-brands-400.woff",
+		"oF": 0
+		},
+	"\/public\/webfonts\/fa-brands-400.woff2": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 0,
+		"oAP": "\/public\/webfonts\/fa-brands-400.woff2",
+		"oF": 0
+		},
+	"\/public\/webfonts\/fa-regular-400.eot": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 0,
+		"oAP": "\/public\/webfonts\/fa-regular-400.eot",
+		"oF": 0
+		},
+	"\/public\/webfonts\/fa-regular-400.svg": {
+		"ft": 2097152,
+		"miP": 0,
+		"oA": 2,
+		"oAP": "\/public\/webfonts\/fa-regular-400.svg",
+		"oF": 0,
+		"opt": 0,
+		"plM": 3758088159,
+		"prP": 0
+		},
+	"\/public\/webfonts\/fa-regular-400.ttf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 0,
+		"oAP": "\/public\/webfonts\/fa-regular-400.ttf",
+		"oF": 0
+		},
 	"\/public\/webfonts\/fa-regular-400.woff": {
 		"cB": 0,
 		"ft": 8192,
 		"oA": 0,
 		"oAP": "\/public\/webfonts\/fa-regular-400.woff",
+		"oF": 0
+		},
+	"\/public\/webfonts\/fa-regular-400.woff2": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 0,
+		"oAP": "\/public\/webfonts\/fa-regular-400.woff2",
+		"oF": 0
+		},
+	"\/public\/webfonts\/fa-solid-900.eot": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 0,
+		"oAP": "\/public\/webfonts\/fa-solid-900.eot",
+		"oF": 0
+		},
+	"\/public\/webfonts\/fa-solid-900.svg": {
+		"ft": 2097152,
+		"miP": 0,
+		"oA": 2,
+		"oAP": "\/public\/webfonts\/fa-solid-900.svg",
+		"oF": 0,
+		"opt": 0,
+		"plM": 3758088159,
+		"prP": 0
+		},
+	"\/public\/webfonts\/fa-solid-900.ttf": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 0,
+		"oAP": "\/public\/webfonts\/fa-solid-900.ttf",
+		"oF": 0
+		},
+	"\/public\/webfonts\/fa-solid-900.woff": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 0,
+		"oAP": "\/public\/webfonts\/fa-solid-900.woff",
 		"oF": 0
 		},
 	"\/public\/webfonts\/fa-solid-900.woff2": {

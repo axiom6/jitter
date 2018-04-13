@@ -1,3 +1,4 @@
+import Util  from '../util/Util.js';
 import UI    from '../ui/UI.js';
 import Dom   from '../ui/Dom.js';
 import Vis   from '../vis/Vis.js';
@@ -6,17 +7,47 @@ var Flavor;
 
 Flavor = class Flavor {
   constructor(stream, ui, name1) {
+    // Passed as a callback to Wheel and called when Wheel makes a choice to be published
+    this.publish = this.publish.bind(this);
     this.resize = this.resize.bind(this);
     this.onRegion = this.onRegion.bind(this);
+    this.onChoice = this.onChoice.bind(this);
     this.stream = stream;
     this.ui = ui;
     this.name = name1;
     this.ui.addContent(this.name, this);
-    this.wheel = new Wheel(this.stream);
+    this.wheel = new Wheel(this.publish, Dom.opacity);
     this.prevRegion = null;
     this.srcLg = "img/logo/JitterBoxHead.png";
     this.srcRx = "img/logo/JitterBoxRx.png";
     this.srcRy = "img/logo/JitterBoxRy.png";
+  }
+
+  publish(add, flavor) {
+    var addDel, choice;
+    addDel = add ? UI.AddChoice : UI.DelChoice;
+    this.spec.num = add ? this.spec.num + 1 : this.spec.num - 1;
+    if (this.spec.num <= this.spec.max) {
+      choice = UI.select(this.spec.name, 'Wheel', addDel, flavor);
+      this.stream.publish('Choice', choice);
+    } else {
+      this.spec.num = this.spec.num - 1;
+      alert(`You can only make ${this.spec.max} choices for Flavor`);
+      this.onWheel('DelChoice', flavor);
+    }
+  }
+
+  subscribe(name) {
+    if (name === 'Flavors') {
+      this.stream.subscribe('Region', (select) => {
+        return this.onRegion(select);
+      });
+    }
+    if (name === 'Flavor') {
+      this.stream.subscribe('Choice', (choice) => {
+        return this.onChoice(choice);
+      });
+    }
   }
 
   readyPane() {
@@ -39,50 +70,45 @@ Flavor = class Flavor {
 
   resize() {
     this.pane.geo = this.pane.geom();
-    return this.wheel.resize();
-  }
-
-  subscribe(name) {
-    if (name === 'Flavors') {
-      this.stream.subscribe('Region', (select) => {
-        return this.onRegion(select);
-      });
-    }
+    this.wheel.resize();
   }
 
   onRegion(select) {
-    var d, flavor, i, j, len, len1, ref, ref1, region;
+    var flavor, i, j, len, len1, ref, ref1, region;
     region = select.study;
-    if (region != null) {
-      console.log('Flavors.onRegion()', {
-        name: region.name,
-        flavors: region.flavors
-      });
-    }
-    if (true) {
-      return;
-    }
+    //console.log( 'Flavors.onRegion()', { name:region.name, flavors:region.flavors } ) if region?
     if ((this.prevRegion != null) && (this.prevRegion.flavors != null)) {
       ref = this.prevRegion.flavors;
       for (i = 0, len = ref.length; i < len; i++) {
         flavor = ref[i];
-        d = this.wheel.lookup[flavor];
-        if (d != null) {
-          this.wheel.magnify(d, 'click');
-        }
+        this.onWheel('DelChoice', flavor);
       }
     }
     if ((region != null) && (region.flavors != null)) {
       ref1 = region.flavors;
       for (j = 0, len1 = ref1.length; j < len1; j++) {
         flavor = ref1[j];
-        d = this.wheel.lookup[flavor];
-        if (d != null) {
-          this.wheel.magnify(d, 'click');
-        }
+        this.onWheel('AddChoice', flavor);
       }
       this.prevRegion = region;
     }
+  }
+
+  onWheel(addDel, flavor) {
+    var d;
+    d = this.wheel.lookup[flavor];
+    if (d != null) {
+      this.wheel.onEvent(d, addDel);
+    }
+  }
+
+  onChoice(choice) {
+    var addDel;
+    if (choice.name !== 'Flavor' || Util.isntStr(choice.study)) {
+      return;
+    }
+    addDel = choice.intent === UI.AddChoice ? 'AddChoice' : 'DelChoice';
+    this.onWheel(addDel, choice.study);
   }
 
   readyView() {

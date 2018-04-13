@@ -106,13 +106,17 @@ Roast = (function() {
       study.chosen = !((study.chosen != null) || study.chosen) ? true : false;
       addDel = study.chosen ? UI.AddChoice : UI.DelChoice;
       color = study.chosen ? Dom.choiceColor : Dom.basisColor;
-      choice = UI.select('Roast', 'Jitter', addDel, name);
-      if (v != null) {
-        choice.value = v;
+      this.spec.num++;
+      if (this.spec.num <= this.spec.max) {
+        choice = UI.select('Roast', 'Roast', addDel, name);
+        if (v != null) {
+          choice.value = v;
+        }
+        this.stream.publish('Choice', choice);
+      } else {
+        this.spec.num--;
+        alert(`You can only make ${this.spec.max} choices for Roast`);
       }
-      //choice.$click = $e if $e?
-      //console.log( "Roast.publish", choice )
-      this.stream.publish('Choice', choice);
       return color;
     }
 

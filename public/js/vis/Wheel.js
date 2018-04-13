@@ -1,26 +1,25 @@
-import Util from '../util/Util.js';
-import UI   from '../ui/UI.js';
-import Dom  from '../ui/Dom.js';
 var Wheel;
 
 Wheel = class Wheel {
-  constructor(stream) {
+  constructor(publish, opacity) {
     this.adjustRadius = this.adjustRadius.bind(this);
     this.xc = this.xc.bind(this);
     this.yc = this.yc.bind(this);
     this.isParentOf = this.isParentOf.bind(this);
     this.fill = this.fill.bind(this);
     this.doText = this.doText.bind(this);
+    // eventType is click mouseover mouseout AddChoice DelChoice
     //textEnter.append("title").text( (d) -> d.data.name )
-    this.magnify = this.magnify.bind(this);
+    this.onEvent = this.onEvent.bind(this);
     this.fontSize = this.fontSize.bind(this);
     this.fontSizeVMin = this.fontSizeVMin.bind(this);
-    this.doChoice = this.doChoice.bind(this);
-    this.chooseElem = this.chooseElem.bind(this);
+    // eventType is click mouseover mouseout AddChoice DelChoice
+    this.doChoiceResize = this.doChoiceResize.bind(this);
     this.textTransform = this.textTransform.bind(this);
     this.displayAllLeaves = this.displayAllLeaves.bind(this);
     this.zoomTween = this.zoomTween.bind(this);
-    this.stream = stream;
+    this.publish = publish;
+    this.opacity = opacity;
     this.numChoices = 0;
     this.maxChoices = 4;
     this.showAllLeaves = false;
@@ -97,23 +96,23 @@ Wheel = class Wheel {
         }
       }).attr("d", this.arc).attr("fill-rule", "evenodd").style("fill", (d) => {
         return this.fill(d);
-      }).style("opacity", Dom.opacity).style("display", function(d) {
+      }).style("opacity", this.opacity).style("display", function(d) {
         if (d.data.hide) {
           return "none";
         } else {
           return "block";
         }
       }).on("click", (d) => {
-        return this.magnify(d, 'click');
+        return this.onEvent(d, 'click');
       }).on("mouseover", (d) => {
-        return this.magnify(d, 'mouseover');
+        return this.onEvent(d, 'mouseover');
       }).on("mouseout", (d) => {
-        return this.magnify(d, 'mouseout');
+        return this.onEvent(d, 'mouseout');
       });
       //append("title").text( (d) -> d.data.name )
       return this.doText(this.nodes);
     });
-    return d3.select(self.frameElement).style("height", this.height + "px");
+    d3.select(self.frameElement).style("height", this.height + "px");
   }
 
   adjustRadius(d) {
@@ -240,11 +239,11 @@ Wheel = class Wheel {
     var angle, xem;
     this.text = this.g.selectAll('text').data(nodes);
     this.textEnter = this.text.enter().append('text').on("click", (d) => {
-      return this.magnify(d, 'click');
+      return this.onEvent(d, 'click');
     }).on("mouseover", (d) => {
-      return this.magnify(d, 'mouseover');
+      return this.onEvent(d, 'mouseover');
     }).on("mouseout", (d) => {
-      return this.magnify(d, 'mouseout');
+      return this.onEvent(d, 'mouseout');
     }).style("font-size", (t) => {
       return this.fontSize(t);
     //style('fill',       (d) => if @brightness( d3.rgb( @fill(d.data) ) ) < 125 then '#eee' else '#000' )
@@ -293,7 +292,7 @@ Wheel = class Wheel {
     });
   }
 
-  magnify(d, eventType) {
+  onEvent(d, eventType) {
     var cy0, py0, py1, resize;
     if (eventType === 'click' && (d.parent == null)) {
       this.displayAllLeaves();
@@ -301,19 +300,16 @@ Wheel = class Wheel {
     if (d.data['can'] == null) {
       return;
     }
-    //console.log( 'magnify', d ) if eventType is 'click'
+    //console.log( 'onEvent', d ) if eventType is 'click'
     py0 = d.y0;
     py1 = d.y0 + (d.y1 - d.y0) * this.radiusFactorChoice;
-    resize = this.doChoice(d, eventType, d.x0, py0, d.x1, py1);
-    cy0 = resize === UI.AddChoice || 'mouseover' ? py1 : d.y1;
-    if (resize === 'none') {
-      return;
-    }
+    resize = this.doChoiceResize(d, eventType, d.x0, py0, d.x1, py1);
+    cy0 = resize ? py1 : d.y1;
     if (d.children != null) {
       d.children.forEach((child) => {
         var cy1;
         if (child != null) {
-          child.data.hide = !(d.chosen || eventType === 'mouseover');
+          child.data.hide = resize;
         }
         cy1 = cy0 + (child['y1'] - child['y0']) * this.radiusFactorChild;
         return this.resizeElem(child, resize, child['x0'], cy0, child['x1'], cy1);
@@ -359,62 +355,53 @@ Wheel = class Wheel {
 
   fontSizeVMin(t, d = null) {
     if ((d != null) && this.sameNode(t, d) && (t.m0 != null)) {
-      return '2.3vmin';
+      return '2.2vmin';
     } else {
       if (t.children != null) {
-        return '1.9vmin';
-      } else {
         return '1.8vmin';
+      } else {
+        return '1.7vmin';
       }
     }
   }
 
-  doChoice(d, eventType, x0, y0, x1, y1) {
-    var resize;
-    resize = 'none';
+  doChoiceResize(elem, eventType, x0, y0, x1, y1) {
+    var resizeChild;
+    resizeChild = true;
     if (eventType === 'click') {
-      resize = this.chooseElem(d);
-      this.resizeElem(d, resize, x0, y0, x1, y1);
-    } else if (!d.chosen) {
-      resize = eventType;
-      this.resizeElem(d, resize, x0, y0, x1, y1);
+      elem.chosen = !elem.chosen;
+      this.resizeElem(elem, elem.chosen, x0, y0, x1, y1);
+      // This publish function is supplied to the constructor
+      // elem.chosen is true/false for add/del
+      // elem.data.name is the flavor
+      this.publish(elem.chosen, elem.data.name);
+      resizeChild = elem.chosen;
+    } else if (eventType === 'AddChoice' || eventType === 'DelChoice') {
+      elem.chosen = eventType === 'AddChoice';
+      this.resizeElem(elem, elem.chosen, x0, y0, x1, y1);
+      resizeChild = elem.chosen;
+    // Mouse event do not affect chosen elements
+    } else if (!elem.chosen && (eventType === 'mouseover' || eventType === 'mouseout')) {
+      resizeChild = eventType === 'mouseover';
+      this.resizeElem(elem, resizeChild, x0, y0, x1, y1);
     }
-    if (d.chosen && eventType === 'mouseout') {
-      resize = 'none';
-    }
-    return resize;
-  }
-
-  chooseElem(elem) {
-    var addDel, choice;
-    elem.chosen = elem.chosen ? false : true;
-    addDel = elem.chosen ? UI.AddChoice : UI.DelChoice;
-    if (false) { // elem.chosen and @numChoices >= @maxChoices
-      alert(`You can only make ${this.maxChoices} choices for Flavor`);
-      elem.chosen = false;
-      return 'none';
-    }
-    this.numChoices = elem.chosen ? this.numChoices + 1 : this.numChoices - 1;
-    choice = UI.select(this.spec.name, 'Wheel', addDel, elem.data.name);
-    this.stream.publish('Choice', choice);
-    return addDel;
+    //console.log( "Wheel.doChoiceResize()", { flavor:elem.data.name, eventType:eventType, resizeChild:resizeChild } )
+    return resizeChild;
   }
 
   resizeElem(elem, resize, x0, y0, x1, y1) {
-    if (resize === UI.AddChoice || resize === 'mouseover') {
+    if (resize) {
       elem.m0 = x0;
       elem.m1 = x1;
       elem.n0 = y0;
       elem.n1 = y1;
       elem.data.hide = false;
-    } else if (resize === UI.DelChoice || resize === 'mouseout') {
+    } else {
       elem.m0 = void 0;
       elem.m1 = void 0;
       elem.n0 = void 0;
       elem.n1 = void 0;
-      elem.data.hide = resize === 'mouseout' && !((elem.data.children != null) || this.showAllLeaves) ? true : false;
-    } else {
-      Util.noop();
+      elem.data.hide = !((elem.data.children != null) || this.showAllLeaves) ? true : false;
     }
   }
 
@@ -435,7 +422,7 @@ Wheel = class Wheel {
         return "block";
       }
     });
-    return this.g.selectAll('text').style("display", (d) => {
+    this.g.selectAll('text').style("display", (d) => {
       if (this.isLeaf(d) && !this.showAllLeaves && !d.parent.chosen) {
         return "none";
       } else {
@@ -445,7 +432,7 @@ Wheel = class Wheel {
   }
 
   zoomTween(d) {
-    return this.svg.transition().duration(this.duration).tween("scale", () => {
+    this.svg.transition().duration(this.duration).tween("scale", () => {
       var xd, yd, yr;
       xd = d3.interpolate(this.xx.domain(), [this.x0(d), this.x1(d)]);
       yd = d3.interpolate(this.yy.domain(), [this.y0(d), 1]);

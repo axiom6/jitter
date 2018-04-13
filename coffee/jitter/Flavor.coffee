@@ -1,4 +1,5 @@
 
+`import Util  from '../util/Util.js'`
 `import UI    from '../ui/UI.js'`
 `import Dom   from '../ui/Dom.js'`
 `import Vis   from '../vis/Vis.js'`
@@ -8,11 +9,29 @@ class  Flavor
 
   constructor:( @stream, @ui, @name ) ->
     @ui.addContent( @name, @ )
-    @wheel = new Wheel( @stream )
+    @wheel = new Wheel( @publish, Dom.opacity )
     @prevRegion = null
     @srcLg = "img/logo/JitterBoxHead.png"
     @srcRx = "img/logo/JitterBoxRx.png"
     @srcRy = "img/logo/JitterBoxRy.png"
+
+  # Passed as a callback to Wheel and called when Wheel makes a choice to be published
+  publish:( add, flavor ) =>
+    addDel    = if add then UI.AddChoice else UI.DelChoice
+    @spec.num = if add then @spec.num+1  else @spec.num-1
+    if @spec.num <= @spec.max
+      choice = UI.select( @spec.name, 'Wheel', addDel, flavor )
+      @stream.publish( 'Choice', choice )
+    else
+      @spec.num = @spec.num-1
+      alert( "You can only make #{@spec.max} choices for Flavor" )
+      @onWheel( 'DelChoice', flavor )
+    return
+
+  subscribe:( name ) ->
+    @stream.subscribe( 'Region', (select) => @onRegion(select) ) if name is 'Flavors'
+    @stream.subscribe( 'Choice', (choice) => @onChoice(choice) ) if name is 'Flavor'
+    return
 
   readyPane:() ->
     url   = "json/flavor.choice.json"
@@ -33,24 +52,29 @@ class  Flavor
   resize:() =>
     @pane.geo = @pane.geom()
     @wheel.resize()
-
-  subscribe:( name ) ->
-    @stream.subscribe( 'Region', (select) => @onRegion(select) ) if name is 'Flavors'
     return
 
   onRegion:( select ) =>
     region = select.study
-    console.log( 'Flavors.onRegion()', { name:region.name, flavors:region.flavors } ) if region?
-    return if true
+    #console.log( 'Flavors.onRegion()', { name:region.name, flavors:region.flavors } ) if region?
     if @prevRegion? and @prevRegion.flavors?
       for  flavor  in   @prevRegion.flavors
-        d = @wheel.lookup[flavor]
-        @wheel.magnify( d, 'click' ) if d?
+        @onWheel( 'DelChoice', flavor )
     if region? and  region.flavors?
       for flavor in region.flavors
-        d = @wheel.lookup[flavor]
-        @wheel.magnify( d, 'click' ) if d?
+        @onWheel( 'AddChoice', flavor )
       @prevRegion = region
+    return
+
+  onWheel:( addDel, flavor ) ->
+    d = @wheel.lookup[flavor]
+    @wheel.onEvent( d, addDel ) if d?
+    return
+
+  onChoice:( choice ) =>
+    return if choice.name isnt 'Flavor' or Util.isntStr(choice.study)
+    addDel = if choice.intent is UI.AddChoice then 'AddChoice' else 'DelChoice'
+    @onWheel( addDel, choice.study )
     return
 
   readyView:() ->

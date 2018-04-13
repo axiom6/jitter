@@ -54,6 +54,7 @@ Dom = (function() {
       Util.noop(event);
       if (study != null ? study.chosen : void 0) {
         study.chosen = false;
+        spec.num--;
         $e.css({
           color: Dom.basisColor
         });
@@ -61,8 +62,9 @@ Dom = (function() {
         choice = UI.select(spec.name, 'Dom', UI.DelChoice, key);
         choice.$click = $e;
         stream.publish('Choice', choice);
-      } else {
+      } else if (spec.num < spec.max) {
         study.chosen = true;
+        spec.num++;
         $e.css({
           color: Dom.choiceColor
         });
@@ -70,6 +72,8 @@ Dom = (function() {
         choice = UI.select(spec.name, 'Dom', UI.AddChoice, key);
         choice.$click = $e;
         stream.publish('Choice', choice);
+      } else {
+        alert(`You can only make ${spec.max} choices for ${spec.name}`);
       }
     }
 
@@ -96,7 +100,7 @@ Dom = (function() {
       $e.on('mouseenter', function() {
         return Dom.doEnter($e, study);
       });
-      return $e.on('mouseleave', function() {
+      $e.on('mouseleave', function() {
         return Dom.doLeave($e, study);
       });
     }
@@ -150,7 +154,7 @@ Dom = (function() {
     }
 
     static vertBtns(stream, spec, imgDir, w = 60, x0 = 0, y0 = 0) {
-      var $e, $p, dy, h, icon, key, klass, mh, n, src, study, tall, x, y;
+      var $e, $p, back, dy, h, icon, iconc, key, klass, mh, n, src, study, tall, x, y;
       $p = $(`<div    ${Dom.panel(0, 0, 100, 100)}></div>`);
       $p.append(`<div ${Dom.label(0, 3, 100, 10)}>${spec.name}</div>`);
       n = Util.lenObject(spec, UI.isChild);
@@ -164,12 +168,14 @@ Dom = (function() {
           continue;
         }
         tall = Util.inString(study.name, "</br>");
-        src = study.icon != null ? imgDir + study.icon : null;
-        icon = src == null ? "fa-coffee" : null;
+        src = study.img != null ? imgDir + study.img : null;
+        icon = (src == null) && study.icon ? study.icon : null;
+        iconc = icon && study.iconc ? study.iconc : null;
+        back = study.back != null ? study.back : "#3B5999";
         klass = tall || (src != null) ? "btn-nice btn-tall" : "btn-nice";
         h = tall && (src == null) ? dy * 0.7 : dy * 0.6;
         mh = spec.pane.toVh(h);
-        $e = $(Dom.btn(x, y, w, h, study.name, klass, tall, icon, src, mh));
+        $e = $(Dom.btn(x, y, w, h, study.name, klass, tall, icon, src, mh, iconc, back));
         Dom.onEvents(stream, $e, spec, key, study);
         $p.append($e);
         y = y + dy;
@@ -177,17 +183,17 @@ Dom = (function() {
       return $p;
     }
 
-    static btn(x, y, w, h, label = "", klass = "btn-nice", tall = false, icon = null, src = null, mh = null) {
+    static btn(x, y, w, h, label = "", klass = "btn-nice", tall = false, icon = null, src = null, mh = null, iconc = null, back = "#3B5999") {
       var htm, iconsClass, labelClass;
       labelClass = src != null ? "btn-label btn-tall1" : "btn-label";
       iconsClass = tall ? "btn-icons btn-tall2" : "btn-icons";
       htm = `<div style="position:absolute; left:${x}%; top:${y}%; width:100%; height:${h}%; display:table;">`;
       htm += "<div style=\"display:table-cell; vertical-align:middle;\">";
-      htm += `<button class="${klass}" style="width:${w}%; height:${mh}vmin;">`;
+      htm += `<button class="${klass}" style="width:${w}%; height:${mh}vmin; background-color:${back}">`;
       htm += "<div class=\"btn-table\">";
       htm += "<div class=\"btn-align\">";
-      if (icon != null) {
-        htm += `<i   class="${iconsClass} fas ${icon} fa-lg"></i>`;
+      if ((icon != null) && (iconc != null)) {
+        htm += `<i   class="${iconsClass} ${icon} fa-lg" style="color:${iconc}"></i>`;
       }
       if ((src != null) && (mh != null)) {
         htm += `<img class="btn-image" style="max-height:${mh * 0.9}vmin;" src="${src}"/>`;

@@ -540,7 +540,7 @@
   height: 6vmin;
   display: block;
   font-family: Roboto, sans-serif;
-  font-size: 2.3vmin;
+  font-size: 2vmin;
   color: #fff;
   text-decoration: none;
   text-align: center;
@@ -583,7 +583,7 @@
   line-height: 4vmin;
   top: 0;
   margin-left: -10vmin;
-  font-size: 1.61vmin;
+  font-size: 1.4vmin;
   font-weight: bold;
   border-top-right-radius: 2vmin;
   border-bottom-right-radius: 2vmin;
@@ -601,7 +601,7 @@
   transition: all 0s ease-out;
   height: 6vmin;
   font-family: Roboto, sans-serif;
-  font-size: 2.3vmin;
+  font-size: 2vmin;
   color: #fff;
   text-decoration: none;
   text-align: center;
