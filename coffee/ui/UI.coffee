@@ -1,4 +1,5 @@
 
+#import *  as $  from '../lib/jquery-3.3.1.js'`
 `import Util    from '../util/Util.js'`
 `import Tocs    from '../ui/Tocs.js'`
 `import View    from '../ui/View.js'`

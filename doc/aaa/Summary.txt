@@ -1,7 +1,14 @@
 
+0. Core
+   -a. Dom refactor while considering isolating jQuery
+   -b. Util streamline
+   -c. Color move to Vis
+   -d. Database will be part of Store
+
+
 1. Map
   +a. Fix the World map so that the mouse clicks select the countries correctly.
-  ~b. Have the Flavor Wheel display the flavors for each country, but as mentioned this
+  +b. Have the Flavor Wheel display the flavors for each country, but as mentioned this
       could be misleading, so we will see what happens and evaluate the results.
   ~c. We will want to indicate to the customer that not all international coffees will be
       initially available - i.e managing expectations.
@@ -13,7 +20,7 @@
 3. Prepare
   +a. Work on the Brew, Drink and Body button is underway with check marks, image and icon
       integration and a nice tactile feel when pushed.
-  -b. I will work to fixed all the alignments, colors and look into making the Font Awesome
+  +b. I will work to fixed all the alignments, colors and look into making the Font Awesome
       icons more meaningful.
   -c. The good news is the all the Choices that the customer makes are displayed vividly,
       so it will be possible to replace the Choices panel with a more meaningful summary of all

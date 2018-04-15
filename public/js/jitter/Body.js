@@ -1,4 +1,4 @@
-import Dom from '../ui/Dom.js';
+import Dom    from '../ui/Dom.js';
 var Body;
 
 Body = class Body {

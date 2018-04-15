@@ -1,5 +1,6 @@
 
-`import Dom from '../ui/Dom.js'`
+
+`import Dom    from '../ui/Dom.js'`
 
 class Body
 
