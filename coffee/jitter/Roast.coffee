@@ -7,26 +7,27 @@
 class Roast
 
   Roast.Table = {
-    "1":{ color:"#dba34e", img:"1d.png", name:"Blonde",   style:"Half City"      },
-    "2":{ color:"#c48a43", img:"2d.png", name:"Light",    style:"Cinnamon"       },
-    "3":{ color:"#996b31", img:"3d.png", name:"City",     style:"City"           },
-    "4":{ color:"#795424", img:"4d.png", name:"Full",     style:"Full City"      },
-    "5":{ color:"#6d4a1f", img:"5d.png", name:"Medium",   style:"Full City Plus" },
-    "6":{ color:"#553916", img:"6d.png", name:"Vienna",   style:"Vienna"         },
-    "7":{ color:"#492c0f", img:"7d.png", name:"Dark",     style:"Italian"        },
-    "8":{ color:"#40250d", img:"8d.png", name:"French",   style:"French"         },
-    "9":{ color:"#2f1c09", img:"9d.png", name:"Black",    style:"Black"          } }
+    "1":{ color:"#dba34e", img:"1d.png", name:"Blonde",   value: 5, style:"Half City"      },
+    "2":{ color:"#c48a43", img:"2d.png", name:"Light",    value:15, style:"Cinnamon"       },
+    "3":{ color:"#996b31", img:"3d.png", name:"City",     value:25, style:"City"           },
+    "4":{ color:"#795424", img:"4d.png", name:"Full",     value:35, style:"Full City"      },
+    "5":{ color:"#6d4a1f", img:"5d.png", name:"Medium",   value:45, style:"Full City Plus" },
+    "6":{ color:"#553916", img:"6d.png", name:"Vienna",   value:55, style:"Vienna"         },
+    "7":{ color:"#492c0f", img:"7d.png", name:"Dark",     value:65, style:"Italian"        },
+    "8":{ color:"#40250d", img:"8d.png", name:"French",   value:75, style:"French"         },
+    "9":{ color:"#2f1c09", img:"9d.png", name:"Black",    value:85, style:"Black"          } }
 
   constructor:( @stream, @ui ) ->
     @ui.addContent( 'Roast', @ )
-    @max  = 100
+    @max  = 90
     @data = Roast.Table
+    @stream.subscribe( 'Choice', 'Roast', (choice) => @onChoice(choice) )
 
   readyView:() ->
     src = "img/roast/Coffee-Bean-Roast-Ready.jpg"
     @$view = $( """<div #{Dom.panel(0, 0,100,100)}></div>""" )
     @$view.append( "<h1 #{Dom.label(0, 0,100, 10)}>Roast</h1>" )
-    @$view.append( """  #{Dom.image(0,10,100, 90,src,150)}""" )
+    @$view.append( """  #{Dom.image(src,@pane.toVh(80),@pane.toVw(80))}""" )
     @$view
 
   readyPane:() ->
@@ -60,12 +61,15 @@ class Roast
       style += """border:black solid 2px;"""
       $r.append("""<div style="#{style}"></div>""")
       x = x + dx
-    $r.find("#RoastInput").on( "change", (event) => @doInput(event) )
+    $r.find("#RoastInput").on( "change", (event) => @doInputEvent(event) )
     $p.append( $r )
     $p
 
-  doInput:( event ) =>
-    v  = parseInt(event.target.value)
+  doInputEvent:( event ) =>
+    value  = parseInt(event.target.value)
+    @doInput( value, true )
+
+  doInput:( v, pub ) =>
     n  = 9
     s  = @max / n
     p  = Math.min( Math.ceil(v/s), n )
@@ -76,11 +80,11 @@ class Roast
       else                            [ p,  p,   1         ]
 
     #console.log( "doInput1", { v:v, m:m, r, p1:p1, p:p, p2:p2, s:s } )
-    h1 = Vis.cssHex( @data[p1].color )
-    h2 = Vis.cssHex( @data[p2].color )
+    h1  = Vis.cssHex( @data[p1].color )
+    h2  = Vis.cssHex( @data[p2].color )
     rgb = Vis.rgbCss( Vis.interpolateHexRgb( h1, 1.0-r, h2, r ) )
-    @$pane.find("#RoastColor").css( { background:rgb } )
-    @publish( @data[p], null, v )
+    @$pane.find("#RoastColor").css( { background:rgb } ) if @$pane?
+    @publish( @data[p], null, v ) if pub
     return
 
   doClick:( event ) =>
@@ -105,12 +109,17 @@ class Roast
       alert( "You can only make #{@spec.max} choices for Roast" )
     color
 
-  # Not used
-  image:( x, y, w, h, src, mh ) -> # max-height:#{mh}vmin;
-    klass  = if src? then "image"            else "texts"
-    htm  = """<div class="#{klass}" style="position:absolute; left:#{x}%; top:#{y}%; width:#{w}%; height:#{h}%; display:table;">"""
-    htm += """<div style="display:table-cell; vertical-align:middle;">"""
-    htm += """<img style="display:block; margin-left:auto; margin-right:auto;  width:100%; max-height:#{mh}vmin; border-radius:24px;" src="#{src}"/>""" if src?
-    htm
+  onChoice:( choice ) =>
+    return  if choice.name isnt 'Roast' or choice.source is 'Roast'
+    console.info( 'Roast.onChoice()', choice ) if @stream.isInfo('Choice')
+    value = if choice.value? then choice.value else @getValue( choice.study )
+    @doInput( value, false )
+    return
+
+  getValue:( name ) ->
+    for key, roast of Roast.Table
+      return roast.value if roast.name is name
+    console.error( "Roast.getValue() roast #{name} missing return average value of 45" )
+    45
 
 `export default Roast`

@@ -35,16 +35,17 @@ Database = (function() {
       fileReader.readAsText(fileObj);
     }
 
-    /*
-    @readRequire:( url, doJson ) ->
-    path = url.substring(5)
-    json = Util.require( path ) # Util.require prevents dynamic resolve in webpack
-    if json?
-    doJson( json )
-    else
-    console.error( 'Store.req require(json)  failed for url', url )
-    return
-    */
+    static readRequire(url, doJson) {
+      var json, path;
+      path = url.substring(5);
+      json = Util.require(path); // Util.require prevents dynamic resolve in webpack
+      if (json != null) {
+        doJson(json);
+      } else {
+        console.error('Store.req require(json)  failed for url', url);
+      }
+    }
+
     static readAjax(url, doJson) { //jsonp
       var settings;
       settings = {
@@ -141,7 +142,7 @@ Database = (function() {
 }).call(this);
 
 // A quick in and out method to select JSON data
-/*
+/*Needs Store
 @selectJson:( stream, uri, table, doData ) ->
 rest = new Store.Rest( stream, uri )
 rest.remember()

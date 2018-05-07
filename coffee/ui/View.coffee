@@ -1,38 +1,42 @@
-
-`import Util    from '../util/Util.js'`
-`import UI      from '../ui/UI.js'`
-`import Pane    from '../ui/Pane.js'`
-`import Group   from '../ui/Group.js'`
+`import Util  from '../util/Util.js'`
+`import UI    from '../ui/UI.js'`
+`import Pane  from '../ui/Pane.js'`
+`import Group from '../ui/Group.js'`
 
 class View
 
-  constructor:( @ui, @stream, @specs ) ->
+  constructor:( @ui, @stream, @practices ) ->
     @speed       = 400
     @$view       = UI.$empty
     @margin      = UI.margin
-    @ncol        = UI.ncol
-    @nrow        = UI.nrow
-    @classPrefix = 'ui-view'
+    @ncol        = @ui.ncol
+    @nrow        = @ui.nrow
+    @classPrefix = if Util.isStr(@practices.css) then @spec.css else 'ui-view'
     [@wpane,@hpane,@wview,@hview,@wscale,@hscale] = @percents( @nrow, @ncol, @margin )
-    [@groups,@panes] = @createGroupsPanes( @specs )
+    [@groups,@panes] = @createThePanes()
     @sizeCallback  = null
+    @paneCallback  = null
     @lastPaneName  = ''
-    @emptyPane     = UI.$empty
-    @allCells = [ 1, @ncol, 1, @nrow ]
-    @select   = UI.select( "Overview", "View", UI.SelectView )
+    @$empty        = UI.$empty # Empty jQuery singleton for intialization
+    @allCells      = [ 1, @ncol, 1, @nrow ]
+
+  createThePanes:() ->
+    if @ui.planeName is 'Jitter'
+      @createGroupsPanes( @practices )
+    else
+      @createPanes(       @practices )
 
   ready:() ->
-    parent = $('#'+UI.getHtmlId('View') ) # parent is outside of planes
-    htmlId = UI.htmlId( 'View','Plane' )
-    html   = $( """<div id="#{htmlId}" class="#{@classPrefix}"></div>""" )
-    parent.append( html )
-    @$view = parent.find('#'+htmlId )
+    parent = $('#'+@ui.getHtmlId('View') ) # parent is outside of planes
+    htmlId = @ui.htmlId( 'View','Plane' )
+    @$view = $( """<div id="#{htmlId}" class="#{@classPrefix}"></div>""" )
+    parent.append( @$view )
     pane.ready()  for pane  in @panes
     @subscribe()
     return
 
   subscribe:() ->
-    @stream.subscribe( 'Select', (select) => @onSelect(select) )
+    @stream.subscribe( 'Select', 'View', (select) => @onSelect(select) )
 
   percents:( nrow, ncol, margin ) ->
     wpane  = 100 / ncol
@@ -66,19 +70,17 @@ class View
   isRow:( specPaneGroup ) -> specPaneGroup.css is 'ikw-row'
   isCol:( specPaneGroup ) -> specPaneGroup.css is 'ikw-col'
 
-  jmin:( cells ) -> UI.jmin( cells )
-
   positionUnionPane:( unionCells, paneCells, spec, xscale=1.0, yscale=1.0 ) ->
-    [ju,mu,iu,nu] = UI.jmin( unionCells )
-    [jp,mp,ip,np] = UI.jmin(  paneCells )
+    [ju,mu,iu,nu] = @jmin( unionCells )
+    [jp,mp,ip,np] = @jmin(  paneCells )
     @position( (jp-ju)*@ncol/mu, mp*@ncol/mu, (ip-iu)*@nrow/nu, np*@nrow/nu, spec, xscale, yscale )
 
-  positionPane:( paneCells, spec, xscale=1.0, yscale=1.0 ) ->
-    [j,m,i,n] = UI.jmin( paneCells )
+  positionGroup:( groupCells, spec, xscale=1.0, yscale=1.0 ) ->
+    [j,m,i,n] = @jmin( groupCells )
     @position( j,m,i,n, spec, xscale, yscale )
 
-  positionGroup:( groupCells, spec, xscale=1.0, yscale=1.0 ) ->
-    [j,m,i,n] = UI.jmin( groupCells )
+  positionPane:( paneCells, spec, xscale=1.0, yscale=1.0 ) ->
+    [j,m,i,n] = @jmin( paneCells )
     @position( j,m,i,n, spec, xscale, yscale )
 
   position:( j,m,i,n, spec, xscale=1.0, yscale=1.0 ) ->
@@ -95,9 +97,9 @@ class View
     [width*@widthpx()/100, height*@heightpx()/100]
 
   reset:( select ) ->
-    @select.name   = select.name
-    @select.intent = select.intent
-    pane.reset(@select) for pane  in @panes
+    for pane  in @panes
+      pane.intent = select.intent
+      pane.reset( select )
     return
 
   resize:() =>
@@ -122,7 +124,7 @@ class View
 
   showAll:() ->
     @$view.hide()
-    @reset( @select )
+    #@reset( @selectView )
     pane.  show() for pane  in @panes
     @$view.show( @speed, () => @sizeCallback(@) if @sizeCallback )
     return
@@ -131,53 +133,73 @@ class View
     UI.verifySelect( select, 'View' )
     name    = select.name
     intent  = select.intent
-    @select = select
     switch intent
-      when UI.SelectView  then @expandView()
-      when UI.SelectGroup then @expandGroup( @getPaneOrGroup(name) )
-      when UI.SelectPane  then @expandPane(  @getPaneOrGroup(name) )
-      when UI.SelectStudy then @expandPane(  @getPaneOrGroup(name) )
-      else console.error( 'View.onSelect() name not processed for intent', name, select )
+      when UI.SelectView  then @expandAllPanes( select )
+      when UI.SelectGroup then @expandGroup(    select, @getPaneOrGroup(name) )
+      when UI.SelectPane  then @expandPane(     select, @getPaneOrGroup(name) )
+      when UI.SelectStudy then @expandStudy(    select, @getPaneOrGroup(name) )
+      else console.error( 'UI.View.onSelect() name not processed for intent', name, select )
     return
 
-  expandView:() ->
+  expandAllPanes:( select ) ->
     @hideAll()
-    @reset( @select )
+    @reset( select )
     @showAll()
 
-  expandGroup:( group, callback=null ) ->
+  expandGroup:( select, group, callback=null ) ->
     @hideAll('Interact')
     if  group.panes?
       for pane in group.panes
         pane.show()
         #left,top,width,height] = @positionUnionPane( group.cells, pane.cells, pane.spec, @wscale, @hscale )
         [left,top,width,height] = @positionPane( pane.cells, pane.spec, @wscale, @hscale )
-        pane.animate( left, top, width, height, @select, true, callback )
+        pane.intent = select.intent
+        pane.animate( left, top, width, height, select, true, callback )
     else
       console.error( 'View.expandGroup group.panes null' )
     @show()
     @lastPaneName  = 'None'
     return
 
-  expandPane:( pane,  callback=null ) ->  # , study=null
+  expandPane:( select, pane,  callback=null ) ->
+    paneCallback = if callback? then callback else @paneCallback
+    pane = @getPaneOrGroup( pane, false ) # don't issue errors
     return unless pane?
     @hideAll()
+    pane.resetStudiesDir( true )
     pane.show()
-    pane.animate( @margin.west, @margin.north, 100*@wview, 100*@hview, @select, true, callback )
+    pane.intent = select.intent
+    pane.animate( @margin.west, @margin.north, 100*@wview, 100*@hview, select, true, paneCallback )
     @show()
     @lastPaneName   = pane.name
     return
 
-  getPaneOrGroup:( keyOrPane, issueError=true  ) ->
-    return keyOrPane if not keyOrPane? or Util.isObj(keyOrPane)
-    key =  keyOrPane
+  expandStudy:(   select, pane,  callback=null ) ->
+    @expandPane(  select, pane,  callback )
+    console.info( 'View.expandStudy()', { study:select.study } ) if @stream.isInfo('Select')
+    return unless select.study?
+    pane.resetStudiesDir( false )                  # Hide all studies
+    pane.resetStudyDir(   true,  true, select.study.dir ) # Expand selected
+    return
+
+  getPaneOrGroup:( key, issueError=true  ) ->
+    return key if Util.isObj(key)
     for pane in @panes
       return pane if pane.name is key
     if @groups?
       for group in @groups
         return group if group.name is key
     console.error( 'UI.View.getPaneOrGroup() null for key ', key ) if issueError
-    @emptyPane
+    null
+
+  createPanes:( practices ) ->
+    panes = []
+    for own keyPractice, practice of practices # when practice.pane
+      pane = new Pane( @ui, @stream, @, practice )
+      panes.push( pane )
+      practice.pane = pane
+      # @createStudyPanes( practice, panes )
+    [null,panes]
 
   createGroupsPanes:( specs ) ->
     groups   = []
@@ -194,16 +216,34 @@ class View
         panes.push( pane )
         group.panes.push( pane )
         pspec.pane = pane
+      #console.log( "View.createGroupsPanes()", group )
     [groups,panes]
 
   paneInUnion:( paneCells, unionCells ) ->
-    [jp,mp,ip,np] = UI.jmin(  paneCells )
-    [ju,mu,iu,nu] = UI.jmin( unionCells )
+    [jp,mp,ip,np] = @jmin(  paneCells )
+    [ju,mu,iu,nu] = @jmin( unionCells )
     ju <= jp and jp+mp <= ju+mu and iu <= ip and ip+np <= iu+nu
 
   expandCells:( unionCells, allCells ) ->  # Not Implemented
-    [ju,mu,iu,nu] = UI.jmin( unionCells )
-    [ja,ma,ia,na] = UI.jmin(   allCells )
+    [ju,mu,iu,nu] = @jmin( unionCells )
+    [ja,ma,ia,na] = @jmin(   allCells )
     [ (ju-ja)*ma/mu, ma, (iu-ia)*na/nu, na ]
+
+  jmin:( cells ) ->
+    Util.trace('UI.jmin') if not cells?
+    [ cells[0]-1,cells[1],cells[2]-1,cells[3] ]
+
+  toCells:( jmin ) ->
+    [ jmin[0]+1,jmin[1],jmin[2]+1,jmin[3] ]
+
+  unionCells:( cells1, cells2 ) ->
+    [j1,m1,i1,n1] = UI.jmin( cells1 )
+    [j2,m2,i2,n2] = UI.jmin( cells2 )
+    [ Math.min(j1,j2)+1, Math.max(j1+m1,j2+m2)-Math.min(j1,j2), Math.min(i1,i2)+1, Math.max(i1+n1,i2+n2)-Math.min(i1,i2) ]
+
+  intersectCells:( cells1, cells2 ) ->
+    [j1,m1,i1,n1] = UI.jmin( cells1 )
+    [j2,m2,i2,n2] = UI.jmin( cells2 )
+    [ Math.max(j1,j2)+1, Math.min(j1+m1,j2+m2), Math.max(i1,i2)+1, Math.min(i1+n1,i2+n2) ]
 
 `export default View`

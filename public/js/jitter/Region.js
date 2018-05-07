@@ -1,30 +1,34 @@
 import Util from '../util/Util.js';
+import UI   from '../ui/UI.js';
 import Dom  from '../ui/Dom.js';
 var Region;
 
 Region = class Region {
-  constructor(stream, ui) {
+  constructor(stream, ui, world) {
     this.onRegion = this.onRegion.bind(this);
+    this.onChoice = this.onChoice.bind(this);
     this.stream = stream;
     this.ui = ui;
+    this.world = world;
     this.ui.addContent('Region', this);
     this.$img = $();
   }
 
   subscribe() {
-    this.stream.subscribe('Region', (select) => {
-      return this.onRegion(select);
+    this.stream.subscribe('Region', 'Region', (region) => {
+      return this.onRegion(region);
+    });
+    this.stream.subscribe('Choice', 'Region', (choice) => {
+      return this.onChoice(choice);
     });
   }
 
   readyPane() {
-    var $p, mh, mw, src;
+    var $p, src;
     src = "img/region/Ethiopia.png";
-    mh = this.pane.toVh(96);
-    mw = this.pane.toVw(96);
-    $p = $(`  ${Dom.image(0, 0, 100, 100, src, mh, "Ethopia", "24px", mw)}`);
-    this.$image = $p.find('img');
-    this.$label = $p.find('.label');
+    $p = $(`  ${Dom.image(src, this.pane.toVh(80), this.pane.toVw(80), "Ethopia", "24px")}`);
+    this.$image = $p.find('.dom-image');
+    this.$label = $p.find('.dom-label');
     this.$label.css("font-size", `${this.pane.toVh(10)}vh`);
     this.$label.hide();
     this.subscribe();
@@ -35,10 +39,19 @@ Region = class Region {
     return this.readyPane();
   }
 
-  onRegion(select) {
-    var label, region, src;
-    region = select.study;
-    if (region.img) {
+  onRegion(region) {
+    var addDel, choice, label, src;
+    if ((region == null) || region.source === 'Region') {
+      return;
+    }
+    if (this.stream.isInfo('Region')) {
+      console.info('Region.onRegion()', {
+        name: region.name,
+        chosen: region.chosen,
+        flavors: region.flavors
+      });
+    }
+    if (region.img != null) {
       src = `img/region/${region.name}.png`;
       this.$label.hide();
       this.$image.attr('src', src).show();
@@ -46,6 +59,29 @@ Region = class Region {
       label = Util.toName(region.name); // Puts spaces between Camel Case text
       this.$image.hide();
       this.$label.text(label).show();
+    }
+    // Publish Region to update Flavors
+    if (Util.isArray(region.flavors)) { // This really to update Flavors
+      region.source = 'Region';
+      this.stream.publish('Region', region);
+    }
+    // Publish Choice to update Summaries
+    addDel = region.chosen ? UI.AddChoice : UI.DelChoice;
+    choice = UI.select('Region', 'Region', addDel, region.name);
+    this.stream.publish('Choice', choice);
+  }
+
+  onChoice(choice) {
+    var region;
+    if (choice.name !== 'Region' || choice.source === 'Region') {
+      return;
+    }
+    region = this.world.regions[choice.study];
+    if (this.stream.isInfo('Choice')) {
+      console.info('Region.onChoice()', choice);
+    }
+    if (region != null) {
+      this.onRegion(region, false);
     }
   }
 

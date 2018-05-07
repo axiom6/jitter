@@ -1,4 +1,5 @@
 
+
 `import Util from '../util/Util.js'`
 
 class Database
@@ -77,7 +78,6 @@ class Database
     fileReader.readAsText( fileObj )
     return
 
-  ###
   @readRequire:( url, doJson ) ->
     path = url.substring(5)
     json = Util.require( path ) # Util.require prevents dynamic resolve in webpack
@@ -86,7 +86,6 @@ class Database
     else
       console.error( 'Store.req require(json)  failed for url', url )
     return
-  ###
 
   @readAjax:( url, doJson ) ->                   #jsonp
     settings  = { url:url, type:'get', dataType:'json', processData:false, contentType:'application/json', accepts:'application/json' }
@@ -100,7 +99,7 @@ class Database
     return
 
   # A quick in and out method to select JSON data
-  ###
+  ###  Needs Store
   @selectJson:( stream, uri, table, doData ) ->
     rest = new Store.Rest( stream, uri )
     rest.remember()

@@ -3,39 +3,51 @@
 
 class Stream
 
-  Stream.SubjectNames  = ['Select','Content','Connect','Test','Plane','About','Slide',
-                          'Cursor','Navigate','Settings','Submit','Toggle','Layout']
-
-  constructor:( @subjectNames=Stream.SubjectNames ) ->
-    @subjects = {}
-    for name in @subjectNames
-      @subjects[name] = new Rx.Subject()
+  constructor:( @bundleNames, @infoSpec ) ->
+    @bundles = {}
+    for name in @bundleNames
+      @bundles[name] = @createBundle()
     @counts = {}
+    
+  createBundle:( ) ->
+    bundle             = {}
+    bundle.subject     = new Rx.Subject()
+    bundle.subscribers = {}
+    bundle
 
   # Get a subject by name. Create a new one if need with a warning
-  getSubject:( name, warn=false ) ->
-    if @subjects[name]?
-       @subjects[name]
-    else
-      console.warn( 'Stream.getSubject() unknown subject so returning new subject for', name ) if warn
-      @subjects[name] = new Rx.Subject()
-    @subjects[name]
+  getBundle:( name, warn=true ) ->
+    if not @bundles[name]?
+      console.warn( 'Stream.getBundle() unknown name for bundle subject so creating one for', name ) if warn
+      @bundles[name] = @createBundle()
+    @bundles[name]
 
-  subscribe:( name, next, onError=@onError, onComplete=@onComplete ) ->
-    subject = @getSubject( name, false ) # Many subscribers come before publishers
-    subject.subscribe( next, onError, onComplete )
+  getSubscriber:( name, source, issueError ) ->
+    if not ( @bundles[name]? and @bundles[name].subscriber[source]? )
+      console.error( 'Stream.getSubscriber() unknown subscriber', name ) if issueError
+      null
+    else
+      @bundles[name].subscriber[source]
+
+  subscribe:( name, source, next, onError=@onError, onComplete=@onComplete ) ->
+    bundle = @getBundle( name, false )
+    bundle.subscribers[source] = bundle.subject.subscribe( next, onError, onComplete )
+    if @infoSpec.subscribe and @isInfo(name)
+      console.info( 'Strean.subscribe()', { subject:name, subscriber:source } )
     return
 
   publish:( name, topic, jQuerySelector=null, eventType=null, htmlId="" ) ->
-    if not jQuerySelector? or not eventType?
-      subject = @getSubject(  name )
-      subject.next( topic )
-    else
+    if jQuerySelector? and eventType? and htmlId?
       @publishEvent( name, topic, jQuerySelector, eventType, htmlId )
+    else
+      subject = @getBundle(name).subject
+      if @infoSpec.publish and @isInfo(name)
+        console.info( 'Strean.publish()', { subject:name, topic:topic } )
+      subject.next( topic )
     return
 
   publishEvent:( name, topic, jQuerySelector, eventType, htmlId="" ) ->
-    subject  = @getSubject( name )
+    subject  = @getBundle(name).subject
     element  = @domElement( jQuerySelector, htmlId )
     return if @notElement( element, name )
     onEvent  = ( event ) =>
@@ -44,15 +56,32 @@ class Stream
     element.addEventListener( eventType, onEvent )
     return
 
+  unsubscribeAll:() ->
+    for   own kbun, bundle     of @bundles
+      for own ksub, subscriber of bundle.subscribers
+        @unsubscribe( kbun, ksub )
+    return
+
+  unsubscribe:( name, source ) ->
+    if   @bundles[name]?
+      if @bundles[name].subscribers[source]?
+         @bundles[name].subscribers[source].unsubscribe()
+      else
+         console.error( 'Strean.unsubscribe() unknown subscriber', { subject:name, subscriber:source } )
+    else
+      console.error(    'Strean.unsubscribe() unknown subject',    { subject:name, subscriber:source } )
+
+    if @infoSpec.subscribe and @isInfo(name)
+      console.info( 'Strean.unsubscribe()', { subject:name, subscriber:source } )
+    return
+
+  isInfo:( name ) ->
+    Util.inArray(@infoSpec.subjects,name)
+
   notElement:( element, name ) ->
     status = element? and element.id? and Util.isStr( element.id )
     console.log( 'Stream.notElement()', name ) if not status
     not status
-
-  unsubscribe:( name ) ->
-    subject = @getSubject(  name )
-    subject.unsubscribe()
-    return
 
   processEvent:( event ) ->
     event?.stopPropagation()                   # Will need to look into preventDefault
@@ -78,14 +107,14 @@ class Stream
     for source in sources
       sub = @getSubject(source).take(1)
       subs.push( sub )
-    @subjects[name] = Rx.Observable.concat( subs ).take(subs.length)
+    @bundles[name] = Rx.Observable.concat( subs ).take(subs.length)
     #console.log( 'Stream.concat() subs.length', subs.length )
     onNext = (object) ->
       params = if object.params? then object.params else 'none'
       Util.noop( params )
       #console.log( 'Stream.concat() next params', params )
     onError = (err) ->
-      console.log( 'Stream.concat() error', err)
+      console.error( 'Stream.concat() error', err)
     @subscribe( name, onNext, onError, onComplete )
     return
 
@@ -98,6 +127,7 @@ class Stream
   domElement:( jQuerySelector, htmlId="" ) ->
     if @isJQuery(  jQuerySelector )
        console.warn("Stream.domElement() jQuerySelector empty", { htmlId:htmlId } ) if @isEmpty(jQuerySelector)
+       console.trace()                                                              if @isEmpty(jQuerySelector)
        jQuerySelector.get(0)
     else if Util.isStr( jQuerySelector )
        $(jQuerySelector).get(0)
@@ -114,9 +144,9 @@ class Stream
   onComplete:()     ->
     console.log(   'Stream.onComplete()', 'Completed' )
 
-  logSubjects:() ->
-    for key, obj of @subjects
-      console.log( 'Stream.logSubjects', key )
+  infoSubjects:() ->
+    for key, obj of @bundles
+      console.info( 'Stream.logSubjects', key )
 
   drag:( jqSel ) ->
 
@@ -148,32 +178,6 @@ class Stream
     topic = 'Right' if event.which is 39
     topic = 'Down'  if event.which is 40
     topic
-
-  publishEvent1:( name, topic, jQuerySelector, eventType ) ->
-    subject      = @getSubject( name )
-    element      = @domElement( jQuerySelector )
-    return if @notElement( element, name )
-    observable   = Rx.Observable.fromEvent( element, eventType ).mapTo( topic )
-    mergeSubject = subject.merge( observable )
-    mergeSubject.mapTo( topic )
-    @resetSubject( name, mergeSubject )
-    return
-
-  # Publishes topic on dom element event
-  publishEvent2:( name, topic, jQuerySelector, eventType ) ->
-    subject         = @getSubject( name )
-    element         = @domElement( jQuerySelector )
-    return if @notElement( element, name )
-    observable    = Rx.Observable.fromEvent( element, eventType ).mapTo( topic )
-    next  = ( event ) =>
-      @processEvent(  event )
-      object  = if topic? then topic else event.target.value
-      observable.mapTo( object )
-    subject = subject.merge( observable )
-    subject.subscribe( next, @error, @complete )
-    subject.mapTo( topic )
-    @resetSubject( name, subject )
-    return
   ###
 
 `export default Stream`

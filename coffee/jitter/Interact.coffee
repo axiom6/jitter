@@ -61,7 +61,7 @@ class Interact
     src = "img/body/Body.jpg"
     @$view = $( """<div #{Dom.panel(0, 0,100,100)}></div>"""  )
     @$view.append( "<h1 #{Dom.label(0, 0,100, 10)}>Body</h1>" )
-    @$view.append( """  #{Dom.image(0,10,100, 90,src,150)}""" )
+    @$view.append( """  #{Dom.image(src,@pane.toVh(80),@pane.toVw(80))}""" )
     @$view
 
   doClick:( stream, $e, key, study  ) ->

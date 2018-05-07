@@ -1,10 +1,10 @@
 
-`import Util    from '../util/Util.js'`
+# Needs choma-js
 
 class Color
 
   #module.exports = Color
-  #Color.Palettes = require( '/js/d3d/Palettes' )
+  #Color.Palettes = require( 'js/d3d/Palettes' )
   #Color.chroma   = require( 'chroma-js' )
 
   @rad:( deg ) -> deg * Math.PI / 180
@@ -227,7 +227,7 @@ class Color
     s = n.toString()
     if  0 <= n && n <= 9 then s = '&nbsp;&nbsp;' + s
     if 10 <= n && n <=99 then s = '&nbsp;'  + s
-    #console.log( 'pad', { s:'|'+s+'|', n:n,  } )
+    #Util.dbg( 'pad', { s:'|'+s+'|', n:n,  } )
     s
 
   @dec:( f )      -> Math.round(f*100) / 100
@@ -288,7 +288,7 @@ class Color
       console.error( 'Color.cssRgb() unknown CSS color', str )
     rgb
 
-  # console.log( 'Color.cssRgb', toks.length, { r:toks[1], g:toks[2], b:toks[3] } )
+  # Util.dbg( 'Color.cssRgb', toks.length, { r:toks[1], g:toks[2], b:toks[3] } )
 
   @rgbToHsi:( rgb ) ->
     sum = Color.sumRgb( rgb )
@@ -310,7 +310,7 @@ class Color
     rgb = { r:z(240), g:x,      b:y(240) }  if 240 <= h && h < 360
     max = Color.maxRgb(rgb) * i
     fac = if max > 255 then i*255/max else i
-    #console.log('Color.hsiToRgb', hsi, Color.roundRgb(rgb,fac), Color.fixedDec(rgb), Color.dec(max) )
+    #Util.dbg('Color.hsiToRgb', hsi, Color.roundRgb(rgb,fac), Color.fixedDec(rgb), Color.dec(max) )
     Color.roundRgb( rgb, fac )
 
   @hsvToRgb:( hsv ) ->
@@ -386,169 +386,6 @@ class Color
         when b then ( r - g ) / d + 4
         else console.error('Color.@rgbToHsl()'); 0
     { h:Math.round(h*60), s:Color.dec(s), l:Color.dec(l) }
-
-  @FontAwesomeUnicodes: {
-    "fa-calendar-o":"\uf133"
-    "fa-book":"\uf02d"
-    "fa-steam":"\uf1b6"
-    "fa-circle":"\uf111"
-    "fa-signal":"\uf012"
-    "fa-external-link-square":"\uf14c"
-    "fa-group": "\uf0c0"
-    "fa-empire": "\uf1d1"
-    "fa-diamond": "\uf219"
-    "fa-spinner": "\uf110"
-    "fa-wrench": "\uf0ad"
-    "fa-bar-chart-o": "\uf080"
-    "fa-refresh": "\uf021"
-    "fa-medkit": "\uf0fa"
-    "fa-compass": "\uf14e"
-    "fa-flask": "\uf0c3"
-    "fa-connectdevelop": "\uf20e"
-    "fa-joomla": "\uf1aa"
-    "fa-bar-chart": "\uf080"
-    "fa-star-o": "\uf006"
-    "fa-area-chart": "\uf1fe"
-    "fa-cloud": "\uf0c2"
-    "fa-code-fork": "\uf126"
-    "fa-question-circle": "\uf059"
-    "fa-tripadvisor": "\uf262"
-    "fa-magic": "\uf0d0"
-    "fa-object-group": "\uf247"
-    "fa-language": "\uf1ab"
-    "fa-graduation-cap": "\uf19d"
-    "fa-user-plus": "\uf234"
-    "fa-github-square": "\uf092"
-    "fa-paint-brush": "\uf1fc"
-    "fa-lightbulb-o": "\uf0eb"
-    "fa-address-card":"\uf2bb"
-    "fa-history": "\uf1da"
-    "fa-eye": "\uf06e"
-    "fa-fire": "\uf06d"
-    "fa-codepen": "\uf0c1"
-
-    "fa-link": "\uf0c1"
-    "fa-tasks": "\uf0ae"
-    "fa-child": "\uf1ae"
-    "fa-briefcase": "\uf0b1"
-    "fa-dropbox": "\uf16b"
-    "fa-user": "\uf007"
-    "fa-heart": "\uf004"
-    "fa-truck": "\uf0d1"
-    "fa-star": "\uf005"
-    "fa-sitemap": "\uf0e8"
-    "fa-cube": "\uf0eb"
-    "fa-desktop": "\uf108"
-    "fa-bars": "\uf0c9"
-    "fa-database": "\uf1c0"
-    "fa-binoculars": "\uf164"
-    "fa-thumbs-up": "\uf0a2"
-    "fa-bell": "\uf0f1"
-    "fa-stethoscope": "\uf0f1"
-    "fa-random": "\uf074"
-    "fa-cogs": "\uf085"
-    "fa-life-ring": "\uf1cd"
-    "fa-globe": "\uf0ac"
-    "fa-lock": "\uf023"
-    "fa-cubes": "\uf1b3"
-    "fa-money": "\uf0d6"
-    "fa-anchor": "\uf13d"
-    "fa-legal": "\uf0e3"
-    "fa-university": "\uf19c"
-    "fa-shield": "\uf132"
-
-    "fa-align-left":"\uf036"
-    "fa-arrow-circle-right":"\uf0a9"
-    "fa-retweet":"\uf079"
-    "fa-check-square":"\uf14a"
-    "fa-modx":"\uf285"
-    "fa-ioxhost":"\uf208"
-    "fa-calculator":"\uf1ec"
-    "fa-wordpress":"\uf19a"
-    "fa-filter":"\uf0b0"
-    "fa-html5":"\uf13b"
-    "fa-search":"\uf002"
-    "fa-leanpub":"\uf212"
-    "fa-sliders":"\uf1de"
-
-    "fa-database":"\uf1c0"
-    "fa-table":"\uf0ce"
-    "fa-user-md":"\uf0f0"
-    "fa-line-chart":"\uf201"
-    "fa-certificate":"\uf0a3"
-    "fa-clone":"\uf24d"
-    "fa-thumbs-down":"\uf165"
-    "fa-hand-peace-o":"\uf25b"
-    "fa-users":"\uf0c0"
-    "fa-balance-scale":"\uf24e"
-    "fa-newspaper-o":"\uf1ea"
-    "fa-wechat":"\uf1d7 "
-    "fa-leaf":"\uf06c"
-
-    "fa-dropbox":"\uf16b"
-    "fa-external-link-square":"\uf14c"
-    "fa-university":"\uf19c"
-    "fa-life-ring":"\uf1cd"
-    "fa-cubes":"\uf1b3"
-    "fa-anchor":"\uf13d"
-    "fa-compass":"\uf066"
-    "fa-question":"\uf128"
-    "fa-asl-interpreting":"\uf2a3"
-    "fa-road":"\uf018"
-    "fa-pied-piper-alt":"\uf1a8"
-    "fa-gift":"\uf06b"
-    "fa-universal-access":"\uf29a"
-    "fa-cloud-download":"\uf0ed"
-    "fa-blind":"\uf29d"
-    "fa-sun-o":"\uf185"
-    "fa-gears":"\uf085"
-    "fa-gamepad":"\uf11b"
-    "fa-slideshare":"\uf1e7"
-    "fa-envelope-square":"\uf199"
-    "fa-recycle":"\uf1b8"
-    "fa-list-alt":"\uf022"
-    "fa-wheelchair-alt":"\uf29b"
-    "fa-trophy":"\uf091"
-    "fa-headphones":"\uf025"
-    "fa-codiepie":"\uf284"
-    "fa-building-o":"\uf0f7"
-    "fa-plus-circle":"\uf055"
-    "fa-server":"\uf233"
-    "fa-square-o":"\uf096"
-    "fa-share-alt":"\uf1e0"
-    "fa-handshake-o":"\uf2b5"
-    "fa-snowflake-o":"\uf2dc"
-    "fa-shower":     "\uf2cc"
-  }
-
-  #for key, uc of Prac.FontAwesomeUnicodes
-  #console.log( 'Awesome', key, "#{uc}" )
-
-  @unicode:( icon ) ->
-    uc = Color.FontAwesomeUnicodes[icon]
-    if not uc?
-      #uc = Color.uniawe( icon )
-      #if not uc?
-        console.error( 'Color.unicode() missing icon in Color.FontAwesomeUnicodes for', icon )
-        uc = "\uf111" # Circle
-    uc
-
-  @unichar:( icon ) ->
-    uc = Color.FontAwesomeUnicodes[icon]
-    uc = if not uc? then "\uf111" else uc
-    un = Number.parseInt( '0xf0ad', 16 )
-    us = String.fromCharCode( un )
-    console.log( 'Color.unichar', { icon:icon, uc:uc, un:un, us:us } )
-    "\uF000"
-
-  @uniawe:( icon ) ->
-    temp = document.createElement("i")
-    temp.className = icon
-    document.body.appendChild(temp)
-    uni = window.getComputedStyle( document.querySelector('.' + icon), ':before' ).getPropertyValue('content')
-    console.log( 'uniawe', icon, uni )
-    temp.remove()
-    uni
 
   ###
   var setCursor = function (icon) {

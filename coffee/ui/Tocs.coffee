@@ -1,6 +1,6 @@
 
-`import Util    from '../util/Util.js'`
-`import UI      from '../ui/UI.js'`
+`import Util from '../util/Util.js'`
+`import UI   from '../ui/UI.js'`
 
 class Tocs
 
@@ -15,7 +15,7 @@ class Tocs
     @speed       = 400
 
   createTocsSpecs:( practices ) ->
-    spec0     = { level:0, name:"Beg" }
+    spec0     = { level:0, name:"Beg", hasChild:true }
     stack     = new Array(Tocs.MaxTocLevel)
     stack[0]  = spec0
     specs     = []
@@ -27,13 +27,13 @@ class Tocs
       for own keyStudy, study of practice when hasChild and UI.isChild(keyStudy)
         practice.hasChild = true
         @enrichSpec( keyStudy, study, specs, 2, practice, false, false )
-    specN = { level:0, name:"End" }
+    specN = { level:0, name:"End", hasChild:false }
     specs.push( specN )
     [specs,stack]
 
-  logSpecs:() ->
+  infoSpecs:() ->
     for spec in @specs
-      console.log( 'UI.Tocs.spec', Util.indent(spec.level*2), spec.name, spec.hasChild )
+      console.info( 'UI.Tocs.spec', Util.indent(spec.level*2), spec.name, spec.hasChild )
     return
 
   enrichSpec:( key, spec, specs, level, parent, hasChild, isRow ) ->
@@ -60,28 +60,30 @@ class Tocs
 
   toSelect:( spec ) ->
     if spec.level is 2 # Study
+      #console.log( 'Tocs.toSelect(spec) Study', { pane:spec.parent.name, study:spec.parent[spec.name] } )
       UI.select(  spec.parent.name, 'Tocs', UI.SelectStudy, spec.parent[spec.name] )
     else               # Practice and everything else for now
-      intent = UI.SelectPane
-      intent = UI.SelectView if spec.name is 'Overview'
+      intent = if spec.name is 'View' then UI.SelectView else UI.SelectPane
       UI.select(  spec.name, 'Tocs', intent )
 
   subscribe:() ->
-    @stream.subscribe( 'Select', (select) => @onSelect(select) )
+    @stream.subscribe( 'Select', 'Tocs', (select) => @onSelect(select) )
     return
 
   htmlId:( spec, ext = '' ) ->
     suffix = if spec.parent? then ext + spec.parent.name else ext
-    UI.htmlId( spec.name, 'Tocs', suffix )
+    @ui.htmlId( spec.name, 'Tocs', suffix )
 
   getSpec:( select, issueError=true ) ->
     for spec in @specs
       return spec if spec.name is select.name
-    console.error( 'UI.Tocs.getSpec(id) spec null for select', select ) if issueError and @nameNotOk(select.name)
+    if issueError and @nameNotOk( select.name )
+      console.error( 'UI.Tocs.getSpec(id) spec null for select', select )
+      @logSpecs()
     null
 
   nameNotOk:( name ) ->
-    okNames = ['None','Embrace','Innovate','Encourage','Overview','Technique']
+    okNames = ['None','View','Embrace','Innovate','Encourage','Learn','Do','Share']
     for okName in okNames
       return false if name is okName
     true
@@ -134,11 +136,14 @@ class Tocs
     else if spec.hasChild then """</ul></li>"""
     else                       """</li>"""
 
-  onSelect:( select ) ->
+  onSelect:( select ) =>
     UI.verifySelect( select, 'Tocs' )
-    #return if @ui.notInPlane()
     spec = @getSpec( select, true ) # spec null ok not all Tocs available for views
-    @update( spec ) if spec?
+    if spec?
+      @update( spec )
+    else if select.name is 'View' and @last?
+      @reveal( @last )
+      @last = @specs[0]
     return
 
   update:( spec ) ->

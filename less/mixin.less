@@ -5,6 +5,12 @@
 @mixin-back10:hsl( 330, 40%, 10% );
 @mixin-back95:hsl( 330, 40%, 95% );
 
+.mixin-absolute( @left,@top,@width,@width )
+  { position:absolute; left:@left; top:@top; width:@width; height:@width; }
+
+.mixin-relative( @left,@top,@width,@width )
+{ position:relative; left:@left; top:@top; width:@width; height:@width; }
+
 .mixin-margins(@left,@top,@right,@bottom)
   { margin:@top @right @bottom @left; }
 

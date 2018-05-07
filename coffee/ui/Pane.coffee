@@ -1,13 +1,14 @@
 
-`import Util    from '../util/Util.js'`
-`import UI      from '../ui/UI.js'`
+`import Util from '../util/Util.js'`
+`import UI   from '../ui/UI.js'`
+`import Page from '../ui/Page.js'`
 
 class Pane
 
   constructor:( @ui, @stream, @view, @spec ) ->
     @spec.pane   = @
     @cells       = @spec.cells
-    [j,m,i,n]    = UI.jmin(@cells)
+    [j,m,i,n]    = @view.jmin(@cells)
     [@left,@top,@width,@height] = @view.position(j,m,i,n,@spec)
     @name        = @spec.name
     @classPrefix = if Util.isStr(@spec.css) then @spec.css else 'ui-pane'
@@ -16,21 +17,25 @@ class Pane
     @hscale      = @view.hscale
     @margin      = @view.margin
     @speed       = @view.speed
-    @page        = null # set by UI.Page.ready()
+    @page        = if UI.hasPage then new Page( @ui, @stream, @view, @ ) else null
+    @lastChoice  = "None"
     @geo         = null # reset by geom() when onSelect() dispatches to page
+    @intent      = UI.SelectView
 
   ready:() ->
-    @htmlId = UI.htmlId( @name, 'Pane' )
+    @htmlId = @ui.htmlId( @name, 'Pane' )
     @$      = $( @createHtml() )
     @view.$view.append( @$ )
     @hide()
     @adjacentPanes()
-    select = UI.select( @name, 'Pane', UI.SelectPane )
-    @reset(select)
+    @$.css( @scaleReset() )
+    @geo = @geom()
+    @page.ready() if @page?
     @show()
+    return
 
   geom:() ->
-    [j,m,i,n] = UI.jmin(@spec.cells)
+    [j,m,i,n] = @view.jmin(@spec.cells)
     [wp,hp]   = @view.positionpx( j,m,i,n, @spec ) # Pane size in AllPage usually 3x3 View
     wi        = @$.innerWidth()
     hi        = @$.innerHeight()
@@ -46,7 +51,10 @@ class Pane
     s  = Math.min( sx, sy )
     ex = wv*0.9 < w and w < wv*1.1
     geo = { w:w, h:h, wi:wi, hi:hi, wp:wp, hp:hp, wv:wv, hv:hv, r:r, x0:x0, y0:y0, sx:sx, sy:sy, s:s, ex:ex }
-    #console.log( 'Pane.geom()', geo )
+    #console.log( 'Pane.geom()', @name, geo )
+    if wp is 0 or hp is 0
+      console.error( 'Pane.geom()', @name, geo )
+      console.trace()
     geo
 
   # Converts a pane percent to vmin unit by determining the correct pane scaling factor
@@ -57,9 +65,16 @@ class Pane
   toVw:( pc ) -> @width  * pc * 0.01
   toVh:( pc ) -> @height * pc * 0.01
 
+  show:()  ->
+    #console.log( 'Pane.show()', @name )
+    #@resetStudiesDir( true )
+    @$.show()
+    return
 
-  show:()  -> @$.show()
-  hide:()  -> @$.hide()
+  hide:()  ->
+    #console.log( 'Pane.hide()', @name )
+    @$.hide()
+    return
 
   pc:(v) -> @view.pc(v)
   xs:(x) -> @view.xs(x)
@@ -77,10 +92,10 @@ class Pane
   west:(   left, width,  w, scale=1.0, dx=0 ) -> scale * ( left          - w + dx/@wscale )
 
   adjacentPanes:() ->
-    [jp,mp,ip,np] = UI.jmin(@cells)
-    [@northPane,@southPane,@eastPane,@westPane] = [@view.emptyPane,@view.emptyPane,@view.emptyPane,@view.emptyPane]
+    [jp,mp,ip,np] = @view.jmin(@cells)
+    [@northPane,@southPane,@eastPane,@westPane] = [UI.$empty,UI.$empty,UI.$empty,UI.$empty]
     for pane in @view.panes
-      [j,m,i,n] = UI.jmin(pane.cells)
+      [j,m,i,n] = @view.jmin(pane.cells)
       @northPane = pane if j is jp and m is mp and i is ip-n
       @southPane = pane if j is jp and m is mp and i is ip+np
       @westPane  = pane if i is ip and n is np and j is jp-m
@@ -90,18 +105,28 @@ class Pane
   createHtml:() ->
     """<div id="#{@htmlId}" class="#{@classPrefix}"></div>"""
 
+  scaleReset:() ->
+    { left:@xs(@left), top:@ys(@top), width:@xs(@width), height:@ys(@height) }
+
+  scaleParam:( left, top, width, height ) ->
+    { left:@pc(left),  top:@pc(top),  width:@pc(width),  height:@pc(height) }
+
+  emptyParam:() ->
+    { left:"",  top:"",  width:"",  height:"" }
+
   reset:( select ) ->
-    @$.css( { left:@xs(@left), top:@ys(@top), width:@xs(@width), height:@ys(@height) } )
+    @resetStudiesDir( true )
+    @$.css( @scaleReset() )
     @onSelect( select )
     return
 
   css:(  left, top, width, height, select ) ->
-    @$.css( { left:@pc(left), top:@pc(top), width:@pc(width), height:@pc(height) } )
+    @$.css( @scaleParam( left, top, width, height ) )
     @onSelect( select )
     return
 
   animate:( left, top, width, height, select, aniLinks=false, callback=null ) ->
-    @$.show().animate( { left:@pc(left), top:@pc(top), width:@pc(width), height:@pc(height) }, @view.speed, () => @animateCall(callback,select) )
+    @$.show().animate( @scaleParam( left, top, width, height ), @view.speed, () => @animateCall(callback,select) )
     return
 
   animateCall:( callback, select ) =>
@@ -109,9 +134,28 @@ class Pane
     callback(@) if callback?
     return
 
+  resetStudiesDir:( show ) ->
+    for dir in ['west','north','east','south','prac']
+      @resetStudyDir( false, show, dir )
+    return
+
+  resetStudyDir:( expand, show, dir ) ->
+    $study = @$.find( @dirClass(dir) )
+    if expand
+      $study.css( @scaleParam( @view.margin.west, @view.margin.north, 100*@view.wview, 100*@view.hview ) )
+    else
+      $study.css( @emptyParam() )
+      @page.contents['Study'].intent( UI.SelectPane ) if @page?
+    if show then $study.show() else $study.hide()
+    return
+
+  dirClass:( dir) ->
+    ".study-#{dir}"
+
   onSelect:( select ) ->
+    UI.verifySelect( select, 'Pane.onSelect()' )
     @geo = @geom()
-    @page.onSelect( @, select ) if @page?
+    @page.onSelect( select ) if @page?
     return
 
 `export default Pane`

@@ -11,9 +11,6 @@ class  Flavor
     @ui.addContent( @name, @ )
     @wheel = new Wheel( @publish, Dom.opacity )
     @prevRegion = null
-    @srcLg = "img/logo/JitterBoxHead.png"
-    @srcRx = "img/logo/JitterBoxRx.png"
-    @srcRy = "img/logo/JitterBoxRy.png"
 
   # Passed as a callback to Wheel and called when Wheel makes a choice to be published
   publish:( add, flavor ) =>
@@ -29,21 +26,15 @@ class  Flavor
     return
 
   subscribe:( name ) ->
-    @stream.subscribe( 'Region', (select) => @onRegion(select) ) if name is 'Flavors'
-    @stream.subscribe( 'Choice', (choice) => @onChoice(choice) ) if name is 'Flavor'
+    @stream.subscribe( 'Region', name, (region) => @onRegion(region) ) if name is 'Flavors'
+    @stream.subscribe( 'Choice', name, (choice) => @onChoice(choice) ) if name is 'Flavor'
     return
 
   readyPane:() ->
     url   = "json/flavor.choice.json"
     scale = 1.3
-    divId = UI.getHtmlId( "Wheel", @pane.name )
-    #p = @pane.$
-    #p.append( """     #{Dom.image( 0, 0,100, 10,@srcLg,15,"","24px") }""" )
-    #p.append( """     #{Dom.image(-4, 0, 15, 10,@srcRy,30,"","24px") }""" )
-    #p.append( """     #{Dom.image(75, 0, 15, 10,@srcRx,30,"","24px") }""" )
+    divId = @ui.getHtmlId( "Wheel", @pane.name )
     $w =    $( """<div #{Dom.panel( 0, 5,100, 95)} id="#{divId}"></div>""" )
-    #w.css( { "background-image":"url(img/flavor/jitterPourOverBg.png)" } )
-    #w.css( { "background-color":"#8d6566" } )
     @wheel.ready( @pane, @spec, $w.get(0), url, scale )
     window.addEventListener("resize", @resize );
     @subscribe( @name )
@@ -54,9 +45,12 @@ class  Flavor
     @wheel.resize()
     return
 
-  onRegion:( select ) =>
-    region = select.study
-    #console.log( 'Flavors.onRegion()', { name:region.name, flavors:region.flavors } ) if region?
+  onRegion:( region ) =>
+
+    if region? and @stream.isInfo('Region')
+      console.info( 'Flavor.onRegion()', { instance:@name, name:region.name, flavors:region.flavors } )
+    return if @name is 'Flavor' # Only the Flavors name instance responds to onRegion()
+
     if @prevRegion? and @prevRegion.flavors?
       for  flavor  in   @prevRegion.flavors
         @onWheel( 'DelChoice', flavor )
@@ -72,7 +66,7 @@ class  Flavor
     return
 
   onChoice:( choice ) =>
-    return if choice.name isnt 'Flavor' or Util.isntStr(choice.study)
+    return if choice.source is 'Flavor' or Util.isntStr(choice.study)
     addDel = if choice.intent is UI.AddChoice then 'AddChoice' else 'DelChoice'
     @onWheel( addDel, choice.study )
     return
@@ -81,7 +75,7 @@ class  Flavor
     src = "img/flavor/Flavor.png"
     @$view.append( """<div #{Dom.panel(0, 0,100,100)}></div>""" )
     @$view.append( """<h1  #{Dom.label(0, 0,100, 10)}>Flavor</h1>""" )
-    @$view.append( """     #{Dom.image(0,10,100, 90,src,150)}""" )
+    @$view.append( """     #{Dom.image(src,@pane.toVh(80),@pane.toVw(80))}""" )
     @$view
 
 `export default Flavor`

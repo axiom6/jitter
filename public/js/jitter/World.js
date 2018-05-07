@@ -7,10 +7,6 @@ World = class World {
   constructor(stream, ui) {
     var callback;
     this.onClick = this.onClick.bind(this);
-    //else
-    //  @spec.num = @spec.num-1
-    //  alert( "You can only make #{@spec.max} choices for World" )
-    //console.log( 'World.showRegion()', { region:region } )
     this.onChoice = this.onChoice.bind(this);
     this.stream = stream;
     this.ui = ui;
@@ -31,7 +27,8 @@ World = class World {
         if (!hasProp.call(ref, name)) continue;
         region = ref[name];
         region.name = name;
-        results.push(region.chosen = false);
+        region.chosen = false;
+        results.push(region.source = 'World');
       }
       return results;
     };
@@ -43,11 +40,9 @@ World = class World {
 
   //@stream.subscribe( 'Choice', (choice) => @onChoice(choice) )
   readyPane() {
-    var $p, mh, mw, src;
+    var $p, src;
     src = "img/region/WorldBelt.png";
-    mh = this.pane.toVh(96);
-    mw = this.pane.toVw(96);
-    $p = $(`  ${Dom.image(0, 0, 100, 100, src, mh, "", "24px", mw)}`);
+    $p = $(`  ${Dom.image(src, this.pane.toVh(80), this.pane.toVw(80), "", "24px")}`);
     this.$img = $p.find('img');
     this.$img.click((event) => {
       return this.onClick(event);
@@ -67,6 +62,7 @@ World = class World {
     y = (event.pageY - offset.top) * this.hImg / $elem.height();
     region = this.findRegion(x, y);
     region.chosen = !region.chosen;
+    region.source = 'World';
     //console.log( 'World.onClick()', { x:x, y:y, w:$elem.width(), h:$elem.height(), l:offset.left, t:offset.top, region:region } )
     this.showRegion(region);
   }
@@ -91,18 +87,15 @@ World = class World {
   }
 
   showRegion(region) {
-    var addDel, choice, select;
     if (region.name === "None") {
       return;
     }
-    addDel = region.chosen ? UI.AddChoice : UI.DelChoice;
     this.spec.num = region.chosen ? this.spec.num + 1 : this.spec.num - 1;
-    //if @spec.num <= @spec.max
-    select = UI.select('Region', 'World', UI.SelectStudy, region);
-    choice = UI.select('Region', 'World', addDel, region.name);
-    this.stream.publish('Region', select);
     if (this.spec.num <= this.spec.max) {
-      this.stream.publish('Choice', choice);
+      this.stream.publish('Region', region);
+    } else {
+      this.spec.num = this.spec.num - 1;
+      alert(`You can only make ${this.spec.max} choices for World`);
     }
   }
 
@@ -111,8 +104,9 @@ World = class World {
     if (choice.name !== 'World' || Util.isntStr(choice.study)) {
       return;
     }
-    region = this.regions(choice.study);
+    region = this.regions[choice.study];
     region.chosen = choice.intent === UI.AddChoice;
+    region.source = choice.source;
     this.showRegion(region);
   }
 

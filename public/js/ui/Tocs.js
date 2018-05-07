@@ -1,11 +1,12 @@
-import Util    from '../util/Util.js';
-import UI      from '../ui/UI.js';
+import Util from '../util/Util.js';
+import UI   from '../ui/UI.js';
 var Tocs,
   hasProp = {}.hasOwnProperty;
 
 Tocs = (function() {
   class Tocs {
     constructor(ui, stream, practices1) {
+      this.onSelect = this.onSelect.bind(this);
       this.ui = ui;
       this.stream = stream;
       this.practices = practices1;
@@ -21,7 +22,8 @@ Tocs = (function() {
       var hasChild, keyPrac, keyStudy, pracToc, practice, spec0, specN, specs, stack, study;
       spec0 = {
         level: 0,
-        name: "Beg"
+        name: "Beg",
+        hasChild: true
       };
       stack = new Array(Tocs.MaxTocLevel);
       stack[0] = spec0;
@@ -45,18 +47,19 @@ Tocs = (function() {
       }
       specN = {
         level: 0,
-        name: "End"
+        name: "End",
+        hasChild: false
       };
       specs.push(specN);
       return [specs, stack];
     }
 
-    logSpecs() {
+    infoSpecs() {
       var j, len, ref, spec;
       ref = this.specs;
       for (j = 0, len = ref.length; j < len; j++) {
         spec = ref[j];
-        console.log('UI.Tocs.spec', Util.indent(spec.level * 2), spec.name, spec.hasChild);
+        console.info('UI.Tocs.spec', Util.indent(spec.level * 2), spec.name, spec.hasChild);
       }
     }
 
@@ -92,18 +95,16 @@ Tocs = (function() {
     toSelect(spec) {
       var intent;
       if (spec.level === 2) { // Study
+        //console.log( 'Tocs.toSelect(spec) Study', { pane:spec.parent.name, study:spec.parent[spec.name] } )
         return UI.select(spec.parent.name, 'Tocs', UI.SelectStudy, spec.parent[spec.name]);
       } else {
-        intent = UI.SelectPane;
-        if (spec.name === 'Overview') {
-          intent = UI.SelectView;
-        }
+        intent = spec.name === 'View' ? UI.SelectView : UI.SelectPane;
         return UI.select(spec.name, 'Tocs', intent);
       }
     }
 
     subscribe() {
-      this.stream.subscribe('Select', (select) => {
+      this.stream.subscribe('Select', 'Tocs', (select) => {
         return this.onSelect(select);
       });
     }
@@ -111,7 +112,7 @@ Tocs = (function() {
     htmlId(spec, ext = '') {
       var suffix;
       suffix = spec.parent != null ? ext + spec.parent.name : ext;
-      return UI.htmlId(spec.name, 'Tocs', suffix);
+      return this.ui.htmlId(spec.name, 'Tocs', suffix);
     }
 
     getSpec(select, issueError = true) {
@@ -125,13 +126,14 @@ Tocs = (function() {
       }
       if (issueError && this.nameNotOk(select.name)) {
         console.error('UI.Tocs.getSpec(id) spec null for select', select);
+        this.logSpecs();
       }
       return null;
     }
 
     nameNotOk(name) {
       var j, len, okName, okNames;
-      okNames = ['None', 'Embrace', 'Innovate', 'Encourage', 'Overview', 'Technique'];
+      okNames = ['None', 'View', 'Embrace', 'Innovate', 'Encourage', 'Learn', 'Do', 'Share'];
       for (j = 0, len = okNames.length; j < len; j++) {
         okName = okNames[j];
         if (name === okName) {
@@ -216,10 +218,12 @@ Tocs = (function() {
     onSelect(select) {
       var spec;
       UI.verifySelect(select, 'Tocs');
-      //return if @ui.notInPlane()
       spec = this.getSpec(select, true); // spec null ok not all Tocs available for views
       if (spec != null) {
         this.update(spec);
+      } else if (select.name === 'View' && (this.last != null)) {
+        this.reveal(this.last);
+        this.last = this.specs[0];
       }
     }
 

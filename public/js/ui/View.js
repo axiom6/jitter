@@ -1,38 +1,45 @@
-import Util    from '../util/Util.js';
-import UI      from '../ui/UI.js';
-import Pane    from '../ui/Pane.js';
-import Group   from '../ui/Group.js';
+import Util  from '../util/Util.js';
+import UI    from '../ui/UI.js';
+import Pane  from '../ui/Pane.js';
+import Group from '../ui/Group.js';
 var View,
   hasProp = {}.hasOwnProperty;
 
 View = class View {
-  constructor(ui, stream, specs1) {
+  constructor(ui, stream, practices1) {
     this.resize = this.resize.bind(this);
     this.ui = ui;
     this.stream = stream;
-    this.specs = specs1;
+    this.practices = practices1;
     this.speed = 400;
     this.$view = UI.$empty;
     this.margin = UI.margin;
-    this.ncol = UI.ncol;
-    this.nrow = UI.nrow;
-    this.classPrefix = 'ui-view';
+    this.ncol = this.ui.ncol;
+    this.nrow = this.ui.nrow;
+    this.classPrefix = Util.isStr(this.practices.css) ? this.spec.css : 'ui-view';
     [this.wpane, this.hpane, this.wview, this.hview, this.wscale, this.hscale] = this.percents(this.nrow, this.ncol, this.margin);
-    [this.groups, this.panes] = this.createGroupsPanes(this.specs);
+    [this.groups, this.panes] = this.createThePanes();
     this.sizeCallback = null;
+    this.paneCallback = null;
     this.lastPaneName = '';
-    this.emptyPane = UI.$empty;
+    this.$empty = UI.$empty; // Empty jQuery singleton for intialization
     this.allCells = [1, this.ncol, 1, this.nrow];
-    this.select = UI.select("Overview", "View", UI.SelectView);
+  }
+
+  createThePanes() {
+    if (this.ui.planeName === 'Jitter') {
+      return this.createGroupsPanes(this.practices);
+    } else {
+      return this.createPanes(this.practices);
+    }
   }
 
   ready() {
-    var html, htmlId, k, len, pane, parent, ref;
-    parent = $('#' + UI.getHtmlId('View')); // parent is outside of planes
-    htmlId = UI.htmlId('View', 'Plane');
-    html = $(`<div id="${htmlId}" class="${this.classPrefix}"></div>`);
-    parent.append(html);
-    this.$view = parent.find('#' + htmlId);
+    var htmlId, k, len, pane, parent, ref;
+    parent = $('#' + this.ui.getHtmlId('View')); // parent is outside of planes
+    htmlId = this.ui.htmlId('View', 'Plane');
+    this.$view = $(`<div id="${htmlId}" class="${this.classPrefix}"></div>`);
+    parent.append(this.$view);
     ref = this.panes;
     for (k = 0, len = ref.length; k < len; k++) {
       pane = ref[k];
@@ -42,7 +49,7 @@ View = class View {
   }
 
   subscribe() {
-    return this.stream.subscribe('Select', (select) => {
+    return this.stream.subscribe('Select', 'View', (select) => {
       return this.onSelect(select);
     });
   }
@@ -126,26 +133,22 @@ View = class View {
     return specPaneGroup.css === 'ikw-col';
   }
 
-  jmin(cells) {
-    return UI.jmin(cells);
-  }
-
   positionUnionPane(unionCells, paneCells, spec, xscale = 1.0, yscale = 1.0) {
     var ip, iu, jp, ju, mp, mu, np, nu;
-    [ju, mu, iu, nu] = UI.jmin(unionCells);
-    [jp, mp, ip, np] = UI.jmin(paneCells);
+    [ju, mu, iu, nu] = this.jmin(unionCells);
+    [jp, mp, ip, np] = this.jmin(paneCells);
     return this.position((jp - ju) * this.ncol / mu, mp * this.ncol / mu, (ip - iu) * this.nrow / nu, np * this.nrow / nu, spec, xscale, yscale);
-  }
-
-  positionPane(paneCells, spec, xscale = 1.0, yscale = 1.0) {
-    var i, j, m, n;
-    [j, m, i, n] = UI.jmin(paneCells);
-    return this.position(j, m, i, n, spec, xscale, yscale);
   }
 
   positionGroup(groupCells, spec, xscale = 1.0, yscale = 1.0) {
     var i, j, m, n;
-    [j, m, i, n] = UI.jmin(groupCells);
+    [j, m, i, n] = this.jmin(groupCells);
+    return this.position(j, m, i, n, spec, xscale, yscale);
+  }
+
+  positionPane(paneCells, spec, xscale = 1.0, yscale = 1.0) {
+    var i, j, m, n;
+    [j, m, i, n] = this.jmin(paneCells);
     return this.position(j, m, i, n, spec, xscale, yscale);
   }
 
@@ -168,12 +171,11 @@ View = class View {
 
   reset(select) {
     var k, len, pane, ref;
-    this.select.name = select.name;
-    this.select.intent = select.intent;
     ref = this.panes;
     for (k = 0, len = ref.length; k < len; k++) {
       pane = ref[k];
-      pane.reset(this.select);
+      pane.intent = select.intent;
+      pane.reset(select);
     }
   }
 
@@ -208,10 +210,10 @@ View = class View {
   showAll() {
     var k, len, pane, ref;
     this.$view.hide();
-    this.reset(this.select);
     ref = this.panes;
     for (k = 0, len = ref.length; k < len; k++) {
       pane = ref[k];
+      //@reset( @selectView )
       pane.show();
     }
     this.$view.show(this.speed, () => {
@@ -226,32 +228,31 @@ View = class View {
     UI.verifySelect(select, 'View');
     name = select.name;
     intent = select.intent;
-    this.select = select;
     switch (intent) {
       case UI.SelectView:
-        this.expandView();
+        this.expandAllPanes(select);
         break;
       case UI.SelectGroup:
-        this.expandGroup(this.getPaneOrGroup(name));
+        this.expandGroup(select, this.getPaneOrGroup(name));
         break;
       case UI.SelectPane:
-        this.expandPane(this.getPaneOrGroup(name));
+        this.expandPane(select, this.getPaneOrGroup(name));
         break;
       case UI.SelectStudy:
-        this.expandPane(this.getPaneOrGroup(name));
+        this.expandStudy(select, this.getPaneOrGroup(name));
         break;
       default:
-        console.error('View.onSelect() name not processed for intent', name, select);
+        console.error('UI.View.onSelect() name not processed for intent', name, select);
     }
   }
 
-  expandView() {
+  expandAllPanes(select) {
     this.hideAll();
-    this.reset(this.select);
+    this.reset(select);
     return this.showAll();
   }
 
-  expandGroup(group, callback = null) {
+  expandGroup(select, group, callback = null) {
     var height, k, left, len, pane, ref, top, width;
     this.hideAll('Interact');
     if (group.panes != null) {
@@ -261,7 +262,8 @@ View = class View {
         pane.show();
         //left,top,width,height] = @positionUnionPane( group.cells, pane.cells, pane.spec, @wscale, @hscale )
         [left, top, width, height] = this.positionPane(pane.cells, pane.spec, this.wscale, this.hscale);
-        pane.animate(left, top, width, height, this.select, true, callback);
+        pane.intent = select.intent;
+        pane.animate(left, top, width, height, select, true, callback);
       }
     } else {
       console.error('View.expandGroup group.panes null');
@@ -270,23 +272,41 @@ View = class View {
     this.lastPaneName = 'None';
   }
 
-  expandPane(pane, callback = null) { // , study=null
+  expandPane(select, pane, callback = null) {
+    var paneCallback;
+    paneCallback = callback != null ? callback : this.paneCallback;
+    pane = this.getPaneOrGroup(pane, false); // don't issue errors
     if (pane == null) {
       return;
     }
     this.hideAll();
+    pane.resetStudiesDir(true);
     pane.show();
-    pane.animate(this.margin.west, this.margin.north, 100 * this.wview, 100 * this.hview, this.select, true, callback);
+    pane.intent = select.intent;
+    pane.animate(this.margin.west, this.margin.north, 100 * this.wview, 100 * this.hview, select, true, paneCallback);
     this.show();
     this.lastPaneName = pane.name;
   }
 
-  getPaneOrGroup(keyOrPane, issueError = true) {
-    var group, k, key, l, len, len1, pane, ref, ref1;
-    if ((keyOrPane == null) || Util.isObj(keyOrPane)) {
-      return keyOrPane;
+  expandStudy(select, pane, callback = null) {
+    this.expandPane(select, pane, callback);
+    if (this.stream.isInfo('Select')) {
+      console.info('View.expandStudy()', {
+        study: select.study
+      });
     }
-    key = keyOrPane;
+    if (select.study == null) {
+      return;
+    }
+    pane.resetStudiesDir(false); // Hide all studies
+    pane.resetStudyDir(true, true, select.study.dir); // Expand selected
+  }
+
+  getPaneOrGroup(key, issueError = true) {
+    var group, k, l, len, len1, pane, ref, ref1;
+    if (Util.isObj(key)) {
+      return key;
+    }
     ref = this.panes;
     for (k = 0, len = ref.length; k < len; k++) {
       pane = ref[k];
@@ -306,7 +326,22 @@ View = class View {
     if (issueError) {
       console.error('UI.View.getPaneOrGroup() null for key ', key);
     }
-    return this.emptyPane;
+    return null;
+  }
+
+  createPanes(practices) {
+    var keyPractice, pane, panes, practice;
+    panes = [];
+// when practice.pane
+    for (keyPractice in practices) {
+      if (!hasProp.call(practices, keyPractice)) continue;
+      practice = practices[keyPractice];
+      pane = new Pane(this.ui, this.stream, this, practice);
+      panes.push(pane);
+      practice.pane = pane;
+    }
+    // @createStudyPanes( practice, panes )
+    return [null, panes];
   }
 
   createGroupsPanes(specs) {
@@ -337,21 +372,47 @@ View = class View {
         pspec.pane = pane;
       }
     }
+    //console.log( "View.createGroupsPanes()", group )
     return [groups, panes];
   }
 
   paneInUnion(paneCells, unionCells) {
     var ip, iu, jp, ju, mp, mu, np, nu;
-    [jp, mp, ip, np] = UI.jmin(paneCells);
-    [ju, mu, iu, nu] = UI.jmin(unionCells);
+    [jp, mp, ip, np] = this.jmin(paneCells);
+    [ju, mu, iu, nu] = this.jmin(unionCells);
     return ju <= jp && jp + mp <= ju + mu && iu <= ip && ip + np <= iu + nu;
   }
 
   expandCells(unionCells, allCells) { // Not Implemented
     var ia, iu, ja, ju, ma, mu, na, nu;
-    [ju, mu, iu, nu] = UI.jmin(unionCells);
-    [ja, ma, ia, na] = UI.jmin(allCells);
+    [ju, mu, iu, nu] = this.jmin(unionCells);
+    [ja, ma, ia, na] = this.jmin(allCells);
     return [(ju - ja) * ma / mu, ma, (iu - ia) * na / nu, na];
+  }
+
+  jmin(cells) {
+    if (cells == null) {
+      Util.trace('UI.jmin');
+    }
+    return [cells[0] - 1, cells[1], cells[2] - 1, cells[3]];
+  }
+
+  toCells(jmin) {
+    return [jmin[0] + 1, jmin[1], jmin[2] + 1, jmin[3]];
+  }
+
+  unionCells(cells1, cells2) {
+    var i1, i2, j1, j2, m1, m2, n1, n2;
+    [j1, m1, i1, n1] = UI.jmin(cells1);
+    [j2, m2, i2, n2] = UI.jmin(cells2);
+    return [Math.min(j1, j2) + 1, Math.max(j1 + m1, j2 + m2) - Math.min(j1, j2), Math.min(i1, i2) + 1, Math.max(i1 + n1, i2 + n2) - Math.min(i1, i2)];
+  }
+
+  intersectCells(cells1, cells2) {
+    var i1, i2, j1, j2, m1, m2, n1, n2;
+    [j1, m1, i1, n1] = UI.jmin(cells1);
+    [j2, m2, i2, n2] = UI.jmin(cells2);
+    return [Math.max(j1, j2) + 1, Math.min(j1 + m1, j2 + m2), Math.max(i1, i2) + 1, Math.min(i1 + n1, i2 + n2)];
   }
 
 };

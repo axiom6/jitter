@@ -6,7 +6,7 @@ Util = (function() {
     // ------ Modules ------
     static init(moduleCommonJS = void 0, moduleWebPack = void 0, root = '../../') {
       Util.root = root;
-      Util.rootJS = Util.root + '/js/';
+      Util.rootJS = Util.root + 'js/';
       Util.resetModuleExports();
       Util.fixTestGlobals();
       if (Util.isCommonJS && (moduleCommonJS != null)) {
@@ -104,17 +104,6 @@ Util = (function() {
       } else {
         return null;
       }
-    }
-
-    static hasPlugin(plugin, issue = true) {
-      var glob, has, plug;
-      glob = Util.firstTok(plugin, '.');
-      plug = Util.lastTok(plugin, '.');
-      has = (window[glob] != null) && (window[glob][plug] != null);
-      if (!has && issue) {
-        console.error(`Util.hasPlugin()  $${glob + '.' + plug} not present`);
-      }
-      return has;
     }
 
     static hasModule(path, issue = true) {
@@ -254,78 +243,18 @@ Util = (function() {
     }
 
     // Consume unused but mandated variable to pass code inspections
-    static noop() {
+    static noop(...args) {
       if (false) {
-        console.log(arguments);
+        console.log(args);
       }
     }
 
-    // Conditional log arguments through console
-    // DEpreciated due to improvements we now use console directly
-    /*
-    @dbg:() ->
-    return if not Util.debug
-    str = Util.toStrArgs( '', arguments )
-    Util.consoleLog( str )
-    #@gritter( { title:'Log', time:2000 }, str )
-    return
+    static toError() {
+      var str;
+      str = Util.toStrArgs('Error:', arguments);
+      return new Error(str);
+    }
 
-    @msg:() ->
-    return if not Util.message
-    str = Util.toStrArgs( '', arguments )
-    Util.consoleLog( str )
-    return
-
-     * Log Error and arguments through console and Gritter
-    @error:() ->
-    str  = Util.toStrArgs( 'Error:', arguments )
-    Util.consoleLog( str )
-     * console.trace( 'Trace:' )
-    return
-
-     * Log Warning and arguments through console and Gritter
-    @warn:() ->
-    str  = Util.toStrArgs( 'Warning:', arguments )
-    Util.consoleLog( str )
-    return
-
-    @toError:() ->
-    str = Util.toStrArgs( 'Error:', arguments )
-    new Error( str )
-
-     * Log arguments through console if it exists
-    @log:() ->
-    str = Util.toStrArgs( '', arguments )
-    Util.consoleLog( str )
-    return
-
-     * Log arguments through gritter if it exists
-    @called:() ->
-    str = Util.toStrArgs( '', arguments )
-    Util.consoleLog( str )
-    #@gritter( { title:'Called', time:2000 }, str )
-    return
-
-    @gritter:( opts, args... ) ->
-    return if not ( Util.hasGlobal('$',false)  and $['gritter']? )
-    str = Util.toStrArgs( '', args )
-    opts.title = if opts.title? then opts.title else 'Gritter'
-    opts.text  = str
-    return
-
-    @consoleLog:( str ) ->
-    console.log(str) if console?
-    return
-
-    @trace:(  ) ->
-    str = Util.toStrArgs( 'Trace:', arguments )
-    Util.consoleLog( str )
-    try
-    throw new Error( str )
-    catch error
-    console.log( error.stack )
-    return
-     */
     static alert() {
       var str;
       str = Util.toStrArgs('', arguments);
@@ -365,6 +294,14 @@ Util = (function() {
 
     static isVal(v) {
       return typeof v === "number" || typeof v === "string" || typeof v === "boolean";
+    }
+
+    static isNaN(v) {
+      return Util.isDef(v) && typeof v === "number" && Number.isNaN(v);
+    }
+
+    static isSym(v) {
+      return typeof v === "symbol";
     }
 
     static isObjEmpty(o) {
@@ -451,6 +388,38 @@ Util = (function() {
       return true;
     }
 
+    static checkTypes(type, args) {
+      var arg, key;
+      for (key in args) {
+        if (!hasProp.call(args, key)) continue;
+        arg = args[key];
+        //console.log( "Util.checkTypes(type,args) argument #{key} #{type}", arg )
+        if (!Util.checkType(type, arg)) {
+          console.log(`Util.checkTypes(type,args) argument ${key} is not ${type}`, arg);
+          console.trace();
+        }
+      }
+    }
+
+    static checkType(type, arg) {
+      switch (type) {
+        case "string":
+          return Util.isStr(arg);
+        case "number":
+          return Util.isNum(arg);
+        case "object":
+          return Util.isObj(arg);
+        case "symbol":
+          return Util.isSym(arg);
+        case "function":
+          return Util.isFunc(arg);
+        case "array":
+          return Util.isArray(arg);
+        default:
+          return false;
+      }
+    }
+
     static copyProperties(to, from) {
       var key, val;
       for (key in from) {
@@ -488,12 +457,6 @@ Util = (function() {
       };
     }
 
-    static cssPosition($, screen, port, land) {
-      var array;
-      array = screen.orientation === 'Portrait' ? port : land;
-      $.css(Util.toPositionPc(array));
-    }
-
     static xyScale(prev, next, port, land) {
       var xn, xp, xs, yn, yp, ys;
       [xp, yp] = prev.orientation === 'Portrait' ? [port[2], port[3]] : [land[2], land[3]];
@@ -519,18 +482,27 @@ Util = (function() {
       };
     }
 
-    // ------ Html Moved to UI  ------------
-    /*
-    @getHtmlId:( name, type='', ext='' ) ->
-    id = name + type + ext
-    id.replace( /[ \.]/g, "" )
+    // ------ Html ------------
+    static getHtmlId(name, type = '', ext = '') {
+      var id;
+      id = name + type + ext;
+      return id.replace(/[ \.]/g, "");
+    }
 
-    @htmlId:( name, type='', ext='' ) ->
-    id = Util.getHtmlId( name, type, ext )
-    console.error( 'Util.htmlId() duplicate html id', id ) if Util.htmlIds[id]?
-    Util.htmlIds[id] = id
-    id
-    */
+    static htmlId(name, type = '', ext = '') {
+      var id;
+      id = Util.getHtmlId(name, type, ext);
+      if (Util.htmlIds[id] != null) {
+        console.error('Util.htmlId() duplicate html id', id);
+      }
+      Util.htmlIds[id] = id;
+      return id;
+    }
+
+    static clearHtmlIds() {
+      return Util.htmlIds = {};
+    }
+
     // ------ Converters ------
     static extend(obj, mixin) {
       var method, name;
@@ -1026,9 +998,11 @@ Util = (function() {
 
   Util.root = '../../'; // Used internally
 
-  Util.rootJS = Util.root + '/js/';
+  Util.rootJS = Util.root + 'js/';
 
   Util.databases = {};
+
+  Util.htmlIds = {}; // Object of unique Html Ids
 
   Util.logStackNum = 0;
 

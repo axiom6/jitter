@@ -22,8 +22,9 @@ class Util
   Util.instances     = []
   Util.globalPaths   = []
   Util.root          = '../../' # Used internally
-  Util.rootJS        =  Util.root + '/js/'
+  Util.rootJS        =  Util.root + 'js/'
   Util.databases     = {}
+  Util.htmlIds       = {} # Object of unique Html Ids
   Util.logStackNum   = 0
   Util.logStackMax   = 100
   Util.fills         = {}
@@ -32,7 +33,7 @@ class Util
 
   @init:( moduleCommonJS=undefined, moduleWebPack=undefined, root='../../'  ) ->
     Util.root   = root
-    Util.rootJS = Util.root + '/js/'
+    Util.rootJS = Util.root + 'js/'
     Util.resetModuleExports()
     Util.fixTestGlobals()
     if     Util.isCommonJS and moduleCommonJS?
@@ -110,13 +111,6 @@ class Util
 
   @getGlobal:( global, issue=true ) ->
     if Util.hasGlobal( global, issue ) then window[global] else null
-
-  @hasPlugin:( plugin, issue=true ) ->
-    glob = Util.firstTok(plugin,'.')
-    plug = Util.lastTok( plugin,'.')
-    has  = window[glob]? and window[glob][plug]?
-    console.error( "Util.hasPlugin()  $#{glob+'.'+plug} not present" )  if not has and issue
-    has
 
   @hasModule:( path, issue=true ) ->
     has = Util.modules[path]?
@@ -204,76 +198,13 @@ class Util
 
 
   # Consume unused but mandated variable to pass code inspections
-  @noop:() ->
-    console.log( arguments ) if false
-    return
-
-  # Conditional log arguments through console
-  # DEpreciated due to improvements we now use console directly
-  ###
-  @dbg:() ->
-    return if not Util.debug
-    str = Util.toStrArgs( '', arguments )
-    Util.consoleLog( str )
-    #@gritter( { title:'Log', time:2000 }, str )
-    return
-
-  @msg:() ->
-    return if not Util.message
-    str = Util.toStrArgs( '', arguments )
-    Util.consoleLog( str )
-    return
-
-  # Log Error and arguments through console and Gritter
-  @error:() ->
-    str  = Util.toStrArgs( 'Error:', arguments )
-    Util.consoleLog( str )
-    # console.trace( 'Trace:' )
-    return
-
-  # Log Warning and arguments through console and Gritter
-  @warn:() ->
-    str  = Util.toStrArgs( 'Warning:', arguments )
-    Util.consoleLog( str )
+  @noop:( ...args ) ->
+    console.log( args ) if false
     return
 
   @toError:() ->
     str = Util.toStrArgs( 'Error:', arguments )
     new Error( str )
-
-  # Log arguments through console if it exists
-  @log:() ->
-    str = Util.toStrArgs( '', arguments )
-    Util.consoleLog( str )
-    return
-
-  # Log arguments through gritter if it exists
-  @called:() ->
-    str = Util.toStrArgs( '', arguments )
-    Util.consoleLog( str )
-    #@gritter( { title:'Called', time:2000 }, str )
-    return
-
-  @gritter:( opts, args... ) ->
-    return if not ( Util.hasGlobal('$',false)  and $['gritter']? )
-    str = Util.toStrArgs( '', args )
-    opts.title = if opts.title? then opts.title else 'Gritter'
-    opts.text  = str
-    return
-
-  @consoleLog:( str ) ->
-    console.log(str) if console?
-    return
-
-  @trace:(  ) ->
-    str = Util.toStrArgs( 'Trace:', arguments )
-    Util.consoleLog( str )
-    try
-      throw new Error( str )
-    catch error
-      console.log( error.stack )
-    return
-  ###
 
   @alert:(  ) ->
     str = Util.toStrArgs( '', arguments )
@@ -294,6 +225,8 @@ class Util
   @isNum:(n)         ->  n? and typeof(n)=="number" and not isNaN(n)
   @isObj:(o)         ->  o? and typeof(o)=="object"
   @isVal:(v)         ->  typeof(v)=="number" or typeof(v)=="string" or typeof(v)=="boolean"
+  @isNaN:(v)         ->  Util.isDef(v) and typeof(v)=="number" and Number.isNaN(v)
+  @isSym:(v)         ->  typeof(v)=="symbol"
   @isObjEmpty:(o)    ->  Util.isObj(o) and Object.getOwnPropertyNames(o).length is 0
   @isFunc:(f)        ->  f? and typeof(f)=="function"
   @isArray:(a)       ->  a? and typeof(a)!="string" and a.length? and a.length > 0
@@ -317,11 +250,28 @@ class Util
         return false
     true
 
+  @checkTypes:( type, args ) ->
+    for own key, arg of args
+      #console.log( "Util.checkTypes(type,args) argument #{key} #{type}", arg )
+      if not Util.checkType( type, arg )
+        console.log( "Util.checkTypes(type,args) argument #{key} is not #{type}", arg )
+        console.trace()
+    return
+
+  @checkType:( type, arg ) ->
+    switch type
+      when "string"   then Util.isStr(arg)
+      when "number"   then Util.isNum(arg)
+      when "object"   then Util.isObj(arg)
+      when "symbol"   then Util.isSym(arg)
+      when "function" then Util.isFunc(arg)
+      when "array"    then Util.isArray(arg)
+      else                 false
+
   @copyProperties:( to, from ) ->
     for own key, val of from
       to[key] = val
     to
-
 
   @contains:( array, value ) ->
     Util.isArray(array) and array.indexOf(value) isnt -1
@@ -335,11 +285,6 @@ class Util
   # Adds Percent from array for CSS position mapping
   @toPositionPc:( array ) ->
     { position:'absolute', left:array[0]+'%', top:array[1]+'%', width:array[2]+'%', height:array[3]+'%' }
-
-  @cssPosition:( $, screen, port, land ) ->
-    array = if screen.orientation is 'Portrait' then port else land
-    $.css( Util.toPositionPc(array) )
-    return
 
   @xyScale:( prev, next, port, land ) ->
     [xp,yp] = if prev.orientation is 'Portrait' then [port[2],port[3]] else [land[2],land[3]]
@@ -361,8 +306,8 @@ class Util
       timeout = setTimeout( callback, 100 )
     return
 
-  # ------ Html Moved to UI  ------------
-  ###
+  # ------ Html ------------
+
   @getHtmlId:( name, type='', ext='' ) ->
     id = name + type + ext
     id.replace( /[ \.]/g, "" )
@@ -372,7 +317,9 @@ class Util
     console.error( 'Util.htmlId() duplicate html id', id ) if Util.htmlIds[id]?
     Util.htmlIds[id] = id
     id
-  ###
+
+  @clearHtmlIds:() ->
+    Util.htmlIds = {}
 
   # ------ Converters ------
 
@@ -575,8 +522,6 @@ class Util
       len = len + 1
     len
 
-
-
   # Beautiful Code, Chapter 1.
   # Implements a regular expression matcher that supports character matches,
   # '.', '^', '$', and '*'.
@@ -646,7 +591,6 @@ class Util
     return
 
 `export default Util`
-
 
 
 

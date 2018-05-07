@@ -18,9 +18,6 @@ Flavor = class Flavor {
     this.ui.addContent(this.name, this);
     this.wheel = new Wheel(this.publish, Dom.opacity);
     this.prevRegion = null;
-    this.srcLg = "img/logo/JitterBoxHead.png";
-    this.srcRx = "img/logo/JitterBoxRx.png";
-    this.srcRy = "img/logo/JitterBoxRy.png";
   }
 
   publish(add, flavor) {
@@ -39,12 +36,12 @@ Flavor = class Flavor {
 
   subscribe(name) {
     if (name === 'Flavors') {
-      this.stream.subscribe('Region', (select) => {
-        return this.onRegion(select);
+      this.stream.subscribe('Region', name, (region) => {
+        return this.onRegion(region);
       });
     }
     if (name === 'Flavor') {
-      this.stream.subscribe('Choice', (choice) => {
+      this.stream.subscribe('Choice', name, (choice) => {
         return this.onChoice(choice);
       });
     }
@@ -54,14 +51,8 @@ Flavor = class Flavor {
     var $w, divId, scale, url;
     url = "json/flavor.choice.json";
     scale = 1.3;
-    divId = UI.getHtmlId("Wheel", this.pane.name);
-    //p = @pane.$
-    //p.append( """     #{Dom.image( 0, 0,100, 10,@srcLg,15,"","24px") }""" )
-    //p.append( """     #{Dom.image(-4, 0, 15, 10,@srcRy,30,"","24px") }""" )
-    //p.append( """     #{Dom.image(75, 0, 15, 10,@srcRx,30,"","24px") }""" )
+    divId = this.ui.getHtmlId("Wheel", this.pane.name);
     $w = $(`<div ${Dom.panel(0, 5, 100, 95)} id="${divId}"></div>`);
-    //w.css( { "background-image":"url(img/flavor/jitterPourOverBg.png)" } )
-    //w.css( { "background-color":"#8d6566" } )
     this.wheel.ready(this.pane, this.spec, $w.get(0), url, scale);
     window.addEventListener("resize", this.resize);
     this.subscribe(this.name);
@@ -73,10 +64,18 @@ Flavor = class Flavor {
     this.wheel.resize();
   }
 
-  onRegion(select) {
-    var flavor, i, j, len, len1, ref, ref1, region;
-    region = select.study;
-    //console.log( 'Flavors.onRegion()', { name:region.name, flavors:region.flavors } ) if region?
+  onRegion(region) {
+    var flavor, i, j, len, len1, ref, ref1;
+    if ((region != null) && this.stream.isInfo('Region')) {
+      console.info('Flavor.onRegion()', {
+        instance: this.name,
+        name: region.name,
+        flavors: region.flavors
+      });
+    }
+    if (this.name === 'Flavor') { // Only the Flavors name instance responds to onRegion()
+      return;
+    }
     if ((this.prevRegion != null) && (this.prevRegion.flavors != null)) {
       ref = this.prevRegion.flavors;
       for (i = 0, len = ref.length; i < len; i++) {
@@ -104,7 +103,7 @@ Flavor = class Flavor {
 
   onChoice(choice) {
     var addDel;
-    if (choice.name !== 'Flavor' || Util.isntStr(choice.study)) {
+    if (choice.source === 'Flavor' || Util.isntStr(choice.study)) {
       return;
     }
     addDel = choice.intent === UI.AddChoice ? 'AddChoice' : 'DelChoice';
@@ -116,7 +115,7 @@ Flavor = class Flavor {
     src = "img/flavor/Flavor.png";
     this.$view.append(`<div ${Dom.panel(0, 0, 100, 100)}></div>`);
     this.$view.append(`<h1  ${Dom.label(0, 0, 100, 10)}>Flavor</h1>`);
-    this.$view.append(`     ${Dom.image(0, 10, 100, 90, src, 150)}`);
+    this.$view.append(`     ${Dom.image(src, this.pane.toVh(80), this.pane.toVw(80))}`);
     return this.$view;
   }
 

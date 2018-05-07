@@ -18,6 +18,7 @@ class World
       for own name, region of @regions
         region.name   = name
         region.chosen = false
+        region.source = 'World'
         #console.log( "Region Data", region )
     UI.readJSON( "json/region.json", callback )
 
@@ -27,9 +28,7 @@ class World
 
   readyPane:() ->
     src   = "img/region/WorldBelt.png"
-    mh    = @pane.toVh(96)
-    mw    = @pane.toVw(96)
-    $p    = $( """  #{Dom.image(0,0,100,100,src,mh,"","24px",mw)}""" )
+    $p    = $( """  #{Dom.image(src,@pane.toVh(80),@pane.toVw(80),"","24px")}""" )
     @$img = $p.find('img')
     @$img.click( (event) => @onClick(event) )
     $p
@@ -44,6 +43,7 @@ class World
     y = ( event.pageY - offset.top  ) * @hImg / $elem.height()
     region        = @findRegion( x, y )
     region.chosen = not region.chosen
+    region.source = 'World'
     #console.log( 'World.onClick()', { x:x, y:y, w:$elem.width(), h:$elem.height(), l:offset.left, t:offset.top, region:region } )
     @showRegion( region )
     return
@@ -60,23 +60,19 @@ class World
 
   showRegion:( region ) ->
     return if  region.name is "None"
-    addDel    = if region.chosen then UI.AddChoice else UI.DelChoice
     @spec.num = if region.chosen then @spec.num+1  else @spec.num-1
-    #if @spec.num <= @spec.max
-    select = UI.select( 'Region', 'World', UI.SelectStudy, region )
-    choice = UI.select( 'Region', 'World', addDel,         region.name )
-    @stream.publish(    'Region', select )
-    @stream.publish(    'Choice', choice ) if @spec.num <= @spec.max
-    #else
-    #  @spec.num = @spec.num-1
-    #  alert( "You can only make #{@spec.max} choices for World" )
-    #console.log( 'World.showRegion()', { region:region } )
+    if @spec.num <= @spec.max
+      @stream.publish( 'Region', region )
+    else
+      @spec.num = @spec.num-1
+      alert( "You can only make #{@spec.max} choices for World" )
     return
 
   onChoice:( choice ) =>
     return if choice.name isnt 'World' or Util.isntStr(choice.study)
-    region = @regions(choice.study)
+    region = @regions[choice.study]
     region.chosen = choice.intent is UI.AddChoice
+    region.source = choice.source
     @showRegion( region )
     return
 

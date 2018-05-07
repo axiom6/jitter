@@ -1,5 +1,6 @@
-import Util    from '../util/Util.js';
-import UI      from '../ui/UI.js';
+import Util from '../util/Util.js';
+import UI   from '../ui/UI.js';
+import Page from '../ui/Page.js';
 var Pane;
 
 Pane = class Pane {
@@ -12,7 +13,7 @@ Pane = class Pane {
     this.spec = spec;
     this.spec.pane = this;
     this.cells = this.spec.cells;
-    [j, m, i, n] = UI.jmin(this.cells);
+    [j, m, i, n] = this.view.jmin(this.cells);
     [this.left, this.top, this.width, this.height] = this.view.position(j, m, i, n, this.spec);
     this.name = this.spec.name;
     this.classPrefix = Util.isStr(this.spec.css) ? this.spec.css : 'ui-pane';
@@ -21,25 +22,29 @@ Pane = class Pane {
     this.hscale = this.view.hscale;
     this.margin = this.view.margin;
     this.speed = this.view.speed;
-    this.page = null; // set by UI.Page.ready()
+    this.page = UI.hasPage ? new Page(this.ui, this.stream, this.view, this) : null;
+    this.lastChoice = "None";
     this.geo = null; // reset by geom() when onSelect() dispatches to page
+    this.intent = UI.SelectView;
   }
 
   ready() {
-    var select;
-    this.htmlId = UI.htmlId(this.name, 'Pane');
+    this.htmlId = this.ui.htmlId(this.name, 'Pane');
     this.$ = $(this.createHtml());
     this.view.$view.append(this.$);
     this.hide();
     this.adjacentPanes();
-    select = UI.select(this.name, 'Pane', UI.SelectPane);
-    this.reset(select);
-    return this.show();
+    this.$.css(this.scaleReset());
+    this.geo = this.geom();
+    if (this.page != null) {
+      this.page.ready();
+    }
+    this.show();
   }
 
   geom() {
     var ex, geo, h, hi, hp, hv, i, j, m, n, r, s, sx, sy, w, wi, wp, wv, x0, y0;
-    [j, m, i, n] = UI.jmin(this.spec.cells);
+    [j, m, i, n] = this.view.jmin(this.spec.cells);
     [wp, hp] = this.view.positionpx(j, m, i, n, this.spec); // Pane size in AllPage usually 3x3 View
     wi = this.$.innerWidth();
     hi = this.$.innerHeight();
@@ -71,7 +76,11 @@ Pane = class Pane {
       s: s,
       ex: ex
     };
-    //console.log( 'Pane.geom()', geo )
+    //console.log( 'Pane.geom()', @name, geo )
+    if (wp === 0 || hp === 0) {
+      console.error('Pane.geom()', this.name, geo);
+      console.trace();
+    }
     return geo;
   }
 
@@ -91,11 +100,14 @@ Pane = class Pane {
   }
 
   show() {
-    return this.$.show();
+    //console.log( 'Pane.show()', @name )
+    //@resetStudiesDir( true )
+    this.$.show();
   }
 
   hide() {
-    return this.$.hide();
+    //console.log( 'Pane.hide()', @name )
+    this.$.hide();
   }
 
   pc(v) {
@@ -148,12 +160,12 @@ Pane = class Pane {
 
   adjacentPanes() {
     var i, ip, j, jp, k, len, m, mp, n, np, pane, ref;
-    [jp, mp, ip, np] = UI.jmin(this.cells);
-    [this.northPane, this.southPane, this.eastPane, this.westPane] = [this.view.emptyPane, this.view.emptyPane, this.view.emptyPane, this.view.emptyPane];
+    [jp, mp, ip, np] = this.view.jmin(this.cells);
+    [this.northPane, this.southPane, this.eastPane, this.westPane] = [UI.$empty, UI.$empty, UI.$empty, UI.$empty];
     ref = this.view.panes;
     for (k = 0, len = ref.length; k < len; k++) {
       pane = ref[k];
-      [j, m, i, n] = UI.jmin(pane.cells);
+      [j, m, i, n] = this.view.jmin(pane.cells);
       if (j === jp && m === mp && i === ip - n) {
         this.northPane = pane;
       }
@@ -173,33 +185,46 @@ Pane = class Pane {
     return `<div id="${this.htmlId}" class="${this.classPrefix}"></div>`;
   }
 
-  reset(select) {
-    this.$.css({
+  scaleReset() {
+    return {
       left: this.xs(this.left),
       top: this.ys(this.top),
       width: this.xs(this.width),
       height: this.ys(this.height)
-    });
+    };
+  }
+
+  scaleParam(left, top, width, height) {
+    return {
+      left: this.pc(left),
+      top: this.pc(top),
+      width: this.pc(width),
+      height: this.pc(height)
+    };
+  }
+
+  emptyParam() {
+    return {
+      left: "",
+      top: "",
+      width: "",
+      height: ""
+    };
+  }
+
+  reset(select) {
+    this.resetStudiesDir(true);
+    this.$.css(this.scaleReset());
     this.onSelect(select);
   }
 
   css(left, top, width, height, select) {
-    this.$.css({
-      left: this.pc(left),
-      top: this.pc(top),
-      width: this.pc(width),
-      height: this.pc(height)
-    });
+    this.$.css(this.scaleParam(left, top, width, height));
     this.onSelect(select);
   }
 
   animate(left, top, width, height, select, aniLinks = false, callback = null) {
-    this.$.show().animate({
-      left: this.pc(left),
-      top: this.pc(top),
-      width: this.pc(width),
-      height: this.pc(height)
-    }, this.view.speed, () => {
+    this.$.show().animate(this.scaleParam(left, top, width, height), this.view.speed, () => {
       return this.animateCall(callback, select);
     });
   }
@@ -211,10 +236,42 @@ Pane = class Pane {
     }
   }
 
+  resetStudiesDir(show) {
+    var dir, k, len, ref;
+    ref = ['west', 'north', 'east', 'south', 'prac'];
+    for (k = 0, len = ref.length; k < len; k++) {
+      dir = ref[k];
+      this.resetStudyDir(false, show, dir);
+    }
+  }
+
+  resetStudyDir(expand, show, dir) {
+    var $study;
+    $study = this.$.find(this.dirClass(dir));
+    if (expand) {
+      $study.css(this.scaleParam(this.view.margin.west, this.view.margin.north, 100 * this.view.wview, 100 * this.view.hview));
+    } else {
+      $study.css(this.emptyParam());
+      if (this.page != null) {
+        this.page.contents['Study'].intent(UI.SelectPane);
+      }
+    }
+    if (show) {
+      $study.show();
+    } else {
+      $study.hide();
+    }
+  }
+
+  dirClass(dir) {
+    return `.study-${dir}`;
+  }
+
   onSelect(select) {
+    UI.verifySelect(select, 'Pane.onSelect()');
     this.geo = this.geom();
     if (this.page != null) {
-      this.page.onSelect(this, select);
+      this.page.onSelect(select);
     }
   }
 

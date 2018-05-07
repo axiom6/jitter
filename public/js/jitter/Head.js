@@ -12,7 +12,7 @@ Head = class Head {
   readyPane() {
     var src;
     src = "img/logo/JitterBoxHead.png";
-    return $(`  ${Dom.image(0, 0, 100, 100, src, 22, "", "24px", 105)}`);
+    return $(`  ${Dom.image(src, this.pane.toVh(80), this.pane.toVw(80), "", "24px")}`);
   }
 
   readyView() {
