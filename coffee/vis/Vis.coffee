@@ -1,6 +1,6 @@
 
-`import Util    from '../util/Util.js'`
-`import FaIcons from '../Vis/FaIcons.js'`
+`import Util     from '../util/Util.js'`
+`import FaLookup from '../vis/FaLookup.js'`
 
 class Vis
 
@@ -96,10 +96,8 @@ class Vis
     hRgb
 
   @unicode:( icon ) ->
-    uc    = FaIcons.icons[icon]
+    uc    = FaLookup.icons[icon]
     if not uc?
-    #uc = Vis.uniawe( icon )
-    #if not uc?
       console.error( 'Vis.unicode() missing icon in Vis.FontAwesomeUnicodes for', icon )
       uc = "\uf111" # Circle
     uc

@@ -211,22 +211,23 @@
 .btn-nice {
   transition: all 0s ease-out;
   font-family: Roboto, sans-serif;
-  font-size: 2vmin;
-  color: #fff;
+  font-size: 1.9vmin;
+  color: #000;
   text-decoration: none;
   text-align: center;
   text-shadow: 0 -0.2vmin 0 rgba(0, 0, 0, 0.4);
-  padding-left: 4vmin;
+  padding-left: 3vmin;
   padding-top: 1vmin;
   padding-bottom: 1vmin;
-  left: 0;
+  min-width: 100%;
   position: relative;
+  left: 0;
   cursor: pointer;
-  border: none;
-  border-radius: 2vmin;
+  border: solid black 1px;
+  border-radius: 1.7vmin;
   border-left: solid 0.2vmin #2E4476;
   background: #3B5999;
-  box-shadow: 0 1vmin 0 0 #2E4476;
+  box-shadow: 1vmin 1vmin 0 0 #2E4476;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -234,7 +235,8 @@
 .btn-nice:active,
 .btn-nice-active {
   top: 0.6vmin;
-  box-shadow: 0 0.2vmin 0 0 #2E4476;
+  left: 0.6vmin;
+  box-shadow: 0.2vmin 0.2vmin 0 0 #2E4476;
 }
 .btn-nice::before {
   position: absolute;

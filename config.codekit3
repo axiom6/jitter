@@ -315,12 +315,12 @@
 		"sC": 0,
 		"tS": 0
 		},
-	"\/coffee\/vis\/FaIcons.coffee": {
+	"\/coffee\/vis\/FaLookup.coffee": {
 		"ft": 32,
 		"ma": 0,
 		"mi": 0,
 		"oA": 0,
-		"oAP": "\/public\/js\/vis\/FaIcons.js",
+		"oAP": "\/public\/js\/vis\/FaLookup.js",
 		"oF": 0,
 		"oS": 1,
 		"sC": 0,
@@ -1871,6 +1871,16 @@
 		"sC": 3,
 		"tS": 0
 		},
+	"\/public\/js\/jitter\/User.js": {
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/public\/js\/jitter\/User-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
 	"\/public\/js\/jitter\/World.js": {
 		"ft": 64,
 		"ma": 0,
@@ -1921,6 +1931,16 @@
 		"sC": 3,
 		"tS": 0
 		},
+	"\/public\/js\/ui\/Btn.js": {
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/public\/js\/ui\/Btn-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
 	"\/public\/js\/ui\/Dom.js": {
 		"ft": 64,
 		"ma": 0,
@@ -1937,6 +1957,26 @@
 		"mi": 1,
 		"oA": 0,
 		"oAP": "\/public\/js\/ui\/Group-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
+	"\/public\/js\/ui\/Navb.js": {
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/public\/js\/ui\/Navb-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
+	"\/public\/js\/ui\/Page.js": {
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/public\/js\/ui\/Page-min.js",
 		"oF": 0,
 		"sC": 3,
 		"tS": 0
@@ -2027,6 +2067,26 @@
 		"mi": 1,
 		"oA": 0,
 		"oAP": "\/public\/js\/util\/Vis-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
+	"\/public\/js\/vis\/Convey.js": {
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/public\/js\/vis\/Convey-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
+	"\/public\/js\/vis\/FaLookup.js": {
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/public\/js\/vis\/FaLookup-min.js",
 		"oF": 0,
 		"sC": 3,
 		"tS": 0

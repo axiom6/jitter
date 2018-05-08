@@ -1,5 +1,5 @@
 
-class FaIcons
+class FaLookup
 
   @icons = {
     "fas fa-address-book":"\uf2b9",
@@ -879,4 +879,4 @@ class FaIcons
     "fab fa-youtube-square":"\uf431"
   }
 
-`export default FaIcons`
+`export default FaLookup`

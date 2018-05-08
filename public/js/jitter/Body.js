@@ -16,7 +16,7 @@ Body = class Body {
   }
 
   readyPane() {
-    return Dom.vertBtns(this.stream, this.spec, this, 'img/body/', 50, 25, 12);
+    return Dom.vertBtns(this.stream, this.spec, this, 'img/body/', 45, 25, 12);
   }
 
   readyView() {

@@ -126,8 +126,6 @@ class Dom
       console.error( "Dom.onChoice() $e missing for", { name:name, choice:choice } )
     return
 
-
-
   @doEnter:( widget, key, study ) -> widget.btns[key].$e.css( { color:Dom.hoverColor } ) if not study?.chosen
   @doLeave:( widget, key, study ) -> widget.btns[key].$e.css( { color:Dom.basisColor } ) if not study?.chosen
 
@@ -184,7 +182,7 @@ class Dom
       icon  = if not src?    and  study.icon  then study.icon   else null
       iconc = if icon?       and  study.iconc then study.iconc  else null   # icon color
       back  = if study.back?                  then study.back   else  "#3B5999"
-      mh    = spec.pane.toVh(dy*0.6)
+      mh    = spec.pane.toVh(dy*0.5)
       $e = $( Dom.btn( x, y, w, dy, back, study.name, icon, iconc, src, mh ) )
       Dom.addWidgetBtn( widget, key, $e )
       Dom.onEvents( stream, widget, spec, key, study )

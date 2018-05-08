@@ -282,7 +282,7 @@ Dom = (function() {
         icon = (src == null) && study.icon ? study.icon : null;
         iconc = (icon != null) && study.iconc ? study.iconc : null; // icon color
         back = study.back != null ? study.back : "#3B5999";
-        mh = spec.pane.toVh(dy * 0.6);
+        mh = spec.pane.toVh(dy * 0.5);
         $e = $(Dom.btn(x, y, w, dy, back, study.name, icon, iconc, src, mh));
         Dom.addWidgetBtn(widget, key, $e);
         Dom.onEvents(stream, widget, spec, key, study);

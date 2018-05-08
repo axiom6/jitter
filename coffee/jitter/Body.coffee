@@ -9,7 +9,7 @@ class Body
     @btns = {}
 
   readyPane:() =>
-    Dom.vertBtns( @stream, @spec, @, 'img/body/', 50, 25, 12 )
+    Dom.vertBtns( @stream, @spec, @, 'img/body/', 45, 25, 12 )
 
   readyView:() =>
     src = "img/body/Body.jpg"

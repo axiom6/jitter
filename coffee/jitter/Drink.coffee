@@ -9,7 +9,7 @@ class Drink
     @btns = {}
 
   readyPane:() ->
-    Dom.vertBtns( @stream, @spec, @, 'img/drink/', 60, 25, 12 )
+    Dom.vertBtns( @stream, @spec, @, 'img/drink/', 50, 25, 12 )
 
   readyView:() ->
     src = "img/drink/Drink.jpg"
