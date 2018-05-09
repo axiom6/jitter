@@ -373,6 +373,19 @@ html {
 .ui-pane .roast:hover {
   color: wheat;
 }
+.ui-pane .action {
+  color: white;
+  background-color: #333333;
+  font-weight: bold;
+}
+.ui-pane .action:hover {
+  color: wheat;
+}
+.ui-pane .action:active,
+.ui-pane .action-active {
+  color: yellow;
+  background-color: #000000;
+}
 .ui-pane .txt {
   font-size: 2vmin;
   color: white;

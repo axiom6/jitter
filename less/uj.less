@@ -6,7 +6,10 @@ html { overflow:hidden; }
 
 .ui-font{ font-family:Roberto, sans-serif; }
 
+@ui-black: @color-black;
 @ui-back15:@color-gray20;
+@ui-back30:@color-gray30;
+@ui-back40:@color-gray40;
 @ui-back20:#856372;
 
 
@@ -32,6 +35,11 @@ html { overflow:hidden; }
 .ui-pane .branch { font-size:2vmin; color:white; line-height:3vmin; }
 .ui-pane .roast  { font-size:2vmin; color:white; z-index:2; } //  border:black solid 4px;
 .ui-pane .roast:hover  { color:wheat; }
+
+.ui-pane .action         { color:white;  background-color:@ui-back15; font-weight:bold;  }
+.ui-pane .action:hover   { color:wheat; }
+.ui-pane .action:active,
+.ui-pane .action-active  { color:yellow; background-color:@ui-black;  }
 
 //.ui-pane  svg    { z-index:2; }
 .ui-pane .txt    { font-size:2vmin; color:white; }

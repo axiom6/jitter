@@ -10,8 +10,8 @@ class UI
   UI.hasTocs      = true
   UI.hasPictFrame = true
   UI.$empty       = $()
-  UI.ncol   = 36
-  UI.nrow   = 36
+  UI.ncol         = 36
+  UI.nrow         = 36
   #I.margin =  { width:1,    height:1,    west:2,   north :1, east :2,   south 2, wStudy:0.5, hStudy:0.5 }
   UI.margin =  { width:0.00, height:0.00, west:0.5, north :0, east :0.5, south:0, wStudy:0.5, hStudy:0.5 }
 
@@ -43,13 +43,7 @@ class UI
   setupPlane:() ->
     if @prac?
        @prac.planeName
-    else if @jsonPath is "json/toc.json"
-      console.info( "UI.setupPlane() Jitter" ) if @stream.isInfo('Plane')
-      UI.hasPage      = false
-      UI.hasTocs      = false
-      UI.hasPictFrame = false
-      @nrow = 36
-      @ncol = 36
+    else if @jsonPath is "json/toc.json" # For View.createGroupsPanes( specs )
       'Jitter'
     else
       'None'
@@ -59,8 +53,8 @@ class UI
     @prac.createFilteredPractices( data )
 
   nrowncol:( data ) ->
-    @nrow = if data.nrow? then data.nrow else UI.nrow
-    @ncol = if data.ncol? then data.ncol else UI.ncol
+    UI.nrow = if data.nrow? then data.nrow else UI.nrow
+    UI.ncol = if data.ncol? then data.ncol else UI.ncol
 
   # This method detects if  ui instances have not unsubscribed for planes other than the current build plane
   # are still receiving messages that can generate exceptions
@@ -107,15 +101,12 @@ class UI
     @navb.ready()  if @navbSpecs?
     @tocs.ready()  if UI.hasTocs
     @view.ready()
-    @contentReady()
-    if @planeName is 'Jitter'
-      @view.hideAll( 'Interact' )
-      select = UI.select( 'Maps', 'UI', UI.SelectGroup )
-      @stream.publish( 'Select', select )
-      prefs = () =>
-        @stream.publish( 'Test',  'Prefs' ) # Here is a good place start test a the end of ready()
-      setTimeout( prefs, 3000 )
+    if not @prac?
+      #contentReady() called by Ready subscribers
+      ready = UI.select( "Ready", "UI", UI.SelectView ) # UI.SelectView is a placeholder since Ready does not have intents
+      @stream.publish( "Ready", ready )
     else
+      #contentReady()
       content = UI.content( 'Study', 'UI' )
       @stream.publish( 'Content', content )
     return
@@ -222,7 +213,7 @@ class UI
 
   @content:( choice, source, name='None' ) ->
     # console.log( 'UI.content()', { content:choice, source:source, name:name } )
-    content = { choice:choice, source:source, name:name }
+    content = { name:name, source:source, choice:choice }
     UI.verifyContent( content, "UI.content()" )
     content
 

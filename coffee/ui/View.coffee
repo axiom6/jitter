@@ -9,8 +9,8 @@ class View
     @speed       = 400
     @$view       = UI.$empty
     @margin      = UI.margin
-    @ncol        = @ui.ncol
-    @nrow        = @ui.nrow
+    @ncol        = UI.ncol
+    @nrow        = UI.nrow
     @classPrefix = if Util.isStr(@practices.css) then @spec.css else 'ui-view'
     [@wpane,@hpane,@wview,@hview,@wscale,@hscale] = @percents( @nrow, @ncol, @margin )
     [@groups,@panes] = @createThePanes()

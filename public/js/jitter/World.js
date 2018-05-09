@@ -42,7 +42,7 @@ World = class World {
   readyPane() {
     var $p, src;
     src = "img/region/WorldBelt.png";
-    $p = $(`  ${Dom.image(src, this.pane.toVh(80), this.pane.toVw(80), "", "24px")}`);
+    $p = $(`  ${Dom.image(src, this.pane.toVh(90), this.pane.toVw(96), "", "24px")}`);
     this.$img = $p.find('img');
     this.$img.click((event) => {
       return this.onClick(event);

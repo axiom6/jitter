@@ -28,7 +28,7 @@ class World
 
   readyPane:() ->
     src   = "img/region/WorldBelt.png"
-    $p    = $( """  #{Dom.image(src,@pane.toVh(80),@pane.toVw(80),"","24px")}""" )
+    $p    = $( """  #{Dom.image(src,@pane.toVh(90),@pane.toVw(96),"","24px")}""" )
     @$img = $p.find('img')
     @$img.click( (event) => @onClick(event) )
     $p

@@ -7,6 +7,7 @@ class Summary
   constructor:( @stream, @ui, @name, @jitter=null ) ->
     @ui.addContent( @name, @ )
     @btns = {}
+    @flavors = []
 
   readyPane:() =>
     @$pane = Dom.tree( @stream, @spec, @, 6, 13 )
@@ -21,11 +22,21 @@ class Summary
     @$view
 
   subscribe:() ->
-    @stream.subscribe( 'Prefs',  'Summary',  (prefs)  => @onPrefs( prefs)  ) if @jitter?
-    @stream.subscribe( 'Choice', 'Summary',  (choice) => @onChoice(choice) ) if @name is 'Summary'
-    @stream.subscribe( 'Choice', 'Summarys', (choice) => @onChoice(choice) ) if @name is 'Summarys'
-    @stream.subscribe( 'Test',   'Summary',  (test)   => @onTest(test)     ) if @jitter?
+    @stream.subscribe( 'Prefs',  'Summary', (prefs)  => @onPrefs( prefs)  ) if @jitter?
+    @stream.subscribe( 'Test',   'Summary', (test)   => @onTest(test)     ) if @jitter?
+    @stream.subscribe( 'Region', @name,     (region) => @onRegion(region) ) if @name is "Summaryf"
+    @stream.subscribe( 'Choice', @name,     (choice) => @onChoice(choice) )
     return
+
+  onRegion:( region ) =>
+    for flavor in @flavors
+      choice = UI.select( "Flavor", 'Summary', UI.DelChoice, flavor )
+      @onChoice( choice )
+    if region? and  region.flavors?
+      for flavor in region.flavors
+        choice = UI.select( "Flavor", 'Summary', UI.AddChoice, flavor )
+        @onChoice( choice )
+      @flavors = region.flavors
 
   onChoice:( choice ) =>
     specStudy  = @spec[choice.name]

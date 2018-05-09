@@ -17,9 +17,12 @@ var Jitter;
 Jitter = (function() {
   class Jitter {
     static init() {
+      UI.hasPage = false;
+      UI.hasTocs = false;
+      UI.hasPictFrame = false;
       Util.ready(function() {
         var infoSpec, jitter, stream, subjects, ui;
-        subjects = ["Select", "Choice", "Region", "Prefs", "Test"];
+        subjects = ["Ready", "Select", "Choice", "Region", "Prefs", "Test"];
         if (Jitter.NavbSpecs != null) {
           subjects = subjects.concat(Jitter.NavbSubjects);
         }
@@ -35,30 +38,47 @@ Jitter = (function() {
       });
     }
 
-    testUser(user) {
-      //user.listUsers()
-      //user.getPrefs()
-      //prefs = user.genPrefs()
-      //user.postPrefs( prefs )
-      Util.noop(user);
-    }
-
     constructor(stream1, ui1) {
+      this.onReady = this.onReady.bind(this);
       this.stream = stream1;
       this.ui = ui1;
       this.world = new World(this.stream, this.ui);
       this.region = new Region(this.stream, this.ui, this.world);
       this.interact = new Interact(this.stream, this.ui, "Interact", Jitter.SpecInteract);
       this.flavor = new Flavor(this.stream, this.ui, "Flavor");
-      this.flavors = new Flavor(this.stream, this.ui, "Flavors");
+      //flavors  = new Flavor(   @stream, @ui, "Flavors"    )
       this.summary = new Summary(this.stream, this.ui, "Summary", this);
       this.summarys = new Summary(this.stream, this.ui, "Summarys"); // @jitter only passed to primary Summary
+      this.summaryf = new Summary(this.stream, this.ui, "Summaryf");
       this.roast = new Roast(this.stream, this.ui);
       this.drink = new Drink(this.stream, this.ui);
       this.body = new Body(this.stream, this.ui);
       this.brew = new Brew(this.stream, this.ui);
       this.user = new User(this.stream, this);
       this.prefs = this.summary.initPrefs();
+      this.stream.subscribe("Ready", "Jitter", (ready) => {
+        return this.onReady(ready);
+      });
+    }
+
+    onReady(ready) {
+      var select;
+      Util.noop(ready);
+      this.ui.contentReady();
+      this.ui.view.hideAll('Interact');
+      select = UI.select('Maps', 'UI', UI.SelectGroup);
+      return this.stream.publish('Select', select);
+    }
+
+    //prefs = () =>
+    //  @stream.publish( 'Test',  'Prefs' ) # Here is a good place start test a the end of ready()
+    //setTimeout( prefs, 3000 )
+    testUser(user) {
+      //user.listUsers()
+      //user.getPrefs()
+      //prefs = user.genPrefs()
+      //user.postPrefs( prefs )
+      Util.noop(user);
     }
 
     prefsToSchema(prefs) {
@@ -81,7 +101,7 @@ Jitter = (function() {
     Region: {
       type: "pane"
     },
-    Flavors: {
+    Summary: {
       type: "pane"
     },
     Taste: {

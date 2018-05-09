@@ -35,15 +35,7 @@ UI = (function() {
     setupPlane() {
       if (this.prac != null) {
         return this.prac.planeName;
-      } else if (this.jsonPath === "json/toc.json") {
-        if (this.stream.isInfo('Plane')) {
-          console.info("UI.setupPlane() Jitter");
-        }
-        UI.hasPage = false;
-        UI.hasTocs = false;
-        UI.hasPictFrame = false;
-        this.nrow = 36;
-        this.ncol = 36;
+      } else if (this.jsonPath === "json/toc.json") { // For View.createGroupsPanes( specs )
         return 'Jitter';
       } else {
         return 'None';
@@ -56,8 +48,8 @@ UI = (function() {
     }
 
     nrowncol(data) {
-      this.nrow = data.nrow != null ? data.nrow : UI.nrow;
-      return this.ncol = data.ncol != null ? data.ncol : UI.ncol;
+      UI.nrow = data.nrow != null ? data.nrow : UI.nrow;
+      return UI.ncol = data.ncol != null ? data.ncol : UI.ncol;
     }
 
     // This method detects if  ui instances have not unsubscribed for planes other than the current build plane
@@ -132,7 +124,7 @@ UI = (function() {
     }
 
     ready() {
-      var content, prefs, select;
+      var content, ready;
       $('#' + this.htmlId('App')).html(this.html());
       if (this.navbSpecs != null) {
         this.navb.ready();
@@ -141,16 +133,12 @@ UI = (function() {
         this.tocs.ready();
       }
       this.view.ready();
-      this.contentReady();
-      if (this.planeName === 'Jitter') {
-        this.view.hideAll('Interact');
-        select = UI.select('Maps', 'UI', UI.SelectGroup);
-        this.stream.publish('Select', select);
-        prefs = () => {
-          return this.stream.publish('Test', 'Prefs'); // Here is a good place start test a the end of ready()
-        };
-        setTimeout(prefs, 3000);
+      if (this.prac == null) {
+        //contentReady() called by Ready subscribers
+        ready = UI.select("Ready", "UI", UI.SelectView); // UI.SelectView is a placeholder since Ready does not have intents
+        this.stream.publish("Ready", ready);
       } else {
+        //contentReady()
         content = UI.content('Study', 'UI');
         this.stream.publish('Content', content);
       }
@@ -325,9 +313,9 @@ UI = (function() {
       var content;
       // console.log( 'UI.content()', { content:choice, source:source, name:name } )
       content = {
-        choice: choice,
+        name: name,
         source: source,
-        name: name
+        choice: choice
       };
       UI.verifyContent(content, "UI.content()");
       return content;

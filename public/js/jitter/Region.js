@@ -26,7 +26,7 @@ Region = class Region {
   readyPane() {
     var $p, src;
     src = "img/region/Ethiopia.png";
-    $p = $(`  ${Dom.image(src, this.pane.toVh(80), this.pane.toVw(80), "Ethopia", "24px")}`);
+    $p = $(`  ${Dom.image(src, this.pane.toVh(90), this.pane.toVw(96), "Ethopia", "24px")}`);
     this.$image = $p.find('.dom-image');
     this.$label = $p.find('.dom-label');
     this.$label.css("font-size", `${this.pane.toVh(10)}vh`);
@@ -51,7 +51,7 @@ Region = class Region {
         flavors: region.flavors
       });
     }
-    if (region.img != null) {
+    if ((region.img != null) && region.img) {
       src = `img/region/${region.name}.png`;
       this.$label.hide();
       this.$image.attr('src', src).show();

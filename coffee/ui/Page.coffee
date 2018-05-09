@@ -53,7 +53,7 @@ class Page
     return if not UI.verifySelect( select, "Page.onSelect()" )
     return if not @ui.inPlane(             "Page.onSelect()" )
     choice = @choiceOnSelect() # select
-    console.log('Page.onSelect()', {  name:@name, plane:@ui.planeName, select:select } )  if @stream.isInfo('Select')
+    console.info('Page.onSelect()', {  name:@name, plane:@ui.planeName, select:select } )  if @stream.isInfo('Select')
     content = UI.content( choice, select.source, select.intent, select.name )
     @onContent( content )
     return

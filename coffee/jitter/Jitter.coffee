@@ -18,8 +18,11 @@
 class Jitter
 
   @init = () ->
+    UI.hasPage      = false
+    UI.hasTocs      = false
+    UI.hasPictFrame = false
     Util.ready ->
-      subjects = ["Select","Choice","Region","Prefs","Test"]
+      subjects = ["Ready","Select","Choice","Region","Prefs","Test"]
       subjects = subjects.concat(Jitter.NavbSubjects) if Jitter.NavbSpecs?
       infoSpec = { subscribe:false, publish:false, subjects:["Select","Choice","Region","Prefs","Test"]}
       stream   = new Stream( subjects, infoSpec )
@@ -29,16 +32,8 @@ class Jitter
       return
     return
 
-  testUser:( user ) ->
-    #user.listUsers()
-    #user.getPrefs()
-    #prefs = user.genPrefs()
-    #user.postPrefs( prefs )
-    Util.noop( user )
-    return
-
   @SpecInteract = {
-    Maps:    { type:"group" }, World:{  type:"pane" }, Region:{ type:"pane" }, Flavors:{ type:"pane" },
+    Maps:    { type:"group" }, World:{  type:"pane" }, Region:{ type:"pane" }, Summary:{ type:"pane" },
     Taste:   { type:"group" }, Flavor:{ type:"pane" }, Roast:{  type:"pane" }, Summary:{ type:"pane" },
     Prepare: { type:"group" }, Brew:{   type:"pane" }, Drink:{  type:"pane" }, Body:   { type:"pane" }, Summary:{ type:"pane" } }
 
@@ -46,16 +41,36 @@ class Jitter
     @world    = new World(    @stream, @ui )
     @region   = new Region(   @stream, @ui, @world )
     @interact = new Interact( @stream, @ui, "Interact", Jitter.SpecInteract )
-    @flavor   = new Flavor(   @stream, @ui, "Flavor"   )
-    @flavors  = new Flavor(   @stream, @ui, "Flavors"  )
+    @flavor   = new Flavor(   @stream, @ui, "Flavor"     )
+    #flavors  = new Flavor(   @stream, @ui, "Flavors"    )
     @summary  = new Summary(  @stream, @ui, "Summary", @ )
     @summarys = new Summary(  @stream, @ui, "Summarys"   ) # @jitter only passed to primary Summary
+    @summaryf = new Summary(  @stream, @ui, "Summaryf"   )
     @roast    = new Roast(    @stream, @ui )
     @drink    = new Drink(    @stream, @ui )
     @body     = new Body(     @stream, @ui )
     @brew     = new Brew(     @stream, @ui )
     @user     = new User(     @stream, @ )
     @prefs    = @summary.initPrefs()
+    @stream.subscribe( "Ready", "Jitter", (ready) => @onReady( ready ) )
+
+  onReady:( ready ) =>
+    Util.noop( ready )
+    @ui.contentReady()
+    @ui.view.hideAll( 'Interact' )
+    select = UI.select( 'Maps', 'UI', UI.SelectGroup )
+    @stream.publish( 'Select', select )
+    #prefs = () =>
+    #  @stream.publish( 'Test',  'Prefs' ) # Here is a good place start test a the end of ready()
+    #setTimeout( prefs, 3000 )
+
+  testUser:( user ) ->
+    #user.listUsers()
+    #user.getPrefs()
+    #prefs = user.genPrefs()
+    #user.postPrefs( prefs )
+    Util.noop( user )
+    return
 
   prefsToSchema:( prefs  ) -> @summary.prefsToSchema( prefs  )
   schemaToPrefs:( schema ) -> @summary.schemaToPrefs( schema )

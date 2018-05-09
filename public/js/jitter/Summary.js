@@ -7,6 +7,7 @@ Summary = class Summary {
   constructor(stream, ui, name, jitter = null) {
     this.readyPane = this.readyPane.bind(this);
     this.readyView = this.readyView.bind(this);
+    this.onRegion = this.onRegion.bind(this);
     this.onChoice = this.onChoice.bind(this);
     // Tests can be initiated after all ready() call have completed
     this.onTest = this.onTest.bind(this);
@@ -18,6 +19,7 @@ Summary = class Summary {
     this.jitter = jitter;
     this.ui.addContent(this.name, this);
     this.btns = {};
+    this.flavors = [];
   }
 
   readyPane() {
@@ -41,20 +43,37 @@ Summary = class Summary {
         return this.onPrefs(prefs);
       });
     }
-    if (this.name === 'Summary') {
-      this.stream.subscribe('Choice', 'Summary', (choice) => {
-        return this.onChoice(choice);
-      });
-    }
-    if (this.name === 'Summarys') {
-      this.stream.subscribe('Choice', 'Summarys', (choice) => {
-        return this.onChoice(choice);
-      });
-    }
     if (this.jitter != null) {
       this.stream.subscribe('Test', 'Summary', (test) => {
         return this.onTest(test);
       });
+    }
+    if (this.name === "Summaryf") {
+      this.stream.subscribe('Region', this.name, (region) => {
+        return this.onRegion(region);
+      });
+    }
+    this.stream.subscribe('Choice', this.name, (choice) => {
+      return this.onChoice(choice);
+    });
+  }
+
+  onRegion(region) {
+    var choice, flavor, i, j, len, len1, ref, ref1;
+    ref = this.flavors;
+    for (i = 0, len = ref.length; i < len; i++) {
+      flavor = ref[i];
+      choice = UI.select("Flavor", 'Summary', UI.DelChoice, flavor);
+      this.onChoice(choice);
+    }
+    if ((region != null) && (region.flavors != null)) {
+      ref1 = region.flavors;
+      for (j = 0, len1 = ref1.length; j < len1; j++) {
+        flavor = ref1[j];
+        choice = UI.select("Flavor", 'Summary', UI.AddChoice, flavor);
+        this.onChoice(choice);
+      }
+      return this.flavors = region.flavors;
     }
   }
 

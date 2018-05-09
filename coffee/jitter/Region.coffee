@@ -16,7 +16,7 @@ class Region
 
   readyPane:() ->
     src   = "img/region/Ethiopia.png"
-    $p    = $( """  #{Dom.image(src,@pane.toVh(80),@pane.toVw(80),"Ethopia","24px")}""" )
+    $p    = $( """  #{Dom.image(src,@pane.toVh(90),@pane.toVw(96),"Ethopia","24px")}""" )
     @$image = $p.find('.dom-image')
     @$label = $p.find('.dom-label')
     @$label.css( "font-size", "#{@pane.toVh(10)}vh" )
@@ -33,7 +33,7 @@ class Region
     if @stream.isInfo('Region')
        console.info( 'Region.onRegion()', { name:region.name, chosen:region.chosen, flavors:region.flavors } )
 
-    if region.img?
+    if region.img? and region.img
       src = "img/region/#{region.name}.png"
       @$label.hide()
       @$image.attr( 'src', src ).show()

@@ -88,15 +88,15 @@ Pane = class Pane {
   toVmin(pc) {
     var sc;
     sc = this.view.widthpx() > this.view.heightpx() ? this.height : this.width;
-    return sc * pc * 0.01; // (pc * sc).toString() + 'vmin'
+    return Util.toFixed(sc * pc * 0.01, 2);
   }
 
   toVw(pc) {
-    return this.width * pc * 0.01;
+    return Util.toFixed(this.width * pc * 0.01, 2);
   }
 
   toVh(pc) {
-    return this.height * pc * 0.01;
+    return Util.toFixed(this.height * pc * 0.01, 2);
   }
 
   show() {

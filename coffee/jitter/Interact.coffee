@@ -7,77 +7,66 @@ class Interact
 
   constructor:( @stream, @ui, @name, @specInteract ) ->
     @ui.addContent( @name, @ )
+    @stream.subscribe( 'Select', 'Interact', (select) => @onSelect(select) )
+    @last = { name:"" }
 
   readyPane:() ->
     @spec = @specInteract # Qverride?
-    #console.log( 'Interact.readyPane()', @spec )
-    @horz(  )
+    @horz()
 
   horz:() ->
-    #console.log( 'Pane', @pane.width, @pane.height )
     $p = $( """<div class="panel" style="position:relative; left:0; top: 0;  width:100%; height:100%; text-align:center;"></div>""" )
-    $p.append( """<hr             style="position:absolute; left:0; top:42%; width:100%; height:  2%; z-index:1;"></hr>"""  )
+    $p.append( """<hr             style="position:absolute; left:0; top:38%; width:100%; height:  1%; z-index:1; color:white; background-color:white;"></hr>"""  )
     n  =  Util.lenObject( @spec, UI.isChild )
     dx = 100 / n
-    w  =  dx * 0.6
-    x  =   w * 2 - dx
-    t  =  2
-    yg = 10
-    yp = 25
-    h  = 80 - t * 2
-    r  = h * 0.50
-    f  = r * 0.50
-    wg = @pane.toVmin(h)
-    wp = wg * 0.66
-    hg = @pane.toVmin(h)
-    hp = hg * 0.66
-    t  = @pane.toVmin(t)
-    rg = @pane.toVmin(r)
-    rp = rg * 0.66
-    fg = @pane.toVmin(f)
-    fp = fg * 0.66
+    w  = dx * 0.6
+    tp = 4
+    hp = 80 - tp * 2
+    x  =  w * 2  - dx
     for own key, study of @spec when UI.isChild(key)
-      #console.log( 'Interact.horz()', key )
-      [y,w,h,r,f] = if study.type is 'group' then [yg,wg,hg,rg,fg] else [yp,wp,hp,rp,fp]
-      $e = @circle( x, y, w, h, r, t, f, key )
+      study.name = key
+      [y,hc] = if study.type is 'group' then [10,hp] else [25,hp*0.66]
+      [w,h,t,r,f] = @geom( hc, tp )
+      $e = @action( x, y, w, h, r, t, f, key )
       @onEvents( @stream, $e, key, study ) if study.type is 'group'
       $p.append( $e )
       x = x + dx
     $p
 
-  ###
-    select = UI.select( 'Maps', 'UI', UI.SelectGroup )
-    @stream.publish( 'Select', select )
-  ###
+  geom:( h, tp ) ->
+    w = @pane.toVmin(h*1.6)
+    h = @pane.toVmin(h)
+    t = @pane.toVmin(tp)
+    r = h * 0.50
+    f = r * 0.65
+    [w,h,t,r,f]
 
-  circle:( x, y, w, h, r, t, f, label, klass="circle" ) ->
-    style = "display:table; border:black solid #{t}vmin; border-radius:#{r}vmin; position:absolute; left:#{x}%; top:#{y}%; width:#{w}vmin; height:#{h}vmin; text-align:center; z-index:2;"
-    #console.log( 'Interact.style', style )
+  action:( x, y, w, h, r, t, f, label, klass="action" ) ->
+    left  = Util.toFixed( x, 2 )
+    style = "display:table; border:black solid #{t}vmin; border-radius:#{r}vmin; position:absolute; left:#{left}%; top:#{y}%; width:#{w}vmin; height:#{h}vmin; text-align:center; z-index:2;"
+    #console.log( 'Interact.circle()', { style:style } )
     $c    = $("""<div class="#{klass}" style="#{style}"></div>""")
     $c.append( """<div style="display:table-cell; vertical-align:middle; font-size:#{f}vmin;">#{label}</div>""" )
     $c
 
-  readyView:() ->
-    src = "img/body/Body.jpg"
-    @$view = $( """<div #{Dom.panel(0, 0,100,100)}></div>"""  )
-    @$view.append( "<h1 #{Dom.label(0, 0,100, 10)}>Body</h1>" )
-    @$view.append( """  #{Dom.image(src,@pane.toVh(80),@pane.toVw(80))}""" )
-    @$view
-
   doClick:( stream, $e, key, study  ) ->
-    study.chosen = false
-    $e.css( { color:Dom.basisColor } )
     select = UI.select( key, 'Interact', UI.SelectGroup, study )
-    select.$click = $e
     stream.publish( 'Select', select )
     return
 
-  doEnter:( $e, study ) -> $e.css( { color:Dom.hoverColor } ) if not study?.chosen
-  doLeave:( $e, study ) -> $e.css( { color:Dom.basisColor } ) if not study?.chosen
+  onSelect:(  select ) =>
+    return if select.name is @last.name or select.intent isnt UI.SelectGroup
+    study = @spec[select.name]
+    @last.$e.removeClass( 'action-active' ) if Util.isStr( @last.name )
+    study.$e.addClass(    'action-active' )
+    @last = study
+    return
 
   onEvents:( stream, $e, key, study ) =>
-    $e.on( 'click',      () => @doClick( stream, $e, key, study ) ) # (event)
-    $e.on( 'mouseenter', () => @doEnter( $e, study ) )
-    $e.on( 'mouseleave', () => @doLeave( $e, study ) )
+    study.$e = $e
+    $e.on( 'click', () => @doClick( stream, $e, key, study ) ) # (event)
+
+  readyView:() ->
+    @readyPane()
 
 `export default Interact`
