@@ -25,10 +25,10 @@ class Interact
     x  =  w * 2  - dx
     for own key, study of @spec when UI.isChild(key)
       study.name = key
-      [y,hc] = if study.type is 'group' then [10,hp] else [25,hp*0.66]
+      [y,hc] = if study.type is 'pack' then [10,hp] else [25,hp*0.66]
       [w,h,t,r,f] = @geom( hc, tp )
       $e = @action( x, y, w, h, r, t, f, key )
-      @onEvents( @stream, $e, key, study ) if study.type is 'group'
+      @onEvents( @stream, $e, key, study ) if study.type is 'pack'
       $p.append( $e )
       x = x + dx
     $p
@@ -50,12 +50,12 @@ class Interact
     $c
 
   doClick:( stream, $e, key, study  ) ->
-    select = UI.select( key, 'Interact', UI.SelectGroup, study )
+    select = UI.select( key, 'Interact', UI.SelectPack, study )
     stream.publish( 'Select', select )
     return
 
   onSelect:(  select ) =>
-    return if select.name is @last.name or select.intent isnt UI.SelectGroup
+    return if select.name is @last.name or select.intent isnt UI.SelectPack
     study = @spec[select.name]
     @last.$e.removeClass( 'action-active' ) if Util.isStr( @last.name )
     study.$e.addClass(    'action-active' )

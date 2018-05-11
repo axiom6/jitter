@@ -1,28 +1,28 @@
 import Util    from '../util/Util.js';
 import UI      from '../ui/UI.js';
 import Pane    from '../ui/Pane.js';
-var Group;
+var Pack;
 
-Group = class Group extends Pane {
-  constructor(ui, stream, view, spec) {
+Pack = class Pack extends Pane {
+  constructor(ui, stream, view, spec, panes) {
     super(ui, stream, view, spec);
-    this.panes = []; // @collectPanes( ) Done by grouping
+    this.panes = panes;
     this.margin = this.view.margin;
     this.icon = this.spec.icon;
-    this.css = Util.isStr(this.spec.css) ? this.spec.css : 'ui-group';
+    this.css = Util.isStr(this.spec.css) ? this.spec.css : 'ui-pack';
     this.$ = UI.$empty;
   }
 
   id(name, ext) {
-    return this.ui.htmlId(name + 'Group', ext);
+    return this.ui.htmlId(name + 'Pack', ext);
   }
 
   ready() {
     var select;
-    this.htmlId = this.id(this.name, 'Group');
+    this.htmlId = this.id(this.name, 'Pack');
     this.$icon = this.createIcon();
     this.view.$view.append(this.$icon);
-    select = UI.select(this.name, 'Group', this.spec.intent);
+    select = UI.select(this.name, 'Pack', this.spec.intent);
     return this.stream.publish('Select', select, this.$icon, 'click');
   }
 
@@ -50,8 +50,6 @@ Group = class Group extends Pane {
     return results;
   }
 
-  //createHtml:() ->
-  //  """<div id="#{@htmlId}" class="#{@spec.css}"></div>"""
   createIcon() {
     var $icon, height, htm, left, top, width;
     htm = this.htmIconName(this.spec);
@@ -84,31 +82,25 @@ Group = class Group extends Pane {
     return `<div style="display:table-cell; vertical-align:middle; padding-left:12px;">${Util.toName(spec.name)}</div>`;
   }
 
-  /*
-  render:( spec ) ->
-  h("""div##{@id(spec.name,'Icon')}.#{@css+'-icon'}""", [
-  h("""i."fa #{spec.icon} fa-lg" """)
-  h("""span""", { style: { 'display':'table-cell', 'vertical-align':'middle', 'padding-left':'12px' } } ) ] )
-  */
   positionIcon(spec) {
     var w;
     w = spec.w != null ? spec.w * this.wscale * 0.5 : 100 * this.wscale * 0.5; // Calulation does not make sense but it works
-    //Util.log( 'Group.positionIcon', @left, @width, w, @xcenter( @left, @width, w ) ) if spec.intent is ub.SelectCol
+    //Util.log( 'Pack.positionIcon', @left, @width, w, @xcenter( @left, @width, w ) ) if spec.intent is ub.SelectCol
     switch (spec.intent) {
       case UI.SelectRow:
         return [-10, this.ycenter(this.top, this.height, this.margin.west), 12, this.margin.west];
       case UI.SelectCol:
         return [this.xcenter(this.left, this.width, w), 0, this.margin.north, this.margin.north];
-      case UI.SelectGroup:
+      case UI.SelectPack:
         return [this.xcenter(this.left, this.width, w), 0, this.margin.north, this.margin.north];
       default:
-        return this.positionGroupIcon();
+        return this.positionPackIcon();
     }
   }
 
-  positionGroup() {
+  positionPack() {
     var height, left, top, width;
-    [left, top, width, height] = this.view.positionGroup(this.cells, this.spec);
+    [left, top, width, height] = this.view.positionPack(this.cells, this.spec);
     return this.$.css({
       left: this.xs(left),
       top: this.ys(top),
@@ -117,9 +109,9 @@ Group = class Group extends Pane {
     });
   }
 
-  positionGroupIcon() {
+  positionPackIcon() {
     var height, left, top, width;
-    [left, top, width, height] = this.view.positionGroup(this.cells, this.spec);
+    [left, top, width, height] = this.view.positionPack(this.cells, this.spec);
     return [left + 20, top + 20, 20, 20];
   }
 
@@ -134,26 +126,16 @@ Group = class Group extends Pane {
     });
   }
 
-  collectPanes() {
-    var gpanes, i, ig, ip, j, jg, jp, len, len1, mg, mp, ng, np, pane, ref, ref1;
+  unionPanes() {
+    var gpanes, i, ig, ip, jg, jp, len, mg, mp, ng, np, pane, ref;
     gpanes = [];
-    if (this.cells != null) {
-      [jg, mg, ig, ng] = UI.jmin(this.cells);
-      ref = this.view.panes;
-      for (i = 0, len = ref.length; i < len; i++) {
-        pane = ref[i];
-        [jp, mp, ip, np] = UI.jmin(pane.cells);
-        if (jg <= jp && jp + mp <= jg + mg && ig <= ip && ip + np <= ig + ng) {
-          gpanes.push(pane);
-        }
-      }
-    } else {
-      ref1 = this.view.panes;
-      for (j = 0, len1 = ref1.length; j < len1; j++) {
-        pane = ref1[j];
-        if (Util.inArray(pane.spec.groups, this.name)) {
-          gpanes.push(pane);
-        }
+    [jg, mg, ig, ng] = UI.jmin(this.cells);
+    ref = this.view.panes;
+    for (i = 0, len = ref.length; i < len; i++) {
+      pane = ref[i];
+      [jp, mp, ip, np] = UI.jmin(pane.cells);
+      if (jg <= jp && jp + mp <= jg + mg && ig <= ip && ip + np <= ig + ng) {
+        gpanes.push(pane);
       }
     }
     return gpanes;
@@ -162,7 +144,7 @@ Group = class Group extends Pane {
   // Not used
   fillPanes() {
     var fill, i, len, pane, ref;
-    fill = this.spec.hsv != null ? Vis.toRgbHsvStr(this.spec.hsv) : "#888888";
+    fill = this.spec['hsv'] != null ? Vis.toRgbHsvStr(this.spec['hsv']) : "#888888";
     ref = this.panes;
     for (i = 0, len = ref.length; i < len; i++) {
       pane = ref[i];
@@ -187,4 +169,4 @@ Group = class Group extends Pane {
 
 };
 
-export default Group;
+export default Pack;

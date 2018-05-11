@@ -1,37 +1,29 @@
 import Util  from '../util/Util.js';
 import UI    from '../ui/UI.js';
 import Pane  from '../ui/Pane.js';
-import Group from '../ui/Group.js';
+import Pack from '../ui/Pack.js';
 var View,
   hasProp = {}.hasOwnProperty;
 
 View = class View {
-  constructor(ui, stream, practices1) {
+  constructor(ui, stream, specs1) {
     this.resize = this.resize.bind(this);
     this.ui = ui;
     this.stream = stream;
-    this.practices = practices1;
+    this.specs = specs1;
     this.speed = 400;
     this.$view = UI.$empty;
     this.margin = UI.margin;
     this.ncol = UI.ncol;
     this.nrow = UI.nrow;
-    this.classPrefix = Util.isStr(this.practices.css) ? this.spec.css : 'ui-view';
+    this.classPrefix = Util.isStr(this.specs.css) ? this.spec.css : 'ui-view';
     [this.wpane, this.hpane, this.wview, this.hview, this.wscale, this.hscale] = this.percents(this.nrow, this.ncol, this.margin);
-    [this.groups, this.panes] = this.createThePanes();
+    [this.packs, this.panes] = UI.hasPack ? this.createPacks(this.specs) : this.createPanes(this.specs);
     this.sizeCallback = null;
     this.paneCallback = null;
     this.lastPaneName = '';
     this.$empty = UI.$empty; // Empty jQuery singleton for intialization
     this.allCells = [1, this.ncol, 1, this.nrow];
-  }
-
-  createThePanes() {
-    if (this.ui.planeName === 'Jitter') {
-      return this.createGroupsPanes(this.practices);
-    } else {
-      return this.createPanes(this.practices);
-    }
   }
 
   ready() {
@@ -125,12 +117,12 @@ View = class View {
     return scale * (left - w + dx / this.wscale);
   }
 
-  isRow(specPaneGroup) {
-    return specPaneGroup.css === 'ikw-row';
+  isRow(specPanePack) {
+    return specPanePack.css === 'ikw-row';
   }
 
-  isCol(specPaneGroup) {
-    return specPaneGroup.css === 'ikw-col';
+  isCol(specPanePack) {
+    return specPanePack.css === 'ikw-col';
   }
 
   positionUnionPane(unionCells, paneCells, spec, xscale = 1.0, yscale = 1.0) {
@@ -140,9 +132,9 @@ View = class View {
     return this.position((jp - ju) * this.ncol / mu, mp * this.ncol / mu, (ip - iu) * this.nrow / nu, np * this.nrow / nu, spec, xscale, yscale);
   }
 
-  positionGroup(groupCells, spec, xscale = 1.0, yscale = 1.0) {
+  positionPack(packCells, spec, xscale = 1.0, yscale = 1.0) {
     var i, j, m, n;
-    [j, m, i, n] = this.jmin(groupCells);
+    [j, m, i, n] = this.jmin(packCells);
     return this.position(j, m, i, n, spec, xscale, yscale);
   }
 
@@ -232,14 +224,14 @@ View = class View {
       case UI.SelectView:
         this.expandAllPanes(select);
         break;
-      case UI.SelectGroup:
-        this.expandGroup(select, this.getPaneOrGroup(name));
+      case UI.SelectPack:
+        this.expandPack(select, this.getPane(name));
         break;
       case UI.SelectPane:
-        this.expandPane(select, this.getPaneOrGroup(name));
+        this.expandPane(select, this.getPane(name));
         break;
       case UI.SelectStudy:
-        this.expandStudy(select, this.getPaneOrGroup(name));
+        this.expandStudy(select, this.getPane(name));
         break;
       default:
         console.error('UI.View.onSelect() name not processed for intent', name, select);
@@ -252,21 +244,21 @@ View = class View {
     return this.showAll();
   }
 
-  expandGroup(select, group, callback = null) {
+  expandPack(select, pack, callback = null) {
     var height, k, left, len, pane, ref, top, width;
     this.hideAll('Interact');
-    if (group.panes != null) {
-      ref = group.panes;
+    if (pack.panes != null) {
+      ref = pack.panes;
       for (k = 0, len = ref.length; k < len; k++) {
         pane = ref[k];
         pane.show();
-        //left,top,width,height] = @positionUnionPane( group.cells, pane.cells, pane.spec, @wscale, @hscale )
+        //left,top,width,height] = @positionUnionPane( pack.cells, pane.cells, pane.spec, @wscale, @hscale )
         [left, top, width, height] = this.positionPane(pane.cells, pane.spec, this.wscale, this.hscale);
         pane.intent = select.intent;
         pane.animate(left, top, width, height, select, true, callback);
       }
     } else {
-      console.error('View.expandGroup group.panes null');
+      console.error('View.expandPack pack.panes null');
     }
     this.show();
     this.lastPaneName = 'None';
@@ -275,7 +267,7 @@ View = class View {
   expandPane(select, pane, callback = null) {
     var paneCallback;
     paneCallback = callback != null ? callback : this.paneCallback;
-    pane = this.getPaneOrGroup(pane, false); // don't issue errors
+    pane = this.getPane(pane, false); // don't issue errors
     if (pane == null) {
       return;
     }
@@ -302,8 +294,8 @@ View = class View {
     pane.resetStudyDir(true, true, select.study.dir); // Expand selected
   }
 
-  getPaneOrGroup(key, issueError = true) {
-    var group, k, l, len, len1, pane, ref, ref1;
+  getPane(key, issueError = true) {
+    var k, l, len, len1, pack, pane, ref, ref1;
     if (Util.isObj(key)) {
       return key;
     }
@@ -314,66 +306,57 @@ View = class View {
         return pane;
       }
     }
-    if (this.groups != null) {
-      ref1 = this.groups;
-      for (l = 0, len1 = ref1.length; l < len1; l++) {
-        group = ref1[l];
-        if (group.name === key) {
-          return group;
-        }
+    ref1 = this.packs;
+    for (l = 0, len1 = ref1.length; l < len1; l++) {
+      pack = ref1[l];
+      if (pack.name === key) {
+        return pack;
       }
     }
     if (issueError) {
-      console.error('UI.View.getPaneOrGroup() null for key ', key);
+      console.error('UI.View.getPane() null for key ', key);
     }
     return null;
   }
 
-  createPanes(practices) {
-    var keyPractice, pane, panes, practice;
+  createPanes(specs) {
+    var pane, panes, pkey, pspec;
     panes = [];
-// when practice.pane
-    for (keyPractice in practices) {
-      if (!hasProp.call(practices, keyPractice)) continue;
-      practice = practices[keyPractice];
-      pane = new Pane(this.ui, this.stream, this, practice);
+    for (pkey in specs) {
+      if (!hasProp.call(specs, pkey)) continue;
+      pspec = specs[pkey];
+      if (!(UI.isChild(pkey))) {
+        continue;
+      }
+      pane = new Pane(this.ui, this.stream, this, pspec);
       panes.push(pane);
-      practice.pane = pane;
     }
-    // @createStudyPanes( practice, panes )
-    return [null, panes];
+    if (UI.hasPack) {
+      return panes;
+    } else {
+      return [[], panes];
+    }
   }
 
-  createGroupsPanes(specs) {
-    var gkey, group, groups, gspec, interact, pane, panes, pkey, pspec;
-    groups = [];
+  createPacks(specs) {
+    var gkey, gpanes, gspec, interact, pack, packs, panes;
+    packs = [];
     panes = [];
     interact = new Pane(this.ui, this.stream, this, specs['Interact']);
     panes.push(interact);
-    specs['Interact'].pane = pane;
+    specs['Interact'].pane = interact;
     for (gkey in specs) {
       if (!hasProp.call(specs, gkey)) continue;
       gspec = specs[gkey];
-      if (!(gspec.type === 'group')) {
+      if (!(UI.isChild(gkey))) {
         continue;
       }
-      group = new Group(this.ui, this.stream, this, gspec);
-      groups.push(group);
-      gspec.group = group;
-      for (pkey in gspec) {
-        if (!hasProp.call(gspec, pkey)) continue;
-        pspec = gspec[pkey];
-        if (!(UI.isChild(pkey) && pspec.type === 'pane')) {
-          continue;
-        }
-        pane = new Pane(this.ui, this.stream, this, pspec);
-        panes.push(pane);
-        group.panes.push(pane);
-        pspec.pane = pane;
-      }
+      gpanes = this.createPanes(gspec);
+      pack = new Pack(this.ui, this.stream, this, gspec, gpanes);
+      packs.push(pack);
+      Array.prototype.push.apply(panes, gpanes);
     }
-    //console.log( "View.createGroupsPanes()", group )
-    return [groups, panes];
+    return [packs, panes];
   }
 
   paneInUnion(paneCells, unionCells) {

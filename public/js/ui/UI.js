@@ -7,20 +7,20 @@ var UI,
 
 UI = (function() {
   class UI {
-    constructor(stream, jsonPath, navbSpecs = null, prac = null) {
+    constructor(stream, jsonPath, navbs = null, prac = null) {
       var callback;
       this.resize = this.resize.bind(this);
       this.contentReady = this.contentReady.bind(this);
       this.stream = stream;
       this.jsonPath = jsonPath;
-      this.navbSpecs = navbSpecs;
+      this.navbs = navbs;
       this.prac = prac;
       this.contents = {};
       this.planeName = this.setupPlane();
       callback = (data) => {
         this.specs = this.prac != null ? this.processPractices(data) : data;
-        if (this.navbSpecs != null) {
-          this.navb = new Navb(this, this.stream, this.navbSpecs);
+        if (this.navbs != null) {
+          this.navb = new Navb(this, this.stream, this.navbs);
         }
         if (UI.hasTocs) {
           this.tocs = new Tocs(this, this.stream, this.specs);
@@ -35,7 +35,7 @@ UI = (function() {
     setupPlane() {
       if (this.prac != null) {
         return this.prac.planeName;
-      } else if (this.jsonPath === "json/toc.json") { // For View.createGroupsPanes( specs )
+      } else if (this.jsonPath === "json/toc.json") { // For View.createPacksPanes( specs )
         return 'Jitter';
       } else {
         return 'None';
@@ -73,29 +73,29 @@ UI = (function() {
     html() {
       var htm;
       htm = "";
-      if (UI.hasPictFrame) {
+      if (UI.hasLays) {
         htm += `<div class="layout-logo     " id="${this.htmlId('Logo')}"></div>`;
       }
       if (this.navbSpecs != null) {
         htm += `<div class="layout-corp"      id="${this.htmlId('Corp')}"></div>`;
       }
-      if (UI.hasPictFrame) {
+      if (UI.hasLays) {
         htm += `<div class="layout-find"      id="${this.htmlId('Find')}"></div>`;
       }
-      if (UI.hasPictFrame) {
+      if (UI.hasLays) {
         htm += `<div class="layout-tocs tocs" id="${this.htmlId('Tocs')}"></div>`;
       }
       htm += `<div class="layout-view"      id="${this.htmlId('View')}"></div>`;
-      if (UI.hasPictFrame) {
+      if (UI.hasLays) {
         htm += `<div class="layout-side"      id="${this.htmlId('Side')}"></div>`;
       }
-      if (UI.hasPictFrame) {
+      if (UI.hasLays) {
         htm += `<div class="layout-pref     " id="${this.htmlId('Pref')}"></div>`;
       }
-      if (UI.hasPictFrame) {
+      if (UI.hasLays) {
         htm += `<div class="layout-foot"      id="${this.htmlId('Foot')}"></div>`;
       }
-      if (UI.hasPictFrame) {
+      if (UI.hasLays) {
         htm += `<div class="layout-trak"      id="${this.htmlId('Trak')}"></div>`;
       }
       return htm;
@@ -150,7 +150,7 @@ UI = (function() {
       for (name in ref) {
         if (!hasProp.call(ref, name)) continue;
         content = ref[name];
-        content.pane = this.view.getPaneOrGroup(name);
+        content.pane = this.view.getPane(name);
         content.spec = content.pane.spec; // specs[name]
         content.$pane = content.readyPane();
         content.$view = $(); // content.readView() For now view content is not used
@@ -165,8 +165,8 @@ UI = (function() {
         case UI.SelectView:
           this.selectView(pane);
           break;
-        case UI.SelectGroup:
-          this.selectGroup(pane);
+        case UI.SelectPack:
+          this.selectPack(pane);
           break;
         case UI.SelectPane:
           this.selectPane(pane);
@@ -193,7 +193,7 @@ UI = (function() {
       }
     }
 
-    selectGroup(pane) {
+    selectPack(pane) {
       var content;
       content = this.content[pane.name];
       if (this.isEmpty(content.$pane)) {
@@ -205,7 +205,7 @@ UI = (function() {
       content.$view.hide();
       content.$pane.show();
       if (this.stream.isInfo('Select')) {
-        console.info('Jitter.selectGroup()', pane.name);
+        console.info('Jitter.selectPack()', pane.name);
       }
     }
 
@@ -357,11 +357,13 @@ UI = (function() {
 
   };
 
+  UI.hasPack = true;
+
   UI.hasPage = true;
 
   UI.hasTocs = true;
 
-  UI.hasPictFrame = true;
+  UI.hasLays = true;
 
   UI.$empty = $();
 
@@ -369,7 +371,7 @@ UI = (function() {
 
   UI.nrow = 36;
 
-  //I.margin =  { width:1,    height:1,    west:2,   north :1, east :2,   south 2, wStudy:0.5, hStudy:0.5 }
+  //I.margin  =  { width:1,    height:1,    west:2,   north :1, east :2,   south 2, wStudy:0.5, hStudy:0.5 }
   UI.margin = {
     width: 0.00,
     height: 0.00,
@@ -395,13 +397,13 @@ UI = (function() {
 
   UI.SelectCol = 'SelectCol';
 
-  UI.SelectGroup = 'SelectGroup';
+  UI.SelectPack = 'SelectPack';
 
   UI.AddChoice = 'AddChoice';
 
   UI.DelChoice = 'DelChoice';
 
-  UI.intents = [UI.SelectPane, UI.SelectView, UI.SelectStudy, UI.SelectRow, UI.SelectCol, UI.SelectGroup, UI.AddChoice, UI.DelChoice];
+  UI.intents = [UI.SelectPane, UI.SelectView, UI.SelectStudy, UI.SelectRow, UI.SelectCol, UI.SelectPack, UI.AddChoice, UI.DelChoice];
 
   return UI;
 

@@ -1,5 +1,4 @@
 
-
 @import "layout.less";
 
 html { overflow:hidden; }
@@ -12,10 +11,9 @@ html { overflow:hidden; }
 @ui-back40:@color-gray40;
 @ui-back20:#856372;
 
-
-.ui-view  { width:100%; height:100%; background-color:@ui-back15; }
-.ui-group { background-color:@ui-back20; position:absolute; z-index:1; .mixin-round(24px); }
-.ui-pane  { background-color:@ui-back20; position:absolute; z-index:2; .mixin-round(24px); .ui-font; overflow:visible; }
+.ui-view { background-color:@ui-back15; width:100%; height:100%; }
+.ui-pack { background-color:@ui-back20; position:absolute; z-index:1; .mixin-round(24px); }
+.ui-pane { background-color:@ui-back20; position:absolute; z-index:2; .mixin-round(24px); .ui-font; overflow:visible; }
 
 .ui-pane-center       { position:absolute;  left:15%; top:15%; width:70%; height:70%; z-index:3; display:table; }
 .ui-pane-table        { position:absolute;  left: 5%; top: 5%; width:90%; height:90%; }
@@ -45,6 +43,6 @@ html { overflow:hidden; }
 .ui-pane .txt    { font-size:2vmin; color:white; }
 .ui-pane .img    {}
 
-.ui-group-icon       { position:absolute;  display:table; .ui-font; color:white; }
-.ui-group-icon:hover { .mixin-hover; }
-.ui-group-icon > i   { display:table-cell; text-align:center; vertical-align:middle; font-size:20px; }
+.ui-pack-icon       { position:absolute;  display:table; .ui-font; color:white; }
+.ui-pack-icon:hover { .mixin-hover; }
+.ui-pack-icon > i   { display:table-cell; text-align:center; vertical-align:middle; font-size:20px; }

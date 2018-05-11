@@ -44,10 +44,10 @@ Interact = class Interact {
         continue;
       }
       study.name = key;
-      [y, hc] = study.type === 'group' ? [10, hp] : [25, hp * 0.66];
+      [y, hc] = study.type === 'pack' ? [10, hp] : [25, hp * 0.66];
       [w, h, t, r, f] = this.geom(hc, tp);
       $e = this.action(x, y, w, h, r, t, f, key);
-      if (study.type === 'group') {
+      if (study.type === 'pack') {
         this.onEvents(this.stream, $e, key, study);
       }
       $p.append($e);
@@ -78,13 +78,13 @@ Interact = class Interact {
 
   doClick(stream, $e, key, study) {
     var select;
-    select = UI.select(key, 'Interact', UI.SelectGroup, study);
+    select = UI.select(key, 'Interact', UI.SelectPack, study);
     stream.publish('Select', select);
   }
 
   onSelect(select) {
     var study;
-    if (select.name === this.last.name || select.intent !== UI.SelectGroup) {
+    if (select.name === this.last.name || select.intent !== UI.SelectPack) {
       return;
     }
     study = this.spec[select.name];

@@ -6,14 +6,15 @@
 
 class UI
 
-  UI.hasPage      = true
-  UI.hasTocs      = true
-  UI.hasPictFrame = true
-  UI.$empty       = $()
-  UI.ncol         = 36
-  UI.nrow         = 36
-  #I.margin =  { width:1,    height:1,    west:2,   north :1, east :2,   south 2, wStudy:0.5, hStudy:0.5 }
-  UI.margin =  { width:0.00, height:0.00, west:0.5, north :0, east :0.5, south:0, wStudy:0.5, hStudy:0.5 }
+  UI.hasPack = true
+  UI.hasPage = true
+  UI.hasTocs = true
+  UI.hasLays = true
+  UI.$empty  = $()
+  UI.ncol    = 36
+  UI.nrow    = 36
+  #I.margin  =  { width:1,    height:1,    west:2,   north :1, east :2,   south 2, wStudy:0.5, hStudy:0.5 }
+  UI.margin  =  { width:0.00, height:0.00, west:0.5, north :0, east :0.5, south:0, wStudy:0.5, hStudy:0.5 }
 
   UI.SelectView  = 'SelectView'
   UI.SelectPane  = 'SelectPane'
@@ -22,20 +23,20 @@ class UI
   UI.SelectItems = 'SelectItems'
   UI.SelectRow   = 'SelectRow'
   UI.SelectCol   = 'SelectCol'
-  UI.SelectGroup = 'SelectGroup'
+  UI.SelectPack  = 'SelectPack'
   UI.AddChoice   = 'AddChoice'
   UI.DelChoice   = 'DelChoice'
 
-  UI.intents = [UI.SelectPane,UI.SelectView,UI.SelectStudy,UI.SelectRow,UI.SelectCol,UI.SelectGroup,UI.AddChoice,UI.DelChoice]
+  UI.intents = [UI.SelectPane,UI.SelectView,UI.SelectStudy,UI.SelectRow,UI.SelectCol,UI.SelectPack,UI.AddChoice,UI.DelChoice]
 
-  constructor:( @stream, @jsonPath, @navbSpecs=null, @prac=null ) ->
+  constructor:( @stream, @jsonPath, @navbs=null, @prac=null ) ->
     @contents  = {}
     @planeName = @setupPlane()
     callback = (data) =>
       @specs = if @prac? then @processPractices(data) else data
-      @navb  = new Navb( @, @stream, @navbSpecs ) if @navbSpecs?
-      @tocs  = new Tocs( @, @stream, @specs     ) if UI.hasTocs
-      @view  = new View( @, @stream, @specs     )
+      @navb  = new Navb( @, @stream, @navbs ) if @navbs?
+      @tocs  = new Tocs( @, @stream, @specs ) if UI.hasTocs
+      @view  = new View( @, @stream, @specs )
       @ready()
     UI.readJSON( @jsonPath, callback )
     UI.ui = @
@@ -43,7 +44,7 @@ class UI
   setupPlane:() ->
     if @prac?
        @prac.planeName
-    else if @jsonPath is "json/toc.json" # For View.createGroupsPanes( specs )
+    else if @jsonPath is "json/toc.json" # For View.createPacksPanes( specs )
       'Jitter'
     else
       'None'
@@ -68,15 +69,15 @@ class UI
 
   html:() ->
     htm = ""
-    htm += """<div class="layout-logo     " id="#{@htmlId('Logo')}"></div>""" if UI.hasPictFrame
+    htm += """<div class="layout-logo     " id="#{@htmlId('Logo')}"></div>""" if UI.hasLays
     htm += """<div class="layout-corp"      id="#{@htmlId('Corp')}"></div>""" if @navbSpecs?
-    htm += """<div class="layout-find"      id="#{@htmlId('Find')}"></div>""" if UI.hasPictFrame
-    htm += """<div class="layout-tocs tocs" id="#{@htmlId('Tocs')}"></div>""" if UI.hasPictFrame
+    htm += """<div class="layout-find"      id="#{@htmlId('Find')}"></div>""" if UI.hasLays
+    htm += """<div class="layout-tocs tocs" id="#{@htmlId('Tocs')}"></div>""" if UI.hasLays
     htm += """<div class="layout-view"      id="#{@htmlId('View')}"></div>"""
-    htm += """<div class="layout-side"      id="#{@htmlId('Side')}"></div>""" if UI.hasPictFrame
-    htm += """<div class="layout-pref     " id="#{@htmlId('Pref')}"></div>""" if UI.hasPictFrame
-    htm += """<div class="layout-foot"      id="#{@htmlId('Foot')}"></div>""" if UI.hasPictFrame
-    htm += """<div class="layout-trak"      id="#{@htmlId('Trak')}"></div>""" if UI.hasPictFrame
+    htm += """<div class="layout-side"      id="#{@htmlId('Side')}"></div>""" if UI.hasLays
+    htm += """<div class="layout-pref     " id="#{@htmlId('Pref')}"></div>""" if UI.hasLays
+    htm += """<div class="layout-foot"      id="#{@htmlId('Foot')}"></div>""" if UI.hasLays
+    htm += """<div class="layout-trak"      id="#{@htmlId('Trak')}"></div>""" if UI.hasLays
     htm
 
   show:() ->
@@ -113,7 +114,7 @@ class UI
 
   contentReady:() =>
     for own name, content of @contents
-      content.pane  = @view.getPaneOrGroup( name )
+      content.pane  = @view.getPane( name )
       content.spec  = content.pane.spec # specs[name]
       content.$pane = content.readyPane()
       content.$view = $() # content.readView() For now view content is not used
@@ -125,7 +126,7 @@ class UI
     UI.verifySelect( select, 'Jitter' )
     switch select.intent
       when UI.SelectView  then @selectView(  pane )
-      when UI.SelectGroup then @selectGroup( pane )
+      when UI.SelectPack then @selectPack( pane )
       when UI.SelectPane  then @selectPane(  pane )
       when UI.SelectStudy then @selectStudy( pane, select.study )
       else console.error( "Jitter.onSelect() unknown select", select )
@@ -141,14 +142,14 @@ class UI
     console.info( 'Jitter.selectView()', pane.name ) if @stream.isInfo('Select')
     return
 
-  selectGroup:( pane ) ->
+  selectPack:( pane ) ->
     content = @content[pane.name]
     if @isEmpty( content.$pane )
       content.$pane = content.readyPane()
       content.pane.$.append( $pane ) if @isEmpty( content.$pane )
     content.$view.hide()
     content.$pane.show()
-    console.info( 'Jitter.selectGroup()', pane.name )  if @stream.isInfo('Select')
+    console.info( 'Jitter.selectPack()', pane.name )  if @stream.isInfo('Select')
     return
 
   selectPane:( pane ) ->

@@ -274,11 +274,11 @@ html {
   font-family: Roberto, sans-serif;
 }
 .ui-view {
+  background-color: #333333;
   width: 100%;
   height: 100%;
-  background-color: #333333;
 }
-.ui-group {
+.ui-pack {
   background-color: #856372;
   position: absolute;
   z-index: 1;
@@ -390,19 +390,19 @@ html {
   font-size: 2vmin;
   color: white;
 }
-.ui-group-icon {
+.ui-pack-icon {
   position: absolute;
   display: table;
   font-family: Roberto, sans-serif;
   color: white;
 }
-.ui-group-icon:hover {
+.ui-pack-icon:hover {
   cursor: pointer;
   background: #240f1a;
   color: #f7edf2;
   border-radius: 8px;
 }
-.ui-group-icon > i {
+.ui-pack-icon > i {
   display: table-cell;
   text-align: center;
   vertical-align: middle;

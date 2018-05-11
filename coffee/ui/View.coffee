@@ -1,30 +1,24 @@
 `import Util  from '../util/Util.js'`
 `import UI    from '../ui/UI.js'`
 `import Pane  from '../ui/Pane.js'`
-`import Group from '../ui/Group.js'`
+`import Pack from '../ui/Pack.js'`
 
 class View
 
-  constructor:( @ui, @stream, @practices ) ->
-    @speed       = 400
-    @$view       = UI.$empty
-    @margin      = UI.margin
-    @ncol        = UI.ncol
-    @nrow        = UI.nrow
-    @classPrefix = if Util.isStr(@practices.css) then @spec.css else 'ui-view'
+  constructor:( @ui, @stream, @specs ) ->
+    @speed          = 400
+    @$view          = UI.$empty
+    @margin         = UI.margin
+    @ncol           = UI.ncol
+    @nrow           = UI.nrow
+    @classPrefix    = if Util.isStr(@specs.css) then @spec.css else 'ui-view'
     [@wpane,@hpane,@wview,@hview,@wscale,@hscale] = @percents( @nrow, @ncol, @margin )
-    [@groups,@panes] = @createThePanes()
-    @sizeCallback  = null
-    @paneCallback  = null
-    @lastPaneName  = ''
-    @$empty        = UI.$empty # Empty jQuery singleton for intialization
-    @allCells      = [ 1, @ncol, 1, @nrow ]
-
-  createThePanes:() ->
-    if @ui.planeName is 'Jitter'
-      @createGroupsPanes( @practices )
-    else
-      @createPanes(       @practices )
+    [@packs,@panes] = if UI.hasPack then @createPacks(@specs) else @createPanes(@specs)
+    @sizeCallback   = null
+    @paneCallback   = null
+    @lastPaneName   = ''
+    @$empty         = UI.$empty # Empty jQuery singleton for intialization
+    @allCells       = [ 1, @ncol, 1, @nrow ]
 
   ready:() ->
     parent = $('#'+@ui.getHtmlId('View') ) # parent is outside of planes
@@ -67,16 +61,16 @@ class View
   east:(   left, width,  w, scale=1.0, dx=0 ) -> scale * ( left + width      + dx/@wscale )
   west:(   left, width,  w, scale=1.0, dx=0 ) -> scale * ( left          - w + dx/@wscale )
 
-  isRow:( specPaneGroup ) -> specPaneGroup.css is 'ikw-row'
-  isCol:( specPaneGroup ) -> specPaneGroup.css is 'ikw-col'
+  isRow:( specPanePack ) -> specPanePack.css is 'ikw-row'
+  isCol:( specPanePack ) -> specPanePack.css is 'ikw-col'
 
   positionUnionPane:( unionCells, paneCells, spec, xscale=1.0, yscale=1.0 ) ->
     [ju,mu,iu,nu] = @jmin( unionCells )
     [jp,mp,ip,np] = @jmin(  paneCells )
     @position( (jp-ju)*@ncol/mu, mp*@ncol/mu, (ip-iu)*@nrow/nu, np*@nrow/nu, spec, xscale, yscale )
 
-  positionGroup:( groupCells, spec, xscale=1.0, yscale=1.0 ) ->
-    [j,m,i,n] = @jmin( groupCells )
+  positionPack:( packCells, spec, xscale=1.0, yscale=1.0 ) ->
+    [j,m,i,n] = @jmin( packCells )
     @position( j,m,i,n, spec, xscale, yscale )
 
   positionPane:( paneCells, spec, xscale=1.0, yscale=1.0 ) ->
@@ -135,9 +129,9 @@ class View
     intent  = select.intent
     switch intent
       when UI.SelectView  then @expandAllPanes( select )
-      when UI.SelectGroup then @expandGroup(    select, @getPaneOrGroup(name) )
-      when UI.SelectPane  then @expandPane(     select, @getPaneOrGroup(name) )
-      when UI.SelectStudy then @expandStudy(    select, @getPaneOrGroup(name) )
+      when UI.SelectPack  then @expandPack(     select, @getPane(name) )
+      when UI.SelectPane  then @expandPane(     select, @getPane(name) )
+      when UI.SelectStudy then @expandStudy(    select, @getPane(name) )
       else console.error( 'UI.View.onSelect() name not processed for intent', name, select )
     return
 
@@ -146,24 +140,24 @@ class View
     @reset( select )
     @showAll()
 
-  expandGroup:( select, group, callback=null ) ->
+  expandPack:( select, pack, callback=null ) ->
     @hideAll('Interact')
-    if  group.panes?
-      for pane in group.panes
+    if  pack.panes?
+      for pane in pack.panes
         pane.show()
-        #left,top,width,height] = @positionUnionPane( group.cells, pane.cells, pane.spec, @wscale, @hscale )
+        #left,top,width,height] = @positionUnionPane( pack.cells, pane.cells, pane.spec, @wscale, @hscale )
         [left,top,width,height] = @positionPane( pane.cells, pane.spec, @wscale, @hscale )
         pane.intent = select.intent
         pane.animate( left, top, width, height, select, true, callback )
     else
-      console.error( 'View.expandGroup group.panes null' )
+      console.error( 'View.expandPack pack.panes null' )
     @show()
     @lastPaneName  = 'None'
     return
 
   expandPane:( select, pane,  callback=null ) ->
     paneCallback = if callback? then callback else @paneCallback
-    pane = @getPaneOrGroup( pane, false ) # don't issue errors
+    pane = @getPane( pane, false ) # don't issue errors
     return unless pane?
     @hideAll()
     pane.resetStudiesDir( true )
@@ -182,42 +176,34 @@ class View
     pane.resetStudyDir(   true,  true, select.study.dir ) # Expand selected
     return
 
-  getPaneOrGroup:( key, issueError=true  ) ->
+  getPane:( key, issueError=true  ) ->
     return key if Util.isObj(key)
     for pane in @panes
       return pane if pane.name is key
-    if @groups?
-      for group in @groups
-        return group if group.name is key
-    console.error( 'UI.View.getPaneOrGroup() null for key ', key ) if issueError
+    for pack in @packs
+      return pack if pack.name is key
+    console.error( 'UI.View.getPane() null for key ', key ) if issueError
     null
 
-  createPanes:( practices ) ->
+  createPanes:( specs ) ->
     panes = []
-    for own keyPractice, practice of practices # when practice.pane
-      pane = new Pane( @ui, @stream, @, practice )
+    for own pkey, pspec of specs when UI.isChild(pkey)
+      pane = new Pane( @ui, @stream, @, pspec )
       panes.push( pane )
-      practice.pane = pane
-      # @createStudyPanes( practice, panes )
-    [null,panes]
+    if UI.hasPack then panes else [[],panes]
 
-  createGroupsPanes:( specs ) ->
-    groups   = []
-    panes    = []
+  createPacks:( specs ) ->
+    packs   = []
+    panes   = []
     interact = new Pane( @ui, @stream, @, specs['Interact'] )
     panes.push( interact )
-    specs['Interact'].pane = pane
-    for own gkey, gspec of specs when gspec.type is 'group'
-      group = new Group( @ui, @stream, @, gspec )
-      groups.push( group )
-      gspec.group = group
-      for own pkey, pspec of gspec when UI.isChild(pkey) and pspec.type is 'pane'
-        pane = new Pane( @ui, @stream, @, pspec )
-        panes.push( pane )
-        group.panes.push( pane )
-        pspec.pane = pane
-      #console.log( "View.createGroupsPanes()", group )
-    [groups,panes]
+    specs['Interact'].pane = interact
+    for own gkey, gspec of specs when UI.isChild(gkey)
+      gpanes = @createPanes( gspec )
+      pack = new Pack( @ui, @stream, @, gspec, gpanes )
+      packs.push( pack )
+      Array.prototype.push.apply( panes, gpanes )
+    [packs,panes]
 
   paneInUnion:( paneCells, unionCells ) ->
     [jp,mp,ip,np] = @jmin(  paneCells )

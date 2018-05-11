@@ -1,0 +1,27 @@
+
+Maxwell,
+
+   Here the 6 things I need to discuss with you to integrate the Taste App
+into your JitterBox WordPress site
+
+1. "My Tastes" in Memu Bar
+
+2. Link to Taste App with an IFrame
+
+  [ iframe src="https://jitter-48413.firebaseapp.com/" width="100%" height="100%" ]
+
+3. Plan to store taste profiles in the users table meta field as a JSON string.
+
+4. Need to set up WordPress security with perhaps a Taste App user id and password
+   to enable Rest access.
+
+5. Need to figure out how to determine the current user to get their WordPress user id.
+
+6. Once the Taste App gets the user id it can read and write the taste profile
+   in the meta field with Rest.
+
+The Taste App will display a summary of the Taste Profile for curation.
+
+So email me your thoughts and we can have a phone conversation soon.
+
+  Tom

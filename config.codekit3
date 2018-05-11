@@ -29,6 +29,13 @@
 		"oAP": "\/build\/.idea",
 		"oF": 0
 		},
+	"\/build\/.gitignore": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 0,
+		"oAP": "\/build\/.gitignore",
+		"oF": 0
+		},
 	"\/coffee\/jitter\/Body.coffee": {
 		"ft": 32,
 		"ma": 0,
@@ -183,23 +190,23 @@
 		"sC": 0,
 		"tS": 0
 		},
-	"\/coffee\/ui\/Group.coffee": {
-		"ft": 32,
-		"ma": 0,
-		"mi": 0,
-		"oA": 0,
-		"oAP": "\/public\/js\/ui\/Group.js",
-		"oF": 0,
-		"oS": 1,
-		"sC": 0,
-		"tS": 0
-		},
 	"\/coffee\/ui\/Navb.coffee": {
 		"ft": 32,
 		"ma": 0,
 		"mi": 0,
 		"oA": 0,
 		"oAP": "\/public\/js\/ui\/Navb.js",
+		"oF": 0,
+		"oS": 1,
+		"sC": 0,
+		"tS": 0
+		},
+	"\/coffee\/ui\/Pack.coffee": {
+		"ft": 32,
+		"ma": 0,
+		"mi": 0,
+		"oA": 0,
+		"oAP": "\/public\/js\/ui\/Pack.js",
 		"oF": 0,
 		"oS": 1,
 		"sC": 0,
@@ -222,7 +229,18 @@
 		"mi": 0,
 		"oA": 0,
 		"oAP": "\/public\/js\/ui\/Pane.js",
-		"oF": 2,
+		"oF": 0,
+		"oS": 1,
+		"sC": 0,
+		"tS": 0
+		},
+	"\/coffee\/ui\/Spec.coffee": {
+		"ft": 32,
+		"ma": 0,
+		"mi": 0,
+		"oA": 0,
+		"oAP": "\/public\/js\/ui\/Spec.js",
+		"oF": 0,
 		"oS": 1,
 		"sC": 0,
 		"tS": 0
@@ -1951,16 +1969,6 @@
 		"sC": 3,
 		"tS": 0
 		},
-	"\/public\/js\/ui\/Group.js": {
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "\/public\/js\/ui\/Group-min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 0
-		},
 	"\/public\/js\/ui\/Navb.js": {
 		"ft": 64,
 		"ma": 0,
@@ -1985,8 +1993,18 @@
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
-		"oA": 0,
+		"oA": 1,
 		"oAP": "\/public\/js\/ui\/Pane-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
+	"\/public\/js\/ui\/Spec.js": {
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/public\/js\/ui\/Spec-min.js",
 		"oF": 0,
 		"sC": 3,
 		"tS": 0
@@ -2055,7 +2073,7 @@
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
-		"oA": 0,
+		"oA": 1,
 		"oAP": "\/public\/js\/util\/Util-min.js",
 		"oF": 0,
 		"sC": 3,
@@ -2115,6 +2133,14 @@
 		"ft": 524288,
 		"oA": 1,
 		"oAP": "\/public\/json\/flavor.choice-min.json",
+		"oF": 0,
+		"oO": 0,
+		"oS": 1
+		},
+	"\/public\/json\/info.json": {
+		"ft": 524288,
+		"oA": 1,
+		"oAP": "\/public\/json\/info-min.json",
 		"oF": 0,
 		"oO": 0,
 		"oS": 1
@@ -2320,6 +2346,13 @@
 		"ft": 8192,
 		"oA": 0,
 		"oAP": "\/work\/aaa\/Jitter.txt",
+		"oF": 0
+		},
+	"\/work\/aaa\/maxwell.txt": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 0,
+		"oAP": "\/work\/aaa\/maxwell.txt",
 		"oF": 0
 		},
 	"\/work\/aaa\/plan.txt": {

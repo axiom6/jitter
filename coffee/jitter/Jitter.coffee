@@ -18,12 +18,13 @@
 class Jitter
 
   @init = () ->
-    UI.hasPage      = false
-    UI.hasTocs      = false
-    UI.hasPictFrame = false
+    UI.hasPack = true
+    UI.hasPage = false
+    UI.hasTocs = false
+    UI.hasLays = false
     Util.ready ->
       subjects = ["Ready","Select","Choice","Region","Prefs","Test"]
-      subjects = subjects.concat(Jitter.NavbSubjects) if Jitter.NavbSpecs?
+      #ubjects = subjects.concat(Jitter.NavbSubjects) if Jitter.NavbSpecs?
       infoSpec = { subscribe:false, publish:false, subjects:["Select","Choice","Region","Prefs","Test"]}
       stream   = new Stream( subjects, infoSpec )
       ui       = new UI( stream, "json/toc.json" ) # , Jitter.NavbSpecs
@@ -33,9 +34,9 @@ class Jitter
     return
 
   @SpecInteract = {
-    Maps:    { type:"group" }, World:{  type:"pane" }, Region:{ type:"pane" }, Summary:{ type:"pane" },
-    Taste:   { type:"group" }, Flavor:{ type:"pane" }, Roast:{  type:"pane" }, Summary:{ type:"pane" },
-    Prepare: { type:"group" }, Brew:{   type:"pane" }, Drink:{  type:"pane" }, Body:   { type:"pane" }, Summary:{ type:"pane" } }
+    Maps:    { type:"pack" }, World:{  type:"pane" }, Region:{ type:"pane" }, Summary:{ type:"pane" },
+    Taste:   { type:"pack" }, Flavor:{ type:"pane" }, Roast:{  type:"pane" }, Summary:{ type:"pane" },
+    Prepare: { type:"pack" }, Brew:{   type:"pane" }, Drink:{  type:"pane" }, Body:   { type:"pane" }, Summary:{ type:"pane" } }
 
   constructor:( @stream, @ui ) ->
     @world    = new World(    @stream, @ui )
@@ -58,7 +59,7 @@ class Jitter
     Util.noop( ready )
     @ui.contentReady()
     @ui.view.hideAll( 'Interact' )
-    select = UI.select( 'Maps', 'UI', UI.SelectGroup )
+    select = UI.select( 'Maps', 'UI', UI.SelectPack )
     @stream.publish( 'Select', select )
     #prefs = () =>
     #  @stream.publish( 'Test',  'Prefs' ) # Here is a good place start test a the end of ready()

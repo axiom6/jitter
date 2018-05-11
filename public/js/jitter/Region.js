@@ -60,8 +60,8 @@ Region = class Region {
       this.$image.hide();
       this.$label.text(label).show();
     }
-    // Publish Region to update Flavors
-    if (Util.isArray(region.flavors)) { // This really to update Flavors
+    // Publish Region to update the Flavors in the Region Summary
+    if (Util.isArray(region.flavors)) {
       region.source = 'Region';
       this.stream.publish('Region', region);
     }

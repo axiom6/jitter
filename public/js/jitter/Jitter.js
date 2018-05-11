@@ -17,15 +17,14 @@ var Jitter;
 Jitter = (function() {
   class Jitter {
     static init() {
+      UI.hasPack = true;
       UI.hasPage = false;
       UI.hasTocs = false;
-      UI.hasPictFrame = false;
+      UI.hasLays = false;
       Util.ready(function() {
         var infoSpec, jitter, stream, subjects, ui;
         subjects = ["Ready", "Select", "Choice", "Region", "Prefs", "Test"];
-        if (Jitter.NavbSpecs != null) {
-          subjects = subjects.concat(Jitter.NavbSubjects);
-        }
+        //ubjects = subjects.concat(Jitter.NavbSubjects) if Jitter.NavbSpecs?
         infoSpec = {
           subscribe: false,
           publish: false,
@@ -66,7 +65,7 @@ Jitter = (function() {
       Util.noop(ready);
       this.ui.contentReady();
       this.ui.view.hideAll('Interact');
-      select = UI.select('Maps', 'UI', UI.SelectGroup);
+      select = UI.select('Maps', 'UI', UI.SelectPack);
       return this.stream.publish('Select', select);
     }
 
@@ -93,7 +92,7 @@ Jitter = (function() {
 
   Jitter.SpecInteract = {
     Maps: {
-      type: "group"
+      type: "pack"
     },
     World: {
       type: "pane"
@@ -105,7 +104,7 @@ Jitter = (function() {
       type: "pane"
     },
     Taste: {
-      type: "group"
+      type: "pack"
     },
     Flavor: {
       type: "pane"
@@ -117,7 +116,7 @@ Jitter = (function() {
       type: "pane"
     },
     Prepare: {
-      type: "group"
+      type: "pack"
     },
     Brew: {
       type: "pane"
