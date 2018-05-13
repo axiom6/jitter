@@ -70,7 +70,7 @@ class UI
   html:() ->
     htm = ""
     htm += """<div class="layout-logo     " id="#{@htmlId('Logo')}"></div>""" if UI.hasLays
-    htm += """<div class="layout-corp"      id="#{@htmlId('Corp')}"></div>""" if @navbSpecs?
+    htm += """<div class="layout-corp"      id="#{@htmlId('Corp')}"></div>""" if @navbs?
     htm += """<div class="layout-find"      id="#{@htmlId('Find')}"></div>""" if UI.hasLays
     htm += """<div class="layout-tocs tocs" id="#{@htmlId('Tocs')}"></div>""" if UI.hasLays
     htm += """<div class="layout-view"      id="#{@htmlId('View')}"></div>"""
@@ -99,7 +99,7 @@ class UI
 
   ready:() ->
     $('#'+@htmlId('App')).html( @html() )
-    @navb.ready()  if @navbSpecs?
+    @navb.ready()  if @navbs?
     @tocs.ready()  if UI.hasTocs
     @view.ready()
     if not @prac?

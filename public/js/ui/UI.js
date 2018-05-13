@@ -76,7 +76,7 @@ UI = (function() {
       if (UI.hasLays) {
         htm += `<div class="layout-logo     " id="${this.htmlId('Logo')}"></div>`;
       }
-      if (this.navbSpecs != null) {
+      if (this.navbs != null) {
         htm += `<div class="layout-corp"      id="${this.htmlId('Corp')}"></div>`;
       }
       if (UI.hasLays) {
@@ -126,7 +126,7 @@ UI = (function() {
     ready() {
       var content, ready;
       $('#' + this.htmlId('App')).html(this.html());
-      if (this.navbSpecs != null) {
+      if (this.navbs != null) {
         this.navb.ready();
       }
       if (UI.hasTocs) {

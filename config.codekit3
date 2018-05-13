@@ -29,13 +29,6 @@
 		"oAP": "\/build\/.idea",
 		"oF": 0
 		},
-	"\/build\/.gitignore": {
-		"cB": 0,
-		"ft": 8192,
-		"oA": 0,
-		"oAP": "\/build\/.gitignore",
-		"oF": 0
-		},
 	"\/coffee\/jitter\/Body.coffee": {
 		"ft": 32,
 		"ma": 0,
@@ -75,17 +68,6 @@
 		"mi": 0,
 		"oA": 0,
 		"oAP": "\/public\/js\/jitter\/Flavor.js",
-		"oF": 0,
-		"oS": 1,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/coffee\/jitter\/Head.coffee": {
-		"ft": 32,
-		"ma": 0,
-		"mi": 0,
-		"oA": 0,
-		"oAP": "\/public\/js\/jitter\/Head.js",
 		"oF": 0,
 		"oS": 1,
 		"sC": 0,
@@ -278,17 +260,6 @@
 		"sC": 0,
 		"tS": 0
 		},
-	"\/coffee\/util\/Color.coffee": {
-		"ft": 32,
-		"ma": 0,
-		"mi": 0,
-		"oA": 0,
-		"oAP": "\/public\/js\/util\/Color.js",
-		"oF": 0,
-		"oS": 1,
-		"sC": 0,
-		"tS": 0
-		},
 	"\/coffee\/util\/Database.coffee": {
 		"ft": 32,
 		"ma": 0,
@@ -317,6 +288,17 @@
 		"mi": 0,
 		"oA": 0,
 		"oAP": "\/public\/js\/util\/Util.js",
+		"oF": 0,
+		"oS": 1,
+		"sC": 0,
+		"tS": 0
+		},
+	"\/coffee\/vis\/Color.coffee": {
+		"ft": 32,
+		"ma": 0,
+		"mi": 0,
+		"oA": 0,
+		"oAP": "\/public\/js\/vis\/Color.js",
 		"oF": 0,
 		"oS": 1,
 		"sC": 0,
@@ -924,6 +906,16 @@
 		"sI": 0,
 		"sM": 0,
 		"sU": 0
+		},
+	"\/public\/css\/ikw.css": {
+		"aP": 1,
+		"bl": 0,
+		"ft": 16,
+		"ma": 0,
+		"oA": 0,
+		"oAP": "\/public\/css\/ikw-min.css",
+		"oF": 0,
+		"oS": 3
 		},
 	"\/public\/css\/jitter.css": {
 		"aP": 1,
@@ -1829,16 +1821,6 @@
 		"sC": 3,
 		"tS": 0
 		},
-	"\/public\/js\/jitter\/Head.js": {
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "\/public\/js\/jitter\/Head-min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 0
-		},
 	"\/public\/js\/jitter\/Interact.js": {
 		"ft": 64,
 		"ma": 0,
@@ -1979,6 +1961,16 @@
 		"sC": 3,
 		"tS": 0
 		},
+	"\/public\/js\/ui\/Pack.js": {
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/public\/js\/ui\/Pack-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
 	"\/public\/js\/ui\/Page.js": {
 		"ft": 64,
 		"ma": 0,
@@ -2035,16 +2027,6 @@
 		"mi": 1,
 		"oA": 0,
 		"oAP": "\/public\/js\/ui\/View-min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 0
-		},
-	"\/public\/js\/util\/Color.js": {
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "\/public\/js\/util\/Color-min.js",
 		"oF": 0,
 		"sC": 3,
 		"tS": 0

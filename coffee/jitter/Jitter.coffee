@@ -2,7 +2,6 @@
 `import Util     from '../util/Util.js'`
 `import Stream   from '../util/Stream.js'`
 `import UI       from '../ui/UI.js'`
-`import Head     from '../jitter/Head.js'`
 `import Flavor   from '../jitter/Flavor.js'`
 `import Interact from '../jitter/Interact.js'`
 `import Summary  from '../jitter/Summary.js'`
