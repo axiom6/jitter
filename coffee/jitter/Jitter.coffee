@@ -21,9 +21,10 @@ class Jitter
     UI.hasPage = false
     UI.hasTocs = false
     UI.hasLays = false
+    UI.local   = "http://localhost:63342/jitter/public/" # Every app needs to change this
+    UI.hosted  = "https://jitter-48413.firebaseapp.com/" # Every app needs to change this
     Util.ready ->
       subjects = ["Ready","Select","Choice","Region","Prefs","Test"]
-      #ubjects = subjects.concat(Jitter.NavbSubjects) if Jitter.NavbSpecs?
       infoSpec = { subscribe:false, publish:false, subjects:["Select","Choice","Region","Prefs","Test"]}
       stream   = new Stream( subjects, infoSpec )
       ui       = new UI( stream, "json/toc.json" ) # , Jitter.NavbSpecs

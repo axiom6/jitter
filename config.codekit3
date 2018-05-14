@@ -150,204 +150,6 @@
 		"sC": 0,
 		"tS": 0
 		},
-	"\/coffee\/ui\/Btn.coffee": {
-		"ft": 32,
-		"ma": 0,
-		"mi": 0,
-		"oA": 0,
-		"oAP": "\/public\/js\/ui\/Btn.js",
-		"oF": 0,
-		"oS": 1,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/coffee\/ui\/Dom.coffee": {
-		"ft": 32,
-		"ma": 0,
-		"mi": 0,
-		"oA": 0,
-		"oAP": "\/public\/js\/ui\/Dom.js",
-		"oF": 0,
-		"oS": 1,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/coffee\/ui\/Navb.coffee": {
-		"ft": 32,
-		"ma": 0,
-		"mi": 0,
-		"oA": 0,
-		"oAP": "\/public\/js\/ui\/Navb.js",
-		"oF": 0,
-		"oS": 1,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/coffee\/ui\/Pack.coffee": {
-		"ft": 32,
-		"ma": 0,
-		"mi": 0,
-		"oA": 0,
-		"oAP": "\/public\/js\/ui\/Pack.js",
-		"oF": 0,
-		"oS": 1,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/coffee\/ui\/Page.coffee": {
-		"ft": 32,
-		"ma": 0,
-		"mi": 0,
-		"oA": 0,
-		"oAP": "\/public\/js\/ui\/Page.js",
-		"oF": 0,
-		"oS": 1,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/coffee\/ui\/Pane.coffee": {
-		"ft": 32,
-		"ma": 0,
-		"mi": 0,
-		"oA": 0,
-		"oAP": "\/public\/js\/ui\/Pane.js",
-		"oF": 0,
-		"oS": 1,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/coffee\/ui\/Spec.coffee": {
-		"ft": 32,
-		"ma": 0,
-		"mi": 0,
-		"oA": 0,
-		"oAP": "\/public\/js\/ui\/Spec.js",
-		"oF": 0,
-		"oS": 1,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/coffee\/ui\/Tocs.coffee": {
-		"ft": 32,
-		"ma": 0,
-		"mi": 0,
-		"oA": 0,
-		"oAP": "\/public\/js\/ui\/Tocs.js",
-		"oF": 0,
-		"oS": 1,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/coffee\/ui\/UI.coffee": {
-		"ft": 32,
-		"ma": 0,
-		"mi": 0,
-		"oA": 0,
-		"oAP": "\/public\/js\/ui\/UI.js",
-		"oF": 0,
-		"oS": 1,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/coffee\/ui\/View.coffee": {
-		"ft": 32,
-		"ma": 0,
-		"mi": 0,
-		"oA": 0,
-		"oAP": "\/public\/js\/ui\/View.js",
-		"oF": 0,
-		"oS": 1,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/coffee\/util\/Database.coffee": {
-		"ft": 32,
-		"ma": 0,
-		"mi": 0,
-		"oA": 0,
-		"oAP": "\/public\/js\/util\/Database.js",
-		"oF": 0,
-		"oS": 1,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/coffee\/util\/Stream.coffee": {
-		"ft": 32,
-		"ma": 0,
-		"mi": 0,
-		"oA": 0,
-		"oAP": "\/public\/js\/util\/Stream.js",
-		"oF": 0,
-		"oS": 1,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/coffee\/util\/Util.coffee": {
-		"ft": 32,
-		"ma": 0,
-		"mi": 0,
-		"oA": 0,
-		"oAP": "\/public\/js\/util\/Util.js",
-		"oF": 0,
-		"oS": 1,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/coffee\/vis\/Color.coffee": {
-		"ft": 32,
-		"ma": 0,
-		"mi": 0,
-		"oA": 0,
-		"oAP": "\/public\/js\/vis\/Color.js",
-		"oF": 0,
-		"oS": 1,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/coffee\/vis\/Convey.coffee": {
-		"ft": 32,
-		"ma": 0,
-		"mi": 0,
-		"oA": 0,
-		"oAP": "\/public\/js\/vis\/Convey.js",
-		"oF": 0,
-		"oS": 1,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/coffee\/vis\/FaLookup.coffee": {
-		"ft": 32,
-		"ma": 0,
-		"mi": 0,
-		"oA": 0,
-		"oAP": "\/public\/js\/vis\/FaLookup.js",
-		"oF": 0,
-		"oS": 1,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/coffee\/vis\/Vis.coffee": {
-		"ft": 32,
-		"ma": 0,
-		"mi": 0,
-		"oA": 0,
-		"oAP": "\/public\/js\/vis\/Vis.js",
-		"oF": 0,
-		"oS": 1,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/coffee\/vis\/Wheel.coffee": {
-		"ft": 32,
-		"ma": 0,
-		"mi": 0,
-		"oA": 0,
-		"oAP": "\/public\/js\/vis\/Wheel.js",
-		"oF": 0,
-		"oS": 1,
-		"sC": 0,
-		"tS": 0
-		},
 	"\/firebase.json": {
 		"ft": 524288,
 		"oA": 1,
@@ -2011,16 +1813,6 @@
 		"sC": 3,
 		"tS": 0
 		},
-	"\/public\/js\/ui\/UI.js": {
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 1,
-		"oAP": "\/public\/js\/ui\/UI-min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 0
-		},
 	"\/public\/js\/ui\/View.js": {
 		"ft": 64,
 		"ma": 0,
@@ -2067,6 +1859,16 @@
 		"mi": 1,
 		"oA": 0,
 		"oAP": "\/public\/js\/util\/Vis-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
+	"\/public\/js\/vis\/Color.js": {
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/public\/js\/vis\/Color-min.js",
 		"oF": 0,
 		"sC": 3,
 		"tS": 0

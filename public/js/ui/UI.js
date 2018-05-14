@@ -349,9 +349,9 @@ UI = (function() {
 
     static baseUrl() {
       if (window.location.href.includes('localhost')) {
-        return "http://localhost:63342/jitter/public/";
+        return UI.local;
       } else {
-        return "https://jitter-48413.firebaseapp.com/";
+        return UI.hosted;
       }
     }
 
@@ -364,6 +364,10 @@ UI = (function() {
   UI.hasTocs = true;
 
   UI.hasLays = true;
+
+  UI.local = "http://localhost:63342/ui/public/"; // Every app needs to change this
+
+  UI.hosted = "https://jitter-48413.firebaseapp.com/"; // Every app needs to change this
 
   UI.$empty = $();
 

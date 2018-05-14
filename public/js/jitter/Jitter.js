@@ -20,10 +20,11 @@ Jitter = (function() {
       UI.hasPage = false;
       UI.hasTocs = false;
       UI.hasLays = false;
+      UI.local = "http://localhost:63342/jitter/public/"; // Every app needs to change this
+      UI.hosted = "https://jitter-48413.firebaseapp.com/"; // Every app needs to change this
       Util.ready(function() {
         var infoSpec, jitter, stream, subjects, ui;
         subjects = ["Ready", "Select", "Choice", "Region", "Prefs", "Test"];
-        //ubjects = subjects.concat(Jitter.NavbSubjects) if Jitter.NavbSpecs?
         infoSpec = {
           subscribe: false,
           publish: false,
