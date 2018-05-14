@@ -44,10 +44,6 @@ Wheel = class Wheel {
     var div, h, w, xc, yc;
     this.spec = spec;
     this.pane = pane;
-    if (this.pane.geo == null) {
-      console.error('Wheel.ready() pane.geo null');
-      this.pane.geo = this.pane.geom();
-    }
     this.url = url;
     this.width = pane.geo.w;
     this.height = pane.geo.h;

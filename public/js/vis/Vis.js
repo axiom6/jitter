@@ -148,6 +148,10 @@ Vis = class Vis {
     return str;
   }
 
+  static toRgbHsv(H, C, V, toRygb = true) {
+    return Vis.toRgbHsvSigmoidal(H, C, V, toRygb);
+  }
+
   static toRgbHsvSigmoidal(H, C, V, toRygb = true) {
     var b, c, d, f, g, h, i, r, v, x, y, z;
     h = toRygb ? Vis.toHueRgb(H) : H;

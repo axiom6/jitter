@@ -1,5 +1,5 @@
-import Util from '../util/Util.js';
-import UI   from '../ui/UI.js';
+import Util from 'js/util/Util.js';
+import UI   from 'js/ui/UI.js';
 var Spec,
   hasProp = {}.hasOwnProperty;
 
