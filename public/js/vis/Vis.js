@@ -202,6 +202,68 @@ Vis = class Vis {
     return hRgb;
   }
 
+  static toRgba(study) {
+    var hsv;
+    hsv = study.hsv != null ? study.hsv : [90, 90, 90];
+    return Vis.toRgbHsv(hsv[0], hsv[1], hsv[2]);
+  }
+
+  static toRgbSphere(hue, phi, rad) {
+    return Vis.toRgbHsv(Vis.rot(hue, 90), 100 * Vis.sin(phi), 100 * rad);
+  }
+
+  // Key algorithm from HCI for converting RGB to HCS  h 360 c 100 s 100
+  static toHcsRgb(R, G, B, toRygb = true) {
+    var H, a, b, c, g, h, r, s, sum;
+    sum = R + G + B;
+    r = R / sum;
+    g = G / sum;
+    b = B / sum;
+    s = sum / 3;
+    c = R === G && G === B ? 0 : 1 - 3 * Math.min(r, g, b); // Center Grayscale
+    a = Vis.deg(Math.acos((r - 0.5 * (g + b)) / Math.sqrt((r - g) * (r - g) + (r - b) * (g - b))));
+    h = b <= g ? a : 360 - a;
+    if (c === 0) {
+      h = 0;
+    }
+    H = toRygb ? Vis.toHueRgb(h) : h;
+    return [H, c * 100, s / 2.55];
+  }
+
+  static sScale(hue, c, s) {
+    var ch, m120, m60, s60, ss;
+    ss = 1.0;
+    m60 = hue % 60;
+    m120 = hue % 120;
+    s60 = m60 / 60;
+    ch = c / 100;
+    ss = m120 < 60 ? 3.0 - 1.5 * s60 : 1.5 + 1.5 * s60;
+    return s * (1 - ch) + s * ch * ss;
+  }
+
+  static sScaleCf(hue, c, s) {
+    var cf, cosd, cosu, m120, m60, ss;
+    ss = sScale(hue, c, s);
+    m60 = hue % 60;
+    m120 = hue % 120;
+    cosu = (1 - Vis.cos(m60)) * 100.00;
+    cosd = (1 - Vis.cos(60 - m60)) * 100.00;
+    cf = m120 < 60 ? cosu : cosd;
+    return ss - cf;
+  }
+
+  static floor(x, dx) {
+    var dr;
+    dr = Math.round(dx);
+    return Math.floor(x / dr) * dr;
+  }
+
+  static ceil(x, dx) {
+    var dr;
+    dr = Math.round(dx);
+    return Math.ceil(x / dr) * dr;
+  }
+
   static unicode(icon) {
     var uc;
     uc = FaLookup.icons[icon];

@@ -3,6 +3,8 @@ var Drink;
 
 Drink = class Drink {
   constructor(stream, ui) {
+    this.readyPane = this.readyPane.bind(this);
+    this.readyView = this.readyView.bind(this);
     this.onChoice = this.onChoice.bind(this);
     this.stream = stream;
     this.ui = ui;
@@ -18,12 +20,7 @@ Drink = class Drink {
   }
 
   readyView() {
-    var src;
-    src = "img/drink/Drink.jpg";
-    this.$view = $(`<div ${Dom.panel(0, 0, 100, 100)}></div>`);
-    this.$view.append(`<h1 ${Dom.label(0, 0, 100, 10)}>Drink</h1>`);
-    this.$view.append(`  ${Dom.image(src, this.pane.toVh(80), this.pane.toVw(80))}`);
-    return this.$view;
+    return $("<h1 style=\" display:grid; justify-self:center; align-self:center; \">Drink</h1>");
   }
 
   onChoice(choice) {

@@ -6,6 +6,7 @@ var World,
 World = class World {
   constructor(stream, ui) {
     var callback;
+    this.readyView = this.readyView.bind(this);
     this.onClick = this.onClick.bind(this);
     this.onChoice = this.onChoice.bind(this);
     this.stream = stream;
@@ -51,7 +52,7 @@ World = class World {
   }
 
   readyView() {
-    return this.readyPane();
+    return $("<h1 style=\" display:grid; justify-self:center; align-self:center; \">World</h1>");
   }
 
   onClick(event) {

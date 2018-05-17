@@ -29,12 +29,7 @@ Summary = class Summary {
   }
 
   readyView() {
-    var src;
-    src = "img/summary/Summary.jpg";
-    this.$view = $(`<div ${Dom.panel(0, 0, 100, 100)}></div>`);
-    this.$view.append(`<h1 ${Dom.label(0, 0, 100, 10)}>Summary</h1>`);
-    this.$view.append(`  ${Dom.image(src, this.pane.toVh(80), this.pane.toVw(80))}`);
-    return this.$view;
+    return $("<h1 style=\" display:grid; justify-self:center; align-self:center; \">Summary</h1>");
   }
 
   subscribe() {

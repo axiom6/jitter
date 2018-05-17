@@ -66,7 +66,7 @@ Util = (function() {
     }
 
     //window.global = window
-    //til.log( "Node Module Paths", Util.module.globalPaths )
+    //console.log( "Node Module Paths", Util.module.globalPaths )
     static ready(fn) {
       if (!Util.isFunc(fn)) { // Sanity check
         return;
@@ -258,13 +258,14 @@ Util = (function() {
     static alert() {
       var str;
       str = Util.toStrArgs('', arguments);
-      Util.consoleLog(str);
+      console.log(str);
       alert(str);
     }
 
-    // Does not work
     static logJSON(json) {
-      return Util.consoleLog(json);
+      var obj;
+      obj = JSON.parse(json);
+      console.log(obj);
     }
 
     // ------ Validators ------

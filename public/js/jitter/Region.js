@@ -5,6 +5,7 @@ var Region;
 
 Region = class Region {
   constructor(stream, ui, world) {
+    this.readyView = this.readyView.bind(this);
     this.onRegion = this.onRegion.bind(this);
     this.onChoice = this.onChoice.bind(this);
     this.stream = stream;
@@ -36,7 +37,7 @@ Region = class Region {
   }
 
   readyView() {
-    return this.readyPane();
+    return $("<h1 style=\" display:grid; justify-self:center; align-self:center; \">Region</h1>");
   }
 
   onRegion(region) {
@@ -60,8 +61,8 @@ Region = class Region {
       this.$image.hide();
       this.$label.text(label).show();
     }
-    // Publish Region to update the Flavors in the Region Summary
-    if (Util.isArray(region.flavors)) {
+    // Publish Region to update Flavors
+    if (Util.isArray(region.flavors)) { // This really to update Flavors
       region.source = 'Region';
       this.stream.publish('Region', region);
     }

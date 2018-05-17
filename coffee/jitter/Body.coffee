@@ -12,11 +12,7 @@ class Body
     Dom.vertBtns( @stream, @spec, @, 'img/body/', 45, 25, 12 )
 
   readyView:() =>
-    src = "img/body/Body.jpg"
-    @$view = $( """<div #{Dom.panel(0, 0,100,100)}></div>"""  )
-    @$view.append( "<h1 #{Dom.label(0, 0,100, 10)}>Body</h1>" )
-    @$view.append( """  #{Dom.image(src,80,80)}""" )
-    @$view
+    $("""<h1 style=" display:grid; justify-self:center; align-self:center; ">Body</h1>""" )
 
   onChoice:( choice ) =>
     Dom.onChoice( choice, 'Body', @ )

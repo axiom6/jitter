@@ -71,12 +71,8 @@ class  Flavor
     @onWheel( addDel, choice.study )
     return
 
-  readyView:() ->
-    src = "img/flavor/Flavor.png"
-    @$view.append( """<div #{Dom.panel(0, 0,100,100)}></div>""" )
-    @$view.append( """<h1  #{Dom.label(0, 0,100, 10)}>Flavor</h1>""" )
-    @$view.append( """     #{Dom.image(src,@pane.toVh(80),@pane.toVw(80))}""" )
-    @$view
+  readyView:() =>
+    $("""<h1 style=" display:grid; justify-self:center; align-self:center; ">Flavor</h1>""" )
 
 `export default Flavor`
 

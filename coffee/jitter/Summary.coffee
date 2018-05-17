@@ -15,11 +15,7 @@ class Summary
     @$pane
 
   readyView:() =>
-    src = "img/summary/Summary.jpg"
-    @$view = $( """<div #{Dom.panel(0, 0,100,100)}></div>""" )
-    @$view.append( "<h1 #{Dom.label(0, 0,100, 10)}>Summary</h1>" )
-    @$view.append( """  #{Dom.image(src,@pane.toVh(80),@pane.toVw(80))}""" )
-    @$view
+    $("""<h1 style=" display:grid; justify-self:center; align-self:center; ">Summary</h1>""" )
 
   subscribe:() ->
     @stream.subscribe( 'Prefs',  'Summary', (prefs)  => @onPrefs( prefs)  ) if @jitter?

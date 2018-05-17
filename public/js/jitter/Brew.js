@@ -20,12 +20,7 @@ Brew = class Brew {
   }
 
   readyView() {
-    var src;
-    src = "img/brew/" + spec['AutoDrip'].icon;
-    this.$view = $(`<div ${Dom.panel(0, 0, 100, 100)}></div>`);
-    this.$view.append(`<h1 ${Dom.label(0, 0, 100, 10)}>Brew</h1>`);
-    this.$view.append(`  ${Dom.image(src, this.pane.toVh(80), this.pane.toVw(80))}`);
-    return this.$view;
+    return $("<h1 style=\" display:grid; justify-self:center; align-self:center; \">Brew</h1>");
   }
 
   onChoice(choice) {

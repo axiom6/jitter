@@ -20,12 +20,7 @@ Body = class Body {
   }
 
   readyView() {
-    var src;
-    src = "img/body/Body.jpg";
-    this.$view = $(`<div ${Dom.panel(0, 0, 100, 100)}></div>`);
-    this.$view.append(`<h1 ${Dom.label(0, 0, 100, 10)}>Body</h1>`);
-    this.$view.append(`  ${Dom.image(src, 80, 80)}`);
-    return this.$view;
+    return $("<h1 style=\" display:grid; justify-self:center; align-self:center; \">Body</h1>");
   }
 
   onChoice(choice) {

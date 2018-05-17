@@ -12,6 +12,7 @@ Flavor = class Flavor {
     this.resize = this.resize.bind(this);
     this.onRegion = this.onRegion.bind(this);
     this.onChoice = this.onChoice.bind(this);
+    this.readyView = this.readyView.bind(this);
     this.stream = stream;
     this.ui = ui;
     this.name = name1;
@@ -111,12 +112,7 @@ Flavor = class Flavor {
   }
 
   readyView() {
-    var src;
-    src = "img/flavor/Flavor.png";
-    this.$view.append(`<div ${Dom.panel(0, 0, 100, 100)}></div>`);
-    this.$view.append(`<h1  ${Dom.label(0, 0, 100, 10)}>Flavor</h1>`);
-    this.$view.append(`     ${Dom.image(src, this.pane.toVh(80), this.pane.toVw(80))}`);
-    return this.$view;
+    return $("<h1 style=\" display:grid; justify-self:center; align-self:center; \">Flavor</h1>");
   }
 
 };

@@ -24,8 +24,8 @@ class Region
     @subscribe()
     $p
 
-  readyView:() ->
-    @readyPane()
+  readyView:() =>
+    $("""<h1 style=" display:grid; justify-self:center; align-self:center; ">Region</h1>""" )
 
   onRegion:( region ) =>
 

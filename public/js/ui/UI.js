@@ -153,7 +153,7 @@ UI = (function() {
         content.pane = this.view.getPane(name);
         content.spec = content.pane.spec; // specs[name]
         content.$pane = content.readyPane();
-        content.$view = $(); // content.readView() For now view content is not used
+        content.$view = $(); // content.readyView() # For now view content is not used
         content.pane.$.append(content.$pane);
       }
     }

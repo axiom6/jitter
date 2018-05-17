@@ -6,6 +6,8 @@ var Interact,
 
 Interact = class Interact {
   constructor(stream1, ui, name, specInteract) {
+    this.readyPane = this.readyPane.bind(this);
+    this.readyView = this.readyView.bind(this);
     this.onSelect = this.onSelect.bind(this);
     this.onEvents = this.onEvents.bind(this);
     this.stream = stream1;
@@ -24,6 +26,10 @@ Interact = class Interact {
   readyPane() {
     this.spec = this.specInteract; // Qverride?
     return this.horz();
+  }
+
+  readyView() {
+    return $("<h1 style=\" display:grid; justify-self:center; align-self:center; \">Interact</h1>");
   }
 
   horz() {

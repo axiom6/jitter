@@ -1,5 +1,5 @@
 import Util from '../util/Util.js';
-var Stream,
+var Stream,  //
   hasProp = {}.hasOwnProperty,
   indexOf = [].indexOf;
 

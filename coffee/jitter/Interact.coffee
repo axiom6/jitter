@@ -10,9 +10,12 @@ class Interact
     @stream.subscribe( 'Select', 'Interact', (select) => @onSelect(select) )
     @last = { name:"" }
 
-  readyPane:() ->
+  readyPane:() =>
     @spec = @specInteract # Qverride?
     @horz()
+
+  readyView:() =>
+    $("""<h1 style=" display:grid; justify-self:center; align-self:center; ">Interact</h1>""" )
 
   horz:() ->
     $p = $( """<div class="panel" style="position:relative; left:0; top: 0;  width:100%; height:100%; text-align:center;"></div>""" )

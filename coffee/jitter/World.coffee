@@ -33,8 +33,8 @@ class World
     @$img.click( (event) => @onClick(event) )
     $p
 
-  readyView:() ->
-    @readyPane()
+  readyView:() =>
+    $("""<h1 style=" display:grid; justify-self:center; align-self:center; ">World</h1>""" )
 
   onClick:( event ) =>
     $elem  = $(event.target)

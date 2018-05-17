@@ -8,6 +8,7 @@ var Roast,
 Roast = (function() {
   class Roast {
     constructor(stream, ui) {
+      this.readyView = this.readyView.bind(this);
       this.doInputEvent = this.doInputEvent.bind(this);
       this.doInput = this.doInput.bind(this);
       this.doClick = this.doClick.bind(this);
@@ -23,12 +24,7 @@ Roast = (function() {
     }
 
     readyView() {
-      var src;
-      src = "img/roast/Coffee-Bean-Roast-Ready.jpg";
-      this.$view = $(`<div ${Dom.panel(0, 0, 100, 100)}></div>`);
-      this.$view.append(`<h1 ${Dom.label(0, 0, 100, 10)}>Roast</h1>`);
-      this.$view.append(`  ${Dom.image(src, this.pane.toVh(80), this.pane.toVw(80))}`);
-      return this.$view;
+      return $("<h1 style=\" display:grid; justify-self:center; align-self:center; \">Roast</h1>");
     }
 
     readyPane() {

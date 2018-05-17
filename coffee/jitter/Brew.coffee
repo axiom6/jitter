@@ -12,11 +12,7 @@ class Brew
     Dom.vertBtns( @stream, @spec, @, 'img/brew/', 50, 25, 12 )
 
   readyView:() =>
-    src = "img/brew/"+spec['AutoDrip'].icon
-    @$view = $( """<div #{Dom.panel(0, 0,100,100)}></div>""" )
-    @$view.append( "<h1 #{Dom.label(0, 0,100, 10)}>Brew</h1>" )
-    @$view.append( """  #{Dom.image(src,@pane.toVh(80),@pane.toVw(80))}""" )
-    @$view
+    $("""<h1 style=" display:grid; justify-self:center; align-self:center; ">Brew</h1>""" )
 
   onChoice:( choice ) =>
     Dom.onChoice( choice, 'Brew', @ )

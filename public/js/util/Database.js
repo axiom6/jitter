@@ -1,5 +1,5 @@
 import Util from '../util/Util.js';
-var Database;
+var Database; //
 
 Database = (function() {
   class Database {

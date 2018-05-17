@@ -23,12 +23,8 @@ class Roast
     @data = Roast.Table
     @stream.subscribe( 'Choice', 'Roast', (choice) => @onChoice(choice) )
 
-  readyView:() ->
-    src = "img/roast/Coffee-Bean-Roast-Ready.jpg"
-    @$view = $( """<div #{Dom.panel(0, 0,100,100)}></div>""" )
-    @$view.append( "<h1 #{Dom.label(0, 0,100, 10)}>Roast</h1>" )
-    @$view.append( """  #{Dom.image(src,@pane.toVh(80),@pane.toVw(80))}""" )
-    @$view
+  readyView:() =>
+    $("""<h1 style=" display:grid; justify-self:center; align-self:center; ">Roast</h1>""" )
 
   readyPane:() ->
     src = "img/roast/RoastsBig.png"

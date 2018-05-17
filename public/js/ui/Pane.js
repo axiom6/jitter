@@ -78,7 +78,13 @@ Pane = class Pane {
     };
     //console.log( 'Pane.geom()', @name, geo )
     if (wp === 0 || hp === 0) {
-      console.error('Pane.geom()', this.name, geo);
+      console.error('Pane.geom()', {
+        name: this.name,
+        spec: this.spec,
+        vw: this.view.widthpx(),
+        vh: this.view.heightpx(),
+        geo: geo
+      });
       console.trace();
     }
     return geo;
