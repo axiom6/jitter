@@ -7,6 +7,7 @@ Pane = class Pane {
   constructor(ui, stream, view, spec) {
     var i, j, m, n;
     this.animateCall = this.animateCall.bind(this);
+    this.onSelect = this.onSelect.bind(this);
     this.ui = ui;
     this.stream = stream;
     this.view = view;
@@ -279,6 +280,29 @@ Pane = class Pane {
     if (this.page != null) {
       this.page.onSelect(select);
     }
+    if (this.graph != null) {
+      this.transformGraph(select, this.geo);
+    }
+  }
+
+  transformGraph(select, geo) {
+    var s, x0, y0;
+    if (select.intent === UI.SelectView) {
+      [x0, y0, s] = [0, 0, 1.0];
+    } else {
+      [x0, y0, s] = [geo.x0, geo.y0, geo.s];
+    }
+    console.log('Pane.transformGraph()', {
+      w: geo.w,
+      h: geo.h,
+      x0: x0,
+      y0: y0,
+      s: s
+    });
+    this.graph['$svg'].hide(); // Hide svg so it won't push out the pane
+    this.graph.svg.attr('width', geo.w).attr('height', geo.h);
+    this.graph.g.attr('transform', `translate(${x0},${y0}) scale(${s})`);
+    this.graph['$svg'].show();
   }
 
 };

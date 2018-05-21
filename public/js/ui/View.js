@@ -325,7 +325,7 @@ View = class View {
     for (pkey in specs) {
       if (!hasProp.call(specs, pkey)) continue;
       pspec = specs[pkey];
-      if (!(UI.isChild(pkey))) {
+      if (!(UI.isChild(pkey) && !((pspec.show != null) && !pspec.show))) {
         continue;
       }
       pane = new Pane(this.ui, this.stream, this, pspec);

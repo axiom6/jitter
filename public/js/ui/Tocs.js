@@ -11,7 +11,7 @@ Tocs = (function() {
       this.stream = stream;
       this.practices = practices1;
       [this.specs, this.stack] = this.createTocsSpecs(this.practices);
-      //@logSpecs()
+      //@infoSpecs() #
       this.htmlIdApp = this.ui.getHtmlId('Tocs', '');
       this.classPrefix = Util.isStr(this.practices.css) ? this.practices.css : 'tocs';
       this.last = this.specs[0];
@@ -19,7 +19,7 @@ Tocs = (function() {
     }
 
     createTocsSpecs(practices) {
-      var hasChild, keyPrac, keyStudy, pracToc, practice, spec0, specN, specs, stack, study;
+      var hasChild, keyPrac, keyStudy, practice, spec0, specN, specs, stack, study;
       spec0 = {
         level: 0,
         name: "Beg",
@@ -32,17 +32,17 @@ Tocs = (function() {
       for (keyPrac in practices) {
         if (!hasProp.call(practices, keyPrac)) continue;
         practice = practices[keyPrac];
-        pracToc = practice['toc'] != null ? practice['toc'] : true;
-        hasChild = keyPrac === "Overview" ? false : pracToc;
+        if (!(UI.isChild(keyPrac))) {
+          continue;
+        }
+        hasChild = this.hasChild(practice);
         this.enrichSpec(keyPrac, practice, specs, 1, spec0, hasChild, true);
         for (keyStudy in practice) {
           if (!hasProp.call(practice, keyStudy)) continue;
           study = practice[keyStudy];
-          if (!(hasChild && UI.isChild(keyStudy))) {
-            continue;
+          if (hasChild && UI.isChild(keyStudy)) {
+            this.enrichSpec(keyStudy, study, specs, 2, practice, false, false);
           }
-          practice.hasChild = true;
-          this.enrichSpec(keyStudy, study, specs, 2, practice, false, false);
         }
       }
       specN = {
@@ -52,6 +52,18 @@ Tocs = (function() {
       };
       specs.push(specN);
       return [specs, stack];
+    }
+
+    hasChild(spec) {
+      var child, key;
+      for (key in spec) {
+        if (!hasProp.call(spec, key)) continue;
+        child = spec[key];
+        if (UI.isChild(key)) {
+          return true;
+        }
+      }
+      return false;
     }
 
     infoSpecs() {
@@ -64,6 +76,7 @@ Tocs = (function() {
     }
 
     enrichSpec(key, spec, specs, level, parent, hasChild, isRow) {
+      //console.log( 'Tocs', key, spec )
       spec.level = level;
       spec.parent = parent;
       spec.name = spec.name != null ? spec.name : key; // Need to learn why this is needed

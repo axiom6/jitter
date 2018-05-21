@@ -25,9 +25,9 @@ class Jitter
     UI.hosted  = "https://jitter-48413.firebaseapp.com/" # Every app needs to change this
     Util.ready ->
       subjects = ["Ready","Select","Choice","Region","Prefs","Test"]
-      infoSpec = { subscribe:false, publish:false, subjects:["Select","Choice","Region","Prefs","Test"]}
+      infoSpec = { subscribe:true, publish:true, subjects:["Select","Choice","Region","Prefs","Test"]}
       stream   = new Stream( subjects, infoSpec )
-      ui       = new UI( stream, "json/toc.json" ) # , Jitter.NavbSpecs
+      ui       = new UI( stream, "json/toc.json", 'Jitter' ) # , Jitter.NavbSpecs
       jitter   = new Jitter( stream, ui )
       Util.noop( jitter )
       return
@@ -43,7 +43,6 @@ class Jitter
     @region   = new Region(   @stream, @ui, @world )
     @interact = new Interact( @stream, @ui, "Interact", Jitter.SpecInteract )
     @flavor   = new Flavor(   @stream, @ui, "Flavor"     )
-    #flavors  = new Flavor(   @stream, @ui, "Flavors"    )
     @summary  = new Summary(  @stream, @ui, "Summary", @ )
     @summarys = new Summary(  @stream, @ui, "Summarys"   ) # @jitter only passed to primary Summary
     @summaryf = new Summary(  @stream, @ui, "Summaryf"   )
@@ -61,17 +60,6 @@ class Jitter
     @ui.view.hideAll( 'Interact' )
     select = UI.select( 'Maps', 'UI', UI.SelectPack )
     @stream.publish( 'Select', select )
-    #prefs = () =>
-    #  @stream.publish( 'Test',  'Prefs' ) # Here is a good place start test a the end of ready()
-    #setTimeout( prefs, 3000 )
-
-  testUser:( user ) ->
-    #user.listUsers()
-    #user.getPrefs()
-    #prefs = user.genPrefs()
-    #user.postPrefs( prefs )
-    Util.noop( user )
-    return
 
   prefsToSchema:( prefs  ) -> @summary.prefsToSchema( prefs  )
   schemaToPrefs:( schema ) -> @summary.schemaToPrefs( schema )

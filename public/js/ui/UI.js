@@ -7,18 +7,18 @@ var UI,
 
 UI = (function() {
   class UI {
-    constructor(stream, jsonPath, navbs = null, prac = null) {
+    constructor(stream, jsonPath, planeName, navbs = null, prac = null) {
       var callback;
       this.resize = this.resize.bind(this);
       this.contentReady = this.contentReady.bind(this);
       this.stream = stream;
       this.jsonPath = jsonPath;
+      this.planeName = planeName;
       this.navbs = navbs;
       this.prac = prac;
       this.contents = {};
-      this.planeName = this.setupPlane();
       callback = (data) => {
-        this.specs = this.prac != null ? this.processPractices(data) : data;
+        this.specs = this.createSpecs(data);
         if (this.navbs != null) {
           this.navb = new Navb(this, this.stream, this.navbs);
         }
@@ -32,42 +32,79 @@ UI = (function() {
       UI.ui = this;
     }
 
-    setupPlane() {
-      if (this.prac != null) {
-        return this.prac.planeName;
-      } else if (this.jsonPath === "json/toc.json") { // For View.createPacksPanes( specs )
-        return 'Jitter';
-      } else {
-        return 'None';
+    createSpecs(data) {
+      var specs;
+      this.nrowncol(data);
+      specs = UI.hasPack ? this.createPacks(data) : this.createPracs(data);
+      if (this.stream.infoSpec.subscribe && this.stream.isInfo('Select')) {
+        console.info('UI.createSpecs()', {
+          pack: UI.hasPack,
+          specs
+        });
       }
+      return specs;
     }
 
-    processPractices(data) {
-      this.nrowncol(data);
-      return this.prac.createFilteredPractices(data);
+    createPacks(data) {
+      var gkey, pack;
+      for (gkey in data) {
+        pack = data[gkey];
+        if (!(UI.isChild(gkey))) {
+          continue;
+        }
+        pack['name'] = gkey;
+        data[gkey] = pack;
+        pack.practices = {};
+        this.createPracs(pack);
+      }
+      return data;
+    }
+
+    createPracs(data) {
+      var ikey, item, pkey, practice, skey, study, tkey, topic;
+      for (pkey in data) {
+        practice = data[pkey];
+        if (!(UI.isChild(pkey))) {
+          continue;
+        }
+        practice['name'] = pkey;
+        practice.studies = {};
+        if (data.practices != null) {
+          data.practices[pkey] = practice;
+        }
+        for (skey in practice) {
+          study = practice[skey];
+          if (!(UI.isChild(skey))) {
+            continue;
+          }
+          study['name'] = skey;
+          study.topics = {};
+          practice.studies[skey] = study;
+          for (tkey in study) {
+            topic = study[tkey];
+            if (!(UI.isChild(tkey))) {
+              continue;
+            }
+            topic['name'] = tkey;
+            topic.items = {};
+            study.topics[tkey] = topic;
+            for (ikey in topic) {
+              item = topic[ikey];
+              if (!(UI.isChild(ikey))) {
+                continue;
+              }
+              item['name'] = ikey;
+              topic.items[ikey] = item;
+            }
+          }
+        }
+      }
+      return data;
     }
 
     nrowncol(data) {
       UI.nrow = data.nrow != null ? data.nrow : UI.nrow;
       return UI.ncol = data.ncol != null ? data.ncol : UI.ncol;
-    }
-
-    // This method detects if  ui instances have not unsubscribed for planes other than the current build plane
-    // are still receiving messages that can generate exceptions
-    inPlane(source) {
-      if ((this.prac != null) && this.prac.planeName !== this.planeName) {
-        console.log("UI.inPlane() not in", {
-          currentPlane: this.prac.planeName,
-          uiPlane: this.planeName,
-          source: source
-        });
-        if (this.stream) {
-          console.trace();
-        }
-        return false;
-      } else {
-        return true;
-      }
     }
 
     html() {
@@ -76,13 +113,13 @@ UI = (function() {
       if (UI.hasLays) {
         htm += `<div class="layout-logo     " id="${this.htmlId('Logo')}"></div>`;
       }
-      if (this.navbs != null) {
+      if (UI.hasLays || (this.navbs != null)) {
         htm += `<div class="layout-corp"      id="${this.htmlId('Corp')}"></div>`;
       }
       if (UI.hasLays) {
         htm += `<div class="layout-find"      id="${this.htmlId('Find')}"></div>`;
       }
-      if (UI.hasLays) {
+      if (UI.hasTocs) {
         htm += `<div class="layout-tocs tocs" id="${this.htmlId('Tocs')}"></div>`;
       }
       htm += `<div class="layout-view"      id="${this.htmlId('View')}"></div>`;
@@ -120,7 +157,7 @@ UI = (function() {
     }
 
     addContent(name, object) {
-      return this.contents[name] = object;
+      this.contents[name] = object;
     }
 
     ready() {
@@ -133,14 +170,13 @@ UI = (function() {
         this.tocs.ready();
       }
       this.view.ready();
-      if (this.prac == null) {
-        //contentReady() called by Ready subscribers
-        ready = UI.select("Ready", "UI", UI.SelectView); // UI.SelectView is a placeholder since Ready does not have intents
-        this.stream.publish("Ready", ready);
-      } else {
-        //contentReady()
+      //contentReady() called by Ready subscribers
+      if (UI.hasPage) {
         content = UI.content('Study', 'UI');
         this.stream.publish('Content', content);
+      } else {
+        ready = UI.select("Ready", "UI", UI.SelectView); // UI.SelectView is a placeholder since Ready does not have intents
+        this.stream.publish("Ready", ready);
       }
     }
 
@@ -151,16 +187,18 @@ UI = (function() {
         if (!hasProp.call(ref, name)) continue;
         content = ref[name];
         content.pane = this.view.getPane(name);
-        content.spec = content.pane.spec; // specs[name]
+        content.spec = content.pane.spec;
         content.$pane = content.readyPane();
-        content.$view = $(); // content.readyView() # For now view content is not used
-        content.pane.$.append(content.$pane);
+        content.$view = content.readyView();
+        content.isSvg = this.isElem(content.$pane.find('svg'));
+        if (!content.isSvg) {
+          content.pane.$.append(content.$pane);
+        }
       }
     }
 
-    //console.log( 'UI.contentReady()', { name:name, spec:content.pane.spec } )
     onSelect(pane, select) {
-      UI.verifySelect(select, 'Jitter');
+      UI.verifySelect(select, 'UI');
       switch (select.intent) {
         case UI.SelectView:
           this.selectView(pane);
@@ -175,7 +213,7 @@ UI = (function() {
           this.selectStudy(pane, select.study);
           break;
         default:
-          console.error("Jitter.onSelect() unknown select", select);
+          console.error("UI.onSelect() unknown select", select);
       }
     }
 
@@ -189,7 +227,7 @@ UI = (function() {
       content.$pane.hide();
       content.$view.show();
       if (this.stream.isInfo('Select')) {
-        console.info('Jitter.selectView()', pane.name);
+        console.info('UI.selectView()', pane.name);
       }
     }
 
@@ -205,7 +243,7 @@ UI = (function() {
       content.$view.hide();
       content.$pane.show();
       if (this.stream.isInfo('Select')) {
-        console.info('Jitter.selectPack()', pane.name);
+        console.info('UI.selectPack()', pane.name);
       }
     }
 
@@ -221,7 +259,7 @@ UI = (function() {
       content.$view.hide();
       content.$pane.show();
       if (this.stream.isInfo('Select')) {
-        console.info('Jitter.selectPane()', pane.name);
+        console.info('UI.selectPane()', pane.name);
       }
     }
 
@@ -232,7 +270,7 @@ UI = (function() {
       content.$view.hide();
       content.$pane.show();
       if (this.stream.isInfo('Select')) {
-        return console.info('Jitter.selectStudy()', pane.name, study.name);
+        return console.info('UI.selectStudy()', pane.name, study.name);
       }
     }
 

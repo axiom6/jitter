@@ -19,7 +19,7 @@ Page = class Page {
       console.trace();
     }
     this.icon = this.spec.icon;
-    if (this.ui.prac != null) {
+    if (UI.hasPage) {
       //@connect    = new Connect( @ui, @stream, @view, @, @spec   )
       this.contents = this.ui.prac.initContents();
       this.choice = "";
@@ -32,8 +32,6 @@ Page = class Page {
 
   //@btn         = new Btn( @ui, @stream, @pane, @pane.spec, @viewer.contents ) if @showBtn
   ready() {
-    //return if @ui.plane.name is 'Hues'
-    //@viewer.ready()  if @viewer?
     this.subscribe();
     if (this.showBtn) {
       //@connect.ready()
@@ -79,9 +77,6 @@ Page = class Page {
     if (!UI.verifySelect(select, "Page.onSelect()")) {
       return;
     }
-    if (!this.ui.inPlane("Page.onSelect()")) {
-      return;
-    }
     choice = this.choiceOnSelect(); // select
     if (this.stream.isInfo('Select')) {
       console.info('Page.onSelect()', {
@@ -103,13 +98,11 @@ Page = class Page {
   }
 
   onContent(content) {
-    var app, choice, inPlane, intent, ready;
+    var app, choice, intent, ready;
     content.name = this.name;
-    inPlane = this.ui.inPlane("Page.onContent()");
     if (this.stream.isInfo('Content')) {
       console.info('Page.onContent()', {
         name: this.name,
-        inPlane: inPlane,
         plane: this.ui.planeName,
         content: content
       });
@@ -119,10 +112,7 @@ Page = class Page {
     if (!UI.verifyContent(content, "Page.onContent()")) {
       return;
     }
-    if (!inPlane) {
-      return;
-    }
-    ready = this.choice !== choice && Util.isObjEmpty(this.contents[choice]) && (this.ui.prac != null);
+    ready = this.choice !== choice && Util.isObjEmpty(this.contents[choice]) && UI.hasPage;
     if (Util.isStr(this.choice)) {
       this.contents[this.choice].$.hide();
     }

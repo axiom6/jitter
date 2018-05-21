@@ -182,6 +182,72 @@ Vis = class Vis {
     return [r * v, g * v, b * v, 1];
   }
 
+  static hsvToRgb(hsv) {
+    var f, i, p, q, rgb, t, v;
+    i = Math.floor(hsv.h / 60);
+    f = hsv.h / 60 - i;
+    p = hsv.v * (1 - hsv.s);
+    q = hsv.v * (1 - f * hsv.s);
+    t = hsv.v * (1 - (1 - f) * hsv.s);
+    v = hsv.v;
+    rgb = (function() {
+      switch (i % 6) {
+        case 0:
+          return {
+            r: v,
+            g: t,
+            b: p
+          };
+        case 1:
+          return {
+            r: q,
+            g: v,
+            b: p
+          };
+        case 2:
+          return {
+            r: p,
+            g: v,
+            b: t
+          };
+        case 3:
+          return {
+            r: p,
+            g: q,
+            b: v
+          };
+        case 4:
+          return {
+            r: t,
+            g: p,
+            b: v
+          };
+        case 5:
+          return {
+            r: v,
+            g: p,
+            b: q
+          };
+        default:
+          console.error('Vis.hsvToRgb()');
+          return {
+            r: v,
+            g: t,
+            b: p // Should never happend
+          };
+      }
+    })();
+    return Vis.roundRgb(rgb, 255);
+  }
+
+  static roundRgb(rgb, f = 1.0) {
+    return {
+      r: Math.round(rgb.r * f),
+      g: Math.round(rgb.g * f),
+      b: Math.round(rgb.b * f)
+    };
+  }
+
   static sigmoidal(x, k, x0 = 0.5, L = 1) {
     return L / (1 + Math.exp(-k * (x - x0)));
   }
@@ -262,6 +328,14 @@ Vis = class Vis {
     var dr;
     dr = Math.round(dx);
     return Math.ceil(x / dr) * dr;
+  }
+
+  static within(beg, deg, end) {
+    return beg <= deg && deg <= end; // Closed interval with <=
+  }
+
+  static isZero(v) {
+    return -0.01 < v && v < 0.01;
   }
 
   static unicode(icon) {

@@ -26,12 +26,12 @@ Jitter = (function() {
         var infoSpec, jitter, stream, subjects, ui;
         subjects = ["Ready", "Select", "Choice", "Region", "Prefs", "Test"];
         infoSpec = {
-          subscribe: false,
-          publish: false,
+          subscribe: true,
+          publish: true,
           subjects: ["Select", "Choice", "Region", "Prefs", "Test"]
         };
         stream = new Stream(subjects, infoSpec);
-        ui = new UI(stream, "json/toc.json"); // , Jitter.NavbSpecs
+        ui = new UI(stream, "json/toc.json", 'Jitter'); // , Jitter.NavbSpecs
         jitter = new Jitter(stream, ui);
         Util.noop(jitter);
       });
@@ -45,7 +45,6 @@ Jitter = (function() {
       this.region = new Region(this.stream, this.ui, this.world);
       this.interact = new Interact(this.stream, this.ui, "Interact", Jitter.SpecInteract);
       this.flavor = new Flavor(this.stream, this.ui, "Flavor");
-      //flavors  = new Flavor(   @stream, @ui, "Flavors"    )
       this.summary = new Summary(this.stream, this.ui, "Summary", this);
       this.summarys = new Summary(this.stream, this.ui, "Summarys"); // @jitter only passed to primary Summary
       this.summaryf = new Summary(this.stream, this.ui, "Summaryf");
@@ -67,17 +66,6 @@ Jitter = (function() {
       this.ui.view.hideAll('Interact');
       select = UI.select('Maps', 'UI', UI.SelectPack);
       return this.stream.publish('Select', select);
-    }
-
-    //prefs = () =>
-    //  @stream.publish( 'Test',  'Prefs' ) # Here is a good place start test a the end of ready()
-    //setTimeout( prefs, 3000 )
-    testUser(user) {
-      //user.listUsers()
-      //user.getPrefs()
-      //prefs = user.genPrefs()
-      //user.postPrefs( prefs )
-      Util.noop(user);
     }
 
     prefsToSchema(prefs) {
