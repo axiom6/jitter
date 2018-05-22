@@ -1,6 +1,5 @@
 import Util from '../util/Util.js';
 import UI   from '../ui/UI.js';
-import Page from '../ui/Page.js';
 var Pane;
 
 Pane = class Pane {
@@ -23,10 +22,8 @@ Pane = class Pane {
     this.hscale = this.view.hscale;
     this.margin = this.view.margin;
     this.speed = this.view.speed;
-    this.page = null; // if UI.hasPage then new Page( @ui, @stream, @view, @ ) else null
     this.lastChoice = "None";
     this.geo = null; // reset by geom() when onSelect() dispatches to page
-    this.intent = UI.SelectView;
   }
 
   ready() {
@@ -37,7 +34,6 @@ Pane = class Pane {
     this.adjacentPanes();
     this.$.css(this.scaleReset());
     this.geo = this.geom();
-    //@page.ready() if @page?
     this.show();
   }
 
@@ -105,13 +101,10 @@ Pane = class Pane {
   }
 
   show() {
-    //console.log( 'Pane.show()', @name )
-    //@resetStudiesDir( true )
     this.$.show();
   }
 
   hide() {
-    //console.log( 'Pane.hide()', @name )
     this.$.hide();
   }
 
@@ -257,9 +250,7 @@ Pane = class Pane {
       $study.css(this.scaleParam(this.view.margin.west, this.view.margin.north, 100 * this.view.wview, 100 * this.view.hview));
     } else {
       $study.css(this.emptyParam());
-      if (this.page != null) {
-        this.page.contents['Study'].intent(UI.SelectPane);
-      }
+      this.stream.publish('Intent' + this.name, UI.SelectPane);
     }
     if (show) {
       $study.show();
@@ -275,32 +266,7 @@ Pane = class Pane {
   onSelect(select) {
     UI.verifySelect(select, 'Pane.onSelect()');
     this.geo = this.geom();
-    if (this.page != null) {
-      this.page.onSelect(select);
-    }
-    if (this.graph != null) {
-      this.transformGraph(select, this.geo);
-    }
-  }
-
-  transformGraph(select, geo) {
-    var s, x0, y0;
-    if (select.intent === UI.SelectView) {
-      [x0, y0, s] = [0, 0, 1.0];
-    } else {
-      [x0, y0, s] = [geo.x0, geo.y0, geo.s];
-    }
-    console.log('Pane.transformGraph()', {
-      w: geo.w,
-      h: geo.h,
-      x0: x0,
-      y0: y0,
-      s: s
-    });
-    this.graph['$svg'].hide(); // Hide svg so it won't push out the pane
-    this.graph.svg.attr('width', geo.w).attr('height', geo.h);
-    this.graph.g.attr('transform', `translate(${x0},${y0}) scale(${s})`);
-    this.graph['$svg'].show();
+    this.stream.publish('Select' + this.name, select);
   }
 
 };

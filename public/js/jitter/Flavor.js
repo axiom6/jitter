@@ -2,7 +2,7 @@ import Util  from '../util/Util.js';
 import UI    from '../ui/UI.js';
 import Dom   from '../ui/Dom.js';
 import Vis   from '../vis/Vis.js';
-import Wheel from '../vis/Wheel.js';
+import Wheel from '../jitter/Wheel.js';
 var Flavor;
 
 Flavor = class Flavor {

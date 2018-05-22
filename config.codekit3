@@ -139,6 +139,17 @@
 		"sC": 0,
 		"tS": 0
 		},
+	"\/coffee\/jitter\/Wheel.coffee": {
+		"ft": 32,
+		"ma": 0,
+		"mi": 0,
+		"oA": 0,
+		"oAP": "\/public\/js\/jitter\/Wheel.js",
+		"oF": 0,
+		"oS": 1,
+		"sC": 0,
+		"tS": 0
+		},
 	"\/coffee\/jitter\/World.coffee": {
 		"ft": 32,
 		"ma": 0,
@@ -1620,32 +1631,12 @@
 		"sC": 3,
 		"tS": 0
 		},
-	"\/public\/js\/ui\/Page.js": {
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 1,
-		"oAP": "\/public\/js\/ui\/Page-min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 0
-		},
 	"\/public\/js\/ui\/Pane.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 1,
 		"oAP": "\/public\/js\/ui\/Pane-min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 0
-		},
-	"\/public\/js\/ui\/Spec.js": {
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "\/public\/js\/ui\/Spec-min.js",
 		"oF": 0,
 		"sC": 3,
 		"tS": 0
@@ -1710,32 +1701,12 @@
 		"sC": 3,
 		"tS": 0
 		},
-	"\/public\/js\/util\/Vis.js": {
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "\/public\/js\/util\/Vis-min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 0
-		},
 	"\/public\/js\/vis\/Color.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 0,
 		"oAP": "\/public\/js\/vis\/Color-min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 0
-		},
-	"\/public\/js\/vis\/Convey.js": {
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "\/public\/js\/vis\/Convey-min.js",
 		"oF": 0,
 		"sC": 3,
 		"tS": 0
@@ -1756,16 +1727,6 @@
 		"mi": 1,
 		"oA": 1,
 		"oAP": "\/public\/js\/vis\/Vis-min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 0
-		},
-	"\/public\/js\/vis\/Wheel.js": {
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "\/public\/js\/vis\/Wheel-min.js",
 		"oF": 0,
 		"sC": 3,
 		"tS": 0

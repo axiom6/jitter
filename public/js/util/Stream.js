@@ -1,5 +1,5 @@
 import Util from '../util/Util.js';
-var Stream,  //
+var Stream,
   hasProp = {}.hasOwnProperty,
   indexOf = [].indexOf;
 
@@ -12,7 +12,7 @@ Stream = class Stream {
     ref = this.bundleNames;
     for (i = 0, len = ref.length; i < len; i++) {
       name = ref[i];
-      this.bundles[name] = this.createBundle();
+      this.addBundle(name);
     }
     this.counts = {};
   }
@@ -25,13 +25,23 @@ Stream = class Stream {
     return bundle;
   }
 
+  addBundle(name, warn = true) {
+    if (this.bundles[name] == null) {
+      this.bundles[name] = this.createBundle();
+    } else {
+      if (warn) {
+        console.warn('Stream.addBundle() bundle subject already exists', name);
+      }
+    }
+  }
+
   // Get a subject by name. Create a new one if need with a warning
   getBundle(name, warn = true) {
     if (this.bundles[name] == null) {
       if (warn) {
         console.warn('Stream.getBundle() unknown name for bundle subject so creating one for', name);
       }
-      this.bundles[name] = this.createBundle();
+      this.addBundle(name, false);
     }
     return this.bundles[name];
   }
