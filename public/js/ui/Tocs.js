@@ -139,7 +139,7 @@ Tocs = (function() {
       }
       if (issueError && this.nameNotOk(select.name)) {
         console.error('UI.Tocs.getSpec(id) spec null for select', select);
-        this.logSpecs();
+        this.infoSpecs();
       }
       return null;
     }

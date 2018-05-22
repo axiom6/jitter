@@ -161,7 +161,6 @@ UI = (function() {
     }
 
     ready() {
-      var content, ready;
       $('#' + this.htmlId('App')).html(this.html());
       if (this.navbs != null) {
         this.navb.ready();
@@ -171,13 +170,10 @@ UI = (function() {
       }
       this.view.ready();
       //contentReady() called by Ready subscribers
-      if (UI.hasPage) {
-        content = UI.content('Study', 'UI');
-        this.stream.publish('Content', content);
-      } else {
-        ready = UI.select("Ready", "UI", UI.SelectView); // UI.SelectView is a placeholder since Ready does not have intents
-        this.stream.publish("Ready", ready);
-      }
+      //if UI.hasPage
+      //  content = UI.content( 'Study', 'UI' )
+      //  @stream.publish( 'Content', content )
+      this.stream.publish("Ready", "Ready"); // Just notification. No topic
     }
 
     contentReady() {
@@ -190,7 +186,7 @@ UI = (function() {
         content.spec = content.pane.spec;
         content.$pane = content.readyPane();
         content.$view = content.readyView();
-        content.isSvg = this.isElem(content.$pane.find('svg'));
+        content.isSvg = this.isElem(content.$pane.find('svg')) && content.pane.name !== 'Flavor';
         if (!content.isSvg) {
           content.pane.$.append(content.$pane);
         }

@@ -23,7 +23,7 @@ Pane = class Pane {
     this.hscale = this.view.hscale;
     this.margin = this.view.margin;
     this.speed = this.view.speed;
-    this.page = UI.hasPage ? new Page(this.ui, this.stream, this.view, this) : null;
+    this.page = null; // if UI.hasPage then new Page( @ui, @stream, @view, @ ) else null
     this.lastChoice = "None";
     this.geo = null; // reset by geom() when onSelect() dispatches to page
     this.intent = UI.SelectView;
@@ -37,9 +37,7 @@ Pane = class Pane {
     this.adjacentPanes();
     this.$.css(this.scaleReset());
     this.geo = this.geom();
-    if (this.page != null) {
-      this.page.ready();
-    }
+    //@page.ready() if @page?
     this.show();
   }
 
