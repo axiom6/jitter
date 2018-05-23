@@ -22,7 +22,7 @@ Pack = class Pack extends Pane {
     this.htmlId = this.id(this.name, 'Pack');
     this.$icon = this.createIcon();
     this.view.$view.append(this.$icon);
-    select = UI.select(this.name, 'Pack', this.spec.intent);
+    select = UI.toTopic(this.name, 'Pack', this.spec.intent);
     return this.stream.publish('Select', select, this.$icon, 'click');
   }
 

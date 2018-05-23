@@ -108,11 +108,10 @@ Tocs = (function() {
     toSelect(spec) {
       var intent;
       if (spec.level === 2) { // Study
-        //console.log( 'Tocs.toSelect(spec) Study', { pane:spec.parent.name, study:spec.parent[spec.name] } )
-        return UI.select(spec.parent.name, 'Tocs', UI.SelectStudy, spec.parent[spec.name]);
+        return UI.toTopic(spec.parent.name, 'Tocs', UI.SelectStudy, spec.parent[spec.name]);
       } else {
         intent = spec.name === 'View' ? UI.SelectView : UI.SelectPane;
-        return UI.select(spec.name, 'Tocs', intent);
+        return UI.toTopic(spec.name, 'Tocs', intent);
       }
     }
 
@@ -230,7 +229,7 @@ Tocs = (function() {
 
     onSelect(select) {
       var spec;
-      UI.verifySelect(select, 'Tocs');
+      UI.verifyTopic(select, 'Tocs');
       spec = this.getSpec(select, true); // spec null ok not all Tocs available for views
       if (spec != null) {
         this.update(spec);

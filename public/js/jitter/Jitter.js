@@ -64,7 +64,7 @@ Jitter = (function() {
       Util.noop(ready);
       this.ui.contentReady();
       this.ui.view.hideAll('Interact');
-      select = UI.select('Maps', 'UI', UI.SelectPack);
+      select = UI.toTopic('Maps', 'UI', UI.SelectPack);
       return this.stream.publish('Select', select);
     }
 
@@ -130,7 +130,7 @@ Jitter = (function() {
       type: "Item",
       name: "Home",
       icon: "fa-home",
-      topic: UI.select("View",
+      topic: UI.toTopic("View",
     'Navb',
     UI.SelectView),
       subject: "Select"

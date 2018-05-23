@@ -172,11 +172,11 @@ View = class View {
   }
 
   resize() {
-    var saveId;
-    saveId = this.lastPaneName;
+    var saveName;
+    saveName = this.lastPaneName;
     this.lastPaneName = '';
-    this.onSelect(UI.select(saveId, 'View', UI.SelectPane));
-    this.lastPaneName = saveId;
+    this.onSelect(UI.toTopic(saveName, 'View', UI.SelectPane));
+    this.lastPaneName = saveName;
   }
 
   hide() {
@@ -217,7 +217,7 @@ View = class View {
 
   onSelect(select) {
     var intent, name;
-    UI.verifySelect(select, 'View');
+    UI.verifyTopic(select, 'View');
     name = select.name;
     intent = select.intent;
     switch (intent) {

@@ -17,7 +17,7 @@ class  Flavor
     addDel    = if add then UI.AddChoice else UI.DelChoice
     @spec.num = if add then @spec.num+1  else @spec.num-1
     if @spec.num <= @spec.max
-      choice = UI.select( @spec.name, 'Wheel', addDel, flavor )
+      choice = UI.toTopic( @spec.name, 'Wheel', addDel, flavor )
       @stream.publish( 'Choice', choice )
     else
       @spec.num = @spec.num-1

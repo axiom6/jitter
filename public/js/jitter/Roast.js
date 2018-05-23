@@ -118,7 +118,7 @@ Roast = (function() {
       color = study.chosen ? Dom.choiceColor : Dom.basisColor;
       this.spec.num++;
       if (this.spec.num <= this.spec.max) {
-        choice = UI.select('Roast', 'Roast', addDel, name);
+        choice = UI.toTopic('Roast', 'Roast', addDel, name);
         if (v != null) {
           choice.value = v;
         }

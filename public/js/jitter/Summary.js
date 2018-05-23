@@ -58,14 +58,14 @@ Summary = class Summary {
     ref = this.flavors;
     for (i = 0, len = ref.length; i < len; i++) {
       flavor = ref[i];
-      choice = UI.select("Flavor", 'Summary', UI.DelChoice, flavor);
+      choice = UI.toTopic("Flavor", 'Summary', UI.DelChoice, flavor);
       this.onChoice(choice);
     }
     if ((region != null) && (region.flavors != null)) {
       ref1 = region.flavors;
       for (j = 0, len1 = ref1.length; j < len1; j++) {
         flavor = ref1[j];
-        choice = UI.select("Flavor", 'Summary', UI.AddChoice, flavor);
+        choice = UI.toTopic("Flavor", 'Summary', UI.AddChoice, flavor);
         this.onChoice(choice);
       }
       return this.flavors = region.flavors;
@@ -111,7 +111,7 @@ Summary = class Summary {
       array = ref[key];
       for (i = 0, len = array.length; i < len; i++) {
         chc = array[i];
-        choice = UI.select(key, 'Summary', UI.AddChoice, chc);
+        choice = UI.toTopic(key, 'Summary', UI.AddChoice, chc);
         this.stream.publish('Choice', choice);
       }
     }

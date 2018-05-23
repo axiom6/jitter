@@ -97,7 +97,7 @@ class Roast
     color        = if study.chosen then Dom.choiceColor else Dom.basisColor
     @spec.num++
     if @spec.num <= @spec.max
-      choice = UI.select( 'Roast', 'Roast', addDel, name )
+      choice = UI.toTopic( 'Roast', 'Roast', addDel, name )
       choice.value = v if v?
       @stream.publish( 'Choice', choice )
     else

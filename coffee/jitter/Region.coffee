@@ -49,7 +49,7 @@ class Region
 
     # Publish Choice to update Summaries
     addDel = if region.chosen then UI.AddChoice else UI.DelChoice
-    choice = UI.select( 'Region', 'Region', addDel, region.name )
+    choice = UI.toTopic( 'Region', 'Region', addDel, region.name )
     @stream.publish( 'Choice', choice )
     return
 

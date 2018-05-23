@@ -53,7 +53,7 @@ class Interact
     $c
 
   doClick:( stream, $e, key, study  ) ->
-    select = UI.select( key, 'Interact', UI.SelectPack, study )
+    select = UI.toTopic( key, 'Interact', UI.SelectPack, study )
     stream.publish( 'Select', select )
     return
 

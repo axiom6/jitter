@@ -6,7 +6,7 @@ Pane = class Pane {
   constructor(ui, stream, view, spec) {
     var i, j, m, n;
     this.animateCall = this.animateCall.bind(this);
-    this.onSelect = this.onSelect.bind(this);
+    this.onContent = this.onContent.bind(this);
     this.ui = ui;
     this.stream = stream;
     this.view = view;
@@ -22,8 +22,7 @@ Pane = class Pane {
     this.hscale = this.view.hscale;
     this.margin = this.view.margin;
     this.speed = this.view.speed;
-    this.lastChoice = "None";
-    this.geo = null; // reset by geom() when onSelect() dispatches to page
+    this.geo = null; // reset by geom() when onContent() dispatches to page
   }
 
   ready() {
@@ -213,12 +212,12 @@ Pane = class Pane {
   reset(select) {
     this.resetStudiesDir(true);
     this.$.css(this.scaleReset());
-    this.onSelect(select);
+    this.onContent(select);
   }
 
   css(left, top, width, height, select) {
     this.$.css(this.scaleParam(left, top, width, height));
-    this.onSelect(select);
+    this.onContent(select);
   }
 
   animate(left, top, width, height, select, aniLinks = false, callback = null) {
@@ -228,7 +227,7 @@ Pane = class Pane {
   }
 
   animateCall(callback, select) {
-    this.onSelect(select);
+    this.onContent(select);
     if (callback != null) {
       callback(this);
     }
@@ -250,8 +249,10 @@ Pane = class Pane {
       $study.css(this.scaleParam(this.view.margin.west, this.view.margin.north, 100 * this.view.wview, 100 * this.view.hview));
     } else {
       $study.css(this.emptyParam());
-      this.stream.publish('Intent' + this.name, UI.SelectPane);
     }
+    // May need study name
+    //content = UI.toTopic( @name, 'Pane.resetStudyDir()', UI.SelectPane )
+    //@stream.publish( 'Content', content )
     if (show) {
       $study.show();
     } else {
@@ -263,10 +264,11 @@ Pane = class Pane {
     return `.study-${dir}`;
   }
 
-  onSelect(select) {
-    UI.verifySelect(select, 'Pane.onSelect()');
+  onContent(select) {
+    var content;
     this.geo = this.geom();
-    this.stream.publish('Select' + this.name, select);
+    content = UI.toTopic(select.name, 'Pane', select.intent);
+    this.stream.publish('Content', content);
   }
 
 };

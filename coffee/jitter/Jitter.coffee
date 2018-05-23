@@ -58,7 +58,7 @@ class Jitter
     Util.noop( ready )
     @ui.contentReady()
     @ui.view.hideAll( 'Interact' )
-    select = UI.select( 'Maps', 'UI', UI.SelectPack )
+    select = UI.toTopic( 'Maps', 'UI', UI.SelectPack )
     @stream.publish( 'Select', select )
 
   prefsToSchema:( prefs  ) -> @summary.prefsToSchema( prefs  )
@@ -67,7 +67,7 @@ class Jitter
   @NavbSubjects = ["Search","Contact","Settings","SignOn"]
   @NavbSpecs    = [
     { type:"NavBarLeft" }
-    { type:"Item",      name:"Home",   icon:"fa-home", topic:UI.select( "View", 'Navb', UI.SelectView ), subject:"Select" }
+    { type:"Item",      name:"Home",   icon:"fa-home", topic:UI.toTopic( "View", 'Navb', UI.SelectView ), subject:"Select" }
     { type:"NavBarEnd" }
     { type:"NavBarRight"}
     { type:"Search",    name:"Search",    icon:"fa-search",      size:"10", topic:'Search',    subject:"Search" }

@@ -254,49 +254,28 @@ UI = (function() {
       return a === a.toUpperCase() && a !== '$';
     }
 
-    static select(name, source, intent, study = null) {
-      var obj;
+    static toTopic(name, source, intent, study = null) {
+      var obj, tname;
+      tname = name.replace(' ', '');
       obj = {
-        name: name,
+        name: tname,
         source: source,
         intent: intent,
         study: study
       };
-      UI.verifySelect(obj, "UI.select()");
+      UI.verifyTopic(obj, "UI.toTopic()");
       return obj;
     }
 
-    static content(choice, source, name = 'None') {
-      var content;
-      // console.log( 'UI.content()', { content:choice, source:source, name:name } )
-      content = {
-        name: name,
-        source: source,
-        choice: choice
-      };
-      UI.verifyContent(content, "UI.content()");
-      return content;
-    }
-
-    static verifySelect(select, source) {
+    static verifyTopic(topic, source) {
       var verify;
-      verify = Util.isStr(select.name) && Util.isStr(select.source) && Util.inArray(UI.intents, select.intent);
-      if (!verify) {
-        console.log('UI.verifySelect()', {
-          select: select,
-          source: source
-        });
-        console.trace();
+      verify = Util.isStr(topic.name) && Util.isStr(topic.source);
+      if (topic.name === 'Select') {
+        verify = verify && Util.inArray(UI.intents, topic.intent);
       }
-      return verify;
-    }
-
-    static verifyContent(content, source) {
-      var verify;
-      verify = Util.isStr(content.name) && Util.isStr(content.choice) && Util.isStr(content.source);
       if (!verify) {
-        console.log('UI.verifyContent()', {
-          content: content,
+        console.log('UI.verifyTopic()', {
+          topic: topic,
           source: source
         });
         console.trace();

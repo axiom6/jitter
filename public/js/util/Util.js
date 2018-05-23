@@ -542,10 +542,6 @@ Util = (function() {
       return s3.substring(1);
     }
 
-    static toSelect(name) {
-      return name.replace(' ', '');
-    }
-
     static indent(n) {
       var i, j, ref, str;
       str = '';

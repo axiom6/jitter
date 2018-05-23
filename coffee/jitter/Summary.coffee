@@ -26,11 +26,11 @@ class Summary
 
   onRegion:( region ) =>
     for flavor in @flavors
-      choice = UI.select( "Flavor", 'Summary', UI.DelChoice, flavor )
+      choice = UI.toTopic( "Flavor", 'Summary', UI.DelChoice, flavor )
       @onChoice( choice )
     if region? and  region.flavors?
       for flavor in region.flavors
-        choice = UI.select( "Flavor", 'Summary', UI.AddChoice, flavor )
+        choice = UI.toTopic( "Flavor", 'Summary', UI.AddChoice, flavor )
         @onChoice( choice )
       @flavors = region.flavors
 
@@ -58,7 +58,7 @@ class Summary
     console.info( 'Summary.onPrefs()', prefs ) if @stream.isInfo('Prefs')
     for own key,   array of prefs.choices
       for   chc in array
-        choice = UI.select( key, 'Summary', UI.AddChoice, chc )
+        choice = UI.toTopic( key, 'Summary', UI.AddChoice, chc )
         @stream.publish( 'Choice', choice )
     return
 

@@ -138,7 +138,7 @@ Dom = (function() {
           color: Dom.basisColor
         });
         $e.find("button").removeClass("btn-nice-active");
-        choice = UI.select(spec.name, spec.name, UI.DelChoice, key); // spec.name and source are the same
+        choice = UI.toTopic(spec.name, spec.name, UI.DelChoice, key); // spec.name and source are the same
         stream.publish('Choice', choice);
       } else if (spec.num < spec.max) {
         study.chosen = true;
@@ -147,7 +147,7 @@ Dom = (function() {
           color: Dom.choiceColor
         });
         $e.find("button").addClass("btn-nice-active");
-        choice = UI.select(spec.name, spec.name, UI.AddChoice, key); // spec.name and source are the same
+        choice = UI.toTopic(spec.name, spec.name, UI.AddChoice, key); // spec.name and source are the same
         stream.publish('Choice', choice);
       } else {
         alert(`You can only make ${spec.max} choices for ${spec.name}`);

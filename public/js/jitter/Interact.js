@@ -84,7 +84,7 @@ Interact = class Interact {
 
   doClick(stream, $e, key, study) {
     var select;
-    select = UI.select(key, 'Interact', UI.SelectPack, study);
+    select = UI.toTopic(key, 'Interact', UI.SelectPack, study);
     stream.publish('Select', select);
   }
 

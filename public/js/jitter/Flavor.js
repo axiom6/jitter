@@ -26,7 +26,7 @@ Flavor = class Flavor {
     addDel = add ? UI.AddChoice : UI.DelChoice;
     this.spec.num = add ? this.spec.num + 1 : this.spec.num - 1;
     if (this.spec.num <= this.spec.max) {
-      choice = UI.select(this.spec.name, 'Wheel', addDel, flavor);
+      choice = UI.toTopic(this.spec.name, 'Wheel', addDel, flavor);
       this.stream.publish('Choice', choice);
     } else {
       this.spec.num = this.spec.num - 1;

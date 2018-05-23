@@ -68,7 +68,7 @@ Region = class Region {
     }
     // Publish Choice to update Summaries
     addDel = region.chosen ? UI.AddChoice : UI.DelChoice;
-    choice = UI.select('Region', 'Region', addDel, region.name);
+    choice = UI.toTopic('Region', 'Region', addDel, region.name);
     this.stream.publish('Choice', choice);
   }
 
