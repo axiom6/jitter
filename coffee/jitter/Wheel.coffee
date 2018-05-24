@@ -26,6 +26,7 @@ class Wheel
     @spec   = spec
     @pane   = pane
     @url    = url
+    @json   = {}
     @width  = pane.geo.w
     @height = pane.geo.h
     @radius = Math.min( @width, @height ) * scale / 2
@@ -50,7 +51,7 @@ class Wheel
     @g.append("text").text("Flavor")
       .attr( 'x', -32 )
       .attr( 'y',  12 )
-      .style('fill', 'white' )
+      .style('fill', 'black' )
       .style("font-size", "3vmin" )
 
     @partition = d3.partition()
@@ -63,6 +64,7 @@ class Wheel
 
     d3.json( @url ).then ( json ) =>
 
+      @json = json
       @root = d3.hierarchy(json)
       @root.sum(  (d) => ( d.chosen = false; d.hide = @isLeaf(d); if @isBranch(d) then 0 else 1 ) )
       @nodes = @partition(@root).descendants()
@@ -76,6 +78,8 @@ class Wheel
         .attr(  "fill-rule", "evenodd")
         .style( "fill",    (d) => @fill(d)  )
         .style( "opacity", @opacity )
+        .style( "stroke",       'black' )
+        .style( "stroke-width", '2' )
         .style( "display", (d) -> if d.data.hide then "none" else "block" )
         .on( "click",      (d) => @onEvent( d, 'click'     ) )
         .on( "mouseover",  (d) => @onEvent( d, 'mouseover' ) )
@@ -227,7 +231,7 @@ class Wheel
       # This publish function is supplied to the constructor
       # elem.chosen is true/false for add/del
       # elem.data.name is the flavor
-      @publish( elem.chosen, elem.data.name )
+      @publish( elem.chosen, elem.data.name, @getRoastValue(elem.data.name) )
       resizeChild = elem.chosen
     else if eventType is 'AddChoice' or eventType is 'DelChoice'
       elem.chosen = eventType is 'AddChoice'
@@ -280,5 +284,26 @@ class Wheel
     .selectAll("path")
       .attrTween( "d", (d) => ( () => @arc(d) ) )
     return
+
+  getFlavor:( data, name, match ) ->
+    if data.children?
+      for flavor in data.children
+        return flavor  if match(flavor)
+        child = @getFlavor( flavor, name, match )
+        return child if child?
+    null
+
+  getRoastValue:( name ) ->
+    match  = (flavor) -> ( flavor.name is name )
+    flavor = @getFlavor( @json, name, match )
+    console.log( 'Wheel.getRoastValue()', { name:name, flavor:flavor } )
+    value = if flavor? then ( flavor.roast[0]+flavor.roast[1] ) * 0.5 else -1
+    value
+
+  getFlavorName:( roast ) ->
+    match  = (flavor) -> ( flavor.roast? and flavor.roast[0] <= roast and roast <= flavor.roast[1] )
+    flavor = @getFlavor( @json, roast, match )
+    console.log( 'Wheel.getFlavorName()', { roast:roast, flavor:flavor } )
+    if flavor then flavor.name else ""
 
 `export default Wheel`

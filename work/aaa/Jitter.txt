@@ -1,13 +1,25 @@
 
 1. Makeover
-   a. Interact
-   b. Flavor in Region
-   c. Roast
+   a. Flavor text size
+   b. Roast Names
+   c. Interact and text Prompt
    d. Summary
 
-2. Test
-   a. Choice
-   b. Select
-   c. More
+2. Word Press
+  a. "My Tastes" in Memu Bar
+  b. IFrame [ iframe src="https://jitter-48413.firebaseapp.com/" width="100%" height="100%" ]
+  c. Store taste profiles in the users table meta field as a JSON string.
+  d. WordPress security with  a Taste App user id and password to enable Rest access.
+  e. Need to figure out how to determine the current user to get their WordPress user id.
+  f. Read and write the taste profile in the meta field with Rest.
 
-3. Word Press
+3. Test
+   a. User Profiles
+   b. Interact Sequence
+   c. More Units
+   d. Customer Inverivews
+
+4. Done
+   + a. Flavor Radii, Borders
+   + b. Roast Flavor messaging
+   + c. Backround colors

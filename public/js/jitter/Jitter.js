@@ -24,7 +24,7 @@ Jitter = (function() {
       UI.hosted = "https://jitter-48413.firebaseapp.com/"; // Every app needs to change this
       Util.ready(function() {
         var infoSpec, jitter, stream, subjects, ui;
-        subjects = ["Ready", "Select", "Choice", "Region", "Prefs", "Test"];
+        subjects = ["Ready", "Select", "Choice", "Roast", "Region", "Prefs", "Test"];
         infoSpec = {
           subscribe: true,
           publish: true,
@@ -46,9 +46,8 @@ Jitter = (function() {
       this.interact = new Interact(this.stream, this.ui, "Interact", Jitter.SpecInteract);
       this.flavor = new Flavor(this.stream, this.ui, "Flavor");
       this.summary = new Summary(this.stream, this.ui, "Summary", this);
-      this.summarys = new Summary(this.stream, this.ui, "Summarys"); // @jitter only passed to primary Summary
       this.summaryf = new Summary(this.stream, this.ui, "Summaryf");
-      this.roast = new Roast(this.stream, this.ui);
+      this.roast = new Roast(this.stream, this.ui, true);
       this.drink = new Drink(this.stream, this.ui);
       this.body = new Body(this.stream, this.ui);
       this.brew = new Brew(this.stream, this.ui);
@@ -64,7 +63,7 @@ Jitter = (function() {
       Util.noop(ready);
       this.ui.contentReady();
       this.ui.view.hideAll('Interact');
-      select = UI.toTopic('Maps', 'UI', UI.SelectPack);
+      select = UI.toTopic('Taste', 'Muse', UI.SelectPack);
       return this.stream.publish('Select', select);
     }
 
@@ -79,18 +78,6 @@ Jitter = (function() {
   };
 
   Jitter.SpecInteract = {
-    Maps: {
-      type: "pack"
-    },
-    World: {
-      type: "pane"
-    },
-    Region: {
-      type: "pane"
-    },
-    Summary: {
-      type: "pane"
-    },
     Taste: {
       type: "pack"
     },
@@ -100,12 +87,6 @@ Jitter = (function() {
     Roast: {
       type: "pane"
     },
-    Summary: {
-      type: "pane"
-    },
-    Prepare: {
-      type: "pack"
-    },
     Brew: {
       type: "pane"
     },
@@ -113,6 +94,18 @@ Jitter = (function() {
       type: "pane"
     },
     Body: {
+      type: "pane"
+    },
+    Summary: {
+      type: "pane"
+    },
+    Maps: {
+      type: "pack"
+    },
+    World: {
+      type: "pane"
+    },
+    Region: {
       type: "pane"
     },
     Summary: {

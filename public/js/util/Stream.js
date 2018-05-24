@@ -35,6 +35,10 @@ Stream = class Stream {
     }
   }
 
+  hasBundle(name) {
+    return this.bundles[name] != null;
+  }
+
   // Get a subject by name. Create a new one if need with a warning
   getBundle(name, warn = true) {
     if (this.bundles[name] == null) {

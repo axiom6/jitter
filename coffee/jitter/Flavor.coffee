@@ -13,11 +13,12 @@ class  Flavor
     @prevRegion = null
 
   # Passed as a callback to Wheel and called when Wheel makes a choice to be published
-  publish:( add, flavor ) =>
+  publish:( add, flavor, roast ) =>
     addDel    = if add then UI.AddChoice else UI.DelChoice
     @spec.num = if add then @spec.num+1  else @spec.num-1
     if @spec.num <= @spec.max
       choice = UI.toTopic( @spec.name, 'Wheel', addDel, flavor )
+      choice.value = roast
       @stream.publish( 'Choice', choice )
     else
       @spec.num = @spec.num-1
@@ -32,7 +33,7 @@ class  Flavor
 
   readyPane:() ->
     url   = "json/flavor.choice.json"
-    scale = 1.3
+    scale = 1.1
     divId = @ui.getHtmlId( "Wheel", @pane.name )
     $w =    $( """<div #{Dom.panel( 0, 5,100, 95)} id="#{divId}"></div>""" )
     @wheel.ready( @pane, @spec, $w.get(0), url, scale )
@@ -66,9 +67,15 @@ class  Flavor
     return
 
   onChoice:( choice ) =>
-    return if choice.source is 'Flavor' or Util.isntStr(choice.study)
+    return if not ( choice.name is 'Flavor'                           ) or choice.source is 'Flavor'
+    #eturn if not ( choice.name is 'Flavor' or choice.name is 'Roast' ) or choice.source is 'Flavor'
+    flavor = ""
+    if choice.name is 'Flavor' and Util.isStr(choice.study)
+       flavor = choice.study
+    else if choice.name is 'Roast' and choice.value?
+       flavor = @wheel.getFlavorName(  choice.value )
     addDel = if choice.intent is UI.AddChoice then 'AddChoice' else 'DelChoice'
-    @onWheel( addDel, choice.study )
+    @onWheel( addDel, flavor ) if Util.isStr(flavor )
     return
 
   readyView:() =>

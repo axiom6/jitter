@@ -24,7 +24,7 @@ class Jitter
     UI.local   = "http://localhost:63342/jitter/public/" # Every app needs to change this
     UI.hosted  = "https://jitter-48413.firebaseapp.com/" # Every app needs to change this
     Util.ready ->
-      subjects = ["Ready","Select","Choice","Region","Prefs","Test"]
+      subjects = ["Ready","Select","Choice","Roast","Region","Prefs","Test"]
       infoSpec = { subscribe:true, publish:true, subjects:["Select","Choice","Region","Prefs","Test"]}
       stream   = new Stream( subjects, infoSpec )
       ui       = new UI( stream, "json/toc.json", 'Jitter' ) # , Jitter.NavbSpecs
@@ -34,9 +34,9 @@ class Jitter
     return
 
   @SpecInteract = {
-    Maps:    { type:"pack" }, World:{  type:"pane" }, Region:{ type:"pane" }, Summary:{ type:"pane" },
-    Taste:   { type:"pack" }, Flavor:{ type:"pane" }, Roast:{  type:"pane" }, Summary:{ type:"pane" },
-    Prepare: { type:"pack" }, Brew:{   type:"pane" }, Drink:{  type:"pane" }, Body:   { type:"pane" }, Summary:{ type:"pane" } }
+    Taste:{ type:"pack" }, Flavor:{ type:"pane" }, Roast: { type:"pane" },
+    Brew: { type:"pane" }, Drink:{  type:"pane" }, Body:  { type:"pane" }, Summary:{ type:"pane" }
+    Maps: { type:"pack" }, World:{  type:"pane" }, Region:{ type:"pane" }, Summary:{ type:"pane" } }
 
   constructor:( @stream, @ui ) ->
     @world    = new World(    @stream, @ui )
@@ -44,9 +44,8 @@ class Jitter
     @interact = new Interact( @stream, @ui, "Interact", Jitter.SpecInteract )
     @flavor   = new Flavor(   @stream, @ui, "Flavor"     )
     @summary  = new Summary(  @stream, @ui, "Summary", @ )
-    @summarys = new Summary(  @stream, @ui, "Summarys"   ) # @jitter only passed to primary Summary
     @summaryf = new Summary(  @stream, @ui, "Summaryf"   )
-    @roast    = new Roast(    @stream, @ui )
+    @roast    = new Roast(    @stream, @ui, true )
     @drink    = new Drink(    @stream, @ui )
     @body     = new Body(     @stream, @ui )
     @brew     = new Brew(     @stream, @ui )
@@ -58,7 +57,7 @@ class Jitter
     Util.noop( ready )
     @ui.contentReady()
     @ui.view.hideAll( 'Interact' )
-    select = UI.toTopic( 'Maps', 'UI', UI.SelectPack )
+    select = UI.toTopic( 'Taste', 'Muse', UI.SelectPack )
     @stream.publish( 'Select', select )
 
   prefsToSchema:( prefs  ) -> @summary.prefsToSchema( prefs  )

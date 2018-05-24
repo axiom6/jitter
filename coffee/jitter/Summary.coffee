@@ -39,10 +39,10 @@ class Summary
     return if not specStudy? # or choice.source is 'Summary'
     console.info( 'Summary.onChoice()', choice ) if @jitter? and @stream.isInfo('Choice')
     htmlId = @ui.getHtmlId( choice.name, 'Choice',  choice.study )
-    value  = if choice.value? then ":"+choice.value else ""
+    #value  = if choice.value? then ":"+choice.value else ""
     $e = @btns[choice.name].$e
     if choice.intent is UI.AddChoice
-      $e.append("""<div id="#{htmlId}" style="color:yellow; padding-left:12px; font-size:12px; line-height:14px;">#{choice.study+value}</div>""" )
+      $e.append("""<div id="#{htmlId}" style="color:yellow; padding-left:12px; font-size:12px; line-height:14px;">#{choice.study}</div>""" )
     else
       $e.find('#'+htmlId).remove()
     return

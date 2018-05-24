@@ -21,12 +21,13 @@ Flavor = class Flavor {
     this.prevRegion = null;
   }
 
-  publish(add, flavor) {
+  publish(add, flavor, roast) {
     var addDel, choice;
     addDel = add ? UI.AddChoice : UI.DelChoice;
     this.spec.num = add ? this.spec.num + 1 : this.spec.num - 1;
     if (this.spec.num <= this.spec.max) {
       choice = UI.toTopic(this.spec.name, 'Wheel', addDel, flavor);
+      choice.value = roast;
       this.stream.publish('Choice', choice);
     } else {
       this.spec.num = this.spec.num - 1;
@@ -51,7 +52,7 @@ Flavor = class Flavor {
   readyPane() {
     var $w, divId, scale, url;
     url = "json/flavor.choice.json";
-    scale = 1.3;
+    scale = 1.1;
     divId = this.ui.getHtmlId("Wheel", this.pane.name);
     $w = $(`<div ${Dom.panel(0, 5, 100, 95)} id="${divId}"></div>`);
     this.wheel.ready(this.pane, this.spec, $w.get(0), url, scale);
@@ -103,12 +104,21 @@ Flavor = class Flavor {
   }
 
   onChoice(choice) {
-    var addDel;
-    if (choice.source === 'Flavor' || Util.isntStr(choice.study)) {
+    var addDel, flavor;
+    if (!(choice.name === 'Flavor') || choice.source === 'Flavor') {
       return;
     }
+    //eturn if not ( choice.name is 'Flavor' or choice.name is 'Roast' ) or choice.source is 'Flavor'
+    flavor = "";
+    if (choice.name === 'Flavor' && Util.isStr(choice.study)) {
+      flavor = choice.study;
+    } else if (choice.name === 'Roast' && (choice.value != null)) {
+      flavor = this.wheel.getFlavorName(choice.value);
+    }
     addDel = choice.intent === UI.AddChoice ? 'AddChoice' : 'DelChoice';
-    this.onWheel(addDel, choice.study);
+    if (Util.isStr(flavor)) {
+      this.onWheel(addDel, flavor);
+    }
   }
 
   readyView() {

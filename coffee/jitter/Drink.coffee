@@ -9,7 +9,7 @@ class Drink
     @btns = {}
 
   readyPane:() =>
-    Dom.vertBtns( @stream, @spec, @, 'img/drink/', 50, 25, 12 )
+    Dom.vertBtns( @stream, @spec, @, 'img/drink/', 80, 10, 12 )
 
   readyView:() =>
     $("""<h1 style=" display:grid; justify-self:center; align-self:center; ">Drink</h1>""" )

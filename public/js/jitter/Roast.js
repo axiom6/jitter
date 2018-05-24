@@ -7,7 +7,7 @@ var Roast,
 
 Roast = (function() {
   class Roast {
-    constructor(stream, ui) {
+    constructor(stream, ui, pubValue) {
       this.readyView = this.readyView.bind(this);
       this.doInputEvent = this.doInputEvent.bind(this);
       this.doInput = this.doInput.bind(this);
@@ -15,6 +15,7 @@ Roast = (function() {
       this.onChoice = this.onChoice.bind(this);
       this.stream = stream;
       this.ui = ui;
+      this.pubValue = pubValue;
       this.ui.addContent('Roast', this);
       this.max = 90;
       this.data = Roast.Table;
@@ -35,7 +36,6 @@ Roast = (function() {
       dx = 100 / n; // - 0.07
       $p = $(`<div ${Dom.panel(0, 0, 100, 100)}></div>`);
       $p.css({
-        "background-color": "#8d6566",
         "border-radius": "24px"
       });
       style = "position:absolute; left:2%; top:5%; width:9%; height:90%; ";
@@ -66,7 +66,8 @@ Roast = (function() {
         $r.append(`<div style="${style}"></div>`);
         x = x + dx;
       }
-      $r.find("#RoastInput").on("change", (event) => {
+      this.$input = $r.find("#RoastInput");
+      this.$input.on("change", (event) => {
         return this.doInputEvent(event);
       });
       $p.append($r);
@@ -86,7 +87,6 @@ Roast = (function() {
       p = Math.min(Math.ceil(v / s), n);
       [p, m] = p < 1 ? [1, s / 2] : [p, (p - 0.5) * s];
       [p1, p2, r] = v >= m && p < n - 1 ? [p, p + 1, (v - m) / n] : v < m && p >= 2 ? [p - 1, p, 1 - (m - v) / n] : [p, p, 1];
-      //console.log( "doInput1", { v:v, m:m, r, p1:p1, p:p, p2:p2, s:s } )
       h1 = Vis.cssHex(this.data[p1].color);
       h2 = Vis.cssHex(this.data[p2].color);
       rgb = Vis.rgbCss(Vis.interpolateHexRgb(h1, 1.0 - r, h2, r));
@@ -95,22 +95,26 @@ Roast = (function() {
           background: rgb
         });
       }
+      if (0 <= v && v <= this.max) {
+        this.$input.val(v);
+      }
       if (pub) {
-        this.publish(this.data[p], null, v);
+        this.publish(this.data[p], v);
       }
     }
 
     doClick(event) {
-      var $e, color, name;
+      var $e, color, name, v;
       $e = $(event.target);
       name = $e.text();
-      color = this.publish(name, $e = null);
+      v = this.getValue(name);
+      color = this.publish(name, v);
       $e.css({
         color: color
       });
     }
 
-    publish(study, $e = null, v = void 0) {
+    publish(study, v) {
       var addDel, choice, color, name;
       name = study.name;
       study.chosen = !((study.chosen != null) || study.chosen) ? true : false;
@@ -132,14 +136,16 @@ Roast = (function() {
 
     onChoice(choice) {
       var value;
-      if (choice.name !== 'Roast' || choice.source === 'Roast') {
+      if (choice.source === 'Roast' && !(choice.name === 'Roast' || choice.name === 'Flavor')) {
         return;
       }
       if (this.stream.isInfo('Choice')) {
         console.info('Roast.onChoice()', choice);
       }
       value = choice.value != null ? choice.value : this.getValue(choice.study);
-      this.doInput(value, false);
+      if (value !== -1) {
+        this.doInput(value, false);
+      }
     }
 
     getValue(name) {

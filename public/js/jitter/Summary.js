@@ -73,7 +73,7 @@ Summary = class Summary {
   }
 
   onChoice(choice) {
-    var $e, htmlId, specStudy, value;
+    var $e, htmlId, specStudy;
     specStudy = this.spec[choice.name];
     if (specStudy == null) { // or choice.source is 'Summary'
       return;
@@ -82,10 +82,10 @@ Summary = class Summary {
       console.info('Summary.onChoice()', choice);
     }
     htmlId = this.ui.getHtmlId(choice.name, 'Choice', choice.study);
-    value = choice.value != null ? ":" + choice.value : "";
+    //value  = if choice.value? then ":"+choice.value else ""
     $e = this.btns[choice.name].$e;
     if (choice.intent === UI.AddChoice) {
-      $e.append(`<div id="${htmlId}" style="color:yellow; padding-left:12px; font-size:12px; line-height:14px;">${choice.study + value}</div>`);
+      $e.append(`<div id="${htmlId}" style="color:yellow; padding-left:12px; font-size:12px; line-height:14px;">${choice.study}</div>`);
     } else {
       $e.find('#' + htmlId).remove();
     }

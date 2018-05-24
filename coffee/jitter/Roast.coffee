@@ -17,7 +17,7 @@ class Roast
     "8":{ color:"#40250d", img:"8d.png", name:"French",   value:75, style:"French"         },
     "9":{ color:"#2f1c09", img:"9d.png", name:"Black",    value:85, style:"Black"          } }
 
-  constructor:( @stream, @ui ) ->
+  constructor:( @stream, @ui, @pubValue ) ->
     @ui.addContent( 'Roast', @ )
     @max  = 90
     @data = Roast.Table
@@ -32,7 +32,7 @@ class Roast
     x   = 0
     dx  = 100 / n # - 0.07
     $p = $( """<div #{Dom.panel( 0, 0,100,100)}></div>""" )
-    $p.css( { "background-color":"#8d6566", "border-radius":"24px" } )
+    $p.css( { "border-radius":"24px" } )
 
     style  = """position:absolute; left:2%; top:5%; width:9%; height:90%; """
     style += """text-align:center; background:#{@data["5"].color}; """
@@ -57,7 +57,8 @@ class Roast
       style += """border:black solid 2px;"""
       $r.append("""<div style="#{style}"></div>""")
       x = x + dx
-    $r.find("#RoastInput").on( "change", (event) => @doInputEvent(event) )
+    @$input = $r.find("#RoastInput")
+    @$input.on( "change", (event) => @doInputEvent(event) )
     $p.append( $r )
     $p
 
@@ -75,22 +76,23 @@ class Roast
       else if v <  m and p >= 2  then [ p-1,p,   1-(m-v)/n ]
       else                            [ p,  p,   1         ]
 
-    #console.log( "doInput1", { v:v, m:m, r, p1:p1, p:p, p2:p2, s:s } )
     h1  = Vis.cssHex( @data[p1].color )
     h2  = Vis.cssHex( @data[p2].color )
     rgb = Vis.rgbCss( Vis.interpolateHexRgb( h1, 1.0-r, h2, r ) )
     @$pane.find("#RoastColor").css( { background:rgb } ) if @$pane?
-    @publish( @data[p], null, v ) if pub
+    @$input.val( v ) if 0 <= v and v <= @max
+    @publish( @data[p], v ) if pub
     return
 
   doClick:( event ) =>
     $e    = $(event.target)
     name  = $e.text()
-    color = @publish( name, $e=null )
+    v     = @getValue(name)
+    color = @publish( name, v )
     $e.css( { color:color } )
     return
 
-  publish:( study, $e=null, v=undefined ) ->
+  publish:( study, v ) ->
     name         = study.name
     study.chosen = if not ( study.chosen? or study.chosen ) then true else false
     addDel       = if study.chosen then UI.AddChoice    else UI.DelChoice
@@ -106,10 +108,10 @@ class Roast
     color
 
   onChoice:( choice ) =>
-    return  if choice.name isnt 'Roast' or choice.source is 'Roast'
+    return  if choice.source is 'Roast' and not (choice.name is 'Roast' or choice.name is 'Flavor')
     console.info( 'Roast.onChoice()', choice ) if @stream.isInfo('Choice')
     value = if choice.value? then choice.value else @getValue( choice.study )
-    @doInput( value, false )
+    @doInput( value, false ) if value isnt -1
     return
 
   getValue:( name ) ->

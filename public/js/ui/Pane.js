@@ -250,9 +250,6 @@ Pane = class Pane {
     } else {
       $study.css(this.emptyParam());
     }
-    // May need study name
-    //content = UI.toTopic( @name, 'Pane.resetStudyDir()', UI.SelectPane )
-    //@stream.publish( 'Content', content )
     if (show) {
       $study.show();
     } else {
@@ -267,8 +264,10 @@ Pane = class Pane {
   onContent(select) {
     var content;
     this.geo = this.geom();
-    content = UI.toTopic(select.name, 'Pane', select.intent);
-    this.stream.publish('Content', content);
+    if (this.stream.hasBundle('Content')) {
+      content = UI.toTopic(select.name, 'Pane', select.intent);
+      this.stream.publish('Content', content);
+    }
   }
 
 };

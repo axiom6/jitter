@@ -567,16 +567,6 @@
 		"sM": 0,
 		"sU": 0
 		},
-	"\/public\/css\/ikw.css": {
-		"aP": 1,
-		"bl": 0,
-		"ft": 16,
-		"ma": 0,
-		"oA": 0,
-		"oAP": "\/public\/css\/ikw-min.css",
-		"oF": 0,
-		"oS": 3
-		},
 	"\/public\/css\/jitter.css": {
 		"aP": 1,
 		"bl": 0,
@@ -1541,6 +1531,16 @@
 		"sC": 3,
 		"tS": 0
 		},
+	"\/public\/js\/jitter\/Wheel.js": {
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/public\/js\/jitter\/Wheel-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
 	"\/public\/js\/jitter\/World.js": {
 		"ft": 64,
 		"ma": 0,
@@ -1759,6 +1759,14 @@
 		"ft": 524288,
 		"oA": 1,
 		"oAP": "\/public\/json\/toc-min.json",
+		"oF": 0,
+		"oO": 0,
+		"oS": 1
+		},
+	"\/public\/json\/toc1.json": {
+		"ft": 524288,
+		"oA": 1,
+		"oAP": "\/public\/json\/toc1-min.json",
 		"oF": 0,
 		"oO": 0,
 		"oS": 1

@@ -45,6 +45,7 @@ Wheel = class Wheel {
     this.spec = spec;
     this.pane = pane;
     this.url = url;
+    this.json = {};
     this.width = pane.geo.w;
     this.height = pane.geo.h;
     this.radius = Math.min(this.width, this.height) * scale / 2;
@@ -64,7 +65,7 @@ Wheel = class Wheel {
     yc = this.height / 2;
     this.svg = div.append("svg").attr("width", w).attr("height", h);
     this.g = this.svg.append("g").attr("transform", `translate(${xc},${yc}) scale(1,1)`);
-    this.g.append("text").text("Flavor").attr('x', -32).attr('y', 12).style('fill', 'white').style("font-size", "3vmin");
+    this.g.append("text").text("Flavor").attr('x', -32).attr('y', 12).style('fill', 'black').style("font-size", "3vmin");
     this.partition = d3.partition();
     this.arc = d3.arc().startAngle((d) => {
       return Math.max(0, Math.min(2 * Math.PI, this.xx(this.x0(d))));
@@ -76,6 +77,7 @@ Wheel = class Wheel {
       return Math.max(0, this.yy(this.y1(d)));
     });
     d3.json(this.url).then((json) => {
+      this.json = json;
       this.root = d3.hierarchy(json);
       this.root.sum((d) => {
         d.chosen = false;
@@ -96,7 +98,7 @@ Wheel = class Wheel {
         }
       }).attr("d", this.arc).attr("fill-rule", "evenodd").style("fill", (d) => {
         return this.fill(d);
-      }).style("opacity", this.opacity).style("display", function(d) {
+      }).style("opacity", this.opacity).style("stroke", 'black').style("stroke-width", '2').style("display", function(d) {
         if (d.data.hide) {
           return "none";
         } else {
@@ -374,7 +376,7 @@ Wheel = class Wheel {
       // This publish function is supplied to the constructor
       // elem.chosen is true/false for add/del
       // elem.data.name is the flavor
-      this.publish(elem.chosen, elem.data.name);
+      this.publish(elem.chosen, elem.data.name, this.getRoastValue(elem.data.name));
       resizeChild = elem.chosen;
     } else if (eventType === 'AddChoice' || eventType === 'DelChoice') {
       elem.chosen = eventType === 'AddChoice';
@@ -446,6 +448,55 @@ Wheel = class Wheel {
         return this.arc(d);
       };
     });
+  }
+
+  getFlavor(data, name, match) {
+    var child, flavor, j, len, ref;
+    if (data.children != null) {
+      ref = data.children;
+      for (j = 0, len = ref.length; j < len; j++) {
+        flavor = ref[j];
+        if (match(flavor)) {
+          return flavor;
+        }
+        child = this.getFlavor(flavor, name, match);
+        if (child != null) {
+          return child;
+        }
+      }
+    }
+    return null;
+  }
+
+  getRoastValue(name) {
+    var flavor, match, value;
+    match = function(flavor) {
+      return flavor.name === name;
+    };
+    flavor = this.getFlavor(this.json, name, match);
+    console.log('Wheel.getRoastValue()', {
+      name: name,
+      flavor: flavor
+    });
+    value = flavor != null ? (flavor.roast[0] + flavor.roast[1]) * 0.5 : -1;
+    return value;
+  }
+
+  getFlavorName(roast) {
+    var flavor, match;
+    match = function(flavor) {
+      return (flavor.roast != null) && flavor.roast[0] <= roast && roast <= flavor.roast[1];
+    };
+    flavor = this.getFlavor(this.json, roast, match);
+    console.log('Wheel.getFlavorName()', {
+      roast: roast,
+      flavor: flavor
+    });
+    if (flavor) {
+      return flavor.name;
+    } else {
+      return "";
+    }
   }
 
 };

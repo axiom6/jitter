@@ -67,7 +67,9 @@ UI = (function() {
         if (!(UI.isChild(pkey))) {
           continue;
         }
-        practice['name'] = pkey;
+        if (practice['name'] == null) {
+          practice['name'] = pkey;
+        }
         practice.studies = {};
         if (data.practices != null) {
           data.practices[pkey] = practice;
@@ -77,7 +79,9 @@ UI = (function() {
           if (!(UI.isChild(skey))) {
             continue;
           }
-          study['name'] = skey;
+          if (study['name'] == null) {
+            study['name'] = skey;
+          }
           study.topics = {};
           practice.studies[skey] = study;
           for (tkey in study) {
@@ -85,7 +89,9 @@ UI = (function() {
             if (!(UI.isChild(tkey))) {
               continue;
             }
-            topic['name'] = tkey;
+            if (topic['name'] == null) {
+              topic['name'] = tkey;
+            }
             topic.items = {};
             study.topics[tkey] = topic;
             for (ikey in topic) {
@@ -93,7 +99,9 @@ UI = (function() {
               if (!(UI.isChild(ikey))) {
                 continue;
               }
-              item['name'] = ikey;
+              if (item['name'] == null) {
+                item['name'] = ikey;
+              }
               topic.items[ikey] = item;
             }
           }

@@ -9,7 +9,7 @@ class Body
     @btns = {}
 
   readyPane:() =>
-    Dom.vertBtns( @stream, @spec, @, 'img/body/', 45, 25, 12 )
+    Dom.vertBtns( @stream, @spec, @, 'img/body/', 70, 15, 12 )
 
   readyView:() =>
     $("""<h1 style=" display:grid; justify-self:center; align-self:center; ">Body</h1>""" )

@@ -82,7 +82,7 @@
   top: 0;
   width: 0;
   height: 0;
-  background-image: radial-gradient(ellipse farthest-side at right bottom, #333333, #1a1a1a);
+  background-image: radial-gradient(ellipse farthest-side at right bottom, #412e25, #201713);
   font-family: Roberto, sans-serif;
   color: wheat;
 }
@@ -92,7 +92,7 @@
   top: 0;
   right: 0;
   height: 0;
-  background-image: linear-gradient(to bottom, #1a1a1a, #333333);
+  background-image: linear-gradient(to bottom, #201713, #412e25);
   font-family: Roberto, sans-serif;
   color: wheat;
 }
@@ -102,7 +102,7 @@
   top: 0;
   width: 0;
   height: 0;
-  background-image: radial-gradient(ellipse farthest-side at left bottom, #333333, #1a1a1a);
+  background-image: radial-gradient(ellipse farthest-side at left bottom, #412e25, #201713);
   font-family: Roberto, sans-serif;
   color: wheat;
 }
@@ -112,7 +112,7 @@
   top: 0;
   width: 0;
   bottom: 0;
-  background-image: linear-gradient(to right, #1a1a1a, #333333);
+  background-image: linear-gradient(to right, #201713, #412e25);
   font-family: Roberto, sans-serif;
   color: wheat;
 }
@@ -122,7 +122,7 @@
   top: 0;
   right: 0;
   bottom: 0;
-  background-image: radial-gradient(ellipse farthest-corner at center center, #dabebe, #333333);
+  background-image: radial-gradient(ellipse farthest-corner at center center, #dac7be, #412e25);
   overflow: visible;
 }
 .layout-side {
@@ -131,7 +131,7 @@
   top: 0;
   width: 0;
   bottom: 0;
-  background-image: linear-gradient(to left, #1a1a1a, #333333);
+  background-image: linear-gradient(to left, #201713, #412e25);
   font-family: Roberto, sans-serif;
   color: wheat;
 }
@@ -141,7 +141,7 @@
   bottom: 0;
   width: 0;
   height: 0;
-  background-image: radial-gradient(ellipse farthest-side at right top, #333333, #1a1a1a);
+  background-image: radial-gradient(ellipse farthest-side at right top, #412e25, #201713);
   font-family: Roberto, sans-serif;
   color: wheat;
 }
@@ -151,7 +151,7 @@
   bottom: 0;
   right: 0;
   height: 0;
-  background-image: linear-gradient(to top, #1a1a1a, #333333);
+  background-image: linear-gradient(to top, #201713, #412e25);
   font-family: Roberto, sans-serif;
   color: wheat;
 }
@@ -161,7 +161,7 @@
   bottom: 0;
   width: 0;
   height: 0;
-  background-image: radial-gradient(ellipse farthest-side at left top, #333333, #1a1a1a);
+  background-image: radial-gradient(ellipse farthest-side at left top, #412e25, #201713);
   font-family: Roberto, sans-serif;
   color: wheat;
 }
@@ -171,7 +171,7 @@
   top: 0;
   right: 0;
   height: 0;
-  background-image: linear-gradient(to bottom, #1a1a1a, #333333);
+  background-image: linear-gradient(to bottom, #201713, #412e25);
 }
 .layout-logo .text {
   position: relative;
@@ -223,11 +223,10 @@
   position: relative;
   left: 0;
   cursor: pointer;
-  border: solid black 1px;
   border-radius: 1.7vmin;
-  border-left: solid 0.2vmin #2E4476;
-  background: #3B5999;
-  box-shadow: 1vmin 1vmin 0 0 #2E4476;
+  border: 1px solid black;
+  background: #815d4b;
+  box-shadow: 1vmin 1vmin 0 0 #614638;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -252,19 +251,16 @@
 }
 .btn-nice .btn-image {
   float: left;
-  align-self: center;
   margin-right: 2vmin;
   border-radius: 1vmin;
   border: solid black 1px;
 }
 .btn-nice .btn-icons {
   float: left;
-  align-self: center;
   padding-right: 2vmin;
 }
 .btn-nice .btn-label {
   float: left;
-  align-self: center;
   padding-right: 2vmin;
 }
 html {
@@ -274,23 +270,22 @@ html {
   font-family: Roberto, sans-serif;
 }
 .ui-view {
-  background-color: #333333;
+  background-color: #614638;
   width: 100%;
   height: 100%;
 }
 .ui-pack {
-  background-color: #856372;
+  background-color: #715141;
   position: absolute;
   z-index: 1;
   border-radius: 24px;
 }
 .ui-pane {
-  background-color: #856372;
+  background-color: #815d4b;
   position: absolute;
   z-index: 2;
-  border-radius: 24px;
-  font-family: Roberto, sans-serif;
   overflow: visible;
+  border-radius: 24px;
 }
 .ui-pane-center {
   position: absolute;
@@ -308,7 +303,7 @@ html {
   width: 90%;
   height: 90%;
 }
-.ui-pane-connect > div > ul {
+.ui-pane-arrow > div > ul {
   padding: 0 0 0 20px;
   margin: 0;
 }
@@ -316,9 +311,12 @@ html {
   display: table-cell;
   vertical-align: middle;
   padding: 20px;
+  text-align: center;
+  color: wheat;
 }
 .ui-pane-icon {
   text-align: center;
+  font-size: 12vmin;
 }
 .ui-pane-img {
   display: block;
@@ -329,6 +327,8 @@ html {
   text-align: center;
   line-height: 1.0;
   margin-top: 4px;
+  font-size: 3vmin;
+  font-family: Roberto, sans-serif;
 }
 .ui-pane-center-div:hover {
   cursor: pointer;
@@ -347,12 +347,7 @@ html {
 }
 .ui-pane .label {
   font-size: 3vmin;
-  color: white;
-  font-weight: bold;
-}
-.ui-pane .circle {
-  background-color: #333333;
-  color: white;
+  color: black;
   font-weight: bold;
 }
 .ui-pane .texts {
@@ -362,12 +357,17 @@ html {
 }
 .ui-pane .branch {
   font-size: 2vmin;
-  color: white;
+  color: black;
   line-height: 3vmin;
+}
+.ui-pane .circle {
+  background-color: #614638;
+  color: black;
+  font-weight: bold;
 }
 .ui-pane .roast {
   font-size: 2vmin;
-  color: white;
+  color: black;
   z-index: 2;
 }
 .ui-pane .roast:hover {
@@ -375,7 +375,7 @@ html {
 }
 .ui-pane .action {
   color: white;
-  background-color: #333333;
+  background-color: #614638;
   font-weight: bold;
 }
 .ui-pane .action:hover {
@@ -407,6 +407,35 @@ html {
   text-align: center;
   vertical-align: middle;
   font-size: 20px;
+}
+.ui-pane-ul-content {
+  position: absolute;
+  left: 4%;
+  top: 2%;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: Roberto, sans-serif;
+}
+.ui-pane-li-content-btn {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 24px;
+  height: 24px;
+  display: inline-table;
+  margin-right: 4px;
+  border-radius: 12px;
+  z-index: 2;
+  color: wheat;
+  background-color: black;
+}
+.ui-pane-li-content-btn div {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
 }
 /*!
  * Font Awesome Free 5.0.9 by @fontawesome - https://fontawesome.com

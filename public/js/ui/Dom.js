@@ -113,7 +113,7 @@ Dom = (function() {
       var htm;
       htm = `<div class="branch" style="position:absolute; left:${x}%; top:${y}%; width:${w}%; height:${h}%; display:table;">`;
       if (Util.isStr(label)) {
-        htm += `<div <div style="">${label}</div>`;
+        htm += `<div style="">${label}</div>`;
       }
       htm += "</div>";
       return htm;
@@ -362,7 +362,7 @@ Dom = (function() {
 
   Dom.hoverColor = "wheat";
 
-  Dom.basisColor = "white";
+  Dom.basisColor = "black";
 
   Dom.opacity = 0.6;
 

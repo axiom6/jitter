@@ -16,7 +16,7 @@ Drink = class Drink {
   }
 
   readyPane() {
-    return Dom.vertBtns(this.stream, this.spec, this, 'img/drink/', 50, 25, 12);
+    return Dom.vertBtns(this.stream, this.spec, this, 'img/drink/', 80, 10, 12);
   }
 
   readyView() {
