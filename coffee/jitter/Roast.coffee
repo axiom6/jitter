@@ -36,9 +36,12 @@ class Roast
 
     style  = """position:absolute; left:2%; top:5%; width:9%; height:90%; """
     style += """text-align:center; background:#{@data["5"].color}; """
-    style += """border:black solid 2px; font-size:3vmin; font-weight:bold; display:table; opacity:#{Dom.opacity}; """
-    spans  = """display:table-cell; vertical-align:middle; line-height:normal; """  # opacity:1.0; z-index:4; color:white;
-    $p.append("""<div id="RoastColor" style="#{style}"><span style="#{spans}">Roast</span></div>""")
+    style += """border:black solid 2px; font-size:3vmin; font-weight:bold; display:table; opacity:#{Dom.opacity}"""
+    spanc  = """position:absolute; left:0; top:2%; width:100%; height:12%; color:yellow; font-size:2vmin; z-index:4;""" # background-color:black;
+    spanr  = """display:table-cell; vertical-align:middle; line-height:normal; """
+    $p.append("""<div id="RoastColor" style="#{style}">
+      <div style="#{spanc}" id="RoastName">#{@data["5"].name}</div>
+      <div style="#{spanr}">Roast</div></div>""" )
 
     $r =    $( """<div #{Dom.label(13, 5, 84, 90,"roast")}></div>""" )
     $r.append( """<img style="width:100%; height:75%;" src="#{src}"/>""")
@@ -49,9 +52,9 @@ class Roast
     for own key, roast of @data  #
       style  = """position:absolute; left:#{x}%; top:0; width:#{dx}%; height:#{75}%; """
       style += """text-align:center; background:transparent ;"""
-      style += """border:black solid 1px;"""
+      style += """border:black solid 1px; color:yellow; font-size:2vmin; padding-top:0.2vmin;"""
       style += """border-right:black solid 3px;""" if key is "9"
-      $r.append("""<div style="#{style}"></div>""")
+      $r.append("""<div style="#{style}">#{roast.name}</div>""")
       style  = """position:absolute; left:#{x}%; top:#{75}%; width:#{dx}%; height:#{25}% ;"""
       style += """text-align:center; background:#{roast.color}; opacity:#{Dom.opacity};"""
       style += """border:black solid 2px;"""
@@ -80,16 +83,9 @@ class Roast
     h2  = Vis.cssHex( @data[p2].color )
     rgb = Vis.rgbCss( Vis.interpolateHexRgb( h1, 1.0-r, h2, r ) )
     @$pane.find("#RoastColor").css( { background:rgb } ) if @$pane?
+    @$pane.find("#RoastName" ).text(  @data[p].name    ) if @$pane?
     @$input.val( v ) if 0 <= v and v <= @max
     @publish( @data[p], v ) if pub
-    return
-
-  doClick:( event ) =>
-    $e    = $(event.target)
-    name  = $e.text()
-    v     = @getValue(name)
-    color = @publish( name, v )
-    $e.css( { color:color } )
     return
 
   publish:( study, v ) ->
@@ -108,7 +104,8 @@ class Roast
     color
 
   onChoice:( choice ) =>
-    return  if choice.source is 'Roast' and not (choice.name is 'Roast' or choice.name is 'Flavor')
+    #eturn  if choice.source is 'Roast' and not (choice.name is   'Roast' or choice.name is 'Flavor') Needs work
+    return  if choice.source is 'Roast' or       choice.name isnt 'Roast'
     console.info( 'Roast.onChoice()', choice ) if @stream.isInfo('Choice')
     value = if choice.value? then choice.value else @getValue( choice.study )
     @doInput( value, false ) if value isnt -1

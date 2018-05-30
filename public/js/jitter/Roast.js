@@ -11,7 +11,6 @@ Roast = (function() {
       this.readyView = this.readyView.bind(this);
       this.doInputEvent = this.doInputEvent.bind(this);
       this.doInput = this.doInput.bind(this);
-      this.doClick = this.doClick.bind(this);
       this.onChoice = this.onChoice.bind(this);
       this.stream = stream;
       this.ui = ui;
@@ -29,7 +28,7 @@ Roast = (function() {
     }
 
     readyPane() {
-      var $p, $r, dx, key, n, ref, roast, spans, src, style, x;
+      var $p, $r, dx, key, n, ref, roast, spanc, spanr, src, style, x;
       src = "img/roast/RoastsBig.png";
       n = Util.lenObject(this.data);
       x = 0;
@@ -40,9 +39,10 @@ Roast = (function() {
       });
       style = "position:absolute; left:2%; top:5%; width:9%; height:90%; ";
       style += `text-align:center; background:${this.data["5"].color}; `;
-      style += `border:black solid 2px; font-size:3vmin; font-weight:bold; display:table; opacity:${Dom.opacity}; `;
-      spans = "display:table-cell; vertical-align:middle; line-height:normal; "; // opacity:1.0; z-index:4; color:white;
-      $p.append(`<div id="RoastColor" style="${style}"><span style="${spans}">Roast</span></div>`);
+      style += `border:black solid 2px; font-size:3vmin; font-weight:bold; display:table; opacity:${Dom.opacity}`;
+      spanc = "position:absolute; left:0; top:2%; width:100%; height:12%; color:yellow; font-size:2vmin; z-index:4;"; // background-color:black;
+      spanr = "display:table-cell; vertical-align:middle; line-height:normal; ";
+      $p.append(`<div id="RoastColor" style="${style}">\n<div style="${spanc}" id="RoastName">${this.data["5"].name}</div>\n<div style="${spanr}">Roast</div></div>`);
       $r = $(`<div ${Dom.label(13, 5, 84, 90, "roast")}></div>`);
       $r.append(`<img style="width:100%; height:75%;" src="${src}"/>`);
       style = `position:absolute; left:0; top:81%; width:100%; height:${16}% ;`;
@@ -55,11 +55,11 @@ Roast = (function() {
         roast = ref[key];
         style = `position:absolute; left:${x}%; top:0; width:${dx}%; height:${75}%; `;
         style += "text-align:center; background:transparent ;";
-        style += "border:black solid 1px;";
+        style += "border:black solid 1px; color:yellow; font-size:2vmin; padding-top:0.2vmin;";
         if (key === "9") {
           style += "border-right:black solid 3px;";
         }
-        $r.append(`<div style="${style}"></div>`);
+        $r.append(`<div style="${style}">${roast.name}</div>`);
         style = `position:absolute; left:${x}%; top:${75}%; width:${dx}%; height:${25}% ;`;
         style += `text-align:center; background:${roast.color}; opacity:${Dom.opacity};`;
         style += "border:black solid 2px;";
@@ -95,23 +95,15 @@ Roast = (function() {
           background: rgb
         });
       }
+      if (this.$pane != null) {
+        this.$pane.find("#RoastName").text(this.data[p].name);
+      }
       if (0 <= v && v <= this.max) {
         this.$input.val(v);
       }
       if (pub) {
         this.publish(this.data[p], v);
       }
-    }
-
-    doClick(event) {
-      var $e, color, name, v;
-      $e = $(event.target);
-      name = $e.text();
-      v = this.getValue(name);
-      color = this.publish(name, v);
-      $e.css({
-        color: color
-      });
     }
 
     publish(study, v) {
@@ -136,7 +128,8 @@ Roast = (function() {
 
     onChoice(choice) {
       var value;
-      if (choice.source === 'Roast' && !(choice.name === 'Roast' || choice.name === 'Flavor')) {
+      //eturn  if choice.source is 'Roast' and not (choice.name is   'Roast' or choice.name is 'Flavor') Needs work
+      if (choice.source === 'Roast' || choice.name !== 'Roast') {
         return;
       }
       if (this.stream.isInfo('Choice')) {

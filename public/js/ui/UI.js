@@ -268,9 +268,11 @@ UI = (function() {
       obj = {
         name: tname,
         source: source,
-        intent: intent,
-        study: study
+        intent: intent
       };
+      if (study != null) {
+        obj.study = study;
+      }
       UI.verifyTopic(obj, "UI.toTopic()");
       return obj;
     }

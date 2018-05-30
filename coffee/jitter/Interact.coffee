@@ -58,7 +58,7 @@ class Interact
     return
 
   onSelect:(  select ) =>
-    return if select.name is @last.name or select.intent isnt UI.SelectPack
+    return if select.name is @last.name or select.intent isnt UI.SelectPack or not @spec?
     study = @spec[select.name]
     @last.$e.removeClass( 'action-active' ) if Util.isStr( @last.name )
     study.$e.addClass(    'action-active' )

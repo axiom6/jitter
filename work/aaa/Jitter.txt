@@ -1,9 +1,10 @@
 
 1. Makeover
-   a. Flavor text size
+   a. Nav Arrows
    b. Roast Names
-   c. Interact and text Prompt
-   d. Summary
+   c. Flavor text size
+   d. Interact and text Prompts
+   e. Summary
 
 2. Word Press
   a. "My Tastes" in Memu Bar

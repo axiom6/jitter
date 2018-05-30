@@ -34,23 +34,25 @@ class Jitter
     return
 
   @SpecInteract = {
-    Taste:{ type:"pack" }, Flavor:{ type:"pane" }, Roast: { type:"pane" },
-    Brew: { type:"pane" }, Drink:{  type:"pane" }, Body:  { type:"pane" }, Summary:{ type:"pane" }
-    Maps: { type:"pack" }, World:{  type:"pane" }, Region:{ type:"pane" }, Summary:{ type:"pane" } }
+    Taste:  { type:"pack" }, Flavor:{  type:"pane" }, Summary:{ type:"pane" },
+    Prepare:{ type:"pack" }, Roast:{   type:"pane" }, Brew:{    type:"pane" }, Drink:{   type:"pane" },
+    Body:   { type:"pane" }, Summary:{ type:"pane" },
+    Maps:   { type:"pack" }, World:{   type:"pane" }, Region:{  type:"pane" }, Summary:{ type:"pane" } }
 
   constructor:( @stream, @ui ) ->
-    @world    = new World(    @stream, @ui )
-    @region   = new Region(   @stream, @ui, @world )
     @interact = new Interact( @stream, @ui, "Interact", Jitter.SpecInteract )
     @flavor   = new Flavor(   @stream, @ui, "Flavor"     )
-    @summary  = new Summary(  @stream, @ui, "Summary", @ )
-    @summaryf = new Summary(  @stream, @ui, "Summaryf"   )
+    @summaryt = new Summary(  @stream, @ui, "Summaryt"   )
     @roast    = new Roast(    @stream, @ui, true )
     @drink    = new Drink(    @stream, @ui )
     @body     = new Body(     @stream, @ui )
     @brew     = new Brew(     @stream, @ui )
+    @summaryp = new Summary(  @stream, @ui, "Summaryp"   )
+    @world    = new World(    @stream, @ui )
+    @region   = new Region(   @stream, @ui, @world )
+    @summarym = new Summary(  @stream, @ui, "Summarym"   )
     @user     = new User(     @stream, @ )
-    @prefs    = @summary.initPrefs()
+    @prefs    = @summaryp.initPrefs()
     @stream.subscribe( "Ready", "Jitter", (ready) => @onReady( ready ) )
 
   onReady:( ready ) =>

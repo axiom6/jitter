@@ -310,10 +310,10 @@ Dom = (function() {
       return htm;
     }
 
-    static tree(stream, spec, widget, x0 = 0, y0 = 0) {
+    static tree(stream, spec, name, widget, x0 = 0, y0 = 0) {
       var $e, $p, dy, key, n, study, x, y;
       $p = $(`<div    ${Dom.panel(0, 0, 100, 100, "left")}></div>`);
-      $p.append(`<div ${Dom.label(0, 3, 100, 10)}>${spec.name}</div>`);
+      $p.append(`<div ${Dom.label(0, 3, 100, 10)}>${name}</div>`);
       n = Util.lenObject(spec, UI.isChild);
       x = x0;
       y = y0;

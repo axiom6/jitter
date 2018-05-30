@@ -41,18 +41,19 @@ Jitter = (function() {
       this.onReady = this.onReady.bind(this);
       this.stream = stream1;
       this.ui = ui1;
-      this.world = new World(this.stream, this.ui);
-      this.region = new Region(this.stream, this.ui, this.world);
       this.interact = new Interact(this.stream, this.ui, "Interact", Jitter.SpecInteract);
       this.flavor = new Flavor(this.stream, this.ui, "Flavor");
-      this.summary = new Summary(this.stream, this.ui, "Summary", this);
-      this.summaryf = new Summary(this.stream, this.ui, "Summaryf");
+      this.summaryt = new Summary(this.stream, this.ui, "Summaryt");
       this.roast = new Roast(this.stream, this.ui, true);
       this.drink = new Drink(this.stream, this.ui);
       this.body = new Body(this.stream, this.ui);
       this.brew = new Brew(this.stream, this.ui);
+      this.summaryp = new Summary(this.stream, this.ui, "Summaryp");
+      this.world = new World(this.stream, this.ui);
+      this.region = new Region(this.stream, this.ui, this.world);
+      this.summarym = new Summary(this.stream, this.ui, "Summarym");
       this.user = new User(this.stream, this);
-      this.prefs = this.summary.initPrefs();
+      this.prefs = this.summaryp.initPrefs();
       this.stream.subscribe("Ready", "Jitter", (ready) => {
         return this.onReady(ready);
       });
@@ -83,6 +84,12 @@ Jitter = (function() {
     },
     Flavor: {
       type: "pane"
+    },
+    Summary: {
+      type: "pane"
+    },
+    Prepare: {
+      type: "pack"
     },
     Roast: {
       type: "pane"

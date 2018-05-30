@@ -528,11 +528,12 @@ Util = (function() {
     }
 
     static toName(s1) {
-      var s2, s3, s4;
+      var s2, s3, s4, s5;
       s2 = s1.replace('_', ' ');
       s3 = s2.replace(/([A-Z][a-z])/g, ' $1');
       s4 = s3.replace(/([A-Z]+)/g, ' $1');
-      return s4;
+      s5 = s4.replace(/([0-9][A-Z])/g, ' $1');
+      return s5;
     }
 
     static toName1(s1) {

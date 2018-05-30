@@ -90,7 +90,7 @@ Interact = class Interact {
 
   onSelect(select) {
     var study;
-    if (select.name === this.last.name || select.intent !== UI.SelectPack) {
+    if (select.name === this.last.name || select.intent !== UI.SelectPack || (this.spec == null)) {
       return;
     }
     study = this.spec[select.name];

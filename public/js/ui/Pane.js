@@ -179,7 +179,37 @@ Pane = class Pane {
   }
 
   createHtml() {
-    return `<div id="${this.htmlId}" class="${this.classPrefix}"></div>`;
+    var htm;
+    htm = `<div id="${this.htmlId}" class="${this.classPrefix}">`;
+    htm += this.navArrows();
+    htm += "</div>";
+    return htm;
+  }
+
+  doNav(name) {
+    var select;
+    select = UI.toTopic(name, 'Pane.doNav()', UI.SelectPack);
+    this.stream.publish('Select', select);
+  }
+
+  navArrows() {
+    var htm, p, s;
+    p = 6;
+    s = this.toVmin(p) + 'vmin';
+    htm = "";
+    if (this.spec['bak'] != null) {
+      htm += `<i style="position:absolute; left:0;   top: 47%; width:${s}; height:${s}; font-size:${s}; z-index:4;" class="fas fa-arrow-alt-circle-left" onclick="${this.doNav(this.spec['bak'])}"></i>`;
+    }
+    if (this.spec['fwd'] != null) {
+      htm += `<i style="position:absolute; right:0;  top: 47%; width:${s}; height:${s}; font-size:${s}; z-index:4;" class="fas fa-arrow-alt-circle-right"onclick="${this.doNav(this.spec['fwd'])}"></i>`;
+    }
+    if (this.spec['top'] != null) {
+      htm += `<i style="position:absolute; left:47%; top:   0; width:${s}; height:${s}; font-size:${s}; z-index:4;" class="fas fa-arrow-alt-circle-up"   onclick="${this.doNav(this.spec['top'])}"></i>`;
+    }
+    if (this.spec['bot'] != null) {
+      htm += `<i style="position:absolute; left:47%; bottom:0; width:${s}; height:${s}; font-size:${s}; z-index:4;" class="fas fa-arrow-alt-circle-down" onclick="${this.doNav(this.spec['bot'])}"></i>`;
+    }
+    return htm;
   }
 
   scaleReset() {

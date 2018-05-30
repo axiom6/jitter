@@ -1,3 +1,4 @@
+import Util from '../util/Util.js';
 import UI   from '../ui/UI.js';
 import Dom  from '../ui/Dom.js';
 var Summary,
@@ -23,7 +24,7 @@ Summary = class Summary {
   }
 
   readyPane() {
-    this.$pane = Dom.tree(this.stream, this.spec, this, 6, 13);
+    this.$pane = Dom.tree(this.stream, this.spec, 'Summary', this, 6, 13);
     this.subscribe();
     return this.$pane;
   }
@@ -43,7 +44,7 @@ Summary = class Summary {
         return this.onTest(test);
       });
     }
-    if (this.name === "Summaryf") {
+    if (this.name === "Summarym") {
       this.stream.subscribe('Region', this.name, (region) => {
         return this.onRegion(region);
       });
@@ -81,11 +82,14 @@ Summary = class Summary {
     if ((this.jitter != null) && this.stream.isInfo('Choice')) {
       console.info('Summary.onChoice()', choice);
     }
-    htmlId = this.ui.getHtmlId(choice.name, 'Choice', choice.study);
+    htmlId = Util.getHtmlId(choice.name, 'Choice', choice.study);
+    console.log('Summary.onChoice()', {
+      htmlId: htmlId
+    });
     //value  = if choice.value? then ":"+choice.value else ""
     $e = this.btns[choice.name].$e;
     if (choice.intent === UI.AddChoice) {
-      $e.append(`<div id="${htmlId}" style="color:yellow; padding-left:12px; font-size:12px; line-height:14px;">${choice.study}</div>`);
+      $e.append(`<div id="${htmlId}" style="color:yellow; padding-left:12px; font-size:12px; line-height:14px;">${Util.toName(choice.study)}</div>`);
     } else {
       $e.find('#' + htmlId).remove();
     }
