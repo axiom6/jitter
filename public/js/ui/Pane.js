@@ -27,7 +27,7 @@ Pane = class Pane {
 
   ready() {
     this.htmlId = this.ui.htmlId(this.name, 'Pane');
-    this.$ = $(this.createHtml());
+    this.$ = this.createHtml();
     this.view.$view.append(this.$);
     this.hide();
     this.adjacentPanes();
@@ -179,37 +179,51 @@ Pane = class Pane {
   }
 
   createHtml() {
-    var htm;
-    htm = `<div id="${this.htmlId}" class="${this.classPrefix}">`;
-    htm += this.navArrows();
-    htm += "</div>";
-    return htm;
+    var $p;
+    $p = $(`<div id="${this.htmlId}" class="${this.classPrefix}"></div>`);
+    this.navArrows($p);
+    return $p;
   }
 
-  doNav(name) {
-    var select;
+  doNav(event) {
+    var name, select;
+    name = $(event.target).attr('data-name');
+    console.log('Pane.doNav()', name);
     select = UI.toTopic(name, 'Pane.doNav()', UI.SelectPack);
     this.stream.publish('Select', select);
   }
 
-  navArrows() {
-    var htm, p, s;
-    p = 6;
-    s = this.toVmin(p) + 'vmin';
-    htm = "";
+  navArrows($p) {
+    var $a, s;
+    s = '12vh';
     if (this.spec['bak'] != null) {
-      htm += `<i style="position:absolute; left:0;   top: 47%; width:${s}; height:${s}; font-size:${s}; z-index:4;" class="fas fa-arrow-alt-circle-left" onclick="${this.doNav(this.spec['bak'])}"></i>`;
+      $a = $(`<i style="position:absolute; left:20%; top: 40%; width:${s}; height:${s}; font-size:${s}; z-index:4;" class="fas fa-arrow-alt-circle-left"  data-name="${this.spec['bak']}"></i>`);
+      $a.on('click', (event) => {
+        return this.doNav(event);
+      });
+      $p.append($a);
     }
     if (this.spec['fwd'] != null) {
-      htm += `<i style="position:absolute; right:0;  top: 47%; width:${s}; height:${s}; font-size:${s}; z-index:4;" class="fas fa-arrow-alt-circle-right"onclick="${this.doNav(this.spec['fwd'])}"></i>`;
+      $a = $(`<i style="position:absolute; left:20%;  top: 40%; width:${s}; height:${s}; font-size:${s}; z-index:4;" class="fas fa-arrow-alt-circle-right" data-name="${this.spec['fwd']}"></i>`);
+      $a.on('click', (event) => {
+        return this.doNav(event);
+      });
+      $p.append($a);
     }
     if (this.spec['top'] != null) {
-      htm += `<i style="position:absolute; left:47%; top:   0; width:${s}; height:${s}; font-size:${s}; z-index:4;" class="fas fa-arrow-alt-circle-up"   onclick="${this.doNav(this.spec['top'])}"></i>`;
+      $a = $(`<i style="position:absolute; left:40%; top:   0; width:${s}; height:${s}; font-size:${s}; z-index:4;" class="fas fa-arrow-alt-circle-up"    data-name="${this.spec['top']}"></i>`);
+      $a.on('click', (event) => {
+        return this.doNav(event);
+      });
+      $p.append($a);
     }
     if (this.spec['bot'] != null) {
-      htm += `<i style="position:absolute; left:47%; bottom:0; width:${s}; height:${s}; font-size:${s}; z-index:4;" class="fas fa-arrow-alt-circle-down" onclick="${this.doNav(this.spec['bot'])}"></i>`;
+      $a = $(`<i style="position:absolute; left:40%; bottom:0; width:${s}; height:${s}; font-size:${s}; z-index:4;" class="fas fa-arrow-alt-circle-down"  data-name="${this.spec['bot']}"></i>`);
+      $a.on('click', (event) => {
+        return this.doNav(event);
+      });
+      $p.append($a);
     }
-    return htm;
   }
 
   scaleReset() {
