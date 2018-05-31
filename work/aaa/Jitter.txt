@@ -4,8 +4,9 @@
       - Roll over choices
       - Styling
       - More Infor
-   b. Flavor text size
-   c. Prompts
+   b, Interact Hovering
+   c. Flavor text size
+   d. Prompts
 
 2. Word Press
   a. "My Tastes" in Memu Bar

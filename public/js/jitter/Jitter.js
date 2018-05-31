@@ -11,6 +11,7 @@ import Brew     from '../jitter/Brew.js';
 import World    from '../jitter/World.js';
 import Region   from '../jitter/Region.js';
 import User     from '../jitter/User.js';
+import Prefs    from '../jitter/Prefs.js';
 var Jitter;
 
 Jitter = (function() {
@@ -53,7 +54,7 @@ Jitter = (function() {
       this.region = new Region(this.stream, this.ui, this.world);
       this.summarym = new Summary(this.stream, this.ui, "Summarym");
       this.user = new User(this.stream, this);
-      this.prefs = this.summaryp.initPrefs();
+      this.prefs = new Prefs(this.stream);
       this.stream.subscribe("Ready", "Jitter", (ready) => {
         return this.onReady(ready);
       });

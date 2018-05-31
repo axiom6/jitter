@@ -93,14 +93,9 @@ class Roast
     study.chosen = if not ( study.chosen? or study.chosen ) then true else false
     addDel       = if study.chosen then UI.AddChoice    else UI.DelChoice
     color        = if study.chosen then Dom.choiceColor else Dom.basisColor
-    @spec.num++
-    if @spec.num <= @spec.max
-      choice = UI.toTopic( 'Roast', 'Roast', addDel, name )
-      choice.value = v if v?
-      @stream.publish( 'Choice', choice )
-    else
-      @spec.num--
-      alert( "You can only make #{@spec.max} choices for Roast" )
+    choice = UI.toTopic( 'Roast', 'Roast', addDel, name )
+    choice.value = v if v?
+    @stream.publish( 'Choice', choice )
     color
 
   onChoice:( choice ) =>

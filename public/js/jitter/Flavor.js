@@ -24,16 +24,9 @@ Flavor = class Flavor {
   publish(add, flavor, roast) {
     var addDel, choice;
     addDel = add ? UI.AddChoice : UI.DelChoice;
-    this.spec.num = add ? this.spec.num + 1 : this.spec.num - 1;
-    if (this.spec.num <= this.spec.max) {
-      choice = UI.toTopic(this.spec.name, 'Wheel', addDel, flavor);
-      choice.value = roast;
-      this.stream.publish('Choice', choice);
-    } else {
-      this.spec.num = this.spec.num - 1;
-      alert(`You can only make ${this.spec.max} choices for Flavor`);
-      this.onWheel('DelChoice', flavor);
-    }
+    choice = UI.toTopic(this.spec.name, 'Wheel', addDel, flavor);
+    choice.value = roast;
+    this.stream.publish('Choice', choice);
   }
 
   subscribe(name) {

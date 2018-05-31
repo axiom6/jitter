@@ -112,17 +112,11 @@ Roast = (function() {
       study.chosen = !((study.chosen != null) || study.chosen) ? true : false;
       addDel = study.chosen ? UI.AddChoice : UI.DelChoice;
       color = study.chosen ? Dom.choiceColor : Dom.basisColor;
-      this.spec.num++;
-      if (this.spec.num <= this.spec.max) {
-        choice = UI.toTopic('Roast', 'Roast', addDel, name);
-        if (v != null) {
-          choice.value = v;
-        }
-        this.stream.publish('Choice', choice);
-      } else {
-        this.spec.num--;
-        alert(`You can only make ${this.spec.max} choices for Roast`);
+      choice = UI.toTopic('Roast', 'Roast', addDel, name);
+      if (v != null) {
+        choice.value = v;
       }
+      this.stream.publish('Choice', choice);
       return color;
     }
 

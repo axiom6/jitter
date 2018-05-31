@@ -15,15 +15,9 @@ class  Flavor
   # Passed as a callback to Wheel and called when Wheel makes a choice to be published
   publish:( add, flavor, roast ) =>
     addDel    = if add then UI.AddChoice else UI.DelChoice
-    @spec.num = if add then @spec.num+1  else @spec.num-1
-    if @spec.num <= @spec.max
-      choice = UI.toTopic( @spec.name, 'Wheel', addDel, flavor )
-      choice.value = roast
-      @stream.publish( 'Choice', choice )
-    else
-      @spec.num = @spec.num-1
-      alert( "You can only make #{@spec.max} choices for Flavor" )
-      @onWheel( 'DelChoice', flavor )
+    choice = UI.toTopic( @spec.name, 'Wheel', addDel, flavor )
+    choice.value = roast
+    @stream.publish( 'Choice', choice )
     return
 
   subscribe:( name ) ->

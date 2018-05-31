@@ -59,13 +59,8 @@ class World
     @regions[f.name]
 
   showRegion:( region ) ->
-    return if  region.name is "None"
-    @spec.num = if region.chosen then @spec.num+1  else @spec.num-1
-    if @spec.num <= @spec.max
+    return if  region.name is "None"-1
       @stream.publish( 'Region', region )
-    else
-      @spec.num = @spec.num-1
-      alert( "You can only make #{@spec.max} choices for World" )
     return
 
   onChoice:( choice ) =>

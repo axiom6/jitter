@@ -66,10 +66,6 @@ class User
     $.ajax( settings )
     return
 
-
-
-
-
   ###
 
   nonceData:( email ) ->

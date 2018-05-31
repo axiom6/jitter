@@ -3,8 +3,6 @@
 class Wheel
 
   constructor:( @publish, @opacity ) ->
-    @numChoices    = 0
-    @maxChoices    = 4
     @showAllLeaves = false
     @radiusFactorChoice = 1.3
     @radiusFactorChild  = 1.0

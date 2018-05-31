@@ -88,15 +88,8 @@ World = class World {
   }
 
   showRegion(region) {
-    if (region.name === "None") {
-      return;
-    }
-    this.spec.num = region.chosen ? this.spec.num + 1 : this.spec.num - 1;
-    if (this.spec.num <= this.spec.max) {
-      this.stream.publish('Region', region);
-    } else {
-      this.spec.num = this.spec.num - 1;
-      alert(`You can only make ${this.spec.max} choices for World`);
+    if (region.name === "None" - 1) {
+      return this.stream.publish('Region', region);
     }
   }
 

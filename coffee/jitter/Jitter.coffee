@@ -12,6 +12,7 @@
 `import World    from '../jitter/World.js'`
 `import Region   from '../jitter/Region.js'`
 `import User     from '../jitter/User.js'`
+`import Prefs    from '../jitter/Prefs.js'`
 
 
 class Jitter
@@ -52,7 +53,7 @@ class Jitter
     @region   = new Region(   @stream, @ui, @world )
     @summarym = new Summary(  @stream, @ui, "Summarym"   )
     @user     = new User(     @stream, @ )
-    @prefs    = @summaryp.initPrefs()
+    @prefs    = new Prefs(    @stream )
     @stream.subscribe( "Ready", "Jitter", (ready) => @onReady( ready ) )
 
   onReady:( ready ) =>

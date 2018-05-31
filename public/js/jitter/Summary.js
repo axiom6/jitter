@@ -1,8 +1,7 @@
 import Util from '../util/Util.js';
 import UI   from '../ui/UI.js';
 import Dom  from '../ui/Dom.js';
-var Summary,
-  hasProp = {}.hasOwnProperty;
+var Summary;
 
 Summary = class Summary {
   constructor(stream, ui, name, jitter = null) {
@@ -10,10 +9,6 @@ Summary = class Summary {
     this.readyView = this.readyView.bind(this);
     this.onRegion = this.onRegion.bind(this);
     this.onChoice = this.onChoice.bind(this);
-    // Tests can be initiated after all ready() call have completed
-    this.onTest = this.onTest.bind(this);
-    // Publish all preference choices
-    this.onPrefs = this.onPrefs.bind(this);
     this.stream = stream;
     this.ui = ui;
     this.name = name;
@@ -93,108 +88,6 @@ Summary = class Summary {
     } else {
       $e.find('#' + htmlId).remove();
     }
-  }
-
-  onTest(test) {
-    if (test === 'Prefs') {
-      this.onPrefs(this.testPrefs());
-    }
-  }
-
-  onPrefs(prefs) {
-    var array, chc, choice, i, key, len, ref;
-    if (this.jitter == null) { // Insure that only the primary summary publishes choices
-      return;
-    }
-    if (this.stream.isInfo('Prefs')) {
-      console.info('Summary.onPrefs()', prefs);
-    }
-    ref = prefs.choices;
-    for (key in ref) {
-      if (!hasProp.call(ref, key)) continue;
-      array = ref[key];
-      for (i = 0, len = array.length; i < len; i++) {
-        chc = array[i];
-        choice = UI.toTopic(key, 'Summary', UI.AddChoice, chc);
-        this.stream.publish('Choice', choice);
-      }
-    }
-  }
-
-  initPrefs() {
-    var prefs;
-    prefs = {};
-    prefs.id = '';
-    prefs.name = '';
-    prefs.email = '';
-    prefs.choices = {
-      Region: [],
-      Flavor: [],
-      Roast: [],
-      Brew: [],
-      Drink: [],
-      Body: []
-    };
-    return prefs;
-  }
-
-  testPrefs() {
-    var prefs;
-    prefs = {};
-    prefs.id = '1';
-    prefs.name = 'Human Made';
-    prefs.email = 'customer@gmail.com';
-    prefs.choices = {
-      Region: ['Brazil'],
-      Flavor: ['Chocolate', 'Nutty'],
-      Roast: ['Medium'],
-      Brew: ['AutoDrip'],
-      Drink: ['Black'],
-      Body: ['Full']
-    };
-    return prefs;
-  }
-
-  prefsToSchema(prefs) {
-    var schema;
-    schema = {};
-    schema.id = prefs.id;
-    schema.name = prefs.name;
-    schema.meta = this.choicesToMetas(prefs.choices);
-    return schema;
-  }
-
-  schemaToPrefs(schema) {
-    var prefs;
-    prefs = {};
-    prefs.id = schema.id;
-    prefs.name = schema.name;
-    prefs.choices = this.metasToChoices(schema.meta);
-    prefs.schema = schema; // For reviewing data
-    return prefs;
-  }
-
-  metasToChoices(metas) {
-    var choices, i, len, meta;
-    choices = {};
-    for (i = 0, len = metas.length; i < len; i++) {
-      meta = metas[i];
-      choices[meta.key] = meta.key;
-    }
-    return choices;
-  }
-
-  choicesToMetas(choices) {
-    var choice, key, metas;
-    metas = [];
-    for (key in choices) {
-      if (!hasProp.call(choices, key)) continue;
-      choice = choices[key];
-      metas.push({
-        key: choice
-      });
-    }
-    return metas;
   }
 
 };

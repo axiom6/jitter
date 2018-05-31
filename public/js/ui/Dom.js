@@ -133,24 +133,20 @@ Dom = (function() {
       $e = widget.btns[key].$e;
       if (study != null ? study.chosen : void 0) {
         study.chosen = false;
-        spec.num--;
         $e.css({
           color: Dom.basisColor
         });
         $e.find("button").removeClass("btn-nice-active");
         choice = UI.toTopic(spec.name, spec.name, UI.DelChoice, key); // spec.name and source are the same
         stream.publish('Choice', choice);
-      } else if (spec.num < spec.max) {
+      } else {
         study.chosen = true;
-        spec.num++;
         $e.css({
           color: Dom.choiceColor
         });
         $e.find("button").addClass("btn-nice-active");
         choice = UI.toTopic(spec.name, spec.name, UI.AddChoice, key); // spec.name and source are the same
         stream.publish('Choice', choice);
-      } else {
-        alert(`You can only make ${spec.max} choices for ${spec.name}`);
       }
     }
 
@@ -325,7 +321,7 @@ Dom = (function() {
           continue;
         }
         $e = $(`${Dom.branch(x, y, 100, dy, study.name)}`);
-        study.num = 0;
+        //study.num = 0
         Dom.addWidgetBtn(widget, key, $e);
         Dom.onEvents(stream, widget, spec, key, study);
         $p.append($e);
