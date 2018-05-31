@@ -73,8 +73,11 @@ Prefs = class Prefs {
 
   onChoice(choice) {
     var name, value;
+    if (choice.source === 'Prefs') {
+      return;
+    }
     if (this.stream.isInfo('Choice')) {
-      console.info('Summary.onChoice()', choice);
+      console.info('Prefs.onChoice()', choice);
     }
     name = choice.name;
     value = choice.study;
@@ -89,10 +92,12 @@ Prefs = class Prefs {
     var choice;
     choice = this.choices[name];
     choice.array.push(value);
+    choice.end++;
+    // Delect the beginning choice if over max by publishing del and incrementing the beg index
     if (choice.end - choice.beg >= choice.max) {
+      this.pubChoice(name, choice.array[choice.beg], UI.DelChoice);
       choice.beg++;
     }
-    choice.end++;
   }
 
   delChoice(name, value) {
@@ -107,7 +112,14 @@ Prefs = class Prefs {
 
   pubChoice(name, value, addDel) {
     var choice;
-    choice = UI.toTopic(name, 'Prefs', UI.addDel, value);
+    if (this.stream.isInfo('Choice')) {
+      console.info('Prefs.pubChoice()', {
+        name: name,
+        value: value,
+        addDel: addDel
+      });
+    }
+    choice = UI.toTopic(name, 'Prefs', addDel, value);
     this.stream.publish('Choice', choice);
   }
 
@@ -212,12 +224,11 @@ Prefs = class Prefs {
   }
 
   fromMeta(metas) {
-    var choices, key, meta, ref;
+    var choices, key, meta;
     choices = {};
-    ref = this.choices;
-    for (key in ref) {
-      if (!hasProp.call(ref, key)) continue;
-      meta = ref[key];
+    for (key in metas) {
+      if (!hasProp.call(metas, key)) continue;
+      meta = metas[key];
       choices[meta.key] = meta.key;
     }
     return choices;

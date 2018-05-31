@@ -1,12 +1,14 @@
 
 1. Makeover
    a. Summary
-      - Roll over choices
+
       - Styling
       - More Infor
    b, Interact Hovering
    c. Flavor text size
    d. Prompts
+   e. Nav Arrows center
+   f. Roast / Prefs delete choice. Prefs need value
 
 2. Word Press
   a. "My Tastes" in Memu Bar
@@ -28,3 +30,4 @@
    + c. Backround colors
    + d. Roast Names
    + e. Nav Arrows
+   - Roll over choices

@@ -82,7 +82,7 @@
   top: 0;
   width: 0;
   height: 0;
-  background-image: radial-gradient(ellipse farthest-side at right bottom, #412e25, #201713);
+  background-image: radial-gradient(ellipse farthest-side at right bottom, #333333, #1a1a1a);
   font-family: Roberto, sans-serif;
   color: wheat;
 }
@@ -92,7 +92,7 @@
   top: 0;
   right: 0;
   height: 0;
-  background-image: linear-gradient(to bottom, #201713, #412e25);
+  background-image: linear-gradient(to bottom, #1a1a1a, #333333);
   font-family: Roberto, sans-serif;
   color: wheat;
 }
@@ -102,7 +102,7 @@
   top: 0;
   width: 0;
   height: 0;
-  background-image: radial-gradient(ellipse farthest-side at left bottom, #412e25, #201713);
+  background-image: radial-gradient(ellipse farthest-side at left bottom, #333333, #1a1a1a);
   font-family: Roberto, sans-serif;
   color: wheat;
 }
@@ -112,7 +112,7 @@
   top: 0;
   width: 0;
   bottom: 0;
-  background-image: linear-gradient(to right, #201713, #412e25);
+  background-image: linear-gradient(to right, #1a1a1a, #333333);
   font-family: Roberto, sans-serif;
   color: wheat;
 }
@@ -122,7 +122,7 @@
   top: 0;
   right: 0;
   bottom: 0;
-  background-image: radial-gradient(ellipse farthest-corner at center center, #dac7be, #412e25);
+  background-image: radial-gradient(ellipse farthest-corner at center center, #dac7be, #333333);
   overflow: visible;
 }
 .layout-side {
@@ -131,7 +131,7 @@
   top: 0;
   width: 0;
   bottom: 0;
-  background-image: linear-gradient(to left, #201713, #412e25);
+  background-image: linear-gradient(to left, #1a1a1a, #333333);
   font-family: Roberto, sans-serif;
   color: wheat;
 }
@@ -141,7 +141,7 @@
   bottom: 0;
   width: 0;
   height: 0;
-  background-image: radial-gradient(ellipse farthest-side at right top, #412e25, #201713);
+  background-image: radial-gradient(ellipse farthest-side at right top, #333333, #1a1a1a);
   font-family: Roberto, sans-serif;
   color: wheat;
 }
@@ -151,7 +151,7 @@
   bottom: 0;
   right: 0;
   height: 0;
-  background-image: linear-gradient(to top, #201713, #412e25);
+  background-image: linear-gradient(to top, #1a1a1a, #333333);
   font-family: Roberto, sans-serif;
   color: wheat;
 }
@@ -161,7 +161,7 @@
   bottom: 0;
   width: 0;
   height: 0;
-  background-image: radial-gradient(ellipse farthest-side at left top, #412e25, #201713);
+  background-image: radial-gradient(ellipse farthest-side at left top, #333333, #1a1a1a);
   font-family: Roberto, sans-serif;
   color: wheat;
 }
@@ -171,7 +171,7 @@
   top: 0;
   right: 0;
   height: 0;
-  background-image: linear-gradient(to bottom, #201713, #412e25);
+  background-image: linear-gradient(to bottom, #1a1a1a, #333333);
 }
 .layout-logo .text {
   position: relative;
@@ -359,6 +359,9 @@ html {
   font-size: 2vmin;
   color: black;
   line-height: 3vmin;
+}
+.ui-pane .arrow {
+  color: #412e25;
 }
 .ui-pane .circle {
   background-color: #614638;

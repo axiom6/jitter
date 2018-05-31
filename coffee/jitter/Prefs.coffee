@@ -28,7 +28,8 @@ class Prefs
     return
 
   onChoice:( choice ) =>
-    console.info( 'Summary.onChoice()', choice ) if @stream.isInfo('Choice')
+    return if choice.source is 'Prefs'
+    console.info( 'Prefs.onChoice()', choice ) if @stream.isInfo('Choice')
     name  = choice.name
     value = choice.study
     if choice.intent is UI.AddChoice
@@ -40,8 +41,11 @@ class Prefs
   addChoice:( name, value ) ->
     choice = @choices[name]
     choice.array.push( value )
-    choice.beg++  if choice.end - choice.beg >= choice.max
     choice.end++
+    # Delect the beginning choice if over max by publishing del and incrementing the beg index
+    if choice.end - choice.beg >= choice.max
+      @pubChoice( name, choice.array[choice.beg], UI.DelChoice )
+      choice.beg++
     return
 
   delChoice:( name, value ) ->
@@ -53,7 +57,8 @@ class Prefs
     return
 
   pubChoice:( name, value, addDel ) ->
-    choice = UI.toTopic( name, 'Prefs', UI.addDel, value )
+    console.info( 'Prefs.pubChoice()', { name:name, value:value, addDel:addDel } ) if @stream.isInfo('Choice')
+    choice = UI.toTopic( name, 'Prefs', addDel, value )
     @stream.publish( 'Choice', choice )
     return
 
@@ -122,7 +127,7 @@ class Prefs
 
   fromMeta:( metas ) ->
     choices = {}
-    for own key, meta of @choices
+    for own key, meta of metas
       choices[meta.key] = meta.key
     choices
 

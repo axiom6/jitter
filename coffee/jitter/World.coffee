@@ -59,8 +59,8 @@ class World
     @regions[f.name]
 
   showRegion:( region ) ->
-    return if  region.name is "None"-1
-      @stream.publish( 'Region', region )
+    return if  region.name is "None"
+    @stream.publish( 'Region', region )
     return
 
   onChoice:( choice ) =>

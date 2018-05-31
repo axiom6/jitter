@@ -88,9 +88,10 @@ World = class World {
   }
 
   showRegion(region) {
-    if (region.name === "None" - 1) {
-      return this.stream.publish('Region', region);
+    if (region.name === "None") {
+      return;
     }
+    this.stream.publish('Region', region);
   }
 
   onChoice(choice) {

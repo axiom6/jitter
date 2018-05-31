@@ -5,6 +5,7 @@ html { overflow:hidden; }
 
 .ui-font{ font-family:Roberto, sans-serif; }
 
+@ui-back-dark:@color-back20;
 @ui-back-view:@color-back30;
 @ui-back-pack:@color-back35;
 @ui-back-pane:@color-back40;
@@ -32,6 +33,7 @@ html { overflow:hidden; }
 .ui-pane .label  { font-size:3vmin; color:black; font-weight:bold;  }
 .ui-pane .texts  { font-size:2vmin; color:white; line-height:2vmin; }
 .ui-pane .branch { font-size:2vmin; color:black; line-height:3vmin; }
+.ui-pane .arrow  { color:@ui-back-dark; }
 
 .ui-pane .circle { background-color:@ui-back-circle; color:black; font-weight:bold;  }
 .ui-pane .roast  { font-size:2vmin; color:black; z-index:2; } //  border:black solid 4px;
@@ -42,7 +44,6 @@ html { overflow:hidden; }
 .ui-pane .action:active,
 .ui-pane .action-active  { color:yellow; background-color:@ui-black;  }
 
-//.ui-pane  svg    { z-index:2; }
 .ui-pane .txt    { font-size:2vmin; color:white; }
 .ui-pane .img    {}
 
@@ -52,5 +53,5 @@ html { overflow:hidden; }
 
 .ui-pane-ul-content     { position:absolute; left:4%; top:2%; width:auto; height:auto; margin:0; padding:0; list-style:none; .ui-font; }
 .ui-pane-li-content-btn { position:absolute; left:0;  top:0;  width:24px; height:24px; display:inline-table; margin-right:4px; // padding-top:2px; padding-left:2px;
-                           border-radius:12px; z-index:2; color:wheat; background-color:black; } // border: solid 2px wheat;
+  border-radius:12px; z-index:2; color:wheat; background-color:black; } // border: solid 2px wheat;
 .ui-pane-li-content-btn div {  display:table-cell; vertical-align:middle; text-align:center; }

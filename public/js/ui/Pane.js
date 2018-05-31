@@ -197,28 +197,28 @@ Pane = class Pane {
     var $a, s;
     s = '12vh';
     if (this.spec['bak'] != null) {
-      $a = $(`<i style="position:absolute; left:20%; top: 40%; width:${s}; height:${s}; font-size:${s}; z-index:4;" class="fas fa-arrow-alt-circle-left"  data-name="${this.spec['bak']}"></i>`);
+      $a = $(`<i style="position:absolute; left:20%;  top:40%; width:${s}; height:${s}; font-size:${s}; z-index:4;" class="arrow fas fa-arrow-alt-circle-left"  data-name="${this.spec['bak']}"></i>`);
       $a.on('click', (event) => {
         return this.doNav(event);
       });
       $p.append($a);
     }
     if (this.spec['fwd'] != null) {
-      $a = $(`<i style="position:absolute; left:20%;  top: 40%; width:${s}; height:${s}; font-size:${s}; z-index:4;" class="fas fa-arrow-alt-circle-right" data-name="${this.spec['fwd']}"></i>`);
+      $a = $(`<i style="position:absolute; left:20%;  top:40%; width:${s}; height:${s}; font-size:${s}; z-index:4;" class="arrow fas fa-arrow-alt-circle-right" data-name="${this.spec['fwd']}"></i>`);
       $a.on('click', (event) => {
         return this.doNav(event);
       });
       $p.append($a);
     }
     if (this.spec['top'] != null) {
-      $a = $(`<i style="position:absolute; left:40%; top:   0; width:${s}; height:${s}; font-size:${s}; z-index:4;" class="fas fa-arrow-alt-circle-up"    data-name="${this.spec['top']}"></i>`);
+      $a = $(`<i style="position:absolute; left:40%; top:   0; width:${s}; height:${s}; font-size:${s}; z-index:4;" class="arrow fas fa-arrow-alt-circle-up"    data-name="${this.spec['top']}"></i>`);
       $a.on('click', (event) => {
         return this.doNav(event);
       });
       $p.append($a);
     }
     if (this.spec['bot'] != null) {
-      $a = $(`<i style="position:absolute; left:40%; bottom:0; width:${s}; height:${s}; font-size:${s}; z-index:4;" class="fas fa-arrow-alt-circle-down"  data-name="${this.spec['bot']}"></i>`);
+      $a = $(`<i style="position:absolute; left:40%; bottom:0; width:${s}; height:${s}; font-size:${s}; z-index:4;" class="arrow fas fa-arrow-alt-circle-down"  data-name="${this.spec['bot']}"></i>`);
       $a.on('click', (event) => {
         return this.doNav(event);
       });
