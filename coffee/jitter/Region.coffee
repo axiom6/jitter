@@ -11,7 +11,6 @@ class Region
 
   subscribe:() ->
     @stream.subscribe( 'Region', 'Region', (region) => @onRegion(region) )
-    @stream.subscribe( 'Choice', 'Region', (choice) => @onChoice(choice) )
     return
 
   readyPane:() ->
@@ -51,13 +50,6 @@ class Region
     addDel = if region.chosen then UI.AddChoice else UI.DelChoice
     choice = UI.toTopic( 'Region', 'Region', addDel, region.name )
     @stream.publish( 'Choice', choice )
-    return
-
-  onChoice:( choice ) =>
-    return if choice.name isnt 'Region' or choice.source is 'Region'
-    region = @world.regions[choice.study]
-    console.info( 'Region.onChoice()', choice ) if @stream.isInfo('Choice')
-    @onRegion( region, false ) if region?
     return
 
 `export default Region`

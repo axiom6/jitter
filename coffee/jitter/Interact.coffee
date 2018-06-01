@@ -7,10 +7,10 @@ class Interact
 
   constructor:( @stream, @ui, @name, @specs ) ->
     @ui.addContent( @name, @ )
-    @last = { name:"" }
+    @lastSelect = ""
+    @stream.subscribe( 'Select', 'Interact', (select) => @onSelect(select) )
 
   readyPane:() =>
-    @stream.subscribe( 'Select', 'Interact', (select) => @onSelect(select) )
     @horz()
 
   readyView:() =>
@@ -28,11 +28,10 @@ class Interact
     for own key, spec of @specs when UI.isChild(key)
       [y,hc] = if spec.type is 'pack' then [10,hp] else [25,hp*0.66]
       [w,h,t,r,f] = @geom( hc, tp )
-      spec.$e   = @action( x, y, w, h, r, t, f, key )
-      spec.name = key
-      @onEvents( spec.$e, key ) if spec.type is 'pack'
-      @onEnters( spec.$e, key ) if spec.type is 'pane'
-      $p.append( spec.$e )
+      $e = @action( x, y, w, h, r, t, f, key )
+      @onEvents( $e, key ) if spec.type is 'pack'
+      @onEnters( $e, key ) if spec.type is 'pane'
+      $p.append( $e )
       x = x + dx
     $p
 
@@ -44,20 +43,21 @@ class Interact
     f = r * 0.65
     [w,h,t,r,f]
 
-  action:( x, y, w, h, r, t, f, label ) ->
-    left  = Util.toFixed( x, 2 )
-    style = "display:table; border:black solid #{t}vmin; border-radius:#{r}vmin; position:absolute; left:#{left}%; top:#{y}%; width:#{w}vmin; height:#{h}vmin; text-align:center; z-index:2;"
-    $e    = $("""<div class="action" style="#{style}"></div>""")
+  action:( x, y, w, h, r, t, f, name ) ->
+    left   = Util.toFixed( x, 2 )
+    htmlId = Util.htmlId( 'Interact', name )
+    label  = if Util.inString( name, 'Summary' ) then 'Summary' else name
+    style  = "display:table; border:black solid #{t}vmin; border-radius:#{r}vmin; position:absolute; left:#{left}%; top:#{y}%; width:#{w}vmin; height:#{h}vmin; text-align:center; z-index:2;"
+    $e     = $("""<div id="#{htmlId}" class="action" style="#{style}"></div>""")
     $e.append( """<div style="display:table-cell; vertical-align:middle; font-size:#{f}vmin;">#{label}</div>""" )
     $e
 
   onSelect:(  select ) =>
-    return if select.name is @last.name or select.intent isnt UI.SelectPack or not @spec?
-    spec = @specs[select.name]
-    @last.$e.removeClass('action-active').addClass('action') if Util.isStr( @last.name )
-    spec .$e.removeClass('action').addClass('action-active')
-    #console.info( 'Interact.onSelect()', select, spec.$e.attr('class'), spec.$e.first().text(), @specs ) if @stream.isInfo('Select')
-    @last = spec
+    return if select.name is @lastSelect or select.intent isnt UI.SelectPack
+    console.info( 'Interact.onSelect()', select ) if @stream.isInfo('Select')
+    $('#Interact'+@lastSelect).removeClass('action-active').addClass('action') if Util.isStr( @lastSelect )
+    $('#Interact'+select.name).removeClass('action').addClass('action-active')
+    @lastSelect = select.name
     return
 
   onEvents:( $e, key ) =>
@@ -76,6 +76,6 @@ class Interact
     return
 
   readyView:() ->
-    @readyPane()
+    $("""<h1 style=" display:grid; justify-self:center; align-self:center; ">Interact</h1>""" )
 
 `export default Interact`

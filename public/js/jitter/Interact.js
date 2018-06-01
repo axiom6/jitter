@@ -5,7 +5,7 @@ var Interact,
   hasProp = {}.hasOwnProperty;
 
 Interact = class Interact {
-  constructor(stream, ui, name, specs) {
+  constructor(stream, ui, name1, specs) {
     this.readyPane = this.readyPane.bind(this);
     this.readyView = this.readyView.bind(this);
     this.onSelect = this.onSelect.bind(this);
@@ -14,18 +14,16 @@ Interact = class Interact {
     this.onEnters = this.onEnters.bind(this);
     this.stream = stream;
     this.ui = ui;
-    this.name = name;
+    this.name = name1;
     this.specs = specs;
     this.ui.addContent(this.name, this);
-    this.last = {
-      name: ""
-    };
-  }
-
-  readyPane() {
+    this.lastSelect = "";
     this.stream.subscribe('Select', 'Interact', (select) => {
       return this.onSelect(select);
     });
+  }
+
+  readyPane() {
     return this.horz();
   }
 
@@ -34,7 +32,7 @@ Interact = class Interact {
   }
 
   horz() {
-    var $p, dx, f, h, hc, hp, key, n, r, ref, spec, t, tp, w, x, y;
+    var $e, $p, dx, f, h, hc, hp, key, n, r, ref, spec, t, tp, w, x, y;
     $p = $("<div class=\"panel\" style=\"position:relative; left:0; top: 0;  width:100%; height:100%; text-align:center;\"></div>");
     $p.append("<hr             style=\"position:absolute; left:0; top:38%; width:100%; height:  1%; z-index:1; color:white; background-color:white;\"></hr>");
     n = Util.lenObject(this.specs, UI.isChild);
@@ -52,15 +50,14 @@ Interact = class Interact {
       }
       [y, hc] = spec.type === 'pack' ? [10, hp] : [25, hp * 0.66];
       [w, h, t, r, f] = this.geom(hc, tp);
-      spec.$e = this.action(x, y, w, h, r, t, f, key);
-      spec.name = key;
+      $e = this.action(x, y, w, h, r, t, f, key);
       if (spec.type === 'pack') {
-        this.onEvents(spec.$e, key);
+        this.onEvents($e, key);
       }
       if (spec.type === 'pane') {
-        this.onEnters(spec.$e, key);
+        this.onEnters($e, key);
       }
-      $p.append(spec.$e);
+      $p.append($e);
       x = x + dx;
     }
     return $p;
@@ -76,27 +73,29 @@ Interact = class Interact {
     return [w, h, t, r, f];
   }
 
-  action(x, y, w, h, r, t, f, label) {
-    var $e, left, style;
+  action(x, y, w, h, r, t, f, name) {
+    var $e, htmlId, label, left, style;
     left = Util.toFixed(x, 2);
+    htmlId = Util.htmlId('Interact', name);
+    label = Util.inString(name, 'Summary') ? 'Summary' : name;
     style = `display:table; border:black solid ${t}vmin; border-radius:${r}vmin; position:absolute; left:${left}%; top:${y}%; width:${w}vmin; height:${h}vmin; text-align:center; z-index:2;`;
-    $e = $(`<div class="action" style="${style}"></div>`);
+    $e = $(`<div id="${htmlId}" class="action" style="${style}"></div>`);
     $e.append(`<div style="display:table-cell; vertical-align:middle; font-size:${f}vmin;">${label}</div>`);
     return $e;
   }
 
   onSelect(select) {
-    var spec;
-    if (select.name === this.last.name || select.intent !== UI.SelectPack || (this.spec == null)) {
+    if (select.name === this.lastSelect || select.intent !== UI.SelectPack) {
       return;
     }
-    spec = this.specs[select.name];
-    if (Util.isStr(this.last.name)) {
-      this.last.$e.removeClass('action-active').addClass('action');
+    if (this.stream.isInfo('Select')) {
+      console.info('Interact.onSelect()', select);
     }
-    spec.$e.removeClass('action').addClass('action-active');
-    //console.info( 'Interact.onSelect()', select, spec.$e.attr('class'), spec.$e.first().text(), @specs ) if @stream.isInfo('Select')
-    this.last = spec;
+    if (Util.isStr(this.lastSelect)) {
+      $('#Interact' + this.lastSelect).removeClass('action-active').addClass('action');
+    }
+    $('#Interact' + select.name).removeClass('action').addClass('action-active');
+    this.lastSelect = select.name;
   }
 
   onEvents($e, key) {
@@ -123,7 +122,7 @@ Interact = class Interact {
   }
 
   readyView() {
-    return this.readyPane();
+    return $("<h1 style=\" display:grid; justify-self:center; align-self:center; \">Interact</h1>");
   }
 
 };

@@ -1,6 +1,6 @@
 
 1. Makeover
-   - Interact Hovering / Prompts
+   - Prompts
    - Summary / Styling / More Info
 
 2. Word Press
@@ -27,6 +27,7 @@
    + Roast / Prefs delete choice. Prefs need value
    + Flavor text size
    + Nav Arrows center
+   + Interact Hovering / Prompts
 
 
      The tasting app is coming together and I will be pushing a release candidate tonight.

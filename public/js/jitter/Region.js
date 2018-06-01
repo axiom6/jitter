@@ -7,7 +7,6 @@ Region = class Region {
   constructor(stream, ui, world) {
     this.readyView = this.readyView.bind(this);
     this.onRegion = this.onRegion.bind(this);
-    this.onChoice = this.onChoice.bind(this);
     this.stream = stream;
     this.ui = ui;
     this.world = world;
@@ -18,9 +17,6 @@ Region = class Region {
   subscribe() {
     this.stream.subscribe('Region', 'Region', (region) => {
       return this.onRegion(region);
-    });
-    this.stream.subscribe('Choice', 'Region', (choice) => {
-      return this.onChoice(choice);
     });
   }
 
@@ -70,20 +66,6 @@ Region = class Region {
     addDel = region.chosen ? UI.AddChoice : UI.DelChoice;
     choice = UI.toTopic('Region', 'Region', addDel, region.name);
     this.stream.publish('Choice', choice);
-  }
-
-  onChoice(choice) {
-    var region;
-    if (choice.name !== 'Region' || choice.source === 'Region') {
-      return;
-    }
-    region = this.world.regions[choice.study];
-    if (this.stream.isInfo('Choice')) {
-      console.info('Region.onChoice()', choice);
-    }
-    if (region != null) {
-      this.onRegion(region, false);
-    }
   }
 
 };

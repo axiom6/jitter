@@ -188,7 +188,6 @@ Pane = class Pane {
   doNav(event) {
     var name, select;
     name = $(event.target).attr('data-name');
-    console.log('Pane.doNav()', name);
     select = UI.toTopic(name, 'Pane.doNav()', UI.SelectPack);
     this.stream.publish('Select', select);
   }
