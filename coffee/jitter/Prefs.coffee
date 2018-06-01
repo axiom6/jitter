@@ -14,12 +14,12 @@ class Prefs
 
   initChoices:() ->
     {
-      Flavor: { array:[], beg:-1, end:-1, max:3 },
-      Roast:  { array:[], beg:-1, end:-1, max:3 },
-      Brew:   { array:[], beg:-1, end:-1, max:3 },
-      Drink:  { array:[], beg:-1, end:-1, max:3 },
-      Body:   { array:[], beg:-1, end:-1, max:3 },
-      Region: { array:[], beg:-1, end:-1, max:3 } }
+      Flavor: { array:[], beg:0, end:-1, max:3 },
+      Roast:  { array:[], beg:0, end:-1, max:3, extras:[] },
+      Brew:   { array:[], beg:0, end:-1, max:3 },
+      Drink:  { array:[], beg:0, end:-1, max:3 },
+      Body:   { array:[], beg:0, end:-1, max:3 },
+      Region: { array:[], beg:0, end:-1, max:3 } }
 
   subscribe:() ->
     @stream.subscribe( 'Choice', 'Prefs', (choice) => @onChoice(choice) )
@@ -29,22 +29,25 @@ class Prefs
 
   onChoice:( choice ) =>
     return if choice.source is 'Prefs'
-    console.info( 'Prefs.onChoice()', choice ) if @stream.isInfo('Choice')
+    #console.info( 'Prefs.onChoice()', choice ) if @stream.isInfo('Choice') let Summary log choices
     name  = choice.name
     value = choice.study
+    extra = choice.value if choice.value
     if choice.intent is UI.AddChoice
-      @addChoice( name, value )
+      @addChoice( name, value, extra )
     else if choice.intent is UI.DelChoice
       @delChoice( name, value )
     return
 
-  addChoice:( name, value ) ->
+  addChoice:( name, value, extra=undefined ) ->
     choice = @choices[name]
-    choice.array.push( value )
+    choice.array .push( value )
+    choice.extras.push( extra ) if choice.extras? and extra?
     choice.end++
     # Delect the beginning choice if over max by publishing del and incrementing the beg index
     if choice.end - choice.beg >= choice.max
-      @pubChoice( name, choice.array[choice.beg], UI.DelChoice )
+      extraPub = if choice.extras? then choice.extras[choice.beg] else undefined
+      @pubChoice( name, choice.array[choice.beg], UI.DelChoice, extraPub )
       choice.beg++
     return
 
@@ -56,9 +59,10 @@ class Prefs
       choice.end--
     return
 
-  pubChoice:( name, value, addDel ) ->
-    console.info( 'Prefs.pubChoice()', { name:name, value:value, addDel:addDel } ) if @stream.isInfo('Choice')
+  pubChoice:( name, value, addDel, extra=undefined ) ->
+    #console.info( 'Prefs.pubChoice()', { name:name, value:value, addDel:addDel, extra:extra } ) if @stream.isInfo('Choice')
     choice = UI.toTopic( name, 'Prefs', addDel, value )
+    choice.value = extra if extra
     @stream.publish( 'Choice', choice )
     return
 

@@ -4,7 +4,7 @@ import Dom  from '../ui/Dom.js';
 var Summary;
 
 Summary = class Summary {
-  constructor(stream, ui, name, jitter = null) {
+  constructor(stream, ui, name) {
     this.readyPane = this.readyPane.bind(this);
     this.readyView = this.readyView.bind(this);
     this.onRegion = this.onRegion.bind(this);
@@ -12,7 +12,6 @@ Summary = class Summary {
     this.stream = stream;
     this.ui = ui;
     this.name = name;
-    this.jitter = jitter;
     this.ui.addContent(this.name, this);
     this.btns = {};
     this.flavors = [];
@@ -29,16 +28,6 @@ Summary = class Summary {
   }
 
   subscribe() {
-    if (this.jitter != null) {
-      this.stream.subscribe('Prefs', 'Summary', (prefs) => {
-        return this.onPrefs(prefs);
-      });
-    }
-    if (this.jitter != null) {
-      this.stream.subscribe('Test', 'Summary', (test) => {
-        return this.onTest(test);
-      });
-    }
     if (this.name === "Summarym") {
       this.stream.subscribe('Region', this.name, (region) => {
         return this.onRegion(region);
@@ -71,17 +60,13 @@ Summary = class Summary {
   onChoice(choice) {
     var $e, htmlId, specStudy;
     specStudy = this.spec[choice.name];
-    if (specStudy == null) { // or choice.source is 'Summary'
+    if (specStudy == null) {
       return;
     }
-    if ((this.jitter != null) && this.stream.isInfo('Choice')) {
+    if (this.stream.isInfo('Choice') && this.name === "Summaryp") {
       console.info('Summary.onChoice()', choice);
     }
     htmlId = Util.getHtmlId(choice.name, 'Choice', choice.study);
-    console.log('Summary.onChoice()', {
-      htmlId: htmlId
-    });
-    //value  = if choice.value? then ":"+choice.value else ""
     $e = this.btns[choice.name].$e;
     if (choice.intent === UI.AddChoice) {
       $e.append(`<div id="${htmlId}" style="color:yellow; padding-left:12px; font-size:12px; line-height:14px;">${Util.toName(choice.study)}</div>`);

@@ -11,6 +11,7 @@ html { overflow:hidden; }
 @ui-back-pane:@color-back40;
 @ui-back-circle:@color-back30;
 @ui-back-action:@color-back30;
+
 @ui-black: @color-black;
 
 
@@ -39,10 +40,10 @@ html { overflow:hidden; }
 .ui-pane .roast  { font-size:2vmin; color:black; z-index:2; } //  border:black solid 4px;
 .ui-pane .roast:hover  { color:wheat; }
 
-.ui-pane .action         { color:white;  background-color:@ui-back-action; font-weight:bold;  }
+.ui-pane .action         { color:white;  background-color:@ui-back-action; font-weight:bold; }
+.ui-pane .action-inpane  { color:yellow; background-color:black;           font-weight:bold; }
+.ui-pane .action-active  { color:yellow; background-color:black;           font-weight:bold; }
 .ui-pane .action:hover   { color:wheat; }
-.ui-pane .action:active,
-.ui-pane .action-active  { color:yellow; background-color:@ui-black;  }
 
 .ui-pane .txt    { font-size:2vmin; color:white; }
 .ui-pane .img    {}

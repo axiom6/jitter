@@ -22,37 +22,38 @@ Prefs = class Prefs {
     return {
       Flavor: {
         array: [],
-        beg: -1,
+        beg: 0,
         end: -1,
         max: 3
       },
       Roast: {
         array: [],
-        beg: -1,
+        beg: 0,
         end: -1,
-        max: 3
+        max: 3,
+        extras: []
       },
       Brew: {
         array: [],
-        beg: -1,
+        beg: 0,
         end: -1,
         max: 3
       },
       Drink: {
         array: [],
-        beg: -1,
+        beg: 0,
         end: -1,
         max: 3
       },
       Body: {
         array: [],
-        beg: -1,
+        beg: 0,
         end: -1,
         max: 3
       },
       Region: {
         array: [],
-        beg: -1,
+        beg: 0,
         end: -1,
         max: 3
       }
@@ -72,30 +73,35 @@ Prefs = class Prefs {
   }
 
   onChoice(choice) {
-    var name, value;
+    var extra, name, value;
     if (choice.source === 'Prefs') {
       return;
     }
-    if (this.stream.isInfo('Choice')) {
-      console.info('Prefs.onChoice()', choice);
-    }
+    //console.info( 'Prefs.onChoice()', choice ) if @stream.isInfo('Choice') let Summary log choices
     name = choice.name;
     value = choice.study;
+    if (choice.value) {
+      extra = choice.value;
+    }
     if (choice.intent === UI.AddChoice) {
-      this.addChoice(name, value);
+      this.addChoice(name, value, extra);
     } else if (choice.intent === UI.DelChoice) {
       this.delChoice(name, value);
     }
   }
 
-  addChoice(name, value) {
-    var choice;
+  addChoice(name, value, extra = void 0) {
+    var choice, extraPub;
     choice = this.choices[name];
     choice.array.push(value);
+    if ((choice.extras != null) && (extra != null)) {
+      choice.extras.push(extra);
+    }
     choice.end++;
     // Delect the beginning choice if over max by publishing del and incrementing the beg index
     if (choice.end - choice.beg >= choice.max) {
-      this.pubChoice(name, choice.array[choice.beg], UI.DelChoice);
+      extraPub = choice.extras != null ? choice.extras[choice.beg] : void 0;
+      this.pubChoice(name, choice.array[choice.beg], UI.DelChoice, extraPub);
       choice.beg++;
     }
   }
@@ -110,16 +116,13 @@ Prefs = class Prefs {
     }
   }
 
-  pubChoice(name, value, addDel) {
+  pubChoice(name, value, addDel, extra = void 0) {
     var choice;
-    if (this.stream.isInfo('Choice')) {
-      console.info('Prefs.pubChoice()', {
-        name: name,
-        value: value,
-        addDel: addDel
-      });
-    }
+    //console.info( 'Prefs.pubChoice()', { name:name, value:value, addDel:addDel, extra:extra } ) if @stream.isInfo('Choice')
     choice = UI.toTopic(name, 'Prefs', addDel, value);
+    if (extra) {
+      choice.value = extra;
+    }
     this.stream.publish('Choice', choice);
   }
 

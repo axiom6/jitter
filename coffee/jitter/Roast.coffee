@@ -99,8 +99,7 @@ class Roast
     color
 
   onChoice:( choice ) =>
-    #eturn  if choice.source is 'Roast' and not (choice.name is   'Roast' or choice.name is 'Flavor') Needs work
-    return  if choice.source is 'Roast' or       choice.name isnt 'Roast'
+    return  if choice.source is 'Roast' or choice.name isnt 'Roast' or choice.intent is UI.DelChoice
     console.info( 'Roast.onChoice()', choice ) if @stream.isInfo('Choice')
     value = if choice.value? then choice.value else @getValue( choice.study )
     @doInput( value, false ) if value isnt -1

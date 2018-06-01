@@ -122,8 +122,7 @@ Roast = (function() {
 
     onChoice(choice) {
       var value;
-      //eturn  if choice.source is 'Roast' and not (choice.name is   'Roast' or choice.name is 'Flavor') Needs work
-      if (choice.source === 'Roast' || choice.name !== 'Roast') {
+      if (choice.source === 'Roast' || choice.name !== 'Roast' || choice.intent === UI.DelChoice) {
         return;
       }
       if (this.stream.isInfo('Choice')) {

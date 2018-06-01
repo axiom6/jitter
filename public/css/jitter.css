@@ -381,13 +381,18 @@ html {
   background-color: #614638;
   font-weight: bold;
 }
-.ui-pane .action:hover {
-  color: wheat;
+.ui-pane .action-inpane {
+  color: yellow;
+  background-color: black;
+  font-weight: bold;
 }
-.ui-pane .action:active,
 .ui-pane .action-active {
   color: yellow;
-  background-color: #000000;
+  background-color: black;
+  font-weight: bold;
+}
+.ui-pane .action:hover {
+  color: wheat;
 }
 .ui-pane .txt {
   font-size: 2vmin;

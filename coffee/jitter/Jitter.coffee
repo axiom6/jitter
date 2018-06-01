@@ -26,7 +26,7 @@ class Jitter
     UI.hosted  = "https://jitter-48413.firebaseapp.com/" # Every app needs to change this
     Util.ready ->
       subjects = ["Ready","Select","Choice","Roast","Region","Prefs","Test"]
-      infoSpec = { subscribe:true, publish:true, subjects:["Select","Choice","Region","Prefs","Test"]}
+      infoSpec = { subscribe:false, publish:false, subjects:["Select","Choice","Region","Prefs","Test"]}
       stream   = new Stream( subjects, infoSpec )
       ui       = new UI( stream, "json/toc.json", 'Jitter' ) # , Jitter.NavbSpecs
       jitter   = new Jitter( stream, ui )
@@ -35,10 +35,10 @@ class Jitter
     return
 
   @SpecInteract = {
-    Taste:  { type:"pack" }, Flavor:{  type:"pane" }, Summary:{ type:"pane" },
-    Prepare:{ type:"pack" }, Roast:{   type:"pane" }, Brew:{    type:"pane" }, Drink:{   type:"pane" },
-    Body:   { type:"pane" }, Summary:{ type:"pane" },
-    Maps:   { type:"pack" }, World:{   type:"pane" }, Region:{  type:"pane" }, Summary:{ type:"pane" } }
+    Taste:  { type:"pack" }, Flavor:{   type:"pane" }, Summaryt:{ type:"pane" },
+    Prepare:{ type:"pack" }, Roast:{    type:"pane" }, Brew:{    type:"pane" }, Drink:{   type:"pane" },
+    Body:   { type:"pane" }, Summaryp:{ type:"pane" },
+    Maps:   { type:"pack" }, World:{    type:"pane" }, Region:{  type:"pane" }, Summarym:{ type:"pane" } }
 
   constructor:( @stream, @ui ) ->
     @interact = new Interact( @stream, @ui, "Interact", Jitter.SpecInteract )
@@ -60,7 +60,7 @@ class Jitter
     Util.noop( ready )
     @ui.contentReady()
     @ui.view.hideAll( 'Interact' )
-    select = UI.toTopic( 'Taste', 'Muse', UI.SelectPack )
+    select = UI.toTopic( 'Taste', 'Jitter', UI.SelectPack )
     @stream.publish( 'Select', select )
 
   prefsToSchema:( prefs  ) -> @summary.prefsToSchema( prefs  )

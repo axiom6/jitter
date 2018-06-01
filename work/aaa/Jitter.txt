@@ -1,14 +1,7 @@
 
 1. Makeover
-   a. Summary
-
-      - Styling
-      - More Infor
-   b, Interact Hovering
-   c. Flavor text size
-   d. Prompts
-   e. Nav Arrows center
-   f. Roast / Prefs delete choice. Prefs need value
+   - Interact Hovering / Prompts
+   - Summary / Styling / More Info
 
 2. Word Press
   a. "My Tastes" in Memu Bar
@@ -30,4 +23,28 @@
    + c. Backround colors
    + d. Roast Names
    + e. Nav Arrows
-   - Roll over choices
+   + Roll over choices
+   + Roast / Prefs delete choice. Prefs need value
+   + Flavor text size
+   + Nav Arrows center
+
+
+     The tasting app is coming together and I will be pushing a release candidate tonight.
+
+     Anytime next week would be a good time to meet, so I propose Mon. at 1:00 PM
+
+      The biggest task left is to integrate the app into WordPress
+
+      New Features in tonight's release:
+
+      1. Navigation arrows on the left and right
+      2. The top circles also perform navigation with enhancements for indicating
+         where you at where you going.
+      3. All Choices are limited to 3, but now they rollover by removing the earliest
+         choices without the alerts for an improved user experience.
+
+      Upcoming Features:
+
+      1. Prompts for informing the customers what the app is about and what they can do with it
+      2. More complete information in the Summaries
+

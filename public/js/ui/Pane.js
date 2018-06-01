@@ -194,36 +194,43 @@ Pane = class Pane {
   }
 
   navArrows($p) {
-    var $a, s;
-    s = '12vh';
+    var fontpc, fontvw, leftpc, leftvw;
+    fontpc = 50;
+    leftpc = (100 - fontpc) * 0.5;
+    fontvw = this.toVw(fontpc) + 'vw';
+    leftvw = this.toVw(leftpc) + 'vw';
     if (this.spec['bak'] != null) {
-      $a = $(`<i style="position:absolute; left:20%;  top:40%; width:${s}; height:${s}; font-size:${s}; z-index:4;" class="arrow fas fa-arrow-alt-circle-left"  data-name="${this.spec['bak']}"></i>`);
-      $a.on('click', (event) => {
-        return this.doNav(event);
-      });
-      $p.append($a);
+      this.navIcon('bak', leftvw, fontvw, this.spec['bak'], $p);
     }
     if (this.spec['fwd'] != null) {
-      $a = $(`<i style="position:absolute; left:20%;  top:40%; width:${s}; height:${s}; font-size:${s}; z-index:4;" class="arrow fas fa-arrow-alt-circle-right" data-name="${this.spec['fwd']}"></i>`);
-      $a.on('click', (event) => {
-        return this.doNav(event);
-      });
-      $p.append($a);
+      this.navIcon('fwd', leftvw, fontvw, this.spec['fwd'], $p);
     }
     if (this.spec['top'] != null) {
-      $a = $(`<i style="position:absolute; left:40%; top:   0; width:${s}; height:${s}; font-size:${s}; z-index:4;" class="arrow fas fa-arrow-alt-circle-up"    data-name="${this.spec['top']}"></i>`);
-      $a.on('click', (event) => {
-        return this.doNav(event);
-      });
-      $p.append($a);
+      this.navIcon('top', leftvw, fontvw, this.spec['top'], $p);
     }
     if (this.spec['bot'] != null) {
-      $a = $(`<i style="position:absolute; left:40%; bottom:0; width:${s}; height:${s}; font-size:${s}; z-index:4;" class="arrow fas fa-arrow-alt-circle-down"  data-name="${this.spec['bot']}"></i>`);
-      $a.on('click', (event) => {
-        return this.doNav(event);
-      });
-      $p.append($a);
+      this.navIcon('bot', leftvw, fontvw, this.spec['bot'], $p);
     }
+  }
+
+  navIcon(loc, leftvw, fontvw, name, $p) {
+    var $a;
+    $a = (function() {
+      switch (loc) {
+        case 'bak':
+          return $(`<i style="position:absolute; left:${leftvw}; top: 40%; font-size:${fontvw}; z-index:4;" class="arrow fas fa-arrow-alt-circle-left"  data-name="${name}"></i>`);
+        case 'fwd':
+          return $(`<i style="position:absolute; left:${leftvw}; top: 40%; font-size:${fontvw}; z-index:4;" class="arrow fas fa-arrow-alt-circle-right" data-name="${name}"></i>`);
+        case 'top':
+          return $(`<i style="position:absolute; left:${leftvw}; top:   0; font-size:${fontvw}; z-index:4;" class="arrow fas fa-arrow-alt-circle-up"    data-name="${name}"></i>`);
+        case 'bot':
+          return $(`<i style="position:absolute; left:${leftvw}; bottom:0; font-size:${fontvw}; z-index:4;" class="arrow fas fa-arrow-alt-circle-down"  data-name="${name}"></i>`);
+      }
+    })();
+    $a.on('click', (event) => {
+      return this.doNav(event);
+    });
+    $p.append($a);
   }
 
   scaleReset() {

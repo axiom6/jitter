@@ -27,8 +27,8 @@ Jitter = (function() {
         var infoSpec, jitter, stream, subjects, ui;
         subjects = ["Ready", "Select", "Choice", "Roast", "Region", "Prefs", "Test"];
         infoSpec = {
-          subscribe: true,
-          publish: true,
+          subscribe: false,
+          publish: false,
           subjects: ["Select", "Choice", "Region", "Prefs", "Test"]
         };
         stream = new Stream(subjects, infoSpec);
@@ -65,7 +65,7 @@ Jitter = (function() {
       Util.noop(ready);
       this.ui.contentReady();
       this.ui.view.hideAll('Interact');
-      select = UI.toTopic('Taste', 'Muse', UI.SelectPack);
+      select = UI.toTopic('Taste', 'Jitter', UI.SelectPack);
       return this.stream.publish('Select', select);
     }
 
@@ -86,7 +86,7 @@ Jitter = (function() {
     Flavor: {
       type: "pane"
     },
-    Summary: {
+    Summaryt: {
       type: "pane"
     },
     Prepare: {
@@ -104,7 +104,7 @@ Jitter = (function() {
     Body: {
       type: "pane"
     },
-    Summary: {
+    Summaryp: {
       type: "pane"
     },
     Maps: {
@@ -116,7 +116,7 @@ Jitter = (function() {
     Region: {
       type: "pane"
     },
-    Summary: {
+    Summarym: {
       type: "pane"
     }
   };
