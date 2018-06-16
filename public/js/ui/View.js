@@ -339,12 +339,9 @@ View = class View {
   }
 
   createPacks(specs) {
-    var gkey, gpanes, gspec, interact, pack, packs, panes;
+    var gkey, gpanes, gspec, pack, packs, panes;
     packs = [];
     panes = [];
-    interact = new Pane(this.ui, this.stream, this, specs['Interact']);
-    panes.push(interact);
-    specs['Interact'].pane = interact;
     for (gkey in specs) {
       if (!hasProp.call(specs, gkey)) continue;
       gspec = specs[gkey];

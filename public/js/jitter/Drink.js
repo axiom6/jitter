@@ -1,29 +1,26 @@
 import Dom  from '../ui/Dom.js';
-var Drink;
+import Base from '../ui/Base.js';
+var Drink,
+  boundMethodCheck = function(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new Error('Bound instance method accessed before binding'); } };
 
-Drink = class Drink {
+Drink = class Drink extends Base {
   constructor(stream, ui) {
-    this.readyPane = this.readyPane.bind(this);
-    this.readyView = this.readyView.bind(this);
+    super(ui, stream, 'Drink');
+    this.ready = this.ready.bind(this);
     this.onChoice = this.onChoice.bind(this);
-    this.stream = stream;
-    this.ui = ui;
-    this.ui.addContent('Drink', this);
     this.stream.subscribe('Choice', 'Drink', (choice) => {
       return this.onChoice(choice);
     });
     this.btns = {};
   }
 
-  readyPane() {
+  ready() {
+    boundMethodCheck(this, Drink);
     return Dom.vertBtns(this.stream, this.spec, this, 'img/drink/', 80, 10, 12);
   }
 
-  readyView() {
-    return $("<h1 style=\" display:grid; justify-self:center; align-self:center; \">Drink</h1>");
-  }
-
   onChoice(choice) {
+    boundMethodCheck(this, Drink);
     Dom.onChoice(choice, 'Drink', this);
   }
 

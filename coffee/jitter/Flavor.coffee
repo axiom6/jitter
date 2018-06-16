@@ -2,13 +2,14 @@
 `import Util  from '../util/Util.js'`
 `import UI    from '../ui/UI.js'`
 `import Dom   from '../ui/Dom.js'`
+`import Base  from '../ui/Base.js'`
 `import Vis   from '../vis/Vis.js'`
 `import Wheel from '../jitter/Wheel.js'`
 
-class  Flavor
+class Flavor extends Base
 
-  constructor:( @stream, @ui, @name ) ->
-    @ui.addContent( @name, @ )
+  constructor:( stream, ui, name ) ->
+    super( ui, stream, name )
     @wheel = new Wheel( @publish, Dom.opacity )
     @prevRegion = null
 
@@ -25,7 +26,7 @@ class  Flavor
     @stream.subscribe( 'Choice', name, (choice) => @onChoice(choice) ) if name is 'Flavor'
     return
 
-  readyPane:() ->
+  ready:() ->
     url   = "json/flavor.choice.json"
     scale = 1.1
     divId = @ui.getHtmlId( "Wheel", @pane.name )
@@ -71,9 +72,6 @@ class  Flavor
     addDel = if choice.intent is UI.AddChoice then 'AddChoice' else 'DelChoice'
     @onWheel( addDel, flavor ) if Util.isStr(flavor )
     return
-
-  readyView:() =>
-    $("""<h1 style=" display:grid; justify-self:center; align-self:center; ">Flavor</h1>""" )
 
 `export default Flavor`
 

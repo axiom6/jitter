@@ -2,21 +2,19 @@
 `import Util from '../util/Util.js'`
 `import UI   from '../ui/UI.js'`
 `import Dom  from '../ui/Dom.js'`
+`import Base from '../ui/Base.js'`
 
-class Summary
+class Summary extends Base
 
-  constructor:( @stream, @ui, @name ) ->
-    @ui.addContent( @name, @ )
+  constructor:( stream, ui, name ) ->
+    super( ui, stream, name )
     @btns = {}
     @flavors = []
 
-  readyPane:() =>
+  ready:() =>
     @$pane = Dom.tree( @stream, @spec, 'Summary', @, 6, 13 )
     @subscribe()
     @$pane
-
-  readyView:() =>
-    $("""<h1 style=" display:grid; justify-self:center; align-self:center; ">Summary</h1>""" )
 
   subscribe:() ->
     @stream.subscribe( 'Region', @name, (region) => @onRegion(region) ) if @name is "Summarym"

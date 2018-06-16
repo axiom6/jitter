@@ -2,19 +2,17 @@
 `import Util from '../util/Util.js'`
 `import UI   from '../ui/UI.js'`
 `import Dom  from '../ui/Dom.js'`
+`import Base from '../ui/Base.js'`
 
-class Interact
+class Interact extends Base
 
-  constructor:( @stream, @ui, @name, @specs ) ->
-    @ui.addContent( @name, @ )
+  constructor:( stream, ui, name, @specs ) ->
+    super( ui, stream, name )
     @lastSelect = ""
     @stream.subscribe( 'Select', 'Interact', (select) => @onSelect(select) )
 
-  readyPane:() =>
+  ready:() =>
     @horz()
-
-  readyView:() =>
-    $("""<h1 style=" display:grid; justify-self:center; align-self:center; ">Interact</h1>""" )
 
   horz:() ->
     $p = $( """<div class="panel" style="position:relative; left:0; top: 0;  width:100%; height:100%; text-align:center;"></div>""" )

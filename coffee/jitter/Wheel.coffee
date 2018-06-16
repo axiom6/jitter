@@ -294,7 +294,7 @@ class Wheel
   getRoastValue:( name ) ->
     match  = (flavor) -> ( flavor.name is name )
     flavor = @getFlavor( @json, name, match )
-    console.log( 'Wheel.getRoastValue()', { name:name, flavor:flavor } )
+    #console.log( 'Wheel.getRoastValue()', { name:name, flavor:flavor } )
     value = if flavor? then ( flavor.roast[0]+flavor.roast[1] ) * 0.5 else -1
     value
 

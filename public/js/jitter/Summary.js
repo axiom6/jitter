@@ -1,30 +1,25 @@
 import Util from '../util/Util.js';
 import UI   from '../ui/UI.js';
 import Dom  from '../ui/Dom.js';
-var Summary;
+import Base from '../ui/Base.js';
+var Summary,
+  boundMethodCheck = function(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new Error('Bound instance method accessed before binding'); } };
 
-Summary = class Summary {
+Summary = class Summary extends Base {
   constructor(stream, ui, name) {
-    this.readyPane = this.readyPane.bind(this);
-    this.readyView = this.readyView.bind(this);
+    super(ui, stream, name);
+    this.ready = this.ready.bind(this);
     this.onRegion = this.onRegion.bind(this);
     this.onChoice = this.onChoice.bind(this);
-    this.stream = stream;
-    this.ui = ui;
-    this.name = name;
-    this.ui.addContent(this.name, this);
     this.btns = {};
     this.flavors = [];
   }
 
-  readyPane() {
+  ready() {
+    boundMethodCheck(this, Summary);
     this.$pane = Dom.tree(this.stream, this.spec, 'Summary', this, 6, 13);
     this.subscribe();
     return this.$pane;
-  }
-
-  readyView() {
-    return $("<h1 style=\" display:grid; justify-self:center; align-self:center; \">Summary</h1>");
   }
 
   subscribe() {
@@ -40,6 +35,7 @@ Summary = class Summary {
 
   onRegion(region) {
     var choice, flavor, i, j, len, len1, ref, ref1;
+    boundMethodCheck(this, Summary);
     ref = this.flavors;
     for (i = 0, len = ref.length; i < len; i++) {
       flavor = ref[i];
@@ -59,6 +55,7 @@ Summary = class Summary {
 
   onChoice(choice) {
     var $e, htmlId, specStudy;
+    boundMethodCheck(this, Summary);
     specStudy = this.spec[choice.name];
     if (specStudy == null) {
       return;

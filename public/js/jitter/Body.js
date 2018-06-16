@@ -1,29 +1,26 @@
-import Dom from '../ui/Dom.js';
-var Body;
+import Dom  from '../ui/Dom.js';
+import Base from '../ui/Base.js';
+var Body,
+  boundMethodCheck = function(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new Error('Bound instance method accessed before binding'); } };
 
-Body = class Body {
+Body = class Body extends Base {
   constructor(stream, ui) {
-    this.readyPane = this.readyPane.bind(this);
-    this.readyView = this.readyView.bind(this);
+    super(ui, stream, 'Body');
+    this.ready = this.ready.bind(this);
     this.onChoice = this.onChoice.bind(this);
-    this.stream = stream;
-    this.ui = ui;
-    this.ui.addContent('Body', this);
     this.stream.subscribe('Choice', 'Body', (choice) => {
       return this.onChoice(choice);
     });
     this.btns = {};
   }
 
-  readyPane() {
+  ready() {
+    boundMethodCheck(this, Body);
     return Dom.vertBtns(this.stream, this.spec, this, 'img/body/', 70, 15, 12);
   }
 
-  readyView() {
-    return $("<h1 style=\" display:grid; justify-self:center; align-self:center; \">Body</h1>");
-  }
-
   onChoice(choice) {
+    boundMethodCheck(this, Body);
     Dom.onChoice(choice, 'Body', this);
   }
 

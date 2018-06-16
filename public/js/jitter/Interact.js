@@ -1,34 +1,29 @@
 import Util from '../util/Util.js';
 import UI   from '../ui/UI.js';
 import Dom  from '../ui/Dom.js';
+import Base from '../ui/Base.js';
 var Interact,
+  boundMethodCheck = function(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new Error('Bound instance method accessed before binding'); } },
   hasProp = {}.hasOwnProperty;
 
-Interact = class Interact {
-  constructor(stream, ui, name1, specs) {
-    this.readyPane = this.readyPane.bind(this);
-    this.readyView = this.readyView.bind(this);
+Interact = class Interact extends Base {
+  constructor(stream, ui, name, specs) {
+    super(ui, stream, name);
+    this.ready = this.ready.bind(this);
     this.onSelect = this.onSelect.bind(this);
     this.onEvents = this.onEvents.bind(this);
     this.doClick = this.doClick.bind(this);
     this.onEnters = this.onEnters.bind(this);
-    this.stream = stream;
-    this.ui = ui;
-    this.name = name1;
     this.specs = specs;
-    this.ui.addContent(this.name, this);
     this.lastSelect = "";
     this.stream.subscribe('Select', 'Interact', (select) => {
       return this.onSelect(select);
     });
   }
 
-  readyPane() {
+  ready() {
+    boundMethodCheck(this, Interact);
     return this.horz();
-  }
-
-  readyView() {
-    return $("<h1 style=\" display:grid; justify-self:center; align-self:center; \">Interact</h1>");
   }
 
   horz() {
@@ -85,6 +80,7 @@ Interact = class Interact {
   }
 
   onSelect(select) {
+    boundMethodCheck(this, Interact);
     if (select.name === this.lastSelect || select.intent !== UI.SelectPack) {
       return;
     }
@@ -99,6 +95,7 @@ Interact = class Interact {
   }
 
   onEvents($e, key) {
+    boundMethodCheck(this, Interact);
     $e.on('click', () => {
       return this.doClick($e, key);
     });
@@ -106,12 +103,14 @@ Interact = class Interact {
 
   doClick($e, key) {
     var select;
+    boundMethodCheck(this, Interact);
     select = UI.toTopic(key, 'Interact', UI.SelectPack);
     this.stream.publish('Select', select);
   }
 
   onEnters($e, key) {
     var pane;
+    boundMethodCheck(this, Interact);
     pane = this.ui.view.getPane(key);
     pane.$.on('mouseenter', () => {
       return $e.removeClass('action').addClass('action-inpane');

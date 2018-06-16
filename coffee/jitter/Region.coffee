@@ -2,18 +2,19 @@
 `import Util from '../util/Util.js'`
 `import UI   from '../ui/UI.js'`
 `import Dom  from '../ui/Dom.js'`
+`import Base from '../ui/Base.js'`
 
-class Region
+class Region  extends Base
 
-  constructor:( @stream, @ui, @world ) ->
-    @ui.addContent( 'Region', @ )
+  constructor:( stream, ui, @world ) ->
+    super( ui, stream, 'Region' )
     @$img = $()
 
   subscribe:() ->
     @stream.subscribe( 'Region', 'Region', (region) => @onRegion(region) )
     return
 
-  readyPane:() ->
+  ready:() ->
     src   = "img/region/Ethiopia.png"
     $p    = $( """  #{Dom.image(src,@pane.toVh(90),@pane.toVw(96),"Ethopia","24px")}""" )
     @$image = $p.find('.dom-image')
@@ -22,9 +23,6 @@ class Region
     @$label.hide()
     @subscribe()
     $p
-
-  readyView:() =>
-    $("""<h1 style=" display:grid; justify-self:center; align-self:center; ">Region</h1>""" )
 
   onRegion:( region ) =>
 

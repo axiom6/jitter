@@ -41,7 +41,7 @@ class Jitter
     Maps:   { type:"pack" }, World:{    type:"pane" }, Region:{  type:"pane" }, Summarym:{ type:"pane" } }
 
   constructor:( @stream, @ui ) ->
-    @interact = new Interact( @stream, @ui, "Interact", Jitter.SpecInteract )
+    #interact = new Interact( @stream, @ui, "Interact", Jitter.SpecInteract )
     @flavor   = new Flavor(   @stream, @ui, "Flavor"     )
     @summaryt = new Summary(  @stream, @ui, "Summaryt"   )
     @roast    = new Roast(    @stream, @ui, true )
@@ -54,11 +54,10 @@ class Jitter
     @summarym = new Summary(  @stream, @ui, "Summarym"   )
     @user     = new User(     @stream, @ )
     @prefs    = new Prefs(    @stream )
-    @stream.subscribe( "Ready", "Jitter", (ready) => @onReady( ready ) )
+    @stream.subscribe( "Ready", "Jitter", () => @onReady() )
 
-  onReady:( ready ) =>
-    Util.noop( ready )
-    @ui.contentReady()
+  onReady:() =>
+    @ui.widgetsReady()
     @ui.view.hideAll( 'Interact' )
     select = UI.toTopic( 'Taste', 'Jitter', UI.SelectPack )
     @stream.publish( 'Select', select )

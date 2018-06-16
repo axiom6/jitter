@@ -1,18 +1,16 @@
 
-`import Dom from '../ui/Dom.js'`
+`import Dom  from '../ui/Dom.js'`
+`import Base from '../ui/Base.js'`
 
-class Body
+class Body extends Base
 
-  constructor:( @stream, @ui ) ->
-    @ui.addContent( 'Body', @ )
+  constructor:( stream, ui ) ->
+    super( ui, stream, 'Body' )
     @stream.subscribe( 'Choice', 'Body', (choice) => @onChoice(choice) )
     @btns = {}
 
-  readyPane:() =>
+  ready:() =>
     Dom.vertBtns( @stream, @spec, @, 'img/body/', 70, 15, 12 )
-
-  readyView:() =>
-    $("""<h1 style=" display:grid; justify-self:center; align-self:center; ">Body</h1>""" )
 
   onChoice:( choice ) =>
     Dom.onChoice( choice, 'Body', @ )

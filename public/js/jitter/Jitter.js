@@ -42,7 +42,7 @@ Jitter = (function() {
       this.onReady = this.onReady.bind(this);
       this.stream = stream1;
       this.ui = ui1;
-      this.interact = new Interact(this.stream, this.ui, "Interact", Jitter.SpecInteract);
+      //interact = new Interact( @stream, @ui, "Interact", Jitter.SpecInteract )
       this.flavor = new Flavor(this.stream, this.ui, "Flavor");
       this.summaryt = new Summary(this.stream, this.ui, "Summaryt");
       this.roast = new Roast(this.stream, this.ui, true);
@@ -55,15 +55,14 @@ Jitter = (function() {
       this.summarym = new Summary(this.stream, this.ui, "Summarym");
       this.user = new User(this.stream, this);
       this.prefs = new Prefs(this.stream);
-      this.stream.subscribe("Ready", "Jitter", (ready) => {
-        return this.onReady(ready);
+      this.stream.subscribe("Ready", "Jitter", () => {
+        return this.onReady();
       });
     }
 
-    onReady(ready) {
+    onReady() {
       var select;
-      Util.noop(ready);
-      this.ui.contentReady();
+      this.ui.widgetsReady();
       this.ui.view.hideAll('Interact');
       select = UI.toTopic('Taste', 'Jitter', UI.SelectPack);
       return this.stream.publish('Select', select);

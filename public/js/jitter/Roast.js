@@ -1,21 +1,20 @@
-import Util    from '../util/Util.js';
-import UI      from '../ui/UI.js';
-import Dom     from '../ui/Dom.js';
-import Vis     from '../vis/Vis.js';
+import Util from '../util/Util.js';
+import UI   from '../ui/UI.js';
+import Dom  from '../ui/Dom.js';
+import Vis  from '../vis/Vis.js';
+import Base from '../ui/Base.js';
 var Roast,
-  hasProp = {}.hasOwnProperty;
+  hasProp = {}.hasOwnProperty,
+  boundMethodCheck = function(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new Error('Bound instance method accessed before binding'); } };
 
 Roast = (function() {
-  class Roast {
+  class Roast extends Base {
     constructor(stream, ui, pubValue) {
-      this.readyView = this.readyView.bind(this);
+      super(ui, stream, 'Roast');
       this.doInputEvent = this.doInputEvent.bind(this);
       this.doInput = this.doInput.bind(this);
       this.onChoice = this.onChoice.bind(this);
-      this.stream = stream;
-      this.ui = ui;
       this.pubValue = pubValue;
-      this.ui.addContent('Roast', this);
       this.max = 90;
       this.data = Roast.Table;
       this.stream.subscribe('Choice', 'Roast', (choice) => {
@@ -23,11 +22,7 @@ Roast = (function() {
       });
     }
 
-    readyView() {
-      return $("<h1 style=\" display:grid; justify-self:center; align-self:center; \">Roast</h1>");
-    }
-
-    readyPane() {
+    ready() {
       var $p, $r, dx, key, n, ref, roast, spanc, spanr, src, style, x;
       src = "img/roast/RoastsBig.png";
       n = Util.lenObject(this.data);
@@ -76,12 +71,14 @@ Roast = (function() {
 
     doInputEvent(event) {
       var value;
+      boundMethodCheck(this, Roast);
       value = parseInt(event.target.value);
       return this.doInput(value, true);
     }
 
     doInput(v, pub) {
       var h1, h2, m, n, p, p1, p2, r, rgb, s;
+      boundMethodCheck(this, Roast);
       n = 9;
       s = this.max / n;
       p = Math.min(Math.ceil(v / s), n);
@@ -122,6 +119,7 @@ Roast = (function() {
 
     onChoice(choice) {
       var value;
+      boundMethodCheck(this, Roast);
       if (choice.source === 'Roast' || choice.name !== 'Roast' || choice.intent === UI.DelChoice) {
         return;
       }

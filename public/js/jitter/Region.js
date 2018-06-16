@@ -1,16 +1,15 @@
 import Util from '../util/Util.js';
 import UI   from '../ui/UI.js';
 import Dom  from '../ui/Dom.js';
-var Region;
+import Base from '../ui/Base.js';
+var Region,
+  boundMethodCheck = function(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new Error('Bound instance method accessed before binding'); } };
 
-Region = class Region {
+Region = class Region extends Base {
   constructor(stream, ui, world) {
-    this.readyView = this.readyView.bind(this);
+    super(ui, stream, 'Region');
     this.onRegion = this.onRegion.bind(this);
-    this.stream = stream;
-    this.ui = ui;
     this.world = world;
-    this.ui.addContent('Region', this);
     this.$img = $();
   }
 
@@ -20,7 +19,7 @@ Region = class Region {
     });
   }
 
-  readyPane() {
+  ready() {
     var $p, src;
     src = "img/region/Ethiopia.png";
     $p = $(`  ${Dom.image(src, this.pane.toVh(90), this.pane.toVw(96), "Ethopia", "24px")}`);
@@ -32,12 +31,9 @@ Region = class Region {
     return $p;
   }
 
-  readyView() {
-    return $("<h1 style=\" display:grid; justify-self:center; align-self:center; \">Region</h1>");
-  }
-
   onRegion(region) {
     var addDel, choice, label, src;
+    boundMethodCheck(this, Region);
     if ((region == null) || region.source === 'Region') {
       return;
     }

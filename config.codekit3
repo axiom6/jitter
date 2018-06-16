@@ -1612,6 +1612,16 @@
 		"sC": 3,
 		"tS": 0
 		},
+	"\/public\/js\/ui\/Base.js": {
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/public\/js\/ui\/Base-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
 	"\/public\/js\/ui\/Btn.js": {
 		"ft": 64,
 		"ma": 0,
@@ -3007,7 +3017,7 @@
 "projectAttributes": {
 	"creationDate": 541891933,
 	"displayValue": "jitter",
-	"displayValueWasSetByUser": 0,
+	"displayValueWasSetByUser": 1,
 	"iconImageName": "meme-facepalm",
 	"iconImageWasSetByUser": 0
 	},

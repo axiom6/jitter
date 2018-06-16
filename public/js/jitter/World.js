@@ -1,17 +1,16 @@
 import UI   from '../ui/UI.js';
 import Dom  from '../ui/Dom.js';
+import Base from '../ui/Base.js';
 var World,
-  hasProp = {}.hasOwnProperty;
+  hasProp = {}.hasOwnProperty,
+  boundMethodCheck = function(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new Error('Bound instance method accessed before binding'); } };
 
-World = class World {
+World = class World extends Base {
   constructor(stream, ui) {
     var callback;
-    this.readyView = this.readyView.bind(this);
+    super(ui, stream, 'World');
     this.onClick = this.onClick.bind(this);
     this.onChoice = this.onChoice.bind(this);
-    this.stream = stream;
-    this.ui = ui;
-    this.ui.addContent('World', this);
     this.$img = $();
     this.wImg = 1785;
     this.hImg = 399;
@@ -40,7 +39,7 @@ World = class World {
   subscribe() {}
 
   //@stream.subscribe( 'Choice', (choice) => @onChoice(choice) )
-  readyPane() {
+  ready() {
     var $p, src;
     src = "img/region/WorldBelt.png";
     $p = $(`  ${Dom.image(src, this.pane.toVh(90), this.pane.toVw(96), "", "24px")}`);
@@ -51,12 +50,9 @@ World = class World {
     return $p;
   }
 
-  readyView() {
-    return $("<h1 style=\" display:grid; justify-self:center; align-self:center; \">World</h1>");
-  }
-
   onClick(event) {
     var $elem, offset, region, x, y;
+    boundMethodCheck(this, World);
     $elem = $(event.target);
     offset = $elem.offset();
     x = (event.pageX - offset.left) * this.wImg / $elem.width();
@@ -96,6 +92,7 @@ World = class World {
 
   onChoice(choice) {
     var region;
+    boundMethodCheck(this, World);
     if (choice.name !== 'World' || Util.isntStr(choice.study)) {
       return;
     }

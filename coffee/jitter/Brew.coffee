@@ -1,18 +1,16 @@
 
 `import Dom from '../ui/Dom.js'`
+`import Base from '../ui/Base.js'`
 
-class Brew
+class Brew extends Base
 
-  constructor:( @stream, @ui ) ->
-    @ui.addContent( 'Brew', @ )
+  constructor:( stream, ui ) ->
+    super( ui, stream, 'Brew' )
     @stream.subscribe( 'Choice', 'Brew', (choice) => @onChoice(choice) )
     @btns = {}
 
-  readyPane:() =>
+  ready:() =>
     Dom.vertBtns( @stream, @spec, @, 'img/brew/', 80, 10, 12 )
-
-  readyView:() =>
-    $("""<h1 style=" display:grid; justify-self:center; align-self:center; ">Brew</h1>""" )
 
   onChoice:( choice ) =>
     Dom.onChoice( choice, 'Brew', @ )

@@ -472,10 +472,7 @@ Wheel = class Wheel {
       return flavor.name === name;
     };
     flavor = this.getFlavor(this.json, name, match);
-    console.log('Wheel.getRoastValue()', {
-      name: name,
-      flavor: flavor
-    });
+    //console.log( 'Wheel.getRoastValue()', { name:name, flavor:flavor } )
     value = flavor != null ? (flavor.roast[0] + flavor.roast[1]) * 0.5 : -1;
     return value;
   }

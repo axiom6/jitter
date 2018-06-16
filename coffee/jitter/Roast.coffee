@@ -1,10 +1,11 @@
 
-`import Util    from '../util/Util.js'`
-`import UI      from '../ui/UI.js'`
-`import Dom     from '../ui/Dom.js'`
-`import Vis     from '../vis/Vis.js'`
+`import Util from '../util/Util.js'`
+`import UI   from '../ui/UI.js'`
+`import Dom  from '../ui/Dom.js'`
+`import Vis  from '../vis/Vis.js'`
+`import Base from '../ui/Base.js'`
 
-class Roast
+class Roast extends Base
 
   Roast.Table = {
     "1":{ color:"#dba34e", img:"1d.png", name:"Blonde",   value: 5, style:"Half City"      },
@@ -17,16 +18,13 @@ class Roast
     "8":{ color:"#40250d", img:"8d.png", name:"French",   value:75, style:"French"         },
     "9":{ color:"#2f1c09", img:"9d.png", name:"Black",    value:85, style:"Black"          } }
 
-  constructor:( @stream, @ui, @pubValue ) ->
-    @ui.addContent( 'Roast', @ )
+  constructor:( stream, ui, @pubValue ) ->
+    super( ui, stream, 'Roast' )
     @max  = 90
     @data = Roast.Table
     @stream.subscribe( 'Choice', 'Roast', (choice) => @onChoice(choice) )
 
-  readyView:() =>
-    $("""<h1 style=" display:grid; justify-self:center; align-self:center; ">Roast</h1>""" )
-
-  readyPane:() ->
+  ready:() ->
     src = "img/roast/RoastsBig.png"
     n   = Util.lenObject( @data )
     x   = 0

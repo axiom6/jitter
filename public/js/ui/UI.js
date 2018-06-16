@@ -10,13 +10,13 @@ UI = (function() {
     constructor(stream, jsonPath, planeName, navbs = null, prac = null) {
       var callback;
       this.resize = this.resize.bind(this);
-      this.contentReady = this.contentReady.bind(this);
+      this.widgetsReady = this.widgetsReady.bind(this);
       this.stream = stream;
       this.jsonPath = jsonPath;
       this.planeName = planeName;
       this.navbs = navbs;
       this.prac = prac;
-      this.contents = {};
+      this.widgets = {};
       callback = (data) => {
         this.specs = this.createSpecs(data);
         if (this.navbs != null) {
@@ -164,10 +164,6 @@ UI = (function() {
       this.view.resize();
     }
 
-    addContent(name, object) {
-      this.contents[name] = object;
-    }
-
     ready() {
       $('#' + this.htmlId('App')).html(this.html());
       if (this.navbs != null) {
@@ -177,26 +173,22 @@ UI = (function() {
         this.tocs.ready();
       }
       this.view.ready();
-      //contentReady() called by Ready subscribers
-      //if UI.hasPage
-      //  content = UI.content( 'Study', 'UI' )
-      //  @stream.publish( 'Content', content )
       this.stream.publish("Ready", "Ready"); // Just notification. No topic
     }
 
-    contentReady() {
-      var content, name, ref;
-      ref = this.contents;
+    widgetsReady() {
+      var name, ref, widget;
+      ref = this.widgets;
       for (name in ref) {
         if (!hasProp.call(ref, name)) continue;
-        content = ref[name];
-        content.pane = this.view.getPane(name);
-        content.spec = content.pane.spec;
-        content.$pane = content.readyPane();
-        content.$view = content.readyView();
-        content.isSvg = this.isElem(content.$pane.find('svg')) && content.pane.name !== 'Flavor';
-        if (!content.isSvg) {
-          content.pane.$.append(content.$pane);
+        widget = ref[name];
+        widget.name = name;
+        widget.pane = this.view.getPane(name);
+        widget.spec = widget.pane.spec;
+        widget.$pane = widget.ready();
+        widget.isSvg = this.isElem(widget.$pane.find('svg')) && widget.pane.name !== 'Flavor';
+        if (!widget.isSvg) {
+          widget.pane.$.append(widget.$pane);
         }
       }
     }

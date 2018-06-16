@@ -1,11 +1,12 @@
 
 `import UI   from '../ui/UI.js'`
 `import Dom  from '../ui/Dom.js'`
+`import Base from '../ui/Base.js'`
 
-class World
+class World extends Base
 
-  constructor:( @stream, @ui ) ->
-    @ui.addContent( 'World', @ )
+  constructor:( stream, ui ) ->
+    super( ui, stream, 'World' )
     @$img = $()
     @wImg = 1785
     @hImg =  399
@@ -26,15 +27,12 @@ class World
     #@stream.subscribe( 'Choice', (choice) => @onChoice(choice) )
     return
 
-  readyPane:() ->
+  ready:() ->
     src   = "img/region/WorldBelt.png"
     $p    = $( """  #{Dom.image(src,@pane.toVh(90),@pane.toVw(96),"","24px")}""" )
     @$img = $p.find('img')
     @$img.click( (event) => @onClick(event) )
     $p
-
-  readyView:() =>
-    $("""<h1 style=" display:grid; justify-self:center; align-self:center; ">World</h1>""" )
 
   onClick:( event ) =>
     $elem  = $(event.target)

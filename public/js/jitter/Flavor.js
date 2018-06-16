@@ -1,28 +1,27 @@
 import Util  from '../util/Util.js';
 import UI    from '../ui/UI.js';
 import Dom   from '../ui/Dom.js';
+import Base  from '../ui/Base.js';
 import Vis   from '../vis/Vis.js';
 import Wheel from '../jitter/Wheel.js';
-var Flavor;
+var Flavor,
+  boundMethodCheck = function(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new Error('Bound instance method accessed before binding'); } };
 
-Flavor = class Flavor {
-  constructor(stream, ui, name1) {
+Flavor = class Flavor extends Base {
+  constructor(stream, ui, name) {
+    super(ui, stream, name);
     // Passed as a callback to Wheel and called when Wheel makes a choice to be published
     this.publish = this.publish.bind(this);
     this.resize = this.resize.bind(this);
     this.onRegion = this.onRegion.bind(this);
     this.onChoice = this.onChoice.bind(this);
-    this.readyView = this.readyView.bind(this);
-    this.stream = stream;
-    this.ui = ui;
-    this.name = name1;
-    this.ui.addContent(this.name, this);
     this.wheel = new Wheel(this.publish, Dom.opacity);
     this.prevRegion = null;
   }
 
   publish(add, flavor, roast) {
     var addDel, choice;
+    boundMethodCheck(this, Flavor);
     addDel = add ? UI.AddChoice : UI.DelChoice;
     choice = UI.toTopic(this.spec.name, 'Wheel', addDel, flavor);
     choice.value = roast;
@@ -42,7 +41,7 @@ Flavor = class Flavor {
     }
   }
 
-  readyPane() {
+  ready() {
     var $w, divId, scale, url;
     url = "json/flavor.choice.json";
     scale = 1.1;
@@ -55,12 +54,14 @@ Flavor = class Flavor {
   }
 
   resize() {
+    boundMethodCheck(this, Flavor);
     this.pane.geo = this.pane.geom();
     this.wheel.resize();
   }
 
   onRegion(region) {
     var flavor, i, j, len, len1, ref, ref1;
+    boundMethodCheck(this, Flavor);
     if ((region != null) && this.stream.isInfo('Region')) {
       console.info('Flavor.onRegion()', {
         instance: this.name,
@@ -98,6 +99,7 @@ Flavor = class Flavor {
 
   onChoice(choice) {
     var addDel, flavor;
+    boundMethodCheck(this, Flavor);
     if (!(choice.name === 'Flavor') || choice.source === 'Flavor') {
       return;
     }
@@ -112,10 +114,6 @@ Flavor = class Flavor {
     if (Util.isStr(flavor)) {
       this.onWheel(addDel, flavor);
     }
-  }
-
-  readyView() {
-    return $("<h1 style=\" display:grid; justify-self:center; align-self:center; \">Flavor</h1>");
   }
 
 };
