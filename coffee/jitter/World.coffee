@@ -6,7 +6,7 @@
 class World extends Base
 
   constructor:( stream, ui ) ->
-    super( ui, stream, 'World' )
+    super(      stream, ui, 'World' )
     @$img = $()
     @wImg = 1785
     @hImg =  399

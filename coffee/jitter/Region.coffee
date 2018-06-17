@@ -7,7 +7,7 @@
 class Region  extends Base
 
   constructor:( stream, ui, @world ) ->
-    super( ui, stream, 'Region' )
+    super(      stream, ui, 'Region' )
     @$img = $()
 
   subscribe:() ->

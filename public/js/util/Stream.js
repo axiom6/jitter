@@ -79,13 +79,13 @@ Stream = class Stream {
       this.publishEvent(name, topic, jQuerySelector, eventType, htmlId);
     } else {
       subject = this.getBundle(name).subject;
-      if (this.infoSpec.publish && this.isInfo(name)) {
-        console.info('Strean.publish()', {
-          subject: name,
-          topic: topic
-        });
-      }
       subject.next(topic);
+    }
+    if (this.infoSpec.publish && this.isInfo(name)) {
+      console.info('Strean.publish()', {
+        subject: name,
+        topic: topic
+      });
     }
   }
 

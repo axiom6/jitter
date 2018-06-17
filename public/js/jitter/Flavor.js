@@ -9,7 +9,7 @@ var Flavor,
 
 Flavor = class Flavor extends Base {
   constructor(stream, ui, name) {
-    super(ui, stream, name);
+    super(stream, ui, name);
     // Passed as a callback to Wheel and called when Wheel makes a choice to be published
     this.publish = this.publish.bind(this);
     this.resize = this.resize.bind(this);

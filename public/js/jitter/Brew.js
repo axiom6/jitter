@@ -5,7 +5,7 @@ var Brew,
 
 Brew = class Brew extends Base {
   constructor(stream, ui) {
-    super(ui, stream, 'Brew');
+    super(stream, ui, 'Brew');
     this.ready = this.ready.bind(this);
     this.onChoice = this.onChoice.bind(this);
     this.stream.subscribe('Choice', 'Brew', (choice) => {

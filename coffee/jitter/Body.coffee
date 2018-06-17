@@ -5,7 +5,7 @@
 class Body extends Base
 
   constructor:( stream, ui ) ->
-    super( ui, stream, 'Body' )
+    super(      stream, ui, 'Body' )
     @stream.subscribe( 'Choice', 'Body', (choice) => @onChoice(choice) )
     @btns = {}
 

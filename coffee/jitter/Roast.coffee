@@ -19,7 +19,7 @@ class Roast extends Base
     "9":{ color:"#2f1c09", img:"9d.png", name:"Black",    value:85, style:"Black"          } }
 
   constructor:( stream, ui, @pubValue ) ->
-    super( ui, stream, 'Roast' )
+    super(      stream, ui, 'Roast' )
     @max  = 90
     @data = Roast.Table
     @stream.subscribe( 'Choice', 'Roast', (choice) => @onChoice(choice) )

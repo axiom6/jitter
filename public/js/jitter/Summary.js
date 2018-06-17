@@ -7,7 +7,7 @@ var Summary,
 
 Summary = class Summary extends Base {
   constructor(stream, ui, name) {
-    super(ui, stream, name);
+    super(stream, ui, name);
     this.ready = this.ready.bind(this);
     this.onRegion = this.onRegion.bind(this);
     this.onChoice = this.onChoice.bind(this);

@@ -7,7 +7,7 @@
 class Interact extends Base
 
   constructor:( stream, ui, name, @specs ) ->
-    super( ui, stream, name )
+    super(      stream, ui, name )
     @lastSelect = ""
     @stream.subscribe( 'Select', 'Interact', (select) => @onSelect(select) )
 

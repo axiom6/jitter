@@ -10,7 +10,7 @@ var Roast,
 Roast = (function() {
   class Roast extends Base {
     constructor(stream, ui, pubValue) {
-      super(ui, stream, 'Roast');
+      super(stream, ui, 'Roast');
       this.doInputEvent = this.doInputEvent.bind(this);
       this.doInput = this.doInput.bind(this);
       this.onChoice = this.onChoice.bind(this);

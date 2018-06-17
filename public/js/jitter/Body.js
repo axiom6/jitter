@@ -5,7 +5,7 @@ var Body,
 
 Body = class Body extends Base {
   constructor(stream, ui) {
-    super(ui, stream, 'Body');
+    super(stream, ui, 'Body');
     this.ready = this.ready.bind(this);
     this.onChoice = this.onChoice.bind(this);
     this.stream.subscribe('Choice', 'Body', (choice) => {

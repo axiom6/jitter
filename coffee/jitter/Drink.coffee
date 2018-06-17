@@ -5,7 +5,7 @@
 class Drink extends Base
 
   constructor:( stream, ui ) ->
-    super( ui, stream, 'Drink' )
+    super(      stream, ui, 'Drink' )
     @stream.subscribe( 'Choice', 'Drink', (choice) => @onChoice(choice) )
     @btns = {}
 

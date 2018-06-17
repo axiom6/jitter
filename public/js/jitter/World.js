@@ -8,7 +8,7 @@ var World,
 World = class World extends Base {
   constructor(stream, ui) {
     var callback;
-    super(ui, stream, 'World');
+    super(stream, ui, 'World');
     this.onClick = this.onClick.bind(this);
     this.onChoice = this.onChoice.bind(this);
     this.$img = $();

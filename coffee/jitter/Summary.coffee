@@ -7,7 +7,7 @@
 class Summary extends Base
 
   constructor:( stream, ui, name ) ->
-    super( ui, stream, name )
+    super(      stream, ui, name )
     @btns = {}
     @flavors = []
 

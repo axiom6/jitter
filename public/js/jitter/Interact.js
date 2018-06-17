@@ -8,7 +8,7 @@ var Interact,
 
 Interact = class Interact extends Base {
   constructor(stream, ui, name, specs) {
-    super(ui, stream, name);
+    super(stream, ui, name);
     this.ready = this.ready.bind(this);
     this.onSelect = this.onSelect.bind(this);
     this.onEvents = this.onEvents.bind(this);

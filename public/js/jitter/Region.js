@@ -7,7 +7,7 @@ var Region,
 
 Region = class Region extends Base {
   constructor(stream, ui, world) {
-    super(ui, stream, 'Region');
+    super(stream, ui, 'Region');
     this.onRegion = this.onRegion.bind(this);
     this.world = world;
     this.$img = $();
