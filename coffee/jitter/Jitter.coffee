@@ -57,7 +57,7 @@ class Jitter
     @stream.subscribe( "Ready", "Jitter", () => @onReady() )
 
   onReady:() =>
-    @ui.widgetsReady()
+    @ui.pagesReady()
     @ui.view.hideAll( 'Interact' )
     select = UI.toTopic( 'Taste', 'Jitter', UI.SelectPack )
     @stream.publish( 'Select', select )

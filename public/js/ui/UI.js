@@ -9,14 +9,14 @@ UI = (function() {
   class UI {
     constructor(stream, jsonPath, planeName, navbs = null, prac = null) {
       var callback;
+      this.pagesReady = this.pagesReady.bind(this);
       this.resize = this.resize.bind(this);
-      this.widgetsReady = this.widgetsReady.bind(this);
       this.stream = stream;
       this.jsonPath = jsonPath;
       this.planeName = planeName;
       this.navbs = navbs;
       this.prac = prac;
-      this.widgets = {};
+      this.pages = {};
       callback = (data) => {
         this.specs = this.createSpecs(data);
         if (this.navbs != null) {
@@ -30,6 +30,39 @@ UI = (function() {
       };
       UI.readJSON(this.jsonPath, callback);
       UI.ui = this;
+    }
+
+    addPage(name, page) {
+      return this.pages[name] = page;
+    }
+
+    ready() {
+      $('#' + this.htmlId('App')).html(this.html());
+      if (this.navbs != null) {
+        this.navb.ready();
+      }
+      if (UI.hasTocs) {
+        this.tocs.ready();
+      }
+      this.view.ready();
+      this.stream.publish("Ready", "Ready"); // Just notification. No topic
+    }
+
+    pagesReady() {
+      var name, page, ref;
+      ref = this.pages;
+      for (name in ref) {
+        if (!hasProp.call(ref, name)) continue;
+        page = ref[name];
+        page.name = name;
+        page.pane = this.view.getPane(name);
+        page.spec = page.pane.spec;
+        page.$pane = page.ready();
+        page.isSvg = this.isElem(page.$pane.find('svg')) && page.pane.name !== 'Flavor';
+        if (!page.isSvg) {
+          page.pane.$.append(page.$pane);
+        }
+      }
     }
 
     createSpecs(data) {
@@ -162,35 +195,6 @@ UI = (function() {
 
     resize() {
       this.view.resize();
-    }
-
-    ready() {
-      $('#' + this.htmlId('App')).html(this.html());
-      if (this.navbs != null) {
-        this.navb.ready();
-      }
-      if (UI.hasTocs) {
-        this.tocs.ready();
-      }
-      this.view.ready();
-      this.stream.publish("Ready", "Ready"); // Just notification. No topic
-    }
-
-    widgetsReady() {
-      var name, ref, widget;
-      ref = this.widgets;
-      for (name in ref) {
-        if (!hasProp.call(ref, name)) continue;
-        widget = ref[name];
-        widget.name = name;
-        widget.pane = this.view.getPane(name);
-        widget.spec = widget.pane.spec;
-        widget.$pane = widget.ready();
-        widget.isSvg = this.isElem(widget.$pane.find('svg')) && widget.pane.name !== 'Flavor';
-        if (!widget.isSvg) {
-          widget.pane.$.append(widget.$pane);
-        }
-      }
     }
 
     // Html and jQuery Utilities in UI because it is passed around everywhere

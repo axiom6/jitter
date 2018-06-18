@@ -62,7 +62,7 @@ Jitter = (function() {
 
     onReady() {
       var select;
-      this.ui.widgetsReady();
+      this.ui.pagesReady();
       this.ui.view.hideAll('Interact');
       select = UI.toTopic('Taste', 'Jitter', UI.SelectPack);
       return this.stream.publish('Select', select);
