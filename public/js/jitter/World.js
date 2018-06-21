@@ -1,6 +1,7 @@
-import UI   from '../ui/UI.js';
-import Dom  from '../ui/Dom.js';
-import Base from '../ui/Base.js';
+import Util from '../util/Util.js';
+import UI    from '../ui/UI.js';
+import Dom   from '../ui/Dom.js';
+import Base  from '../ui/Base.js';
 var World,
   hasProp = {}.hasOwnProperty,
   boundMethodCheck = function(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new Error('Bound instance method accessed before binding'); } };
@@ -39,10 +40,11 @@ World = class World extends Base {
   subscribe() {}
 
   //@stream.subscribe( 'Choice', (choice) => @onChoice(choice) )
-  ready() {
+  ready(cname) {
     var $p, src;
+    Util.noop(cname);
     src = "img/region/WorldBelt.png";
-    $p = $(`  ${Dom.image(src, this.pane.toVh(90), this.pane.toVw(96), "", "24px")}`);
+    $p = $(`  ${Dom.image(src, 90, 96, "", "24px")}`);
     this.$img = $p.find('img');
     this.$img.click((event) => {
       return this.onClick(event);

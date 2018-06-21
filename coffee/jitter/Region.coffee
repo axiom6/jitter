@@ -1,8 +1,8 @@
 
-`import Util from '../util/Util.js'`
-`import UI   from '../ui/UI.js'`
-`import Dom  from '../ui/Dom.js'`
-`import Base from '../ui/Base.js'`
+`import Util  from '../util/Util.js'`
+`import UI    from '../ui/UI.js'`
+`import Dom   from '../ui/Dom.js'`
+`import Base  from '../ui/Base.js'`
 
 class Region  extends Base
 
@@ -14,9 +14,10 @@ class Region  extends Base
     @stream.subscribe( 'Region', 'Region', (region) => @onRegion(region) )
     return
 
-  ready:() ->
+  ready:( cname ) ->
+    Util.noop( cname )
     src   = "img/region/Ethiopia.png"
-    $p    = $( """  #{Dom.image(src,@pane.toVh(90),@pane.toVw(96),"Ethopia","24px")}""" )
+    $p    = $( """  #{Dom.image(src,90,96,"Ethopia","24px")}""" )
     @$image = $p.find('.dom-image')
     @$label = $p.find('.dom-label')
     @$label.css( "font-size", "#{@pane.toVh(10)}vh" )

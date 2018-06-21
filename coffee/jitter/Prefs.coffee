@@ -1,7 +1,6 @@
 
-
-`import Util from '../util/Util.js'`
-`import UI   from '../ui/UI.js'`
+`import Util  from '../util/Util.js'`
+`import UI    from '../ui/UI.js'`
 
 class Prefs
   

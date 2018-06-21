@@ -1,3 +1,4 @@
+import Util from '../util/Util.js';
 import Dom  from '../ui/Dom.js';
 import Base from '../ui/Base.js';
 var Body,
@@ -14,8 +15,9 @@ Body = class Body extends Base {
     this.btns = {};
   }
 
-  ready() {
+  ready(cname) {
     boundMethodCheck(this, Body);
+    Util.noop(cname);
     return Dom.vertBtns(this.stream, this.spec, this, 'img/body/', 70, 15, 12);
   }
 

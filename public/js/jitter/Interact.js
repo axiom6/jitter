@@ -1,7 +1,7 @@
-import Util from '../util/Util.js';
-import UI   from '../ui/UI.js';
-import Dom  from '../ui/Dom.js';
-import Base from '../ui/Base.js';
+import Util  from '../util/Util.js';
+import UI    from '../ui/UI.js';
+import Dom   from '../ui/Dom.js';
+import Base  from '../ui/Base.js';
 var Interact,
   boundMethodCheck = function(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new Error('Bound instance method accessed before binding'); } },
   hasProp = {}.hasOwnProperty;
@@ -21,8 +21,9 @@ Interact = class Interact extends Base {
     });
   }
 
-  ready() {
+  ready(cname) {
     boundMethodCheck(this, Interact);
+    Util.noop(cname);
     return this.horz();
   }
 

@@ -1,4 +1,5 @@
-import Dom from '../ui/Dom.js';
+import Util from '../util/Util.js';
+import Dom  from '../ui/Dom.js';
 import Base from '../ui/Base.js';
 var Brew,
   boundMethodCheck = function(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new Error('Bound instance method accessed before binding'); } };
@@ -14,8 +15,9 @@ Brew = class Brew extends Base {
     this.btns = {};
   }
 
-  ready() {
+  ready(cname) {
     boundMethodCheck(this, Brew);
+    Util.noop(cname);
     return Dom.vertBtns(this.stream, this.spec, this, 'img/brew/', 80, 10, 12);
   }
 

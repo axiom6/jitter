@@ -2,12 +2,13 @@ import Util from '../util/Util.js';
 import Navb from '../ui/Navb.js';
 import Tocs from '../ui/Tocs.js';
 import View from '../ui/View.js';
+import Page from '../ui/Page.js';
 var UI,
   hasProp = {}.hasOwnProperty;
 
 UI = (function() {
   class UI {
-    constructor(stream, jsonPath, planeName, navbs = null, prac = null) {
+    constructor(stream, jsonPath, planeName = 'None', navbs = null) {
       var callback;
       this.pagesReady = this.pagesReady.bind(this);
       this.resize = this.resize.bind(this);
@@ -15,7 +16,6 @@ UI = (function() {
       this.jsonPath = jsonPath;
       this.planeName = planeName;
       this.navbs = navbs;
-      this.prac = prac;
       this.pages = {};
       callback = (data) => {
         this.specs = this.createSpecs(data);
@@ -29,7 +29,6 @@ UI = (function() {
         return this.ready();
       };
       UI.readJSON(this.jsonPath, callback);
-      UI.ui = this;
     }
 
     addPage(name, page) {
@@ -48,19 +47,28 @@ UI = (function() {
       this.stream.publish("Ready", "Ready"); // Just notification. No topic
     }
 
-    pagesReady() {
-      var name, page, ref;
+    createContent(pane, page, cname) {
+      if (this.prac != null) {
+        return this.prac.createContent(pane, page, cname);
+      } else {
+        return page.createContent(cname);
+      }
+    }
+
+    pagesReady(cname) {
+      var name, page, pane, ref;
       ref = this.pages;
       for (name in ref) {
         if (!hasProp.call(ref, name)) continue;
         page = ref[name];
-        page.name = name;
-        page.pane = this.view.getPane(name);
-        page.spec = page.pane.spec;
-        page.$pane = page.ready();
+        pane = this.view.getPane(name);
+        page.pane = pane;
+        page.name = pane.name;
+        page.spec = pane.spec;
+        page.$pane = page.ready(cname);
         page.isSvg = this.isElem(page.$pane.find('svg')) && page.pane.name !== 'Flavor';
         if (!page.isSvg) {
-          page.pane.$.append(page.$pane);
+          pane.$.append(page.$pane);
         }
       }
     }
@@ -301,8 +309,6 @@ UI = (function() {
 
   UI.hasPack = true;
 
-  UI.hasPage = true;
-
   UI.hasTocs = true;
 
   UI.hasLays = true;
@@ -317,18 +323,18 @@ UI = (function() {
 
   UI.nrow = 36;
 
-  //I.margin  =  { width:1,    height:1,    west:2,   north :1, east :2,   south 2, wStudy:0.5, hStudy:0.5 }
   UI.margin = {
-    width: 0.00,
-    height: 0.00,
-    west: 0.5,
-    north: 0,
-    east: 0.5,
-    south: 0,
+    width: 1,
+    height: 1,
+    west: 2,
+    north: 1,
+    east: 2,
+    south: 2,
     wStudy: 0.5,
     hStudy: 0.5
   };
 
+  //I.margin  =  { width:0.00, height:0.00, west:0.5, north :0, east :0.5, south:0, wStudy:0.5, hStudy:0.5 }
   UI.SelectView = 'SelectView';
 
   UI.SelectPane = 'SelectPane';

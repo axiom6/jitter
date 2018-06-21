@@ -11,7 +11,8 @@ class Summary extends Base
     @btns = {}
     @flavors = []
 
-  ready:() =>
+  ready:( cname ) =>
+    Util.noop( cname )
     @$pane = Dom.tree( @stream, @spec, 'Summary', @, 6, 13 )
     @subscribe()
     @$pane

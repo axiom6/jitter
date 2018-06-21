@@ -1,7 +1,8 @@
 
-`import UI   from '../ui/UI.js'`
-`import Dom  from '../ui/Dom.js'`
-`import Base from '../ui/Base.js'`
+`import Util from '../util/Util.js'`
+`import UI    from '../ui/UI.js'`
+`import Dom   from '../ui/Dom.js'`
+`import Base  from '../ui/Base.js'`
 
 class World extends Base
 
@@ -27,9 +28,10 @@ class World extends Base
     #@stream.subscribe( 'Choice', (choice) => @onChoice(choice) )
     return
 
-  ready:() ->
+  ready:( cname ) ->
+    Util.noop( cname )
     src   = "img/region/WorldBelt.png"
-    $p    = $( """  #{Dom.image(src,@pane.toVh(90),@pane.toVw(96),"","24px")}""" )
+    $p    = $( """  #{Dom.image(src,90,96,"","24px")}""" )
     @$img = $p.find('img')
     @$img.click( (event) => @onClick(event) )
     $p

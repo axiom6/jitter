@@ -1,8 +1,8 @@
 import Util  from '../util/Util.js';
 import UI    from '../ui/UI.js';
+import Vis   from '../vis/Vis.js';
 import Dom   from '../ui/Dom.js';
 import Base  from '../ui/Base.js';
-import Vis   from '../vis/Vis.js';
 import Wheel from '../jitter/Wheel.js';
 var Flavor,
   boundMethodCheck = function(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new Error('Bound instance method accessed before binding'); } };
@@ -41,8 +41,9 @@ Flavor = class Flavor extends Base {
     }
   }
 
-  ready() {
+  ready(cname) {
     var $w, divId, scale, url;
+    Util.noop(cname);
     url = "json/flavor.choice.json";
     scale = 1.1;
     divId = this.ui.getHtmlId("Wheel", this.pane.name);

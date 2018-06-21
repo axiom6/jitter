@@ -1,8 +1,12 @@
 import Util from '../util/Util.js';
-var Database; //
+var Database;
 
 Database = (function() {
   class Database {
+    constructor() {
+      this.dummy = "";
+    }
+
     //nodejDataURI = 'file:../../data'
     static dataURI() {
       if (Util.isCommonJS) {

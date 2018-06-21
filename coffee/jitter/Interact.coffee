@@ -1,8 +1,8 @@
 
-`import Util from '../util/Util.js'`
-`import UI   from '../ui/UI.js'`
-`import Dom  from '../ui/Dom.js'`
-`import Base from '../ui/Base.js'`
+`import Util  from '../util/Util.js'`
+`import UI    from '../ui/UI.js'`
+`import Dom   from '../ui/Dom.js'`
+`import Base  from '../ui/Base.js'`
 
 class Interact extends Base
 
@@ -11,7 +11,8 @@ class Interact extends Base
     @lastSelect = ""
     @stream.subscribe( 'Select', 'Interact', (select) => @onSelect(select) )
 
-  ready:() =>
+  ready:( cname ) =>
+    Util.noop( cname )
     @horz()
 
   horz:() ->

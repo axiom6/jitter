@@ -71,7 +71,7 @@ Tocs = (function() {
       ref = this.specs;
       for (j = 0, len = ref.length; j < len; j++) {
         spec = ref[j];
-        console.info('UI.Tocs.spec', Util.indent(spec.level * 2), spec.name, spec.hasChild);
+        console.info('Tocs.spec', Util.indent(spec.level * 2), spec.name, spec.hasChild);
       }
     }
 
@@ -137,7 +137,7 @@ Tocs = (function() {
         }
       }
       if (issueError && this.nameNotOk(select.name)) {
-        console.error('UI.Tocs.getSpec(id) spec null for select', select);
+        console.error('Tocs.getSpec(id) spec null for select', select);
         this.infoSpecs();
       }
       return null;
@@ -198,7 +198,7 @@ Tocs = (function() {
       var htm;
       spec.liId = this.htmlId(spec, 'LI');
       spec.ulId = this.htmlId(spec, 'UL');
-      //console.log( 'UI.Tocs htmlBeg()', spec.id, spec.liId, spec.ulId )
+      //console.log( 'Tocs htmlBeg()', spec.id, spec.liId, spec.ulId )
       htm = `<li class="${this.classPrefix}li${spec.level}" id="${spec.liId}" >`;
       htm += `${this.htmIconName(spec)}`;
       if (spec.hasChild) {

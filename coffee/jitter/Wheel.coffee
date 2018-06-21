@@ -1,5 +1,4 @@
 
-
 class Wheel
 
   constructor:( @publish, @opacity ) ->

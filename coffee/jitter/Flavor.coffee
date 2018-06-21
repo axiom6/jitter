@@ -1,9 +1,9 @@
 
 `import Util  from '../util/Util.js'`
 `import UI    from '../ui/UI.js'`
+`import Vis   from '../vis/Vis.js'`
 `import Dom   from '../ui/Dom.js'`
 `import Base  from '../ui/Base.js'`
-`import Vis   from '../vis/Vis.js'`
 `import Wheel from '../jitter/Wheel.js'`
 
 class Flavor extends Base
@@ -26,7 +26,8 @@ class Flavor extends Base
     @stream.subscribe( 'Choice', name, (choice) => @onChoice(choice) ) if name is 'Flavor'
     return
 
-  ready:() ->
+  ready:( cname ) ->
+    Util.noop( cname )
     url   = "json/flavor.choice.json"
     scale = 1.1
     divId = @ui.getHtmlId( "Wheel", @pane.name )

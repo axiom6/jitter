@@ -1,8 +1,8 @@
-import Util from '../util/Util.js';
-import UI   from '../ui/UI.js';
-import Dom  from '../ui/Dom.js';
-import Vis  from '../vis/Vis.js';
-import Base from '../ui/Base.js';
+import Util  from '../util/Util.js';
+import Vis   from '../vis/Vis.js';
+import UI    from '../ui/UI.js';
+import Dom   from '../ui/Dom.js';
+import Base  from '../ui/Base.js';
 var Roast,
   hasProp = {}.hasOwnProperty,
   boundMethodCheck = function(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new Error('Bound instance method accessed before binding'); } };
@@ -22,8 +22,9 @@ Roast = (function() {
       });
     }
 
-    ready() {
+    ready(cname) {
       var $p, $r, dx, key, n, ref, roast, spanc, spanr, src, style, x;
+      Util.noop(cname);
       src = "img/roast/RoastsBig.png";
       n = Util.lenObject(this.data);
       x = 0;

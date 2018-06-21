@@ -39,6 +39,16 @@ Stream = class Stream {
     return this.bundles[name] != null;
   }
 
+  logBundles() {
+    var bundle, key, ref;
+    console.log('Stream.Bundles --- ');
+    ref = this.bundles;
+    for (key in ref) {
+      bundle = ref[key];
+      console.log(`  Bundle ${key}`);
+    }
+  }
+
   // Get a subject by name. Create a new one if need with a warning
   getBundle(name, warn = true) {
     if (this.bundles[name] == null) {

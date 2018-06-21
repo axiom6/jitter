@@ -18,30 +18,37 @@ Jitter = (function() {
   class Jitter {
     static init() {
       UI.hasPack = true;
-      UI.hasPage = false;
       UI.hasTocs = false;
       UI.hasLays = false;
       UI.local = "http://localhost:63342/jitter/public/"; // Every app needs to change this
       UI.hosted = "https://jitter-48413.firebaseapp.com/"; // Every app needs to change this
       Util.ready(function() {
-        var infoSpec, jitter, stream, subjects, ui;
+        var infoSpec, subjects;
         subjects = ["Ready", "Select", "Choice", "Roast", "Region", "Prefs", "Test"];
         infoSpec = {
           subscribe: false,
           publish: false,
           subjects: ["Select", "Choice", "Region", "Prefs", "Test"]
         };
-        stream = new Stream(subjects, infoSpec);
-        ui = new UI(stream, "json/toc.json", 'Jitter'); // , Jitter.NavbSpecs
-        jitter = new Jitter(stream, ui);
-        Util.noop(jitter);
+        Jitter.stream = new Stream(subjects, infoSpec);
+        Jitter.stream.subscribe("Ready", "Jitter", () => {
+          return Jitter.onUI();
+        });
+        Jitter.ui = new UI(Jitter.stream, "json/toc.json", 'Jitter');
       });
     }
 
-    constructor(stream1, ui1) {
+    static onUI() {
+      var jitter;
+      jitter = new Jitter(Jitter.stream, Jitter.ui);
+      jitter.onReady();
+    }
+
+    constructor(stream, ui) {
+      //@stream.subscribe( "Ready", "Jitter", () => @onReady() )
       this.onReady = this.onReady.bind(this);
-      this.stream = stream1;
-      this.ui = ui1;
+      this.stream = stream;
+      this.ui = ui;
       //interact = new Interact( @stream, @ui, "Interact", Jitter.SpecInteract )
       this.flavor = new Flavor(this.stream, this.ui, "Flavor");
       this.summaryt = new Summary(this.stream, this.ui, "Summaryt");
@@ -55,15 +62,13 @@ Jitter = (function() {
       this.summarym = new Summary(this.stream, this.ui, "Summarym");
       this.user = new User(this.stream, this);
       this.prefs = new Prefs(this.stream);
-      this.stream.subscribe("Ready", "Jitter", () => {
-        return this.onReady();
-      });
     }
 
     onReady() {
       var select;
-      this.ui.pagesReady();
+      this.ui.pagesReady('None');
       this.ui.view.hideAll('Interact');
+      //@stream.logBundles()
       select = UI.toTopic('Taste', 'Jitter', UI.SelectPack);
       return this.stream.publish('Select', select);
     }

@@ -1,9 +1,10 @@
 
-`import Util from '../util/Util.js'`
-`import UI   from '../ui/UI.js'`
-`import Dom  from '../ui/Dom.js'`
-`import Vis  from '../vis/Vis.js'`
-`import Base from '../ui/Base.js'`
+
+`import Util  from '../util/Util.js'`
+`import Vis   from '../vis/Vis.js'`
+`import UI    from '../ui/UI.js'`
+`import Dom   from '../ui/Dom.js'`
+`import Base  from '../ui/Base.js'`
 
 class Roast extends Base
 
@@ -24,7 +25,8 @@ class Roast extends Base
     @data = Roast.Table
     @stream.subscribe( 'Choice', 'Roast', (choice) => @onChoice(choice) )
 
-  ready:() ->
+  ready:( cname ) ->
+    Util.noop( cname )
     src = "img/roast/RoastsBig.png"
     n   = Util.lenObject( @data )
     x   = 0

@@ -5,6 +5,10 @@ var Dom,
 
 Dom = (function() {
   class Dom {
+    constructor() {
+      this.dummy = "";
+    }
+
     // ------ Tag Attributes ------
     static klass(name) {
       //console.log( 'Dom.klass()', { name:name } )
@@ -67,45 +71,12 @@ Dom = (function() {
       }
       htm = "<div class=\"dom-wrapp\" style=\"display:grid; width:100%; height:100%;\">";
       if (src != null) {
-        htm += `<img class="dom-image" style="justify-self:center; align-self:center; max-height:${mh}vh; max-width:${mw}vw; border-radius:${radius};" src="${src}"/>`;
+        htm += `<img class="dom-image" style="justify-self:center; align-self:center; max-height:${mh}%; max-width:${mw}%; border-radius:${radius};" src="${src}"/>`;
       }
       if (Util.isStr(label)) {
         htm += `<div class="dom-label" style="${tstyle}">${label}</div>`;
       }
       htm += "</div>";
-      return htm;
-    }
-
-    static image2(x, y, w, h, src, mh, label = "", radius = "6px", mw = 60) {
-      var htm, tstyle;
-      tstyle = src != null ? `padding-top:3px; font-size:${mh * 0.3}vh` : `font-size:${mh * 0.3}vh;`;
-      htm = "<div style=\"display:grid; witth:100%; height:100%;\">";
-      htm += "<div style=\"justify-self:center; align-self:center;\">";
-      if (src != null) {
-        htm += `<img style="max-height:${mh}vh; max-width:${mw}vw; border-radius:${radius};" src="${src}"/>`;
-      }
-      if (Util.isStr(label)) {
-        htm += `<div style="${tstyle}">${label}</div>`;
-      }
-      htm += "</div></div>";
-      return htm;
-    }
-
-    static image1(x, y, w, h, src, mh, label = "", radius = "6px", mw = 60) {
-      var htm, klass, tstyle;
-      klass = src != null ? "image" : "texts";
-      tstyle = src != null ? `padding-top:3px; font-size:${mh * 0.3}vh` : `text-align:center; font-size:${mh * 0.3
-      // max-width:#{mh*4}vmin;
-}vh;`;
-      htm = `<div class="${klass}" style="position:absolute; left:${x}%; top:${y}%; width:${w}%; height:${h}%;">`;
-      htm += "<div style=\"display:flex;\">";
-      if (src != null) {
-        htm += `<img style="justify-self:center; align-self:center; max-height:${mh}vh; max-width:${mw}vw; border-radius:${radius};" src="${src}"/>`;
-      }
-      if (Util.isStr(label)) {
-        htm += `<div class="label" style="${tstyle}">${label}</div>`;
-      }
-      htm += "</div></div>";
       return htm;
     }
 
@@ -278,7 +249,7 @@ Dom = (function() {
         icon = (src == null) && study.icon ? study.icon : null;
         iconc = (icon != null) && study.iconc ? study.iconc : null; // icon color
         back = study.back != null ? study.back : "#3B5999";
-        mh = spec.pane.toVh(dy * 0.5);
+        mh = 90;
         $e = $(Dom.btn(x, y, w, dy, back, study.name, icon, iconc, src, mh));
         Dom.addWidgetBtn(widget, key, $e);
         Dom.onEvents(stream, widget, spec, key, study);
@@ -290,14 +261,15 @@ Dom = (function() {
     }
 
     static btn(x, y, w, h, back = "#3B5999", label = null, icon = null, iconc = null, src = null, mh = null) {
-      var htm;
+      var htm, mvh;
+      mvh = w * mh * 0.001;
       htm = `<div style="position:absolute; left:${x}%; top:${y}%; width:${w}%; height:${h}%;">`;
-      htm += `<button class="btn-nice" style="background-color:${back}">`;
+      htm += `<button class="btn-nice" style="max-height:${mh}%; background-color:${back}">`;
       if ((icon != null) && (iconc != null)) {
         htm += `<i      class="btn-icons ${icon} fa-lg" style="color:${iconc}"></i>`;
       }
       if ((src != null) && (mh != null)) {
-        htm += `<img    class="btn-image" style="max-height:${mh}vh;" src="${src}"/>`;
+        htm += `<img    class="btn-image" style="max-height:${mvh}vh;" src="${src}"/>`;
       }
       if (label != null) {
         htm += `<div    class="btn-label">${label}</div>`;

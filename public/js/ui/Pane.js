@@ -193,11 +193,9 @@ Pane = class Pane {
   }
 
   navArrows($p) {
-    var fontpc, fontvw, leftpc, leftvw;
-    fontpc = 50;
-    leftpc = (100 - fontpc) * 0.5;
-    fontvw = this.toVw(fontpc) + 'vw';
-    leftvw = this.toVw(leftpc) + 'vw';
+    var fontvw, leftvw;
+    fontvw = this.toVw(33) + 'vw';
+    leftvw = '25%';
     if (this.spec['bak'] != null) {
       this.navIcon('bak', leftvw, fontvw, this.spec['bak'], $p);
     }

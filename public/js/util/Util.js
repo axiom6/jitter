@@ -3,49 +3,65 @@ var Util,
 
 Util = (function() {
   class Util {
+    constructor() {
+      this.dummy = "";
+    }
+
     // ------ Modules ------
-    static init(moduleCommonJS = void 0, moduleWebPack = void 0, root = '../../') {
-      Util.root = root;
-      Util.rootJS = Util.root + 'js/';
-      Util.resetModuleExports();
-      Util.fixTestGlobals();
-      if (Util.isCommonJS && (moduleCommonJS != null)) {
-        require(moduleCommonJS);
-      } else if (Util.isWebPack && (moduleWebPack != null)) {
-        Util.skipReady = true;
-        Util.loadScript(moduleWebPack);
-      } else {
-        console.error(`Bad arguments for Util.init() isCommonJS=${Util.isCommonJS},\nroot=${root}, moduleCommonJS=${(moduleCommonJS != null)}, moduleWebPack=${moduleWebPack}`);
-      }
-    }
+    /*
+    Util.module     =  if window['module']? then window['module'] else null
+    if Util.module? and typeof Util.module is "object" and typeof Util.module.exports  is "object"
+      Util.isCommonJS = true
+    else
+      Util.isWebPack  = true
 
-    static initJasime() {
-      Util.resetModuleExports();
-      if (!Util.isCommonJS) {
-        window.require = Util.loadScript;
-      } else {
-        Util.fixTestGlobals();
-        window.exports = Util.module.exports;
-        window.jasmineRequire = window.exports;
-      }
-    }
+    @init:( moduleCommonJS=undefined, moduleWebPack=undefined, root='../../'  ) ->
+      Util.root   = root
+      Util.rootJS = Util.root + 'js/'
+      Util.resetModuleExports()
+      Util.fixTestGlobals()
+      if     Util.isCommonJS and moduleCommonJS?
+        require( moduleCommonJS )
+      else if Util.isWebPack and moduleWebPack?
+        Util.skipReady = true
+        Util.loadScript( moduleWebPack )
+      else
+        console.error( """Bad arguments for Util.init() isCommonJS=#{Util.isCommonJS},
+          root=#{root}, moduleCommonJS=#{moduleCommonJS?}, moduleWebPack=#{moduleWebPack}""" )
+      return
 
-    // Use to to prevent dynamic resolve in webpack where Util is not included
-    // Need require for WebPath. For now can only warn
-    static require(path) {
-      if (Util.isCommonJS) {
-        return require(path);
-      } else {
-        Util.warn('Util.require may not work with WebPack', path);
-        return require(path);
-      }
-    }
+    @initJasime:() ->
+      Util.resetModuleExports()
+      if not Util.isCommonJS
+        window.require = Util.loadScript
+      else
+        Util.fixTestGlobals()
+        window.exports        = Util.module.exports
+        window.jasmineRequire = window.exports
+      return
 
-    static fixTestGlobals() {
-      window.Util = Util;
-      return window.xUtil = Util;
-    }
+     * Use to to prevent dynamic resolve in webpack where Util is not included
+     * Need require for WebPath. For now can only warn
+    @require:( path ) ->
+      if Util.isCommonJS
+        require( path )
+      else
+        Util.warn( 'Util.require may not work with WebPack', path )
+        require( path )
 
+    @fixTestGlobals:() ->
+      window.Util           = Util
+      window.xUtil          = Util
+
+    @resetModuleExports:() ->
+      if Util.isCommonJS
+         Util.module = require('module')
+         Util.module.globalPaths.push("/Users/ax/Documents/prj/ui/")
+         #window.global = window
+         #console.log( "Node Module Paths", Util.module.globalPaths )
+      return
+
+     */
     static loadScript(path, fn) {
       var head, script;
       head = document.getElementsByTagName('head')[0];
@@ -58,15 +74,6 @@ Util = (function() {
       head.appendChild(script);
     }
 
-    static resetModuleExports() {
-      if (Util.isCommonJS) {
-        Util.module = require('module');
-        Util.module.globalPaths.push("/Users/ax/Documents/prj/ui/");
-      }
-    }
-
-    //window.global = window
-    //console.log( "Node Module Paths", Util.module.globalPaths )
     static ready(fn) {
       if (!Util.isFunc(fn)) { // Sanity check
         return;
@@ -965,14 +972,6 @@ Util = (function() {
   Util.isCommonJS = false;
 
   Util.isWebPack = false;
-
-  Util.module = window['module'] != null ? window['module'] : null;
-
-  if ((Util.module != null) && typeof Util.module === "object" && typeof Util.module.exports === "object") {
-    Util.isCommonJS = true;
-  } else {
-    Util.isWebPack = true;
-  }
 
   Util.Load = null;
 

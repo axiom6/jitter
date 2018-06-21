@@ -15,8 +15,9 @@ Summary = class Summary extends Base {
     this.flavors = [];
   }
 
-  ready() {
+  ready(cname) {
     boundMethodCheck(this, Summary);
+    Util.noop(cname);
     this.$pane = Dom.tree(this.stream, this.spec, 'Summary', this, 6, 13);
     this.subscribe();
     return this.$pane;

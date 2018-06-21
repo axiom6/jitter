@@ -14,24 +14,26 @@
 `import User     from '../jitter/User.js'`
 `import Prefs    from '../jitter/Prefs.js'`
 
-
 class Jitter
 
   @init = () ->
     UI.hasPack = true
-    UI.hasPage = false
     UI.hasTocs = false
     UI.hasLays = false
     UI.local   = "http://localhost:63342/jitter/public/" # Every app needs to change this
     UI.hosted  = "https://jitter-48413.firebaseapp.com/" # Every app needs to change this
     Util.ready ->
-      subjects = ["Ready","Select","Choice","Roast","Region","Prefs","Test"]
-      infoSpec = { subscribe:false, publish:false, subjects:["Select","Choice","Region","Prefs","Test"]}
-      stream   = new Stream( subjects, infoSpec )
-      ui       = new UI( stream, "json/toc.json", 'Jitter' ) # , Jitter.NavbSpecs
-      jitter   = new Jitter( stream, ui )
-      Util.noop( jitter )
+      subjects      = ["Ready","Select","Choice","Roast","Region","Prefs","Test"]
+      infoSpec      = { subscribe:false, publish:false, subjects:["Select","Choice","Region","Prefs","Test"]}
+      Jitter.stream = new Stream( subjects, infoSpec )
+      Jitter.stream.subscribe( "Ready", "Jitter", () => Jitter.onUI() )
+      Jitter.ui     = new UI( Jitter.stream, "json/toc.json", 'Jitter' )
       return
+    return
+
+  @onUI:() =>
+    jitter = new Jitter( Jitter.stream, Jitter.ui )
+    jitter.onReady()
     return
 
   @SpecInteract = {
@@ -54,11 +56,12 @@ class Jitter
     @summarym = new Summary(  @stream, @ui, "Summarym"   )
     @user     = new User(     @stream, @ )
     @prefs    = new Prefs(    @stream )
-    @stream.subscribe( "Ready", "Jitter", () => @onReady() )
+    #@stream.subscribe( "Ready", "Jitter", () => @onReady() )
 
   onReady:() =>
-    @ui.pagesReady()
+    @ui.pagesReady( 'None' )
     @ui.view.hideAll( 'Interact' )
+    #@stream.logBundles()
     select = UI.toTopic( 'Taste', 'Jitter', UI.SelectPack )
     @stream.publish( 'Select', select )
 
