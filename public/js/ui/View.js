@@ -322,15 +322,17 @@ View = class View {
   createPanes(specs) {
     var pane, panes, pkey, pspec;
     panes = [];
+// and not ( pspec.show? and not pspec.show )
     for (pkey in specs) {
       if (!hasProp.call(specs, pkey)) continue;
       pspec = specs[pkey];
-      if (!(UI.isChild(pkey) && !((pspec.show != null) && !pspec.show))) {
+      if (!(UI.isChild(pkey))) {
         continue;
       }
       pane = new Pane(this.ui, this.stream, this, pspec);
       panes.push(pane);
     }
+    //console.log( 'View.createPanes()', panes )
     if (UI.hasPack) {
       return panes;
     } else {
@@ -372,7 +374,7 @@ View = class View {
 
   jmin(cells) {
     if (cells == null) {
-      Util.trace('UI.jmin');
+      console.trace();
     }
     return [cells[0] - 1, cells[1], cells[2] - 1, cells[3]];
   }

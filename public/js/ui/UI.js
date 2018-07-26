@@ -8,27 +8,21 @@ var UI,
 
 UI = (function() {
   class UI {
-    constructor(stream, jsonPath, planeName = 'None', navbs = null) {
-      var callback;
+    constructor(stream, specs, navbs = null) {
       this.pagesReady = this.pagesReady.bind(this);
       this.resize = this.resize.bind(this);
       this.stream = stream;
-      this.jsonPath = jsonPath;
-      this.planeName = planeName;
+      this.specs = specs;
       this.navbs = navbs;
       this.pages = {};
-      callback = (data) => {
-        this.specs = this.createSpecs(data);
-        if (this.navbs != null) {
-          this.navb = new Navb(this, this.stream, this.navbs);
-        }
-        if (UI.hasTocs) {
-          this.tocs = new Tocs(this, this.stream, this.specs);
-        }
-        this.view = new View(this, this.stream, this.specs);
-        return this.ready();
-      };
-      UI.readJSON(this.jsonPath, callback);
+      if (this.navbs != null) {
+        this.navb = new Navb(this, this.stream, this.navbs);
+      }
+      if (UI.hasTocs) {
+        this.tocs = new Tocs(this, this.stream, this.specs);
+      }
+      this.view = new View(this, this.stream, this.specs);
+      this.ready();
     }
 
     addPage(name, page) {
@@ -55,7 +49,7 @@ UI = (function() {
       }
     }
 
-    pagesReady(cname) {
+    pagesReady(cname, append = true) {
       var name, page, pane, ref;
       ref = this.pages;
       for (name in ref) {
@@ -65,95 +59,16 @@ UI = (function() {
         page.pane = pane;
         page.name = pane.name;
         page.spec = pane.spec;
-        page.$pane = page.ready(cname);
-        page.isSvg = this.isElem(page.$pane.find('svg')) && page.pane.name !== 'Flavor';
-        if (!page.isSvg) {
-          pane.$.append(page.$pane);
-        }
-      }
-    }
-
-    createSpecs(data) {
-      var specs;
-      this.nrowncol(data);
-      specs = UI.hasPack ? this.createPacks(data) : this.createPracs(data);
-      if (this.stream.infoSpec.subscribe && this.stream.isInfo('Select')) {
-        console.info('UI.createSpecs()', {
-          pack: UI.hasPack,
-          specs
-        });
-      }
-      return specs;
-    }
-
-    createPacks(data) {
-      var gkey, pack;
-      for (gkey in data) {
-        pack = data[gkey];
-        if (!(UI.isChild(gkey))) {
-          continue;
-        }
-        pack['name'] = gkey;
-        data[gkey] = pack;
-        pack.practices = {};
-        this.createPracs(pack);
-      }
-      return data;
-    }
-
-    createPracs(data) {
-      var ikey, item, pkey, practice, skey, study, tkey, topic;
-      for (pkey in data) {
-        practice = data[pkey];
-        if (!(UI.isChild(pkey))) {
-          continue;
-        }
-        if (practice['name'] == null) {
-          practice['name'] = pkey;
-        }
-        practice.studies = {};
-        if (data.practices != null) {
-          data.practices[pkey] = practice;
-        }
-        for (skey in practice) {
-          study = practice[skey];
-          if (!(UI.isChild(skey))) {
-            continue;
+        if (append) {
+          page.$pane = page.ready(cname);
+          page.isSvg = this.isElem(page.$pane.find('svg')) && page.pane.name !== 'Flavor';
+          if (!page.isSvg) {
+            pane.$.append(page.$pane);
           }
-          if (study['name'] == null) {
-            study['name'] = skey;
-          }
-          study.topics = {};
-          practice.studies[skey] = study;
-          for (tkey in study) {
-            topic = study[tkey];
-            if (!(UI.isChild(tkey))) {
-              continue;
-            }
-            if (topic['name'] == null) {
-              topic['name'] = tkey;
-            }
-            topic.items = {};
-            study.topics[tkey] = topic;
-            for (ikey in topic) {
-              item = topic[ikey];
-              if (!(UI.isChild(ikey))) {
-                continue;
-              }
-              if (item['name'] == null) {
-                item['name'] = ikey;
-              }
-              topic.items[ikey] = item;
-            }
-          }
+        } else {
+          page.ready(cname);
         }
       }
-      return data;
-    }
-
-    nrowncol(data) {
-      UI.nrow = data.nrow != null ? data.nrow : UI.nrow;
-      return UI.ncol = data.ncol != null ? data.ncol : UI.ncol;
     }
 
     html() {
@@ -222,6 +137,76 @@ UI = (function() {
       return ($elem != null) && ($elem.length != null) && $elem.length > 0;
     }
 
+    static createPacks(data) {
+      var gkey, pack;
+      for (gkey in data) {
+        pack = data[gkey];
+        if (!(UI.isChild(gkey))) {
+          continue;
+        }
+        pack['name'] = gkey;
+        data[gkey] = pack;
+        pack.practices = {};
+        this.createPracs(pack);
+      }
+      return data;
+    }
+
+    static createPracs(data) {
+      var ikey, item, pkey, practice, skey, study, tkey, topic;
+      for (pkey in data) {
+        practice = data[pkey];
+        if (!(UI.isChild(pkey))) {
+          continue;
+        }
+        if (practice['name'] == null) {
+          practice['name'] = pkey;
+        }
+        practice.studies = {};
+        if (data.practices != null) {
+          data.practices[pkey] = practice;
+        }
+        for (skey in practice) {
+          study = practice[skey];
+          if (!(UI.isChild(skey))) {
+            continue;
+          }
+          if (study['name'] == null) {
+            study['name'] = skey;
+          }
+          study.topics = {};
+          practice.studies[skey] = study;
+          for (tkey in study) {
+            topic = study[tkey];
+            if (!(UI.isChild(tkey))) {
+              continue;
+            }
+            if (topic['name'] == null) {
+              topic['name'] = tkey;
+            }
+            topic.items = {};
+            study.topics[tkey] = topic;
+            for (ikey in topic) {
+              item = topic[ikey];
+              if (!(UI.isChild(ikey))) {
+                continue;
+              }
+              if (item['name'] == null) {
+                item['name'] = ikey;
+              }
+              topic.items[ikey] = item;
+            }
+          }
+        }
+      }
+      return data;
+    }
+
+    static nrowncol(data) {
+      UI.nrow = 3; // if data.nrow? then data.nrow else UI.nrow
+      return UI.ncol = 3; // if data.ncol? then data.ncol else UI.ncol
+    }
+
     static jQueryHasNotBeenLoaded() {
       if (typeof jQuery === 'undefined') {
         console.error('UI JQuery has not been loaded');
@@ -258,6 +243,26 @@ UI = (function() {
         });
       };
       $.ajax(settings);
+    }
+
+    static syncJSON(path) {
+      var jqxhr;
+      jqxhr = $.ajax({
+        type: "GET",
+        url: path,
+        dataType: 'json',
+        cache: false,
+        async: false
+      });
+      return jqxhr['responseJSON'];
+    }
+
+    static pracJSON(path) {
+      return UI.createPracs(UI.syncJSON(path));
+    }
+
+    static packJSON(path) {
+      return UI.createPacks(UI.syncJSON(path));
     }
 
     static isChild(key) {

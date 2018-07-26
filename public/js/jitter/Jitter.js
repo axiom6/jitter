@@ -23,7 +23,7 @@ Jitter = (function() {
       UI.local = "http://localhost:63342/jitter/public/"; // Every app needs to change this
       UI.hosted = "https://jitter-48413.firebaseapp.com/"; // Every app needs to change this
       Util.ready(function() {
-        var infoSpec, subjects;
+        var infoSpec, jitter, subjects;
         subjects = ["Ready", "Select", "Choice", "Roast", "Region", "Prefs", "Test"];
         infoSpec = {
           subscribe: false,
@@ -31,17 +31,10 @@ Jitter = (function() {
           subjects: ["Select", "Choice", "Region", "Prefs", "Test"]
         };
         Jitter.stream = new Stream(subjects, infoSpec);
-        Jitter.stream.subscribe("Ready", "Jitter", () => {
-          return Jitter.onUI();
-        });
-        Jitter.ui = new UI(Jitter.stream, "json/toc.json", 'Jitter');
+        Jitter.ui = new UI(Jitter.stream, Jitter.Tocs);
+        jitter = new Jitter(Jitter.stream, Jitter.ui);
+        jitter.onReady();
       });
-    }
-
-    static onUI() {
-      var jitter;
-      jitter = new Jitter(Jitter.stream, Jitter.ui);
-      jitter.onReady();
     }
 
     constructor(stream, ui) {
@@ -82,6 +75,8 @@ Jitter = (function() {
     }
 
   };
+
+  Jitter.Tocs = UI.packJSON('json/toc.json');
 
   Jitter.SpecInteract = {
     Taste: {

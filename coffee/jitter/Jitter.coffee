@@ -16,6 +16,8 @@
 
 class Jitter
 
+  Jitter.Tocs = UI.packJSON( 'json/toc.json' )
+
   @init = () ->
     UI.hasPack = true
     UI.hasTocs = false
@@ -26,14 +28,10 @@ class Jitter
       subjects      = ["Ready","Select","Choice","Roast","Region","Prefs","Test"]
       infoSpec      = { subscribe:false, publish:false, subjects:["Select","Choice","Region","Prefs","Test"]}
       Jitter.stream = new Stream( subjects, infoSpec )
-      Jitter.stream.subscribe( "Ready", "Jitter", () => Jitter.onUI() )
-      Jitter.ui     = new UI( Jitter.stream, "json/toc.json", 'Jitter' )
+      Jitter.ui     = new UI( Jitter.stream, Jitter.Tocs )
+      jitter        = new Jitter( Jitter.stream, Jitter.ui )
+      jitter.onReady()
       return
-    return
-
-  @onUI:() =>
-    jitter = new Jitter( Jitter.stream, Jitter.ui )
-    jitter.onReady()
     return
 
   @SpecInteract = {
