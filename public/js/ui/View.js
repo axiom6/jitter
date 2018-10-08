@@ -252,7 +252,6 @@ View = class View {
       for (k = 0, len = ref.length; k < len; k++) {
         pane = ref[k];
         pane.show();
-        //left,top,width,height] = @positionUnionPane( pack.cells, pane.cells, pane.spec, @wscale, @hscale )
         [left, top, width, height] = this.positionPane(pane.cells, pane.spec, this.wscale, this.hscale);
         pane.intent = select.intent;
         pane.animate(left, top, width, height, select, true, callback);

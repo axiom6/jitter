@@ -6,12 +6,13 @@ var Page,
   hasProp = {}.hasOwnProperty;
 
 Page = class Page {
-  constructor(stream, ui, name1) {
+  constructor(stream, ui, name1, content1 = null) {
     this.ready = this.ready.bind(this);
     this.onContent = this.onContent.bind(this);
     this.stream = stream;
     this.ui = ui;
     this.name = name1;
+    this.content = content1;
     this.ui.addPage(this.name, this);
     this.pane = this.ui.view.getPane(this.name);
     this.spec = this.pane.spec;
@@ -32,20 +33,15 @@ Page = class Page {
   }
 
   ready(cname) {
-    var $c, content, empty;
-    empty = Util.isObjEmpty(this.contents[cname]);
+    var $c, myContent;
+    //empty  = Util.isObjEmpty( @contents[cname] )
     //console.info('Page.ready()', { name:@name, cname:cname, empty:empty } ) if @stream.isInfo('Content')
-    content = this.ui.createContent(this.pane, this, cname);
-    $c = content.ready();
-    content.layout();
-    this.contents[cname] = content;
+    myContent = this.content ? this.content(this.pane, this, cname) : new Icon(this.stream, this.ui, this.pane, this);
+    $c = myContent.ready();
+    myContent.layout();
+    this.contents[cname] = myContent;
     this.cname = cname;
     return $c;
-  }
-
-  createContent(cname) {
-    Util.noop(cname);
-    return new Icon(this.stream, this.ui, this.pane, this);
   }
 
   subscribe() {

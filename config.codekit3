@@ -1,5 +1,5 @@
 {
-"AAInfo": "This is a CodeKit 3 project config file. MODIFYING THE CONTENTS OF THIS FILE IS A POOR LIFE DECISION. Doing so will cause CodeKit to crash and\/or corrupt your project. I know it looks like JSON, but it is *not*. Many numbers in this file are 64-bit long long bitFlags, which JSON does not support. These numbers *cannot* be treated as discrete values and if you attempt to parse this file as standard JSON with any public JSON parser, these values will be corrupted. This file is not backwards-compatible with CodeKit 1 or 2. For more information, see https:\/\/codekitapp.com\/",
+"AAInfo": "This is a CodeKit 3 project config file. MODIFYING THE CONTENTS OF THIS FILE IS A POOR LIFE DECISION. Doing so will cause CodeKit to crash and/or corrupt your project. I know it looks like JSON, but it is *not*. Many numbers in this file are 64-bit long long bitFlags, which JSON does not support. These numbers *cannot* be treated as discrete values and if you attempt to parse this file as standard JSON with any public JSON parser, these values will be corrupted. This file is not backwards-compatible with CodeKit 1 or 2. For more information, see https://codekitapp.com/",
 "buildSteps": [
 	{
 		"name": "Process All Remaining Files and Folders",
@@ -7,584 +7,584 @@
 		"uuidString": "05CD4362-52FB-49EC-B4AE-6DD3F0E73526"
 		}
 	],
-"creatorBuild": "26680",
+"creatorBuild": "28901",
 "files": {
-	"\/.firebaserc": {
+	"/.firebaserc": {
 		"cB": 0,
 		"ft": 8192,
 		"oA": 0,
-		"oAP": "\/.firebaserc",
+		"oAP": "/.firebaserc",
 		"oF": 0
 		},
-	"\/.gitignore": {
+	"/.gitignore": {
 		"cB": 0,
 		"ft": 8192,
 		"oA": 0,
-		"oAP": "\/.gitignore",
+		"oAP": "/.gitignore",
 		"oF": 0
 		},
-	"\/.idea": {
+	"/.idea": {
 		"ft": 65536,
 		"oA": 1,
-		"oAP": "\/build\/.idea",
+		"oAP": "/build/.idea",
 		"oF": 0
 		},
-	"\/coffee\/jitter\/Body.coffee": {
+	"/coffee/jitter/Body.coffee": {
 		"ft": 32,
 		"ma": 0,
 		"mi": 0,
 		"oA": 0,
-		"oAP": "\/public\/js\/jitter\/Body.js",
+		"oAP": "/public/js/jitter/Body.js",
 		"oF": 0,
 		"oS": 1,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/coffee\/jitter\/Brew.coffee": {
+	"/coffee/jitter/Brew.coffee": {
 		"ft": 32,
 		"ma": 0,
 		"mi": 0,
 		"oA": 0,
-		"oAP": "\/public\/js\/jitter\/Brew.js",
+		"oAP": "/public/js/jitter/Brew.js",
 		"oF": 0,
 		"oS": 1,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/coffee\/jitter\/Drink.coffee": {
+	"/coffee/jitter/Drink.coffee": {
 		"ft": 32,
 		"ma": 0,
 		"mi": 0,
 		"oA": 0,
-		"oAP": "\/public\/js\/jitter\/Drink.js",
+		"oAP": "/public/js/jitter/Drink.js",
 		"oF": 0,
 		"oS": 1,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/coffee\/jitter\/Flavor.coffee": {
+	"/coffee/jitter/Flavor.coffee": {
 		"ft": 32,
 		"ma": 0,
 		"mi": 0,
 		"oA": 0,
-		"oAP": "\/public\/js\/jitter\/Flavor.js",
+		"oAP": "/public/js/jitter/Flavor.js",
 		"oF": 0,
 		"oS": 1,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/coffee\/jitter\/Interact.coffee": {
+	"/coffee/jitter/Interact.coffee": {
 		"ft": 32,
 		"ma": 0,
 		"mi": 0,
 		"oA": 0,
-		"oAP": "\/public\/js\/jitter\/Interact.js",
+		"oAP": "/public/js/jitter/Interact.js",
 		"oF": 0,
 		"oS": 1,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/coffee\/jitter\/Jitter.coffee": {
+	"/coffee/jitter/Jitter.coffee": {
 		"ft": 32,
 		"ma": 0,
 		"mi": 0,
 		"oA": 0,
-		"oAP": "\/public\/js\/jitter\/Jitter.js",
+		"oAP": "/public/js/jitter/Jitter.js",
 		"oF": 0,
 		"oS": 1,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/coffee\/jitter\/Prefs.coffee": {
+	"/coffee/jitter/Prefs.coffee": {
 		"ft": 32,
 		"ma": 0,
 		"mi": 0,
 		"oA": 0,
-		"oAP": "\/public\/js\/jitter\/Prefs.js",
+		"oAP": "/public/js/jitter/Prefs.js",
 		"oF": 0,
 		"oS": 1,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/coffee\/jitter\/Region.coffee": {
+	"/coffee/jitter/Region.coffee": {
 		"ft": 32,
 		"ma": 0,
 		"mi": 0,
 		"oA": 0,
-		"oAP": "\/public\/js\/jitter\/Region.js",
+		"oAP": "/public/js/jitter/Region.js",
 		"oF": 0,
 		"oS": 1,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/coffee\/jitter\/Roast.coffee": {
+	"/coffee/jitter/Roast.coffee": {
 		"ft": 32,
 		"ma": 0,
 		"mi": 0,
 		"oA": 0,
-		"oAP": "\/public\/js\/jitter\/Roast.js",
+		"oAP": "/public/js/jitter/Roast.js",
 		"oF": 0,
 		"oS": 1,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/coffee\/jitter\/Summary.coffee": {
+	"/coffee/jitter/Summary.coffee": {
 		"ft": 32,
 		"ma": 0,
 		"mi": 0,
 		"oA": 0,
-		"oAP": "\/public\/js\/jitter\/Summary.js",
+		"oAP": "/public/js/jitter/Summary.js",
 		"oF": 0,
 		"oS": 1,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/coffee\/jitter\/User.coffee": {
+	"/coffee/jitter/User.coffee": {
 		"ft": 32,
 		"ma": 0,
 		"mi": 0,
 		"oA": 0,
-		"oAP": "\/public\/js\/jitter\/User.js",
+		"oAP": "/public/js/jitter/User.js",
 		"oF": 0,
 		"oS": 1,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/coffee\/jitter\/Wheel.coffee": {
+	"/coffee/jitter/Wheel.coffee": {
 		"ft": 32,
 		"ma": 0,
 		"mi": 0,
 		"oA": 0,
-		"oAP": "\/public\/js\/jitter\/Wheel.js",
+		"oAP": "/public/js/jitter/Wheel.js",
 		"oF": 0,
 		"oS": 1,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/coffee\/jitter\/World.coffee": {
+	"/coffee/jitter/World.coffee": {
 		"ft": 32,
 		"ma": 0,
 		"mi": 0,
 		"oA": 0,
-		"oAP": "\/public\/js\/jitter\/World.js",
+		"oAP": "/public/js/jitter/World.js",
 		"oF": 0,
 		"oS": 1,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/firebase.json": {
+	"/firebase.json": {
 		"ft": 524288,
 		"oA": 1,
-		"oAP": "\/firebase-min.json",
+		"oAP": "/firebase-min.json",
 		"oF": 0,
 		"oO": 0,
 		"oS": 1
 		},
-	"\/jitter.iml": {
+	"/jitter.iml": {
 		"cB": 0,
 		"ft": 8192,
 		"oA": 0,
-		"oAP": "\/jitter.iml",
+		"oAP": "/jitter.iml",
 		"oF": 0
 		},
-	"\/less\/btn.less": {
+	"/less/btn.less": {
 		"aP": 0,
 		"bl": 0,
-		"dJ": 0,
+		"eJ": 0,
 		"ft": 1,
 		"ie": 0,
 		"iI": 0,
 		"ma": 0,
+		"mS": 0,
 		"oA": 0,
-		"oAP": "\/public\/css\/btn.css",
+		"oAP": "/public/css/btn.css",
 		"oF": 1,
 		"oS": 0,
-		"rU": 0,
+		"rwU": 0,
 		"sI": 0,
-		"sM": 0,
 		"sU": 0
 		},
-	"\/less\/color.less": {
+	"/less/color.less": {
 		"aP": 0,
 		"bl": 0,
-		"dJ": 0,
+		"eJ": 0,
 		"ft": 1,
 		"ie": 0,
 		"iI": 0,
 		"ma": 0,
+		"mS": 0,
 		"oA": 1,
-		"oAP": "\/public\/css\/color.css",
+		"oAP": "/public/css/color.css",
 		"oF": 0,
 		"oS": 0,
-		"rU": 0,
+		"rwU": 0,
 		"sI": 0,
-		"sM": 0,
 		"sU": 0
 		},
-	"\/less\/fontawesome\/_animated.less": {
+	"/less/fontawesome/_animated.less": {
 		"aP": 0,
 		"bl": 0,
-		"dJ": 0,
+		"eJ": 0,
 		"ft": 1,
 		"ie": 0,
 		"iI": 0,
 		"ma": 0,
+		"mS": 0,
 		"oA": 1,
-		"oAP": "\/public\/css\/fontawesome\/_animated.css",
+		"oAP": "/public/css/fontawesome/_animated.css",
 		"oF": 0,
 		"oS": 0,
-		"rU": 0,
+		"rwU": 0,
 		"sI": 0,
-		"sM": 0,
 		"sU": 0
 		},
-	"\/less\/fontawesome\/_bordered-pulled.less": {
+	"/less/fontawesome/_bordered-pulled.less": {
 		"aP": 0,
 		"bl": 0,
-		"dJ": 0,
+		"eJ": 0,
 		"ft": 1,
 		"ie": 0,
 		"iI": 0,
 		"ma": 0,
+		"mS": 0,
 		"oA": 1,
-		"oAP": "\/public\/css\/fontawesome\/_bordered-pulled.css",
+		"oAP": "/public/css/fontawesome/_bordered-pulled.css",
 		"oF": 0,
 		"oS": 0,
-		"rU": 0,
+		"rwU": 0,
 		"sI": 0,
-		"sM": 0,
 		"sU": 0
 		},
-	"\/less\/fontawesome\/_core.less": {
+	"/less/fontawesome/_core.less": {
 		"aP": 0,
 		"bl": 0,
-		"dJ": 0,
+		"eJ": 0,
 		"ft": 1,
 		"ie": 0,
 		"iI": 0,
 		"ma": 0,
+		"mS": 0,
 		"oA": 1,
-		"oAP": "\/public\/css\/fontawesome\/_core.css",
+		"oAP": "/public/css/fontawesome/_core.css",
 		"oF": 0,
 		"oS": 0,
-		"rU": 0,
+		"rwU": 0,
 		"sI": 0,
-		"sM": 0,
 		"sU": 0
 		},
-	"\/less\/fontawesome\/_fixed-width.less": {
+	"/less/fontawesome/_fixed-width.less": {
 		"aP": 0,
 		"bl": 0,
-		"dJ": 0,
+		"eJ": 0,
 		"ft": 1,
 		"ie": 0,
 		"iI": 0,
 		"ma": 0,
+		"mS": 0,
 		"oA": 1,
-		"oAP": "\/public\/css\/fontawesome\/_fixed-width.css",
+		"oAP": "/public/css/fontawesome/_fixed-width.css",
 		"oF": 0,
 		"oS": 0,
-		"rU": 0,
+		"rwU": 0,
 		"sI": 0,
-		"sM": 0,
 		"sU": 0
 		},
-	"\/less\/fontawesome\/_icons.less": {
+	"/less/fontawesome/_icons.less": {
 		"aP": 0,
 		"bl": 0,
-		"dJ": 0,
+		"eJ": 0,
 		"ft": 1,
 		"ie": 0,
 		"iI": 0,
 		"ma": 0,
+		"mS": 0,
 		"oA": 1,
-		"oAP": "\/public\/css\/fontawesome\/_icons.css",
+		"oAP": "/public/css/fontawesome/_icons.css",
 		"oF": 0,
 		"oS": 0,
-		"rU": 0,
+		"rwU": 0,
 		"sI": 0,
-		"sM": 0,
 		"sU": 0
 		},
-	"\/less\/fontawesome\/_larger.less": {
+	"/less/fontawesome/_larger.less": {
 		"aP": 0,
 		"bl": 0,
-		"dJ": 0,
+		"eJ": 0,
 		"ft": 1,
 		"ie": 0,
 		"iI": 0,
 		"ma": 0,
+		"mS": 0,
 		"oA": 1,
-		"oAP": "\/public\/css\/fontawesome\/_larger.css",
+		"oAP": "/public/css/fontawesome/_larger.css",
 		"oF": 0,
 		"oS": 0,
-		"rU": 0,
+		"rwU": 0,
 		"sI": 0,
-		"sM": 0,
 		"sU": 0
 		},
-	"\/less\/fontawesome\/_list.less": {
+	"/less/fontawesome/_list.less": {
 		"aP": 0,
 		"bl": 0,
-		"dJ": 0,
+		"eJ": 0,
 		"ft": 1,
 		"ie": 0,
 		"iI": 0,
 		"ma": 0,
+		"mS": 0,
 		"oA": 1,
-		"oAP": "\/public\/css\/fontawesome\/_list.css",
+		"oAP": "/public/css/fontawesome/_list.css",
 		"oF": 0,
 		"oS": 0,
-		"rU": 0,
+		"rwU": 0,
 		"sI": 0,
-		"sM": 0,
 		"sU": 0
 		},
-	"\/less\/fontawesome\/_mixins.less": {
+	"/less/fontawesome/_mixins.less": {
 		"aP": 0,
 		"bl": 0,
-		"dJ": 0,
+		"eJ": 0,
 		"ft": 1,
 		"ie": 0,
 		"iI": 0,
 		"ma": 0,
+		"mS": 0,
 		"oA": 1,
-		"oAP": "\/public\/css\/fontawesome\/_mixins.css",
+		"oAP": "/public/css/fontawesome/_mixins.css",
 		"oF": 0,
 		"oS": 0,
-		"rU": 0,
+		"rwU": 0,
 		"sI": 0,
-		"sM": 0,
 		"sU": 0
 		},
-	"\/less\/fontawesome\/_rotated-flipped.less": {
+	"/less/fontawesome/_rotated-flipped.less": {
 		"aP": 0,
 		"bl": 0,
-		"dJ": 0,
+		"eJ": 0,
 		"ft": 1,
 		"ie": 0,
 		"iI": 0,
 		"ma": 0,
+		"mS": 0,
 		"oA": 1,
-		"oAP": "\/public\/css\/fontawesome\/_rotated-flipped.css",
+		"oAP": "/public/css/fontawesome/_rotated-flipped.css",
 		"oF": 0,
 		"oS": 0,
-		"rU": 0,
+		"rwU": 0,
 		"sI": 0,
-		"sM": 0,
 		"sU": 0
 		},
-	"\/less\/fontawesome\/_screen-reader.less": {
+	"/less/fontawesome/_screen-reader.less": {
 		"aP": 0,
 		"bl": 0,
-		"dJ": 0,
+		"eJ": 0,
 		"ft": 1,
 		"ie": 0,
 		"iI": 0,
 		"ma": 0,
+		"mS": 0,
 		"oA": 1,
-		"oAP": "\/public\/css\/fontawesome\/_screen-reader.css",
+		"oAP": "/public/css/fontawesome/_screen-reader.css",
 		"oF": 0,
 		"oS": 0,
-		"rU": 0,
+		"rwU": 0,
 		"sI": 0,
-		"sM": 0,
 		"sU": 0
 		},
-	"\/less\/fontawesome\/_stacked.less": {
+	"/less/fontawesome/_stacked.less": {
 		"aP": 0,
 		"bl": 0,
-		"dJ": 0,
+		"eJ": 0,
 		"ft": 1,
 		"ie": 0,
 		"iI": 0,
 		"ma": 0,
+		"mS": 0,
 		"oA": 1,
-		"oAP": "\/public\/css\/fontawesome\/_stacked.css",
+		"oAP": "/public/css/fontawesome/_stacked.css",
 		"oF": 0,
 		"oS": 0,
-		"rU": 0,
+		"rwU": 0,
 		"sI": 0,
-		"sM": 0,
 		"sU": 0
 		},
-	"\/less\/fontawesome\/_variables.less": {
+	"/less/fontawesome/_variables.less": {
 		"aP": 0,
 		"bl": 0,
-		"dJ": 0,
+		"eJ": 0,
 		"ft": 1,
 		"ie": 0,
 		"iI": 0,
 		"ma": 0,
+		"mS": 0,
 		"oA": 1,
-		"oAP": "\/public\/css\/fontawesome\/_variables.css",
+		"oAP": "/public/css/fontawesome/_variables.css",
 		"oF": 0,
 		"oS": 0,
-		"rU": 0,
+		"rwU": 0,
 		"sI": 0,
-		"sM": 0,
 		"sU": 0
 		},
-	"\/less\/fontawesome\/fa-brands.less": {
+	"/less/fontawesome/fa-brands.less": {
 		"aP": 0,
 		"bl": 0,
-		"dJ": 0,
+		"eJ": 0,
 		"ft": 1,
 		"ie": 0,
 		"iI": 0,
 		"ma": 0,
+		"mS": 0,
 		"oA": 1,
-		"oAP": "\/public\/css\/fontawesome\/fa-brands.css",
+		"oAP": "/public/css/fontawesome/fa-brands.css",
 		"oF": 0,
 		"oS": 0,
-		"rU": 0,
+		"rwU": 0,
 		"sI": 0,
-		"sM": 0,
 		"sU": 0
 		},
-	"\/less\/fontawesome\/fa-regular.less": {
+	"/less/fontawesome/fa-regular.less": {
 		"aP": 0,
 		"bl": 0,
-		"dJ": 0,
+		"eJ": 0,
 		"ft": 1,
 		"ie": 0,
 		"iI": 0,
 		"ma": 0,
+		"mS": 0,
 		"oA": 1,
-		"oAP": "\/public\/css\/fontawesome\/fa-regular.css",
+		"oAP": "/public/css/fontawesome/fa-regular.css",
 		"oF": 0,
 		"oS": 0,
-		"rU": 0,
+		"rwU": 0,
 		"sI": 0,
-		"sM": 0,
 		"sU": 0
 		},
-	"\/less\/fontawesome\/fa-solid.less": {
+	"/less/fontawesome/fa-solid.less": {
 		"aP": 0,
 		"bl": 0,
-		"dJ": 0,
+		"eJ": 0,
 		"ft": 1,
 		"ie": 0,
 		"iI": 0,
 		"ma": 0,
+		"mS": 0,
 		"oA": 1,
-		"oAP": "\/public\/css\/fontawesome\/fa-solid.css",
+		"oAP": "/public/css/fontawesome/fa-solid.css",
 		"oF": 0,
 		"oS": 0,
-		"rU": 0,
+		"rwU": 0,
 		"sI": 0,
-		"sM": 0,
 		"sU": 0
 		},
-	"\/less\/fontawesome\/fontawesome.less": {
+	"/less/fontawesome/fontawesome.less": {
 		"aP": 0,
 		"bl": 0,
-		"dJ": 0,
+		"eJ": 0,
 		"ft": 1,
 		"ie": 0,
 		"iI": 0,
 		"ma": 0,
+		"mS": 0,
 		"oA": 1,
-		"oAP": "\/public\/css\/fontawesome\/fontawesome.css",
+		"oAP": "/public/css/fontawesome/fontawesome.css",
 		"oF": 0,
 		"oS": 0,
-		"rU": 0,
+		"rwU": 0,
 		"sI": 0,
-		"sM": 0,
 		"sU": 0
 		},
-	"\/less\/gradient.less": {
+	"/less/gradient.less": {
 		"aP": 0,
 		"bl": 0,
-		"dJ": 0,
+		"eJ": 0,
 		"ft": 1,
 		"ie": 0,
 		"iI": 0,
 		"ma": 0,
+		"mS": 0,
 		"oA": 1,
-		"oAP": "\/public\/css\/gradient.css",
+		"oAP": "/public/css/gradient.css",
 		"oF": 0,
 		"oS": 0,
-		"rU": 0,
+		"rwU": 0,
 		"sI": 0,
-		"sM": 0,
 		"sU": 0
 		},
-	"\/less\/jitter.less": {
+	"/less/jitter.less": {
 		"aP": 0,
 		"bl": 0,
-		"dJ": 0,
+		"eJ": 0,
 		"ft": 1,
 		"ie": 0,
 		"iI": 0,
 		"ma": 0,
+		"mS": 0,
 		"oA": 0,
-		"oAP": "\/public\/css\/jitter.css",
+		"oAP": "/public/css/jitter.css",
 		"oF": 0,
 		"oS": 0,
-		"rU": 0,
+		"rwU": 0,
 		"sI": 0,
-		"sM": 0,
 		"sU": 0
 		},
-	"\/less\/layout.less": {
+	"/less/layout.less": {
 		"aP": 0,
 		"bl": 0,
-		"dJ": 0,
+		"eJ": 0,
 		"ft": 1,
 		"ie": 0,
 		"iI": 0,
 		"ma": 0,
+		"mS": 0,
 		"oA": 1,
-		"oAP": "\/public\/css\/layout.css",
+		"oAP": "/public/css/layout.css",
 		"oF": 0,
 		"oS": 0,
-		"rU": 0,
+		"rwU": 0,
 		"sI": 0,
-		"sM": 0,
 		"sU": 0
 		},
-	"\/less\/mixin.less": {
+	"/less/mixin.less": {
 		"aP": 0,
 		"bl": 0,
-		"dJ": 0,
+		"eJ": 0,
 		"ft": 1,
 		"ie": 0,
 		"iI": 0,
 		"ma": 0,
+		"mS": 0,
 		"oA": 1,
-		"oAP": "\/public\/css\/mixin.css",
+		"oAP": "/public/css/mixin.css",
 		"oF": 0,
 		"oS": 0,
-		"rU": 0,
+		"rwU": 0,
 		"sI": 0,
-		"sM": 0,
 		"sU": 0
 		},
-	"\/less\/ui.less": {
+	"/less/ui.less": {
 		"aP": 0,
 		"bl": 0,
-		"dJ": 0,
+		"eJ": 0,
 		"ft": 1,
 		"ie": 0,
 		"iI": 0,
 		"ma": 0,
+		"mS": 0,
 		"oA": 1,
-		"oAP": "\/public\/css\/ui.css",
+		"oAP": "/public/css/ui.css",
 		"oF": 0,
 		"oS": 0,
-		"rU": 0,
+		"rwU": 0,
 		"sI": 0,
-		"sM": 0,
 		"sU": 0
 		},
-	"\/public": {
+	"/public": {
 		"ft": 65536,
 		"oA": 1,
-		"oAP": "\/build\/public",
+		"oAP": "/build/public",
 		"oF": 0
 		},
-	"\/README.md": {
+	"/README.md": {
 		"cB": 0,
 		"cS": 0,
 		"eF": 1,
@@ -593,7 +593,7 @@
 		"eSQ": 1,
 		"ft": 4096,
 		"oA": 0,
-		"oAP": "\/README.html",
+		"oAP": "/README.html",
 		"oF": 0,
 		"oFM": 0,
 		"oS": 0,
@@ -602,1083 +602,1083 @@
 		"rFN": 0,
 		"uCM": 0
 		},
-	"\/work\/aaa\/CoffeeCare.txt": {
+	"/work/aaa/CoffeeCare.txt": {
 		"cB": 0,
 		"ft": 8192,
 		"oA": 0,
-		"oAP": "\/work\/aaa\/CoffeeCare.txt",
+		"oAP": "/work/aaa/CoffeeCare.txt",
 		"oF": 0
 		},
-	"\/work\/aaa\/firebase.html": {
+	"/work/aaa/firebase.html": {
 		"cB": 0,
 		"ft": 8192,
 		"oA": 0,
-		"oAP": "\/work\/aaa\/firebase.html",
+		"oAP": "/work/aaa/firebase.html",
 		"oF": 0
 		},
-	"\/work\/aaa\/flavor.css": {
+	"/work/aaa/flavor.css": {
 		"aP": 1,
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
 		"oA": 0,
-		"oAP": "\/work\/aaa\/flavor-min.css",
+		"oAP": "/work/aaa/flavor-min.css",
 		"oF": 0,
 		"oS": 3
 		},
-	"\/work\/aaa\/font-awesome.css": {
+	"/work/aaa/font-awesome.css": {
 		"aP": 1,
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
 		"oA": 0,
-		"oAP": "\/work\/aaa\/font-awesome-min.css",
+		"oAP": "/work/aaa/font-awesome-min.css",
 		"oF": 0,
 		"oS": 3
 		},
-	"\/work\/aaa\/interact.txt": {
+	"/work/aaa/interact.txt": {
 		"cB": 0,
 		"ft": 8192,
 		"oA": 0,
-		"oAP": "\/work\/aaa\/interact.txt",
+		"oAP": "/work/aaa/interact.txt",
 		"oF": 0
 		},
-	"\/work\/aaa\/jitter.html": {
+	"/work/aaa/jitter.html": {
 		"cB": 0,
 		"ft": 8192,
 		"oA": 0,
-		"oAP": "\/work\/aaa\/jitter.html",
+		"oAP": "/work/aaa/jitter.html",
 		"oF": 0
 		},
-	"\/work\/aaa\/Jitter.txt": {
+	"/work/aaa/Jitter.txt": {
 		"cB": 0,
 		"ft": 8192,
 		"oA": 0,
-		"oAP": "\/work\/aaa\/Jitter.txt",
+		"oAP": "/work/aaa/Jitter.txt",
 		"oF": 0
 		},
-	"\/work\/aaa\/maxwell.txt": {
+	"/work/aaa/maxwell.txt": {
 		"cB": 0,
 		"ft": 8192,
 		"oA": 0,
-		"oAP": "\/work\/aaa\/maxwell.txt",
+		"oAP": "/work/aaa/maxwell.txt",
 		"oF": 0
 		},
-	"\/work\/aaa\/plan.txt": {
+	"/work/aaa/plan.txt": {
 		"cB": 0,
 		"ft": 8192,
 		"oA": 0,
-		"oAP": "\/work\/aaa\/plan.txt",
+		"oAP": "/work/aaa/plan.txt",
 		"oF": 0
 		},
-	"\/work\/aaa\/Summary.txt": {
+	"/work/aaa/Summary.txt": {
 		"cB": 0,
 		"ft": 8192,
 		"oA": 0,
-		"oAP": "\/work\/aaa\/Summary.txt",
+		"oAP": "/work/aaa/Summary.txt",
 		"oF": 0
 		},
-	"\/work\/aaa\/webpack.js": {
+	"/work/aaa/webpack.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 0,
-		"oAP": "\/work\/aaa\/webpack-min.js",
+		"oAP": "/work/aaa/webpack-min.js",
 		"oF": 0,
 		"sC": 3,
 		"tS": 0
 		},
-	"\/work\/angles-cup\/AngelsCup'Acidity.jpg": {
+	"/work/angles-cup/AngelsCup'Acidity.jpg": {
 		"ft": 16384,
 		"iS": 92481,
 		"jF": 0,
 		"oA": 0,
-		"oAP": "\/work\/angles-cup\/AngelsCup'Acidity.jpg",
+		"oAP": "/work/angles-cup/AngelsCup'Acidity.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
 		},
-	"\/work\/angles-cup\/AngelsCup.Art.jpg": {
+	"/work/angles-cup/AngelsCup.Art.jpg": {
 		"ft": 16384,
 		"iS": 127604,
 		"jF": 0,
 		"oA": 0,
-		"oAP": "\/work\/angles-cup\/AngelsCup.Art.jpg",
+		"oAP": "/work/angles-cup/AngelsCup.Art.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
 		},
-	"\/work\/angles-cup\/AngelsCup.Color.Taste.Flavor.jpg": {
+	"/work/angles-cup/AngelsCup.Color.Taste.Flavor.jpg": {
 		"ft": 16384,
 		"iS": 100129,
 		"jF": 0,
 		"oA": 0,
-		"oAP": "\/work\/angles-cup\/AngelsCup.Color.Taste.Flavor.jpg",
+		"oAP": "/work/angles-cup/AngelsCup.Color.Taste.Flavor.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
 		},
-	"\/work\/angles-cup\/AngelsCup.Flavors.svg": {
+	"/work/angles-cup/AngelsCup.Flavors.svg": {
 		"ft": 2097152,
 		"miP": 0,
 		"oA": 2,
-		"oAP": "\/work\/angles-cup\/AngelsCup.Flavors.svg",
+		"oAP": "/work/angles-cup/AngelsCup.Flavors.svg",
 		"oF": 0,
 		"opt": 0,
 		"plM": 3758088159,
 		"prP": 0
 		},
-	"\/work\/angles-cup\/AngelsCup.Notes.jpg": {
+	"/work/angles-cup/AngelsCup.Notes.jpg": {
 		"ft": 16384,
 		"iS": 167810,
 		"jF": 0,
 		"oA": 0,
-		"oAP": "\/work\/angles-cup\/AngelsCup.Notes.jpg",
+		"oAP": "/work/angles-cup/AngelsCup.Notes.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
 		},
-	"\/work\/angles-cup\/AngelsCup.Results.jpg": {
+	"/work/angles-cup/AngelsCup.Results.jpg": {
 		"ft": 16384,
 		"iS": 72966,
 		"jF": 0,
 		"oA": 0,
-		"oAP": "\/work\/angles-cup\/AngelsCup.Results.jpg",
+		"oAP": "/work/angles-cup/AngelsCup.Results.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
 		},
-	"\/work\/angles-cup\/Angles-Cup.Flavor.Results.jpg": {
+	"/work/angles-cup/Angles-Cup.Flavor.Results.jpg": {
 		"ft": 16384,
 		"iS": 7331,
 		"jF": 0,
 		"oA": 0,
-		"oAP": "\/work\/angles-cup\/Angles-Cup.Flavor.Results.jpg",
+		"oAP": "/work/angles-cup/Angles-Cup.Flavor.Results.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
 		},
-	"\/work\/angles-cup\/AnglesCup.Tasting.jpg": {
+	"/work/angles-cup/AnglesCup.Tasting.jpg": {
 		"ft": 16384,
 		"iS": 26114,
 		"jF": 0,
 		"oA": 0,
-		"oAP": "\/work\/angles-cup\/AnglesCup.Tasting.jpg",
+		"oAP": "/work/angles-cup/AnglesCup.Tasting.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
 		},
-	"\/work\/angles-cup\/AnglesCupRating.jpg": {
+	"/work/angles-cup/AnglesCupRating.jpg": {
 		"ft": 16384,
 		"iS": 22222,
 		"jF": 0,
 		"oA": 0,
-		"oAP": "\/work\/angles-cup\/AnglesCupRating.jpg",
+		"oAP": "/work/angles-cup/AnglesCupRating.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
 		},
-	"\/work\/angles-cup\/Taints.jpg": {
+	"/work/angles-cup/Taints.jpg": {
 		"ft": 16384,
 		"iS": 476261,
 		"jF": 0,
 		"oA": 0,
-		"oAP": "\/work\/angles-cup\/Taints.jpg",
+		"oAP": "/work/angles-cup/Taints.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
 		},
-	"\/work\/brew1\/4f633b5c3c5e10a7afbfc7e7f9ca99a5.jpg": {
+	"/work/brew1/4f633b5c3c5e10a7afbfc7e7f9ca99a5.jpg": {
 		"ft": 16384,
 		"iS": 135210,
 		"jF": 0,
 		"oA": 0,
-		"oAP": "\/work\/brew1\/4f633b5c3c5e10a7afbfc7e7f9ca99a5.jpg",
+		"oAP": "/work/brew1/4f633b5c3c5e10a7afbfc7e7f9ca99a5.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
 		},
-	"\/work\/brew1\/AeroPress.png": {
+	"/work/brew1/AeroPress.png": {
 		"ft": 32768,
 		"iS": 17000,
 		"oA": 0,
-		"oAP": "\/work\/brew1\/AeroPress.png",
+		"oAP": "/work/brew1/AeroPress.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"oT": 1,
 		"q": 100
 		},
-	"\/work\/brew1\/AeroPress.svg": {
+	"/work/brew1/AeroPress.svg": {
 		"ft": 2097152,
 		"miP": 0,
 		"oA": 2,
-		"oAP": "\/work\/brew1\/AeroPress.svg",
+		"oAP": "/work/brew1/AeroPress.svg",
 		"oF": 0,
 		"opt": 0,
 		"plM": 3758088159,
 		"prP": 0
 		},
-	"\/work\/brew1\/AutoDrip.jpg": {
+	"/work/brew1/AutoDrip.jpg": {
 		"ft": 16384,
 		"iS": 5847,
 		"jF": 0,
 		"oA": 0,
-		"oAP": "\/work\/brew1\/AutoDrip.jpg",
+		"oAP": "/work/brew1/AutoDrip.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
 		},
-	"\/work\/brew1\/AutoDrip.png": {
+	"/work/brew1/AutoDrip.png": {
 		"ft": 32768,
 		"iS": 19933,
 		"oA": 0,
-		"oAP": "\/work\/brew1\/AutoDrip.png",
+		"oAP": "/work/brew1/AutoDrip.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"oT": 1,
 		"q": 100
 		},
-	"\/work\/brew1\/AutoDrip.svg": {
+	"/work/brew1/AutoDrip.svg": {
 		"ft": 2097152,
 		"miP": 0,
 		"oA": 2,
-		"oAP": "\/work\/brew1\/AutoDrip.svg",
+		"oAP": "/work/brew1/AutoDrip.svg",
 		"oF": 0,
 		"opt": 0,
 		"plM": 3758088159,
 		"prP": 0
 		},
-	"\/work\/brew1\/BrewMethods.jpg": {
+	"/work/brew1/BrewMethods.jpg": {
 		"ft": 16384,
 		"iS": 56471,
 		"jF": 0,
 		"oA": 0,
-		"oAP": "\/work\/brew1\/BrewMethods.jpg",
+		"oAP": "/work/brew1/BrewMethods.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
 		},
-	"\/work\/brew1\/Chemex.png": {
+	"/work/brew1/Chemex.png": {
 		"ft": 32768,
 		"iS": 13218,
 		"oA": 0,
-		"oAP": "\/work\/brew1\/Chemex.png",
+		"oAP": "/work/brew1/Chemex.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"oT": 1,
 		"q": 100
 		},
-	"\/work\/brew1\/ColdBrew.png": {
+	"/work/brew1/ColdBrew.png": {
 		"ft": 32768,
 		"iS": 17723,
 		"oA": 0,
-		"oAP": "\/work\/brew1\/ColdBrew.png",
+		"oAP": "/work/brew1/ColdBrew.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"oT": 1,
 		"q": 100
 		},
-	"\/work\/brew1\/Expresso.jpg": {
+	"/work/brew1/Expresso.jpg": {
 		"ft": 16384,
 		"iS": 8049,
 		"jF": 0,
 		"oA": 0,
-		"oAP": "\/work\/brew1\/Expresso.jpg",
+		"oAP": "/work/brew1/Expresso.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
 		},
-	"\/work\/brew1\/Expresso.png": {
+	"/work/brew1/Expresso.png": {
 		"ft": 32768,
 		"iS": 15893,
 		"oA": 0,
-		"oAP": "\/work\/brew1\/Expresso.png",
+		"oAP": "/work/brew1/Expresso.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"oT": 1,
 		"q": 100
 		},
-	"\/work\/brew1\/FrenchPress.png": {
+	"/work/brew1/FrenchPress.png": {
 		"ft": 32768,
 		"iS": 16950,
 		"oA": 0,
-		"oAP": "\/work\/brew1\/FrenchPress.png",
+		"oAP": "/work/brew1/FrenchPress.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"oT": 1,
 		"q": 100
 		},
-	"\/work\/brew1\/MochaPot.png": {
+	"/work/brew1/MochaPot.png": {
 		"ft": 32768,
 		"iS": 14991,
 		"oA": 0,
-		"oAP": "\/work\/brew1\/MochaPot.png",
+		"oAP": "/work/brew1/MochaPot.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"oT": 1,
 		"q": 100
 		},
-	"\/work\/brew1\/PourOver.png": {
+	"/work/brew1/PourOver.png": {
 		"ft": 32768,
 		"iS": 20945,
 		"oA": 0,
-		"oAP": "\/work\/brew1\/PourOver.png",
+		"oAP": "/work/brew1/PourOver.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"oT": 1,
 		"q": 100
 		},
-	"\/work\/brew1\/PourOverAll.png": {
+	"/work/brew1/PourOverAll.png": {
 		"ft": 32768,
 		"iS": 343680,
 		"oA": 0,
-		"oAP": "\/work\/brew1\/PourOverAll.png",
+		"oAP": "/work/brew1/PourOverAll.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"oT": 1,
 		"q": 100
 		},
-	"\/work\/brew1\/PressureVacuum.png": {
+	"/work/brew1/PressureVacuum.png": {
 		"ft": 32768,
 		"iS": 292155,
 		"oA": 0,
-		"oAP": "\/work\/brew1\/PressureVacuum.png",
+		"oAP": "/work/brew1/PressureVacuum.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"oT": 1,
 		"q": 100
 		},
-	"\/work\/brew1\/Steeping.png": {
+	"/work/brew1/Steeping.png": {
 		"ft": 32768,
 		"iS": 257253,
 		"oA": 0,
-		"oAP": "\/work\/brew1\/Steeping.png",
+		"oAP": "/work/brew1/Steeping.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"oT": 1,
 		"q": 100
 		},
-	"\/work\/brew1\/SyphonPot.png": {
+	"/work/brew1/SyphonPot.png": {
 		"ft": 32768,
 		"iS": 19558,
 		"oA": 0,
-		"oAP": "\/work\/brew1\/SyphonPot.png",
+		"oAP": "/work/brew1/SyphonPot.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"oT": 1,
 		"q": 100
 		},
-	"\/work\/brew1\/Turkish.png": {
+	"/work/brew1/Turkish.png": {
 		"ft": 32768,
 		"iS": 15947,
 		"oA": 0,
-		"oAP": "\/work\/brew1\/Turkish.png",
+		"oAP": "/work/brew1/Turkish.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"oT": 1,
 		"q": 100
 		},
-	"\/work\/brew1\/Vietnamese.png": {
+	"/work/brew1/Vietnamese.png": {
 		"ft": 32768,
 		"iS": 12535,
 		"oA": 0,
-		"oAP": "\/work\/brew1\/Vietnamese.png",
+		"oAP": "/work/brew1/Vietnamese.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"oT": 1,
 		"q": 100
 		},
-	"\/work\/img\/4ec2c629796737.56040d01a9833.jpg": {
+	"/work/img/4ec2c629796737.56040d01a9833.jpg": {
 		"ft": 16384,
 		"iS": 272041,
 		"jF": 0,
 		"oA": 0,
-		"oAP": "\/work\/img\/4ec2c629796737.56040d01a9833.jpg",
+		"oAP": "/work/img/4ec2c629796737.56040d01a9833.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
 		},
-	"\/work\/img\/altitudes_TRI.jpg": {
+	"/work/img/altitudes_TRI.jpg": {
 		"ft": 16384,
 		"iS": 1102200,
 		"jF": 0,
 		"oA": 0,
-		"oAP": "\/work\/img\/altitudes_TRI.jpg",
+		"oAP": "/work/img/altitudes_TRI.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
 		},
-	"\/work\/img\/App.png": {
+	"/work/img/App.png": {
 		"ft": 32768,
 		"iS": 464281,
 		"oA": 0,
-		"oAP": "\/work\/img\/App.png",
+		"oAP": "/work/img/App.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"oT": 1,
 		"q": 100
 		},
-	"\/work\/img\/b0545029796737.56040d01a503c.jpg": {
+	"/work/img/b0545029796737.56040d01a503c.jpg": {
 		"ft": 16384,
 		"iS": 147135,
 		"jF": 0,
 		"oA": 0,
-		"oAP": "\/work\/img\/b0545029796737.56040d01a503c.jpg",
+		"oAP": "/work/img/b0545029796737.56040d01a503c.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
 		},
-	"\/work\/img\/blends_cards.jpg": {
+	"/work/img/blends_cards.jpg": {
 		"ft": 16384,
 		"iS": 1173779,
 		"jF": 0,
 		"oA": 0,
-		"oAP": "\/work\/img\/blends_cards.jpg",
+		"oAP": "/work/img/blends_cards.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
 		},
-	"\/work\/img\/ChoosingBeansInfograhpic_BlogGraphic_r2.jpg": {
+	"/work/img/ChoosingBeansInfograhpic_BlogGraphic_r2.jpg": {
 		"ft": 16384,
 		"iS": 773976,
 		"jF": 0,
 		"oA": 0,
-		"oAP": "\/work\/img\/ChoosingBeansInfograhpic_BlogGraphic_r2.jpg",
+		"oAP": "/work/img/ChoosingBeansInfograhpic_BlogGraphic_r2.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
 		},
-	"\/work\/img\/Cm1ads3WIAAxEfY.jpg": {
+	"/work/img/Cm1ads3WIAAxEfY.jpg": {
 		"ft": 16384,
 		"iS": 155390,
 		"jF": 0,
 		"oA": 0,
-		"oAP": "\/work\/img\/Cm1ads3WIAAxEfY.jpg",
+		"oAP": "/work/img/Cm1ads3WIAAxEfY.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
 		},
-	"\/work\/img\/coffee-aroma-spectrum.jpg": {
+	"/work/img/coffee-aroma-spectrum.jpg": {
 		"ft": 16384,
 		"iS": 66597,
 		"jF": 0,
 		"oA": 0,
-		"oAP": "\/work\/img\/coffee-aroma-spectrum.jpg",
+		"oAP": "/work/img/coffee-aroma-spectrum.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
 		},
-	"\/work\/img\/coffee-flavor-wheels.jpg": {
+	"/work/img/coffee-flavor-wheels.jpg": {
 		"ft": 16384,
 		"iS": 88975,
 		"jF": 0,
 		"oA": 0,
-		"oAP": "\/work\/img\/coffee-flavor-wheels.jpg",
+		"oAP": "/work/img/coffee-flavor-wheels.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
 		},
-	"\/work\/img\/Coffee-Flavour-Wheel-V2-1.jpg": {
+	"/work/img/Coffee-Flavour-Wheel-V2-1.jpg": {
 		"ft": 16384,
 		"iS": 296908,
 		"jF": 0,
 		"oA": 0,
-		"oAP": "\/work\/img\/Coffee-Flavour-Wheel-V2-1.jpg",
+		"oAP": "/work/img/Coffee-Flavour-Wheel-V2-1.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
 		},
-	"\/work\/img\/coffee_flavor_tree.jpg": {
+	"/work/img/coffee_flavor_tree.jpg": {
 		"ft": 16384,
 		"iS": 245930,
 		"jF": 0,
 		"oA": 0,
-		"oAP": "\/work\/img\/coffee_flavor_tree.jpg",
+		"oAP": "/work/img/coffee_flavor_tree.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
 		},
-	"\/work\/img\/CoffeeColors.jpg": {
+	"/work/img/CoffeeColors.jpg": {
 		"ft": 16384,
 		"iS": 144190,
 		"jF": 0,
 		"oA": 0,
-		"oAP": "\/work\/img\/CoffeeColors.jpg",
+		"oAP": "/work/img/CoffeeColors.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
 		},
-	"\/work\/img\/CoffeeColors.txt": {
+	"/work/img/CoffeeColors.txt": {
 		"cB": 0,
 		"ft": 8192,
 		"oA": 0,
-		"oAP": "\/work\/img\/CoffeeColors.txt",
+		"oAP": "/work/img/CoffeeColors.txt",
 		"oF": 0
 		},
-	"\/work\/img\/CoffeeFamilyTree.jpg": {
+	"/work/img/CoffeeFamilyTree.jpg": {
 		"ft": 16384,
 		"iS": 226252,
 		"jF": 0,
 		"oA": 0,
-		"oAP": "\/work\/img\/CoffeeFamilyTree.jpg",
+		"oAP": "/work/img/CoffeeFamilyTree.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
 		},
-	"\/work\/img\/coffees.jpg": {
+	"/work/img/coffees.jpg": {
 		"ft": 16384,
 		"iS": 226252,
 		"jF": 0,
 		"oA": 0,
-		"oAP": "\/work\/img\/coffees.jpg",
+		"oAP": "/work/img/coffees.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
 		},
-	"\/work\/img\/coffeeSpectrum_1000.jpg": {
+	"/work/img/coffeeSpectrum_1000.jpg": {
 		"ft": 16384,
 		"iS": 144423,
 		"jF": 0,
 		"oA": 0,
-		"oAP": "\/work\/img\/coffeeSpectrum_1000.jpg",
+		"oAP": "/work/img/coffeeSpectrum_1000.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
 		},
-	"\/work\/img\/Different-Bags-of-Coffee.jpg": {
+	"/work/img/Different-Bags-of-Coffee.jpg": {
 		"ft": 16384,
 		"iS": 485833,
 		"jF": 0,
 		"oA": 0,
-		"oAP": "\/work\/img\/Different-Bags-of-Coffee.jpg",
+		"oAP": "/work/img/Different-Bags-of-Coffee.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
 		},
-	"\/work\/img\/Ethiopa.afphoto": {
+	"/work/img/Ethiopa.afphoto": {
 		"cB": 0,
 		"ft": 8192,
 		"oA": 0,
-		"oAP": "\/work\/img\/Ethiopa.afphoto",
+		"oAP": "/work/img/Ethiopa.afphoto",
 		"oF": 0
 		},
-	"\/work\/img\/Ethiopia.png": {
+	"/work/img/Ethiopia.png": {
 		"ft": 32768,
 		"iS": 2281050,
 		"oA": 0,
-		"oAP": "\/work\/img\/Ethiopia.png",
+		"oAP": "/work/img/Ethiopia.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"oT": 1,
 		"q": 100
 		},
-	"\/work\/img\/Ethiopia1.png": {
+	"/work/img/Ethiopia1.png": {
 		"ft": 32768,
 		"iS": 663821,
 		"oA": 0,
-		"oAP": "\/work\/img\/Ethiopia1.png",
+		"oAP": "/work/img/Ethiopia1.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"oT": 1,
 		"q": 100
 		},
-	"\/work\/img\/FlavorColor.png": {
+	"/work/img/FlavorColor.png": {
 		"ft": 32768,
 		"iS": 133884,
 		"oA": 0,
-		"oAP": "\/work\/img\/FlavorColor.png",
+		"oAP": "/work/img/FlavorColor.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"oT": 1,
 		"q": 100
 		},
-	"\/work\/img\/FlavorLeaves.png": {
+	"/work/img/FlavorLeaves.png": {
 		"ft": 32768,
 		"iS": 373638,
 		"oA": 0,
-		"oAP": "\/work\/img\/FlavorLeaves.png",
+		"oAP": "/work/img/FlavorLeaves.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"oT": 1,
 		"q": 100
 		},
-	"\/work\/img\/FlavorRoast.jpg": {
+	"/work/img/FlavorRoast.jpg": {
 		"ft": 16384,
 		"iS": 44270,
 		"jF": 0,
 		"oA": 0,
-		"oAP": "\/work\/img\/FlavorRoast.jpg",
+		"oAP": "/work/img/FlavorRoast.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
 		},
-	"\/work\/img\/Food-Chemistry-Maillard-Reaction-1024x724.png": {
+	"/work/img/Food-Chemistry-Maillard-Reaction-1024x724.png": {
 		"ft": 32768,
 		"iS": 299963,
 		"oA": 0,
-		"oAP": "\/work\/img\/Food-Chemistry-Maillard-Reaction-1024x724.png",
+		"oAP": "/work/img/Food-Chemistry-Maillard-Reaction-1024x724.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"oT": 1,
 		"q": 100
 		},
-	"\/work\/img\/growing-regions_map.jpg": {
+	"/work/img/growing-regions_map.jpg": {
 		"ft": 16384,
 		"iS": 1262874,
 		"jF": 0,
 		"oA": 0,
-		"oAP": "\/work\/img\/growing-regions_map.jpg",
+		"oAP": "/work/img/growing-regions_map.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
 		},
-	"\/work\/img\/jitter.jpg": {
+	"/work/img/jitter.jpg": {
 		"ft": 16384,
 		"iS": 2751715,
 		"jF": 0,
 		"oA": 0,
-		"oAP": "\/work\/img\/jitter.jpg",
+		"oAP": "/work/img/jitter.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
 		},
-	"\/work\/img\/Jitter.v3.png": {
+	"/work/img/Jitter.v3.png": {
 		"ft": 32768,
 		"iS": 234556,
 		"oA": 0,
-		"oAP": "\/work\/img\/Jitter.v3.png",
+		"oAP": "/work/img/Jitter.v3.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"oT": 1,
 		"q": 100
 		},
-	"\/work\/img\/JitterDoneRight.png": {
+	"/work/img/JitterDoneRight.png": {
 		"ft": 32768,
 		"iS": 397929,
 		"oA": 0,
-		"oAP": "\/work\/img\/JitterDoneRight.png",
+		"oAP": "/work/img/JitterDoneRight.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"oT": 1,
 		"q": 100
 		},
-	"\/work\/img\/JitterFlavor.png": {
+	"/work/img/JitterFlavor.png": {
 		"ft": 32768,
 		"iS": 175399,
 		"oA": 0,
-		"oAP": "\/work\/img\/JitterFlavor.png",
+		"oAP": "/work/img/JitterFlavor.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"oT": 1,
 		"q": 100
 		},
-	"\/work\/img\/JitterRoast.png": {
+	"/work/img/JitterRoast.png": {
 		"ft": 32768,
 		"iS": 335340,
 		"oA": 0,
-		"oAP": "\/work\/img\/JitterRoast.png",
+		"oAP": "/work/img/JitterRoast.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"oT": 1,
 		"q": 100
 		},
-	"\/work\/img\/logo - 2018 - RX - BnW.png": {
+	"/work/img/logo - 2018 - RX - BnW.png": {
 		"ft": 32768,
 		"iS": 24087,
 		"oA": 0,
-		"oAP": "\/work\/img\/logo - 2018 - RX - BnW.png",
+		"oAP": "/work/img/logo - 2018 - RX - BnW.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"oT": 1,
 		"q": 100
 		},
-	"\/work\/img\/Logo - 2018 Full - BnW.png": {
+	"/work/img/Logo - 2018 Full - BnW.png": {
 		"ft": 32768,
 		"iS": 19603,
 		"oA": 0,
-		"oAP": "\/work\/img\/Logo - 2018 Full - BnW.png",
+		"oAP": "/work/img/Logo - 2018 Full - BnW.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"oT": 1,
 		"q": 100
 		},
-	"\/work\/img\/NiceColorWheel.png": {
+	"/work/img/NiceColorWheel.png": {
 		"ft": 32768,
 		"iS": 68506,
 		"oA": 0,
-		"oAP": "\/work\/img\/NiceColorWheel.png",
+		"oAP": "/work/img/NiceColorWheel.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"oT": 1,
 		"q": 100
 		},
-	"\/work\/img\/RefresJobs041118.jpg": {
+	"/work/img/RefresJobs041118.jpg": {
 		"ft": 16384,
 		"iS": 152203,
 		"jF": 0,
 		"oA": 0,
-		"oAP": "\/work\/img\/RefresJobs041118.jpg",
+		"oAP": "/work/img/RefresJobs041118.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
 		},
-	"\/work\/img\/RoastAwesome.jpg": {
+	"/work/img/RoastAwesome.jpg": {
 		"ft": 16384,
 		"iS": 63836,
 		"jF": 0,
 		"oA": 0,
-		"oAP": "\/work\/img\/RoastAwesome.jpg",
+		"oAP": "/work/img/RoastAwesome.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
 		},
-	"\/work\/img\/RoastingPoint.jpg": {
+	"/work/img/RoastingPoint.jpg": {
 		"ft": 16384,
 		"iS": 95734,
 		"jF": 0,
 		"oA": 0,
-		"oAP": "\/work\/img\/RoastingPoint.jpg",
+		"oAP": "/work/img/RoastingPoint.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
 		},
-	"\/work\/img\/RoastsAll.jpg": {
+	"/work/img/RoastsAll.jpg": {
 		"ft": 16384,
 		"iS": 11172,
 		"jF": 0,
 		"oA": 0,
-		"oAP": "\/work\/img\/RoastsAll.jpg",
+		"oAP": "/work/img/RoastsAll.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
 		},
-	"\/work\/img\/RoastsBig copy.jpg": {
+	"/work/img/RoastsBig copy.jpg": {
 		"ft": 16384,
 		"iS": 374286,
 		"jF": 0,
 		"oA": 0,
-		"oAP": "\/work\/img\/RoastsBig copy.jpg",
+		"oAP": "/work/img/RoastsBig copy.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
 		},
-	"\/work\/img\/RoastsBig.jpg": {
+	"/work/img/RoastsBig.jpg": {
 		"ft": 16384,
 		"iS": 142724,
 		"jF": 0,
 		"oA": 0,
-		"oAP": "\/work\/img\/RoastsBig.jpg",
+		"oAP": "/work/img/RoastsBig.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
 		},
-	"\/work\/img\/SCA.png": {
+	"/work/img/SCA.png": {
 		"ft": 32768,
 		"iS": 254377,
 		"oA": 0,
-		"oAP": "\/work\/img\/SCA.png",
+		"oAP": "/work/img/SCA.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"oT": 1,
 		"q": 100
 		},
-	"\/work\/img\/SCA_TasterWheel_English_.pdf": {
+	"/work/img/SCA_TasterWheel_English_.pdf": {
 		"cB": 0,
 		"ft": 8192,
 		"oA": 0,
-		"oAP": "\/work\/img\/SCA_TasterWheel_English_.pdf",
+		"oAP": "/work/img/SCA_TasterWheel_English_.pdf",
 		"oF": 0
 		},
-	"\/work\/img\/SCAA_FlavorWheel.01.18.15.jpg": {
+	"/work/img/SCAA_FlavorWheel.01.18.15.jpg": {
 		"ft": 16384,
 		"iS": 2656871,
 		"jF": 0,
 		"oA": 0,
-		"oAP": "\/work\/img\/SCAA_FlavorWheel.01.18.15.jpg",
+		"oAP": "/work/img/SCAA_FlavorWheel.01.18.15.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
 		},
-	"\/work\/img\/Screenshot-2018-3-27 Coffee Flavour Wheel.png": {
+	"/work/img/Screenshot-2018-3-27 Coffee Flavour Wheel.png": {
 		"ft": 32768,
 		"iS": 243523,
 		"oA": 0,
-		"oAP": "\/work\/img\/Screenshot-2018-3-27 Coffee Flavour Wheel.png",
+		"oAP": "/work/img/Screenshot-2018-3-27 Coffee Flavour Wheel.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"oT": 1,
 		"q": 100
 		},
-	"\/work\/img\/SRM-Beer-Color-Chart-2.jpg": {
+	"/work/img/SRM-Beer-Color-Chart-2.jpg": {
 		"ft": 16384,
 		"iS": 105426,
 		"jF": 0,
 		"oA": 0,
-		"oAP": "\/work\/img\/SRM-Beer-Color-Chart-2.jpg",
+		"oAP": "/work/img/SRM-Beer-Color-Chart-2.jpg",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"q": 100
 		},
-	"\/work\/json\/aroma.nine.json": {
+	"/work/json/aroma.nine.json": {
 		"ft": 524288,
 		"oA": 1,
-		"oAP": "\/work\/json\/aroma.nine-min.json",
+		"oAP": "/work/json/aroma.nine-min.json",
 		"oF": 0,
 		"oO": 0,
 		"oS": 1
 		},
-	"\/work\/json\/aroma.roast.json": {
+	"/work/json/aroma.roast.json": {
 		"ft": 524288,
 		"oA": 1,
-		"oAP": "\/work\/json\/aroma.roast-min.json",
+		"oAP": "/work/json/aroma.roast-min.json",
 		"oF": 0,
 		"oO": 0,
 		"oS": 1
 		},
-	"\/work\/json\/aroma2.json": {
+	"/work/json/aroma2.json": {
 		"ft": 524288,
 		"oA": 1,
-		"oAP": "\/work\/json\/aroma2-min.json",
+		"oAP": "/work/json/aroma2-min.json",
 		"oF": 0,
 		"oO": 0,
 		"oS": 1
 		},
-	"\/work\/json\/aroma3.json": {
+	"/work/json/aroma3.json": {
 		"ft": 524288,
 		"oA": 1,
-		"oAP": "\/work\/json\/aroma3-min.json",
+		"oAP": "/work/json/aroma3-min.json",
 		"oF": 0,
 		"oO": 0,
 		"oS": 1
 		},
-	"\/work\/json\/aroma4.json": {
+	"/work/json/aroma4.json": {
 		"ft": 524288,
 		"oA": 1,
-		"oAP": "\/work\/json\/aroma4-min.json",
+		"oAP": "/work/json/aroma4-min.json",
 		"oF": 0,
 		"oO": 0,
 		"oS": 1
 		},
-	"\/work\/json\/flare.json": {
+	"/work/json/flare.json": {
 		"ft": 524288,
 		"oA": 1,
-		"oAP": "\/work\/json\/flare-min.json",
+		"oAP": "/work/json/flare-min.json",
 		"oF": 0,
 		"oO": 0,
 		"oS": 1
 		},
-	"\/work\/json\/flavor.choice.json": {
+	"/work/json/flavor.choice.json": {
 		"ft": 524288,
 		"oA": 1,
-		"oAP": "\/work\/json\/flavor.choice-min.json",
+		"oAP": "/work/json/flavor.choice-min.json",
 		"oF": 0,
 		"oO": 0,
 		"oS": 1
 		},
-	"\/work\/json\/flavor.davies.json": {
+	"/work/json/flavor.davies.json": {
 		"ft": 524288,
 		"oA": 1,
-		"oAP": "\/work\/json\/flavor.davies-min.json",
+		"oAP": "/work/json/flavor.davies-min.json",
 		"oF": 0,
 		"oO": 0,
 		"oS": 1
 		},
-	"\/work\/json\/flavor.extra.json": {
+	"/work/json/flavor.extra.json": {
 		"ft": 524288,
 		"oA": 1,
-		"oAP": "\/work\/json\/flavor.extra-min.json",
+		"oAP": "/work/json/flavor.extra-min.json",
 		"oF": 0,
 		"oO": 0,
 		"oS": 1
 		},
-	"\/work\/json\/flavor.howto.json": {
+	"/work/json/flavor.howto.json": {
 		"ft": 524288,
 		"oA": 1,
-		"oAP": "\/work\/json\/flavor.howto-min.json",
+		"oAP": "/work/json/flavor.howto-min.json",
 		"oF": 0,
 		"oO": 0,
 		"oS": 1
 		},
-	"\/work\/json\/flavor.jitter.json": {
+	"/work/json/flavor.jitter.json": {
 		"ft": 524288,
 		"oA": 1,
-		"oAP": "\/work\/json\/flavor.jitter-min.json",
+		"oAP": "/work/json/flavor.jitter-min.json",
 		"oF": 0,
 		"oO": 0,
 		"oS": 1
 		},
-	"\/work\/json\/flavor.roast.json": {
+	"/work/json/flavor.roast.json": {
 		"ft": 524288,
 		"oA": 1,
-		"oAP": "\/work\/json\/flavor.roast-min.json",
+		"oAP": "/work/json/flavor.roast-min.json",
 		"oF": 0,
 		"oO": 0,
 		"oS": 1
 		},
-	"\/work\/json\/flavor.sca.json": {
+	"/work/json/flavor.sca.json": {
 		"ft": 524288,
 		"oA": 1,
-		"oAP": "\/work\/json\/flavor.sca-min.json",
+		"oAP": "/work/json/flavor.sca-min.json",
 		"oF": 0,
 		"oO": 0,
 		"oS": 1
 		},
-	"\/work\/json\/flavor.wheel.json": {
+	"/work/json/flavor.wheel.json": {
 		"ft": 524288,
 		"oA": 1,
-		"oAP": "\/work\/json\/flavor.wheel-min.json",
+		"oAP": "/work/json/flavor.wheel-min.json",
 		"oF": 0,
 		"oO": 0,
 		"oS": 1
 		},
-	"\/work\/json\/region.json": {
+	"/work/json/region.json": {
 		"ft": 524288,
 		"oA": 1,
-		"oAP": "\/work\/json\/region-min.json",
+		"oAP": "/work/json/region-min.json",
 		"oF": 0,
 		"oO": 0,
 		"oS": 1
 		},
-	"\/work\/json\/toc.json": {
+	"/work/json/toc.json": {
 		"ft": 524288,
 		"oA": 1,
-		"oAP": "\/work\/json\/toc-min.json",
+		"oAP": "/work/json/toc-min.json",
 		"oF": 0,
 		"oO": 0,
 		"oS": 1
 		},
-	"\/work\/json\/toc1.json": {
+	"/work/json/toc1.json": {
 		"ft": 524288,
 		"oA": 1,
-		"oAP": "\/work\/json\/toc1-min.json",
+		"oAP": "/work/json/toc1-min.json",
 		"oF": 0,
 		"oO": 0,
 		"oS": 1
 		},
-	"\/work\/json\/toc2.json": {
+	"/work/json/toc2.json": {
 		"ft": 524288,
 		"oA": 1,
-		"oAP": "\/work\/json\/toc2-min.json",
+		"oAP": "/work/json/toc2-min.json",
 		"oF": 0,
 		"oO": 0,
 		"oS": 1
 		},
-	"\/work\/json\/tocExtra.json": {
+	"/work/json/tocExtra.json": {
 		"ft": 524288,
 		"oA": 1,
-		"oAP": "\/work\/json\/tocExtra-min.json",
+		"oAP": "/work/json/tocExtra-min.json",
 		"oF": 0,
 		"oO": 0,
 		"oS": 1
 		},
-	"\/work\/json\/tocLR.json": {
+	"/work/json/tocLR.json": {
 		"ft": 524288,
 		"oA": 1,
-		"oAP": "\/work\/json\/tocLR-min.json",
+		"oAP": "/work/json/tocLR-min.json",
 		"oF": 0,
 		"oO": 0,
 		"oS": 1
 		},
-	"\/work\/json\/tocs.panes.json": {
+	"/work/json/tocs.panes.json": {
 		"ft": 524288,
 		"oA": 1,
-		"oAP": "\/work\/json\/tocs.panes-min.json",
+		"oAP": "/work/json/tocs.panes-min.json",
 		"oF": 0,
 		"oO": 0,
 		"oS": 1
 		},
-	"\/work\/json\/tocVert.json": {
+	"/work/json/tocVert.json": {
 		"ft": 524288,
 		"oA": 1,
-		"oAP": "\/work\/json\/tocVert-min.json",
+		"oAP": "/work/json/tocVert-min.json",
 		"oF": 0,
 		"oO": 0,
 		"oS": 1
 		},
-	"\/work\/site\/Jitter.png": {
+	"/work/site/Jitter.png": {
 		"ft": 32768,
 		"iS": 122703,
 		"oA": 0,
-		"oAP": "\/work\/site\/Jitter.png",
+		"oAP": "/work/site/Jitter.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
 		"oT": 1,
 		"q": 100
 		},
-	"\/work\/site\/Rx.png": {
+	"/work/site/Rx.png": {
 		"ft": 32768,
 		"iS": 6956,
 		"oA": 0,
-		"oAP": "\/work\/site\/Rx.png",
+		"oAP": "/work/site/Rx.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 0,
@@ -1702,141 +1702,94 @@
 	"alwaysUseExternalServer": 0,
 	"animateCSSInjections": 1,
 	"autoBuildNewItems": 1,
-	"autoprefixerBrowserString": "> 1%, last 2 versions, Firefox ESR, Opera 12.1",
 	"autoprefixerEnableIEGrid": 0,
+	"babel7PresetType": 1,
+	"babelAllowRCFiles": 0,
 	"babelAuxiliaryCommentAfter": "",
 	"babelAuxiliaryCommentBefore": "",
-	"babelConfigFileHandlingType": 0,
+	"babelConfigType": 0,
 	"babelCustomPluginsList": "",
 	"babelCustomPresetsList": "",
 	"babelInsertModuleIDs": 0,
 	"babelModuleID": "",
 	"babelNoComments": 0,
 	"babelPlugins": {
+		"arrow-functions": {
+			"active": 0
+			},
 		"async-generator-functions": {
 			"active": 0
 			},
 		"async-to-generator": {
 			"active": 0
 			},
-		"async-to-module-method": {
+		"block-scoped-functions": {
+			"active": 0
+			},
+		"block-scoping": {
 			"active": 0
 			},
 		"class-properties": {
 			"active": 0
 			},
+		"classes": {
+			"active": 0
+			},
+		"computed-properties": {
+			"active": 0
+			},
 		"decorators": {
 			"active": 0
 			},
-		"decorators-legacy": {
+		"destructuring": {
 			"active": 0
 			},
 		"do-expressions": {
 			"active": 0
 			},
-		"es2015-arrow-functions": {
+		"dotall-regex": {
 			"active": 0
 			},
-		"es2015-block-scoped-functions": {
-			"active": 0
-			},
-		"es2015-block-scoping": {
-			"active": 0
-			},
-		"es2015-classes": {
-			"active": 0
-			},
-		"es2015-computed-properties": {
-			"active": 0
-			},
-		"es2015-constants": {
-			"active": 0
-			},
-		"es2015-destructuring": {
-			"active": 0
-			},
-		"es2015-duplicate-keys": {
-			"active": 0
-			},
-		"es2015-for-of": {
-			"active": 0
-			},
-		"es2015-function-name": {
-			"active": 0
-			},
-		"es2015-literals": {
-			"active": 0
-			},
-		"es2015-modules-amd": {
-			"active": 0
-			},
-		"es2015-modules-commonjs": {
-			"active": 0
-			},
-		"es2015-modules-systemjs": {
-			"active": 0
-			},
-		"es2015-modules-umd": {
-			"active": 0
-			},
-		"es2015-object-super": {
-			"active": 0
-			},
-		"es2015-parameters": {
-			"active": 0
-			},
-		"es2015-shorthand-properties": {
-			"active": 0
-			},
-		"es2015-spread": {
-			"active": 0
-			},
-		"es2015-sticky-regex": {
-			"active": 0
-			},
-		"es2015-template-literals": {
-			"active": 0
-			},
-		"es2015-typeof-symbol": {
-			"active": 0
-			},
-		"es2015-unicode-regex": {
-			"active": 0
-			},
-		"es3-member-expression-literals": {
-			"active": 0
-			},
-		"es3-property-literals": {
-			"active": 0
-			},
-		"es5-property-mutators": {
-			"active": 0
-			},
-		"eval": {
+		"duplicate-keys": {
 			"active": 0
 			},
 		"exponentiation-operator": {
 			"active": 0
 			},
-		"export-extensions": {
+		"export-default-from": {
+			"active": 0
+			},
+		"export-namespace-from": {
 			"active": 0
 			},
 		"external-helpers": {
 			"active": 0
 			},
-		"flow-comments": {
+		"flow-strip-types": {
 			"active": 0
 			},
-		"flow-strip-types": {
+		"for-of": {
 			"active": 0
 			},
 		"function-bind": {
 			"active": 0
 			},
-		"inline-environment-variables": {
+		"function-name": {
+			"active": 0
+			},
+		"function-sent": {
+			"active": 0
+			},
+		"instanceof": {
 			"active": 0
 			},
 		"jscript": {
+			"active": 0
+			},
+		"literals": {
+			"active": 0
+			},
+		"logical-assignment-operators": {
 			"active": 0
 			},
 		"member-expression-literals": {
@@ -1848,7 +1801,28 @@
 		"minify-booleans": {
 			"active": 0
 			},
+		"modules-amd": {
+			"active": 0
+			},
+		"modules-commonjs": {
+			"active": 0
+			},
+		"modules-systemjs": {
+			"active": 0
+			},
+		"modules-umd": {
+			"active": 0
+			},
+		"new-target": {
+			"active": 0
+			},
 		"node-env-inline": {
+			"active": 0
+			},
+		"nullish-coalescing-operator": {
+			"active": 0
+			},
+		"numeric-separator": {
 			"active": 0
 			},
 		"object-assign": {
@@ -1860,7 +1834,25 @@
 		"object-set-prototype-of-to-assign": {
 			"active": 0
 			},
+		"object-super": {
+			"active": 0
+			},
+		"optional-catch-binding": {
+			"active": 0
+			},
+		"optional-chaining": {
+			"active": 0
+			},
+		"parameters": {
+			"active": 0
+			},
+		"pipeline-operator": {
+			"active": 0
+			},
 		"property-literals": {
+			"active": 0
+			},
+		"property-mutators": {
 			"active": 0
 			},
 		"proto-to-assign": {
@@ -1896,53 +1888,46 @@
 		"remove-debugger": {
 			"active": 0
 			},
+		"reserved-words": {
+			"active": 0
+			},
 		"runtime": {
+			"active": 0
+			},
+		"shorthand-properties": {
 			"active": 0
 			},
 		"simplify-comparison-operators": {
 			"active": 0
 			},
+		"spread": {
+			"active": 0
+			},
+		"sticky-regex": {
+			"active": 0
+			},
 		"strict-mode": {
 			"active": 0
 			},
-		"syntax-async-generators": {
+		"template-literals": {
 			"active": 0
 			},
-		"syntax-class-properties": {
+		"throw-expressions": {
 			"active": 0
 			},
-		"syntax-decorators": {
-			"active": 0
-			},
-		"syntax-do-expressions": {
-			"active": 0
-			},
-		"syntax-export-extensions": {
-			"active": 0
-			},
-		"syntax-flow": {
-			"active": 0
-			},
-		"syntax-function-bind": {
-			"active": 0
-			},
-		"syntax-function-sent": {
-			"active": 0
-			},
-		"syntax-jsx": {
-			"active": 0
-			},
-		"syntax-object-rest-spread": {
-			"active": 0
-			},
-		"undeclared-variables-check": {
+		"typeof-symbol": {
 			"active": 0
 			},
 		"undefined-to-void": {
 			"active": 0
+			},
+		"unicode-property-regex": {
+			"active": 0
+			},
+		"unicode-regex": {
+			"active": 0
 			}
 		},
-	"babelPresetType": 193,
 	"babelRetainLines": 0,
 	"bowerAbbreviatedPath": "bower_components",
 	"bowerAutoCreateInfoFile": 1,
@@ -1951,6 +1936,7 @@
 	"bowerSaveDevDependencies": 0,
 	"bowerUseExactVersion": 0,
 	"browserRefreshDelay": 0,
+	"browserslistString": ">0.2%, last 2 versions, Firefox ESR, not dead",
 	"buildFolderActive": 0,
 	"buildFolderName": "build",
 	"cleanBuild": 1,
@@ -2308,6 +2294,10 @@
 			"active": 0,
 			"optionString": "'always', {exceptAfterSingleLine: false}"
 			},
+		"max-classes-per-file": {
+			"active": 0,
+			"optionString": "1"
+			},
 		"max-depth": {
 			"active": 0,
 			"optionString": "{'max': 4}"
@@ -2319,6 +2309,10 @@
 		"max-lines": {
 			"active": 0,
 			"optionString": "{'max': 300, 'skipBlankLines': true, 'skipComments': true}"
+			},
+		"max-lines-per-function": {
+			"active": 0,
+			"optionString": "{'max': 50, 'skipBlankLines': true, 'skipComments': true, 'IIFEs': false}"
 			},
 		"max-nested-callbacks": {
 			"active": 0,
@@ -2364,6 +2358,10 @@
 			"active": 0,
 			"optionString": ""
 			},
+		"no-async-promise-executor": {
+			"active": 0,
+			"optionString": ""
+			},
 		"no-await-in-loop": {
 			"active": 0,
 			"optionString": ""
@@ -2382,10 +2380,6 @@
 			},
 		"no-case-declarations": {
 			"active": 1,
-			"optionString": ""
-			},
-		"no-catch-shadow": {
-			"active": 0,
 			"optionString": ""
 			},
 		"no-class-assign": {
@@ -2584,9 +2578,13 @@
 			"active": 0,
 			"optionString": "{'ignore': [], 'ignoreArrayIndexes': true, 'enforceConst': false, 'detectObjects': false}"
 			},
+		"no-misleading-character-class": {
+			"active": 0,
+			"optionString": ""
+			},
 		"no-mixed-operators": {
 			"active": 0,
-			"optionString": "{'groups': [['+', '-', '*', '\/', '%', '**'], ['&', '|', '^', '~', '<<', '>>', '>>>'], ['==', '!=', '===', '!==', '>', '>=', '<', '<='], ['&&', '||'], ['in', 'instanceof']], 'allowSamePrecedence': true}"
+			"optionString": "{'groups': [['+', '-', '*', '/', '%', '**'], ['&', '|', '^', '~', '<<', '>>', '>>>'], ['==', '!=', '===', '!==', '>', '>=', '<', '<='], ['&&', '||'], ['in', 'instanceof']], 'allowSamePrecedence': true}"
 			},
 		"no-mixed-requires": {
 			"active": 0,
@@ -2940,6 +2938,10 @@
 			"active": 0,
 			"optionString": ""
 			},
+		"prefer-object-spread": {
+			"active": 0,
+			"optionString": ""
+			},
 		"prefer-promise-reject-errors": {
 			"active": 0,
 			"optionString": "{'allowEmptyReject': false}"
@@ -2968,6 +2970,10 @@
 			"active": 0,
 			"optionString": "'always'"
 			},
+		"require-atomic-updates": {
+			"active": 0,
+			"optionString": ""
+			},
 		"require-await": {
 			"active": 0,
 			"optionString": ""
@@ -2975,6 +2981,10 @@
 		"require-jsdoc": {
 			"active": 0,
 			"optionString": "{'require': {'FunctionDeclaration': true, 'MethodDefinition': false, 'ClassDeclaration': false, 'ArrowFunctionExpression': false}}"
+			},
+		"require-unicode-regexp": {
+			"active": 0,
+			"optionString": ""
 			},
 		"require-yield": {
 			"active": 1,
@@ -3030,7 +3040,7 @@
 			},
 		"spaced-comment": {
 			"active": 0,
-			"optionString": "'always', {'line': {'markers': ['\/'], 'exceptions': ['-', '+']}, 'block': {'markers': ['!'], 'exceptions': ['*'], 'balanced': false}}"
+			"optionString": "'always', {'line': {'markers': ['/'], 'exceptions': ['-', '+']}, 'block': {'markers': ['!'], 'exceptions': ['*'], 'balanced': false}}"
 			},
 		"strict": {
 			"active": 0,
@@ -3090,7 +3100,7 @@
 			}
 		},
 	"esLintSourceType": 0,
-	"externalServerAddress": "http:\/\/localhost:8888",
+	"externalServerAddress": "http://localhost:8888",
 	"gitIgnoreBuildFolder": 1,
 	"hideConfigFile": 0,
 	"jsCheckerReservedNamesString": "",
@@ -3447,7 +3457,7 @@
 		"autoOutputPathFilenamePattern": "*.js",
 		"autoOutputPathRelativePath": "",
 		"autoOutputPathReplace1": "coffee",
-		"autoOutputPathReplace2": "public\/js",
+		"autoOutputPathReplace2": "public/js",
 		"autoOutputPathStyle": 3,
 		"createSourceMap": 0,
 		"minifyOutput": 0,
@@ -3485,7 +3495,6 @@
 		"escapeHTMLCharacters": 0,
 		"noEscapeInAttributes": 0,
 		"outputFormat": 2,
-		"outputStyle": 0,
 		"shouldRunCacheBuster": 0,
 		"useCDATA": 0,
 		"useDoubleQuotes": 0,
@@ -3504,7 +3513,7 @@
 	"languageDefaultsJS": {
 		"autoOutputAction": 0,
 		"autoOutputPathFilenamePattern": "*-min.js",
-		"autoOutputPathRelativePath": "\/min",
+		"autoOutputPathRelativePath": "/min",
 		"autoOutputPathReplace1": "",
 		"autoOutputPathReplace2": "",
 		"autoOutputPathStyle": 0,
@@ -3536,19 +3545,19 @@
 		"allowInsecureImports": 0,
 		"autoOutputAction": 0,
 		"autoOutputPathFilenamePattern": "*.css",
-		"autoOutputPathRelativePath": "..\/css",
+		"autoOutputPathRelativePath": "../css",
 		"autoOutputPathReplace1": "less",
-		"autoOutputPathReplace2": "public\/css",
+		"autoOutputPathReplace2": "public/css",
 		"autoOutputPathStyle": 3,
 		"createSourceMap": 0,
-		"disableJavascript": 0,
+		"enableJavascript": 0,
 		"ieCompatibility": 0,
+		"mathStyle": 0,
 		"outputStyle": 0,
-		"relativeURLS": 0,
+		"rewriteURLStyle": 0,
 		"shouldRunAutoprefixer": 0,
 		"shouldRunBless": 0,
 		"strictImports": 0,
-		"strictMath": 0,
 		"strictUnits": 0
 		},
 	"languageDefaultsMARKDOWN": {
@@ -3604,7 +3613,7 @@
 	"languageDefaultsSASS": {
 		"autoOutputAction": 0,
 		"autoOutputPathFilenamePattern": "*.css",
-		"autoOutputPathRelativePath": "..\/css",
+		"autoOutputPathRelativePath": "../css",
 		"autoOutputPathReplace1": "sass",
 		"autoOutputPathReplace2": "css",
 		"autoOutputPathStyle": 0,
@@ -3633,7 +3642,7 @@
 	"languageDefaultsSTYLUS": {
 		"autoOutputAction": 0,
 		"autoOutputPathFilenamePattern": "*.css",
-		"autoOutputPathRelativePath": "..\/css",
+		"autoOutputPathRelativePath": "../css",
 		"autoOutputPathReplace1": "stylus",
 		"autoOutputPathReplace2": "css",
 		"autoOutputPathStyle": 0,
@@ -3657,36 +3666,70 @@
 	"languageDefaultsTS": {
 		"autoOutputAction": 0,
 		"autoOutputPathFilenamePattern": "*.js",
-		"autoOutputPathRelativePath": "\/js",
+		"autoOutputPathRelativePath": "/js",
 		"autoOutputPathReplace1": "",
 		"autoOutputPathReplace2": "",
 		"autoOutputPathStyle": 0,
 		"createDeclarationFile": 0,
 		"createSourceMap": 0,
-		"jsxMode": 0,
 		"minifyOutput": 0,
 		"moduleResolutionType": 0,
 		"moduleType": 2,
-		"noImplicitAny": 0,
-		"preserveConstEnums": 0,
 		"removeComments": 0,
-		"suppressImplicitAnyIndexErrors": 0,
 		"targetECMAVersion": 0
 		},
 	"languageDefaultsUserDefined": [
 		],
 	"overrideExternalServerCSS": 0,
 	"previewPathAddition": "",
-	"skippedFoldersString": "log, _logs, logs, _cache, cache, .idea, \/storage\/framework\/sessions, node_modules, \/public",
+	"skippedFoldersString": "log, _logs, logs, _cache, cache, .idea, /storage/framework/sessions, node_modules, /public",
 	"sourceFolderName": "source",
 	"susyVersion": 3,
+	"tsAllowSyntheticDefaultImports": 0,
+	"tsAllowUnreachableCode": 0,
+	"tsAllowUnusedLabels": 0,
+	"tsAlwaysStrict": 0,
+	"tsDownlevelIteration": 0,
+	"tsEmitBOM": 0,
+	"tsEmitDecoratorMetadata": 0,
+	"tsESModuleInterop": 0,
+	"tsForceConsistentCasingInFileNames": 0,
+	"tsImportHelpers": 0,
+	"tsIsolatedModules": 0,
+	"tsJSXFactory": "React.createElement",
+	"tsKeyofStringsOnly": 0,
+	"tsNoEmitHelpers": 0,
+	"tsNoFallthroughCasesInSwitch": 0,
+	"tsNoImplicitAny": 0,
+	"tsNoImplicitReturns": 0,
+	"tsNoImplicitThis": 0,
+	"tsNoImplicitUseStrict": 0,
+	"tsNoLib": 0,
+	"tsNoResolve": 0,
+	"tsNoStrictGenericChecks": 0,
+	"tsNoUnusedLocals": 0,
+	"tsNoUnusedParameters": 0,
+	"tsPreserveConstEnums": 0,
+	"tsPreserveSymlinks": 0,
+	"tsResolveJsonModule": 0,
+	"tsSkipLibCheck": 0,
+	"tsStrictFunctionTypes": 0,
+	"tsStrictNullChecks": 0,
+	"tsStrictPropertyInitialization": 0,
+	"tsStripInternal": 0,
+	"tsSuppressExcessPropertyErrors": 0,
+	"tsSuppressImplicitAnyIndexErrors": 0,
 	"uglifyDefinesString": "",
 	"uglifyFlags2": {
-		"ascii-only": {
+		"arguments": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"ascii_only": {
 			"active": 0,
 			"flagValue": -1
 			},
-		"bare-returns": {
+		"bare_returns": {
 			"active": 0,
 			"flagValue": -1
 			},
@@ -3694,11 +3737,11 @@
 			"active": 1,
 			"flagValue": -1
 			},
-		"bracketize": {
+		"braces": {
 			"active": 0,
 			"flagValue": -1
 			},
-		"cascade": {
+		"collapse_vars": {
 			"active": 1,
 			"flagValue": -1
 			},
@@ -3722,6 +3765,10 @@
 			"active": 0,
 			"flagValue": -1
 			},
+		"directives": {
+			"active": 1,
+			"flagValue": -1
+			},
 		"drop_console": {
 			"active": 0,
 			"flagValue": -1
@@ -3738,7 +3785,15 @@
 			"active": 1,
 			"flagValue": -1
 			},
+		"expression": {
+			"active": 0,
+			"flagValue": -1
+			},
 		"hoist_funs": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"hoist_props": {
 			"active": 1,
 			"flagValue": -1
 			},
@@ -3746,20 +3801,32 @@
 			"active": 0,
 			"flagValue": -1
 			},
-		"if_return": {
+		"html5_comments": {
 			"active": 1,
 			"flagValue": -1
 			},
-		"indent-level": {
+		"ie8": {
 			"active": 0,
-			"flagValue": 4
+			"flagValue": -1
+			},
+		"if_return": {
+			"active": 1,
+			"flagValue": -1
 			},
 		"indent-start": {
 			"active": 0,
 			"flagValue": 0
 			},
-		"inline-script": {
+		"indent_level": {
 			"active": 0,
+			"flagValue": 4
+			},
+		"inline": {
+			"active": 1,
+			"flagValue": 3
+			},
+		"inline_script": {
+			"active": 1,
 			"flagValue": -1
 			},
 		"join_vars": {
@@ -3774,6 +3841,14 @@
 			"active": 0,
 			"flagValue": -1
 			},
+		"keep_infinity": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"keep_quoted_props": {
+			"active": 0,
+			"flagValue": -1
+			},
 		"loops": {
 			"active": 1,
 			"flagValue": -1
@@ -3782,12 +3857,20 @@
 			"active": 1,
 			"flagValue": -1
 			},
-		"max-line-len": {
+		"max_line_len": {
 			"active": 1,
 			"flagValue": 32000
 			},
 		"negate_iife": {
 			"active": 1,
+			"flagValue": -1
+			},
+		"passes": {
+			"active": 1,
+			"flagValue": 1
+			},
+		"preserve_line": {
+			"active": 0,
 			"flagValue": -1
 			},
 		"properties": {
@@ -3798,11 +3881,19 @@
 			"active": 0,
 			"flagValue": -1
 			},
-		"quote-keys": {
+		"quote_keys": {
 			"active": 0,
 			"flagValue": -1
 			},
-		"screw-ie8": {
+		"quote_style": {
+			"active": 1,
+			"flagValue": 0
+			},
+		"reduce_funcs": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"reduce_vars": {
 			"active": 1,
 			"flagValue": -1
 			},
@@ -3814,23 +3905,51 @@
 			"active": 1,
 			"flagValue": -1
 			},
-		"sort": {
-			"active": 0,
-			"flagValue": -1
-			},
-		"space-colon": {
+		"shebang": {
 			"active": 1,
 			"flagValue": -1
 			},
-		"support-ie8": {
-			"active": 0,
+		"side_effects": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"switches": {
+			"active": 1,
 			"flagValue": -1
 			},
 		"toplevel": {
 			"active": 0,
 			"flagValue": -1
 			},
+		"typeofs": {
+			"active": 1,
+			"flagValue": -1
+			},
 		"unsafe": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"unsafe_comps": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"unsafe_Function": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"unsafe_math": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"unsafe_proto": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"unsafe_regexp": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"unsafe_undefined": {
 			"active": 0,
 			"flagValue": -1
 			},
@@ -3842,9 +3961,17 @@
 			"active": 0,
 			"flagValue": -1
 			},
+		"webkit": {
+			"active": 0,
+			"flagValue": -1
+			},
 		"width": {
 			"active": 1,
 			"flagValue": 80
+			},
+		"wrap_iife": {
+			"active": 0,
+			"flagValue": -1
 			}
 		},
 	"uglifyReservedNamesString": "$",

@@ -3,6 +3,7 @@ import Navb from '../ui/Navb.js';
 import Tocs from '../ui/Tocs.js';
 import View from '../ui/View.js';
 import Page from '../ui/Page.js';
+import Vis  from '../vis/Vis.js';
 var UI,
   hasProp = {}.hasOwnProperty;
 
@@ -41,14 +42,6 @@ UI = (function() {
       this.stream.publish("Ready", "Ready"); // Just notification. No topic
     }
 
-    createContent(pane, page, cname) {
-      if (this.prac != null) {
-        return this.prac.createContent(pane, page, cname);
-      } else {
-        return page.createContent(cname);
-      }
-    }
-
     pagesReady(cname, append = true) {
       var name, page, pane, ref;
       ref = this.pages;
@@ -79,6 +72,9 @@ UI = (function() {
       }
       if (UI.hasLays || (this.navbs != null)) {
         htm += `<div class="layout-corp"      id="${this.htmlId('Corp')}"></div>`;
+      }
+      if (UI.hasLays && UI.dims) {
+        htm += `<div class="layout-dims"      id="${this.htmlId('Dims')}"></div>`;
       }
       if (UI.hasLays) {
         htm += `<div class="layout-find"      id="${this.htmlId('Find')}"></div>`;
@@ -203,7 +199,8 @@ UI = (function() {
     }
 
     static nrowncol(data) {
-      UI.nrow = 3; // if data.nrow? then data.nrow else UI.nrow
+      Util.noop(data);
+      UI.nrow = 4; // if data.nrow? then data.nrow else UI.nrow
       return UI.ncol = 3; // if data.ncol? then data.ncol else UI.ncol
     }
 
@@ -327,6 +324,8 @@ UI = (function() {
   UI.ncol = 36;
 
   UI.nrow = 36;
+
+  UI.dims = false;
 
   UI.margin = {
     width: 1,

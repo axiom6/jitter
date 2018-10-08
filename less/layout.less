@@ -11,8 +11,9 @@
 .layout-body { overflow:hidden; }
 
 // Header
-.layout-logo { position:absolute; left:           0; top:0; width:@layout-west; height:@layout-north; .gradient-nw(  @layout-dark,@layout-lite); .layout-font; }
-.layout-corp { position:absolute; left:@layout-west; top:0; right:@layout-east; height:@layout-north; .gradient-top( @layout-dark,@layout-lite); .layout-font; }
+.layout-logo { position:absolute; left:           0; top:0;            width:@layout-west; height:@layout-north; .gradient-nw(  @layout-dark,@layout-lite); .layout-font; }
+.layout-corp { position:absolute; left:@layout-west; top:0;            right:@layout-east; height:@layout-north; .gradient-top( @layout-dark,@layout-lite); .layout-font; }
+.layout-dims { position:absolute; left:@layout-west; top:@layout-dimt; right:@layout-east; height:@layout-dimh;  .gradient-top( @layout-dark,@layout-lite); .layout-font; }
 .layout-find { position:absolute; right:          0; top:0; width:@layout-east; height:@layout-north; .gradient-ne(  @layout-dark,@layout-lite); .layout-font; }
 
 // Middle
@@ -24,6 +25,8 @@
 .layout-pref { position:absolute; left:           0; bottom:0; width:@layout-west; height:@layout-south; .gradient-sw(     @layout-dark,@layout-lite); .layout-font; }
 .layout-foot { position:absolute; left:@layout-west; bottom:0; right:@layout-east; height:@layout-south; .gradient-bottom( @layout-dark,@layout-lite); .layout-font; }
 .layout-trak { position:absolute; right:          0; bottom:0; width:@layout-east; height:@layout-south; .gradient-se(     @layout-dark,@layout-lite); .layout-font; }
+
+
 
 
 .layout-menu { position:absolute; left:@layout-west; top:0; right:0; height:@layout-north; .gradient-top( @layout-dark,@layout-lite);   }

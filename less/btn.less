@@ -1,11 +1,15 @@
 
 @import "color.less";
 
+@btn-top:    @color-back70; @btn-bot:    @color-back80; @btn-color:    @color-black;
+@btn-hov-top:@color-back60; @btn-hov-bot:@color-back70; @btn-hov-color:@color-black;
+@btn-bord:@color-back50;
+
 .btn-font{ font-family:Roboto, sans-serif;}
 
-@btn-top:    @color-back70; @btn-bot:    @color-back80; @btn-color:    @color-black; @btn-back:@color-back40;
+@btn-top:    @color-back70; @btn-bot:    @color-back80; @btn-color:    @color-black;
 @btn-hov-top:@color-back60; @btn-hov-bot:@color-back70; @btn-hov-color:@color-black;
-@btn-bord:@color-back50;    @btn-shadow-back:@color-back30;
+@btn-bord:@color-back50;
 
 @btn-unit:1vmin;
 @btn-size:              @btn-unit*6;
@@ -41,10 +45,11 @@
   min-width:100%;
   position:relative; left:0;
   cursor: pointer;
+  border: solid black 1px;
   border-radius:@btn-border-radius;
-  border: 1px solid black;
-  background: @btn-back;
-  box-shadow: @btn-unit @btn-unit 0 0 @btn-shadow-back;
+  border-left:  solid @btn-border-thin #2E4476;
+  background: #3B5999;
+  box-shadow: @btn-unit @btn-unit 0 0 #2E4476;
   display: flex;  align-items: center;  justify-content: center;
 }
 
@@ -62,6 +67,6 @@
 
 // justify-self:start;
 
-.btn-nice .btn-image { float:left; margin-right: @btn-pad; border-radius:@btn-border-radius-img; border:solid black 1px;}
-.btn-nice .btn-icons { float:left; padding-right:@btn-pad; } // font-family: "font-awesome" serif;
-.btn-nice .btn-label { float:left; padding-right:@btn-pad; }
+.btn-nice .btn-image { float:left; align-self:center; margin-right: @btn-pad; border-radius:@btn-border-radius-img; border:solid black 1px;}
+.btn-nice .btn-icons { float:left; align-self:center; padding-right:@btn-pad; } // font-family: "font-awesome" serif;
+.btn-nice .btn-label { float:left; align-self:center; padding-right:@btn-pad; }
