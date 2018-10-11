@@ -2,7 +2,6 @@ import Util from '../util/Util.js';
 import Navb from '../ui/Navb.js';
 import Tocs from '../ui/Tocs.js';
 import View from '../ui/View.js';
-import Page from '../ui/Page.js';
 import Vis  from '../vis/Vis.js';
 var UI,
   hasProp = {}.hasOwnProperty;
