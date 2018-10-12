@@ -1,5 +1,6 @@
 
 `import Util from '../util/Util.js'`
+`import Data from '../util/Data.js'`
 `import UI    from '../ui/UI.js'`
 `import Dom   from '../ui/Dom.js'`
 `import Base  from '../ui/Base.js'`
@@ -22,7 +23,7 @@ class World extends Base
         region.chosen = false
         region.source = 'World'
         #console.log( "Region Data", region )
-    UI.readJSON( "json/region.json", callback )
+    Data.asyncJSON( "json/region.json", callback )
 
   subscribe:() ->
     #@stream.subscribe( 'Choice', (choice) => @onChoice(choice) )

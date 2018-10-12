@@ -1,4 +1,5 @@
 import Util     from '../util/Util.js';
+import Data   from '../util/Data.js';
 import Stream   from '../util/Stream.js';
 import UI       from '../ui/UI.js';
 import Flavor   from '../jitter/Flavor.js';
@@ -16,12 +17,11 @@ var Jitter;
 
 Jitter = (function() {
   class Jitter {
-    static init() {
+    static init(data) {
+      Jitter.Tocs = Data.createPacks(data);
       UI.hasPack = true;
       UI.hasTocs = false;
       UI.hasLays = false;
-      UI.local = "http://localhost:63342/jitter/public/"; // Every app needs to change this
-      UI.hosted = "https://jitter-48413.firebaseapp.com/"; // Every app needs to change this
       Util.ready(function() {
         var infoSpec, jitter, subjects;
         subjects = ["Ready", "Select", "Choice", "Roast", "Region", "Prefs", "Test"];
@@ -76,7 +76,11 @@ Jitter = (function() {
 
   };
 
-  Jitter.Tocs = UI.packJSON('json/toc.json');
+  Data.local = "http://localhost:63342/jitter/public/";
+
+  Data.hosted = "https://ui-48413.firebaseapp.com/";
+
+  Data.asyncJSON("json/toc.json", Jitter.init);
 
   Jitter.SpecInteract = {
     Taste: {
@@ -197,7 +201,5 @@ Jitter = (function() {
   return Jitter;
 
 }).call(this);
-
-Jitter.init();
 
 export default Jitter;

@@ -1,5 +1,6 @@
 
 `import Util     from '../util/Util.js'`
+`import Data   from '../util/Data.js'`
 `import Stream   from '../util/Stream.js'`
 `import UI       from '../ui/UI.js'`
 `import Flavor   from '../jitter/Flavor.js'`
@@ -16,14 +17,15 @@
 
 class Jitter
 
-  Jitter.Tocs = UI.packJSON( 'json/toc.json' )
+  Data.local  = "http://localhost:63342/jitter/public/"
+  Data.hosted = "https://ui-48413.firebaseapp.com/"
+  Data.asyncJSON( "json/toc.json", Jitter.init )
 
-  @init = () ->
-    UI.hasPack = true
-    UI.hasTocs = false
-    UI.hasLays = false
-    UI.local   = "http://localhost:63342/jitter/public/" # Every app needs to change this
-    UI.hosted  = "https://jitter-48413.firebaseapp.com/" # Every app needs to change this
+  @init = ( data ) ->
+    Jitter.Tocs = Data.createPacks( data )
+    UI.hasPack  = true
+    UI.hasTocs  = false
+    UI.hasLays  = false
     Util.ready ->
       subjects      = ["Ready","Select","Choice","Roast","Region","Prefs","Test"]
       infoSpec      = { subscribe:false, publish:false, subjects:["Select","Choice","Region","Prefs","Test"]}
@@ -80,8 +82,6 @@ class Jitter
       { type:"Item",    name:"Privacy",     topic:"Privacy",     subject:"Settings" } ] }
     { type:"SignOn",    name:"SignOn", icon:"fa-sign-in", size:"10", topic:'SignOn', subject:"SignOn" }
     { type:"NavBarEnd"  } ]
-
-Jitter.init()
 
 `export default Jitter`
 
