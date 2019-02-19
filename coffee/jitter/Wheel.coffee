@@ -5,10 +5,12 @@ class Wheel
     @showAllLeaves = false
     @radiusFactorChoice = 1.3
     @radiusFactorChild  = 1.0
+    @d3 = window['d3']
 
   resize:() ->
-    w  = @pane.geo.w
-    h  = @pane.geo.h
+    geom = @pane.geom()
+    w  = geom.w
+    h  = geom.h
     sx = w  / @width
     sy = h  / @height
     sc = Math.min( sx, sy )
@@ -24,17 +26,18 @@ class Wheel
     @pane   = pane
     @url    = url
     @json   = {}
-    @width  = pane.geo.w
-    @height = pane.geo.h
+    geom    = @pane.geom()
+    @width  = geom.w
+    @height = geom.h
     @radius = Math.min( @width, @height ) * scale / 2
-    @xx     = d3.scaleLinear().range([ 0, 2*Math.PI ] )
-    @yy     = d3.scalePow().exponent(1.3).domain([0, 1]).range([0, @radius]) # 1.3
-    @formatNumber = d3.format(",d")
+    @xx     = @d3.scaleLinear().range([ 0, 2*Math.PI ] )
+    @yy     = @d3.scalePow().exponent(1.3).domain([0, 1]).range([0, @radius]) # 1.3
+    # @formatNumber = @d3.format(",d")
     @padding = 0
     @duration = 300
     @lookup = {}
 
-    div = d3.select( elem )
+    div = @d3.select( elem )
 
     w  = @width
     h  = @height
@@ -51,18 +54,18 @@ class Wheel
       .style('fill', 'black' )
       .style("font-size", "3vmin" )
 
-    @partition = d3.partition()
+    @partition = @d3.partition()
 
-    @arc = d3.arc()
+    @arc = @d3.arc()
       .startAngle(  (d) => Math.max( 0, Math.min(2 * Math.PI, @xx( @x0(d) ))))
       .endAngle(    (d) => Math.max( 0, Math.min(2 * Math.PI, @xx( @x1(d) ))))
       .innerRadius( (d) => Math.max( 0, @yy(@y0(d)) ) )
       .outerRadius( (d) => Math.max( 0, @yy(@y1(d)) ) )
 
-    d3.json( @url ).then ( json ) =>
+    @d3.json( @url ).then ( json ) =>
 
       @json = json
-      @root = d3.hierarchy(json)
+      @root = @d3.hierarchy(json)
       @root.sum(  (d) => ( d.chosen = false; d.hide = @isLeaf(d); if @isBranch(d) then 0 else 1 ) )
       @nodes = @partition(@root).descendants()
       @adjustRadius( @root )
@@ -85,7 +88,7 @@ class Wheel
 
       @doText( @nodes )
 
-    d3.select( self.frameElement).style( "height", @height + "px" )
+    @d3.select( self.frameElement).style( "height", @height + "px" )
     return
 
   adjustRadius:( d ) =>
@@ -132,8 +135,8 @@ class Wheel
     false
 
   # http://www.w3.org/WAI/ER/WD-AERT/#color-contrast
-  brightness:( rgb ) ->
-    rgb.r * .299 + rgb.g * .587 + rgb.b * .114
+  # brightness:( rgb ) ->
+  #   rgb.r * .299 + rgb.g * .587 + rgb.b * .114
 
   fill:(d) =>
     # console.log( 'fill', d )
@@ -143,10 +146,10 @@ class Wheel
       d.parent.data.fill
     else if d.children?
       colours = d.children.map(@fill)
-      a = d3.hsl(colours[0])
-      b = d3.hsl(colours[1])
+      a = @d3.hsl(colours[0])
+      b = @d3.hsl(colours[1])
       # L*a*b* might be better here...
-      d3.hsl (a.h + b.h) / 2, a.s * 1.2, a.l / 1.2
+      @d3.hsl (a.h + b.h) / 2, a.s * 1.2, a.l / 1.2
     else
       '#666666'
 
@@ -159,8 +162,8 @@ class Wheel
       .on( "mouseover",   (d) => @onEvent( d, 'mouseover' ) )
       .on( "mouseout",    (d) => @onEvent( d, 'mouseout'  ) )
       .style("font-size", (t) => @fontSize( t ) )
-      .style('fill-opacity', 1 )
-      #style('fill',       (d) => if @brightness( d3.rgb( @fill(d.data) ) ) < 125 then '#eee' else '#000' )
+      .style('opacity', 1 )
+      #style('fill',       (d) => if @brightness( @d3.rgb( @fill(d.data) ) ) < 125 then '#eee' else '#000' )
       .style('fill', '#000000' )
       .style('font-weight', 900 )
       .style( "display",   (d) -> if d.data.hide then "none" else "block" )
@@ -274,9 +277,9 @@ class Wheel
     @svg.transition()
       .duration(@duration)
       .tween( "scale", () =>
-        xd = d3.interpolate( @xx.domain(), [ @x0(d), @x1(d)] )
-        yd = d3.interpolate( @yy.domain(), [ @y0(d), 1] )
-        yr = d3.interpolate( @yy.range(),  [ (if d.y0? then 20 else 0), @radius ] )
+        xd = @d3.interpolate( @xx.domain(), [ @x0(d), @x1(d)] )
+        yd = @d3.interpolate( @yy.domain(), [ @y0(d), 1] )
+        yr = @d3.interpolate( @yy.range(),  [ (if d.y0? then 20 else 0), @radius ] )
         (t) => ( @xx.domain(xd(t)); @yy.domain(yd(t)).range(yr(t)) ) )
     .selectAll("path")
       .attrTween( "d", (d) => ( () => @arc(d) ) )
@@ -303,4 +306,4 @@ class Wheel
     console.log( 'Wheel.getFlavorName()', { roast:roast, flavor:flavor } )
     if flavor then flavor.name else ""
 
-`export default Wheel`
+export default Wheel

@@ -1,18 +1,21 @@
-import Util  from '../util/Util.js';
-import UI    from '../ui/UI.js';
-import Dom   from '../ui/Dom.js';
-import Base  from '../ui/Base.js';
 var Region,
   boundMethodCheck = function(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new Error('Bound instance method accessed before binding'); } };
 
+import Util from '../util/Util.js';
+
+import UI from '../ui/UI.js';
+
+import Dom from '../ui/Dom.js';
+
+import Base from '../ui/Base.js';
+
 Region = class Region extends Base {
-  constructor(stream, ui, world) {
+  constructor(stream, ui) { // , @world
     super(stream, ui, 'Region');
     this.onRegion = this.onRegion.bind(this);
-    this.world = world;
-    this.$img = $();
   }
 
+  // @$img = $()
   subscribe() {
     this.stream.subscribe('Region', 'Region', (region) => {
       return this.onRegion(region);

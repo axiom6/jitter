@@ -1,21 +1,30 @@
 
-`import Util from '../util/Util.js'`
-`import UI   from '../ui/UI.js'`
+import Util from '../util/Util.js'
+import UI   from '../ui/UI.js'
 
 class User
 
   constructor:( @stream, @jitter ) ->
-    @testUrl = "http://demo.wp-api.org/wp-json/wp/v2/users"
-    @jittUrl =   "https://jitterbox.co/wp-json/wp/v2/users"
-    @baseUrl = @jittUrl
-    @root    = window.location.origin + '/wp-json/'
+    #@testUrl = "http://demo.wp-api.org/wp-json/wp/v2/users"
+    @jittUrl  =   "https://jitterbox.co/wp-json/wp/v2/users"
+    @baseUrl  = @jittUrl
+    @root     = window.location.origin + '/wp-json/'
     @subscribe()
+    Util.noop( @getUrl, @listUsers, @postPrefs )
 
   subscribe:() ->
     @stream.subscribe( "Prefs", "User", (prefs) => @onPrefs(prefs) )
 
   onPrefs:( prefs ) =>
     console.info( 'User.onPrefs()', prefs ) if @stream.isInfo('Prefs')
+    return
+
+  getPrefs:() ->
+    url = @baseUrl+'/1'
+    callback = (schema) =>
+      @stream.publish( "Prefs", @jitter.schemaToPrefs(schema) )
+      return
+    @ajax( url, "GET", callback )
     return
 
   getUrl:( email, method ) ->
@@ -26,14 +35,6 @@ class User
     url = @baseUrl
     callback = (list) =>
       @console.log( "User.listUsers()", list )
-      return
-    @ajax( url, "GET", callback )
-    return
-
-  getPrefs:() ->
-    url = @baseUrl+'/1'
-    callback = (schema) =>
-      @stream.publish( "Prefs", @jitter.schemaToPrefs(schema) )
       return
     @ajax( url, "GET", callback )
     return

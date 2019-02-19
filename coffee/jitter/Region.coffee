@@ -1,14 +1,14 @@
 
-`import Util  from '../util/Util.js'`
-`import UI    from '../ui/UI.js'`
-`import Dom   from '../ui/Dom.js'`
-`import Base  from '../ui/Base.js'`
+import Util  from '../util/Util.js'
+import UI    from '../ui/UI.js'
+import Dom   from '../ui/Dom.js'
+import Base  from '../ui/Base.js'
 
 class Region  extends Base
 
-  constructor:( stream, ui, @world ) ->
+  constructor:( stream, ui ) -> # , @world
     super(      stream, ui, 'Region' )
-    @$img = $()
+    # @$img = $()
 
   subscribe:() ->
     @stream.subscribe( 'Region', 'Region', (region) => @onRegion(region) )
@@ -51,4 +51,4 @@ class Region  extends Base
     @stream.publish( 'Choice', choice )
     return
 
-`export default Region`
+export default Region

@@ -1,19 +1,20 @@
 
-`import Util     from '../util/Util.js'`
-`import Data   from '../util/Data.js'`
-`import Stream   from '../util/Stream.js'`
-`import UI       from '../ui/UI.js'`
-`import Flavor   from '../jitter/Flavor.js'`
-`import Interact from '../jitter/Interact.js'`
-`import Summary  from '../jitter/Summary.js'`
-`import Roast    from '../jitter/Roast.js'`
-`import Drink    from '../jitter/Drink.js'`
-`import Body     from '../jitter/Body.js'`
-`import Brew     from '../jitter/Brew.js'`
-`import World    from '../jitter/World.js'`
-`import Region   from '../jitter/Region.js'`
-`import User     from '../jitter/User.js'`
-`import Prefs    from '../jitter/Prefs.js'`
+import Util     from '../util/Util.js'
+import Data     from '../util/Data.js'
+import Build    from '../prac/Build.js'
+import Stream   from '../util/StreamPs.js'
+import UI       from '../ui/UI.js'
+import Flavor   from '../jitter/Flavor.js'
+import Interact from '../jitter/Interact.js'
+import Summary  from '../jitter/Summary.js'
+import Roast    from '../jitter/Roast.js'
+import Drink    from '../jitter/Drink.js'
+import Body     from '../jitter/Body.js'
+import Brew     from '../jitter/Brew.js'
+import World    from '../jitter/World.js'
+import Region   from '../jitter/Region.js'
+import User     from '../jitter/User.js'
+import Prefs    from '../jitter/Prefs.js'
 
 class Jitter
 
@@ -22,7 +23,7 @@ class Jitter
   Data.asyncJSON( "json/toc.json", Jitter.init )
 
   @init = ( data ) ->
-    Jitter.Tocs = Data.createPacks( data )
+    Jitter.Tocs = Build.createPacks( data )
     UI.hasPack  = true
     UI.hasTocs  = false
     UI.hasLays  = false
@@ -36,7 +37,7 @@ class Jitter
       return
     return
 
-  @SpecInteract = {
+  Jitter.SpecInteract = {
     Taste:  { type:"pack" }, Flavor:{   type:"pane" }, Summaryt:{ type:"pane" },
     Prepare:{ type:"pack" }, Roast:{    type:"pane" }, Brew:{    type:"pane" }, Drink:{   type:"pane" },
     Body:   { type:"pane" }, Summaryp:{ type:"pane" },
@@ -56,6 +57,7 @@ class Jitter
     @summarym = new Summary(  @stream, @ui, "Summarym"   )
     @user     = new User(     @stream, @ )
     @prefs    = new Prefs(    @stream )
+    Util.noop( @summaryt, @summaryp, @summarym, @prefs, Jitter.SpecInteract, Jitter.NavbSubjects, Jitter.NavbSpecs )
     #@stream.subscribe( "Ready", "Jitter", () => @onReady() )
 
   onReady:() =>
@@ -68,8 +70,8 @@ class Jitter
   prefsToSchema:( prefs  ) -> @summary.prefsToSchema( prefs  )
   schemaToPrefs:( schema ) -> @summary.schemaToPrefs( schema )
 
-  @NavbSubjects = ["Search","Contact","Settings","SignOn"]
-  @NavbSpecs    = [
+  Jitter.NavbSubjects = ["Search","Contact","Settings","SignOn"]
+  Jitter.NavbSpecs    = [
     { type:"NavBarLeft" }
     { type:"Item",      name:"Home",   icon:"fa-home", topic:UI.toTopic( "View", 'Navb', UI.SelectView ), subject:"Select" }
     { type:"NavBarEnd" }
@@ -83,5 +85,5 @@ class Jitter
     { type:"SignOn",    name:"SignOn", icon:"fa-sign-in", size:"10", topic:'SignOn', subject:"SignOn" }
     { type:"NavBarEnd"  } ]
 
-`export default Jitter`
+export default Jitter
 

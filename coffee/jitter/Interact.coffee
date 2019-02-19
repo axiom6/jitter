@@ -1,15 +1,15 @@
 
-`import Util  from '../util/Util.js'`
-`import UI    from '../ui/UI.js'`
-`import Dom   from '../ui/Dom.js'`
-`import Base  from '../ui/Base.js'`
+import Util  from '../util/Util.js'
+import UI    from '../ui/UI.js'
+import Base  from '../ui/Base.js'
 
 class Interact extends Base
 
   constructor:( stream, ui, name, @specs ) ->
-    super(      stream, ui, name )
+    super(      stream, ui, name, @specs )
     @lastSelect = ""
     @stream.subscribe( 'Select', 'Interact', (select) => @onSelect(select) )
+    console.log( @specs, @lastSelect ) if false
 
   ready:( cname ) =>
     Util.noop( cname )
@@ -77,4 +77,4 @@ class Interact extends Base
   readyView:() ->
     $("""<h1 style=" display:grid; justify-self:center; align-self:center; ">Interact</h1>""" )
 
-`export default Interact`
+export default Interact

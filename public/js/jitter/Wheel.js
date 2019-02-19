@@ -6,6 +6,9 @@ Wheel = class Wheel {
     this.xc = this.xc.bind(this);
     this.yc = this.yc.bind(this);
     this.isParentOf = this.isParentOf.bind(this);
+    // http://www.w3.org/WAI/ER/WD-AERT/#color-contrast
+    // brightness:( rgb ) ->
+    //   rgb.r * .299 + rgb.g * .587 + rgb.b * .114
     this.fill = this.fill.bind(this);
     this.doText = this.doText.bind(this);
     // eventType is click mouseover mouseout AddChoice DelChoice
@@ -23,12 +26,14 @@ Wheel = class Wheel {
     this.showAllLeaves = false;
     this.radiusFactorChoice = 1.3;
     this.radiusFactorChild = 1.0;
+    this.d3 = window['d3'];
   }
 
   resize() {
-    var h, sc, sx, sy, w, xc, yc;
-    w = this.pane.geo.w;
-    h = this.pane.geo.h;
+    var geom, h, sc, sx, sy, w, xc, yc;
+    geom = this.pane.geom();
+    w = geom.w;
+    h = geom.h;
     sx = w / this.width;
     sy = h / this.height;
     sc = Math.min(sx, sy);
@@ -39,24 +44,25 @@ Wheel = class Wheel {
   }
 
   ready(pane, spec, elem, url, scale = 1.0) {
-    var div, h, w, xc, yc;
+    var div, geom, h, w, xc, yc;
     this.spec = spec;
     this.pane = pane;
     this.url = url;
     this.json = {};
-    this.width = pane.geo.w;
-    this.height = pane.geo.h;
+    geom = this.pane.geom();
+    this.width = geom.w;
+    this.height = geom.h;
     this.radius = Math.min(this.width, this.height) * scale / 2;
-    this.xx = d3.scaleLinear().range([0, 2 * Math.PI]);
-    this.yy = d3.scalePow().exponent(1.3).domain([0, 1]).range([
+    this.xx = this.d3.scaleLinear().range([0, 2 * Math.PI]);
+    this.yy = this.d3.scalePow().exponent(1.3).domain([0, 1]).range([
       0,
       this.radius // 1.3
     ]);
-    this.formatNumber = d3.format(",d");
+    // @formatNumber = @d3.format(",d")
     this.padding = 0;
     this.duration = 300;
     this.lookup = {};
-    div = d3.select(elem);
+    div = this.d3.select(elem);
     w = this.width;
     h = this.height;
     xc = this.width / 2;
@@ -64,8 +70,8 @@ Wheel = class Wheel {
     this.svg = div.append("svg").attr("width", w).attr("height", h);
     this.g = this.svg.append("g").attr("transform", `translate(${xc},${yc}) scale(1,1)`);
     this.g.append("text").text("Flavor").attr('x', -32).attr('y', 12).style('fill', 'black').style("font-size", "3vmin");
-    this.partition = d3.partition();
-    this.arc = d3.arc().startAngle((d) => {
+    this.partition = this.d3.partition();
+    this.arc = this.d3.arc().startAngle((d) => {
       return Math.max(0, Math.min(2 * Math.PI, this.xx(this.x0(d))));
     }).endAngle((d) => {
       return Math.max(0, Math.min(2 * Math.PI, this.xx(this.x1(d))));
@@ -74,9 +80,9 @@ Wheel = class Wheel {
     }).outerRadius((d) => {
       return Math.max(0, this.yy(this.y1(d)));
     });
-    d3.json(this.url).then((json) => {
+    this.d3.json(this.url).then((json) => {
       this.json = json;
-      this.root = d3.hierarchy(json);
+      this.root = this.d3.hierarchy(json);
       this.root.sum((d) => {
         d.chosen = false;
         d.hide = this.isLeaf(d);
@@ -112,7 +118,7 @@ Wheel = class Wheel {
       //append("title").text( (d) -> d.data.name )
       return this.doText(this.nodes);
     });
-    d3.select(self.frameElement).style("height", this.height + "px");
+    this.d3.select(self.frameElement).style("height", this.height + "px");
   }
 
   adjustRadius(d) {
@@ -212,11 +218,6 @@ Wheel = class Wheel {
     return false;
   }
 
-  // http://www.w3.org/WAI/ER/WD-AERT/#color-contrast
-  brightness(rgb) {
-    return rgb.r * .299 + rgb.g * .587 + rgb.b * .114;
-  }
-
   fill(d) {
     var a, b, colours;
     // console.log( 'fill', d )
@@ -226,10 +227,10 @@ Wheel = class Wheel {
       return d.parent.data.fill;
     } else if (d.children != null) {
       colours = d.children.map(this.fill);
-      a = d3.hsl(colours[0]);
-      b = d3.hsl(colours[1]);
+      a = this.d3.hsl(colours[0]);
+      b = this.d3.hsl(colours[1]);
       // L*a*b* might be better here...
-      return d3.hsl((a.h + b.h) / 2, a.s * 1.2, a.l / 1.2);
+      return this.d3.hsl((a.h + b.h) / 2, a.s * 1.2, a.l / 1.2);
     } else {
       return '#666666';
     }
@@ -246,8 +247,8 @@ Wheel = class Wheel {
       return this.onEvent(d, 'mouseout');
     }).style("font-size", (t) => {
       return this.fontSize(t);
-    //style('fill',       (d) => if @brightness( d3.rgb( @fill(d.data) ) ) < 125 then '#eee' else '#000' )
-    }).style('fill-opacity', 1).style('fill', '#000000').style('font-weight', 900).style("display", function(d) {
+    //style('fill',       (d) => if @brightness( @d3.rgb( @fill(d.data) ) ) < 125 then '#eee' else '#000' )
+    }).style('opacity', 1).style('fill', '#000000').style('font-weight', 900).style("display", function(d) {
       if (d.data.hide) {
         return "none";
       } else {
@@ -434,9 +435,9 @@ Wheel = class Wheel {
   zoomTween(d) {
     this.svg.transition().duration(this.duration).tween("scale", () => {
       var xd, yd, yr;
-      xd = d3.interpolate(this.xx.domain(), [this.x0(d), this.x1(d)]);
-      yd = d3.interpolate(this.yy.domain(), [this.y0(d), 1]);
-      yr = d3.interpolate(this.yy.range(), [(d.y0 != null ? 20 : 0), this.radius]);
+      xd = this.d3.interpolate(this.xx.domain(), [this.x0(d), this.x1(d)]);
+      yd = this.d3.interpolate(this.yy.domain(), [this.y0(d), 1]);
+      yr = this.d3.interpolate(this.yy.range(), [(d.y0 != null ? 20 : 0), this.radius]);
       return (t) => {
         this.xx.domain(xd(t));
         return this.yy.domain(yd(t)).range(yr(t));

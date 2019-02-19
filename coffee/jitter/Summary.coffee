@@ -1,8 +1,8 @@
 
-`import Util from '../util/Util.js'`
-`import UI   from '../ui/UI.js'`
-`import Dom  from '../ui/Dom.js'`
-`import Base from '../ui/Base.js'`
+import Util from '../util/Util.js'
+import UI   from '../ui/UI.js'
+import Dom  from '../ui/Dom.js'
+import Base from '../ui/Base.js'
 
 class Summary extends Base
 
@@ -44,4 +44,4 @@ class Summary extends Base
       $e.find('#'+htmlId).remove()
     return
 
-`export default Summary`
+export default Summary

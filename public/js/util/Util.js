@@ -5,6 +5,13 @@ Util = (function() {
   class Util {
     constructor() {
       this.dummy = "";
+      Util.noop(Util.loadScript, Util.hasMethod, Util.dependsOn, Util.setInstance, Util.getInstance);
+      Util.noop(Util.toError, Util.logJSON, Util.isNot, Util.isVal, Util.isntStr);
+      Util.noop(Util.inIndex, Util.isEvent, Util.atArray, Util.atLength, Util.isStrInteger);
+      Util.noop(Util.isStrCurrency, Util.isStrFloat, Util.isDefs, Util.toPosition, Util.xyScale);
+      Util.noop(Util.resizeTimeout, Util.eventErrorCode, Util.toAlpha, Util.hashCode, Util.pdfCSS);
+      Util.noop(Util.padStr, Util.isoDateTime, Util.toHMS, Util.toInt, Util.hex32);
+      Util.noop(Util.toFloat, Util.toCap, Util.match_test, Util.svgId, Util.saveFile);
     }
 
     static loadScript(path, fn) {
@@ -237,7 +244,7 @@ Util = (function() {
 
     // ------ Validators ------
     static isDef(d) {
-      return d != null;
+      return d !== null && typeof d !== 'undefined';
     }
 
     static isNot(d) {
@@ -245,7 +252,7 @@ Util = (function() {
     }
 
     static isStr(s) {
-      return (s != null) && typeof s === "string" && s.length > 0;
+      return Util.isDef(s) && typeof s === "string" && s.length > 0;
     }
 
     static isntStr(s) {
@@ -253,11 +260,11 @@ Util = (function() {
     }
 
     static isNum(n) {
-      return (n != null) && typeof n === "number" && !isNaN(n);
+      return !isNaN(n);
     }
 
     static isObj(o) {
-      return (o != null) && typeof o === "object";
+      return Util.isDef(o) && typeof o === "object";
     }
 
     static isVal(v) {
@@ -277,15 +284,15 @@ Util = (function() {
     }
 
     static isFunc(f) {
-      return (f != null) && typeof f === "function";
+      return Util.isDef(f) && typeof f === "function";
     }
 
     static isArray(a) {
-      return (a != null) && typeof a !== "string" && (a.length != null) && a.length > 0;
+      return Util.isDef(a) && typeof a !== "string" && (a.length != null) && a.length > 0;
     }
 
     static isEvent(e) {
-      return (e != null) && (e.target != null);
+      return Util.isDef(e) && (e.target != null);
     }
 
     static inIndex(a, i) {
@@ -361,7 +368,7 @@ Util = (function() {
       for (key in args) {
         if (!hasProp.call(args, key)) continue;
         arg = args[key];
-        //console.log( "Util.checkTypes(type,args) argument #{key} #{type}", arg )
+        // console.log( "Util.checkTypes isNum() argument #{key} is #{type}", arg, Util.isNum(arg) )
         if (!Util.checkType(type, arg)) {
           console.log(`Util.checkTypes(type,args) argument ${key} is not ${type}`, arg);
           console.trace();
@@ -427,6 +434,10 @@ Util = (function() {
 
     static xyScale(prev, next, port, land) {
       var xn, xp, xs, yn, yp, ys;
+      xp = 0;
+      yp = 0;
+      xn = 0;
+      yn = 0;
       [xp, yp] = prev.orientation === 'Portrait' ? [port[2], port[3]] : [land[2], land[3]];
       [xn, yn] = next.orientation === 'Portrait' ? [port[2], port[3]] : [land[2], land[3]];
       xs = next.width * xn / (prev.width * xp);
@@ -457,10 +468,10 @@ Util = (function() {
       return id.replace(/[ \.]/g, "");
     }
 
-    static htmlId(name, type = '', ext = '') {
+    static htmlId(name, type = '', ext = '', issueError = true) {
       var id;
       id = Util.getHtmlId(name, type, ext);
-      if (Util.htmlIds[id] != null) {
+      if ((Util.htmlIds[id] != null) && issueError) {
         console.error('Util.htmlId() duplicate html id', id);
       }
       Util.htmlIds[id] = id;
@@ -496,6 +507,10 @@ Util = (function() {
 
     static toName(s1) {
       var s2, s3, s4, s5;
+      if (s1 == null) {
+        console.trace();
+        return "???";
+      }
       s2 = s1.replace('_', ' ');
       s3 = s2.replace(/([A-Z][a-z])/g, ' $1');
       s4 = s3.replace(/([A-Z]+)/g, ' $1');
@@ -503,11 +518,8 @@ Util = (function() {
       return s5;
     }
 
-    static toName1(s1) {
-      var s2, s3;
-      s2 = s1.replace('_', ' ');
-      s3 = s2.replace(/([A-Z][a-z])/g, ' $1');
-      return s3.substring(1);
+    static toAlpha(s1) {
+      return s1.replace(/\W/g, '');
     }
 
     static indent(n) {
@@ -589,6 +601,8 @@ Util = (function() {
       if (Util.isArray(nameValues)) {
         for (j = 0, len1 = nameValues.length; j < len1; j++) {
           nameValue = nameValues[j];
+          name = '';
+          value = '';
           [name, value] = nameValue.split('=');
           parse.params[name] = value;
         }
@@ -657,7 +671,10 @@ Util = (function() {
 
     static toHMS(unixTime) {
       var ampm, date, hour, min, sec, time;
-      date = Util.isNum(unixTime) ? new Date(unixTime * 1000) : new Date();
+      date = new Date();
+      if (Util.isNum(unixTime)) {
+        date.setTime(unixTime);
+      }
       hour = date.getHours();
       ampm = 'AM';
       if (hour > 12) {
@@ -829,6 +846,8 @@ Util = (function() {
     // Search for the regexp at the beginning of the text.
     static match_here(regexp, text) {
       var cur, next;
+      cur = "";
+      next = "";
       [cur, next] = [regexp[0], regexp[1]];
       if (regexp.length === 0) {
         return true;

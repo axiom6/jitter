@@ -1,6 +1,5 @@
 
-`import Util  from '../util/Util.js'`
-`import UI    from '../ui/UI.js'`
+import UI    from '../ui/UI.js'
 
 class Prefs
   
@@ -104,13 +103,7 @@ class Prefs
     prefs.arrays = { Flavor:['Chocolate','Nutty'], Roast:['Medium'], Brew:['AutoDrip'], Drink: ['Black'], Body:['Full'], Region:['Brazil'] }
     return
 
-  toSchema:() ->
-    schema       = {}
-    schema.id    = @id
-    schema.name  = @name
-    schema.email = @email
-    schema.meta  = @toMeta()
-    schema
+  ###
 
   toMeta:() ->
     meta = {} # Need to see if meta object is correct
@@ -120,6 +113,20 @@ class Prefs
         meta[key].push( value )
     meta
 
+  fromMeta:( metas ) ->
+    choices = {}
+    for own key, meta of metas
+      choices[meta.key] = meta.key
+    choices
+
+  toSchema:() ->
+    schema       = {}
+    schema.id    = @id
+    schema.name  = @name
+    schema.email = @email
+    schema.meta  = @toMeta()
+    schema
+
   fromSchema:( schema ) ->
     prefs         = {}
     prefs.id      = schema.id
@@ -128,12 +135,6 @@ class Prefs
     prefs.schema  = schema      # For reviewing data
     prefs
 
-  fromMeta:( metas ) ->
-    choices = {}
-    for own key, meta of metas
-      choices[meta.key] = meta.key
-    choices
+  ###
 
-
-  
 `export default Prefs`

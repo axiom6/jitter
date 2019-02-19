@@ -1,10 +1,9 @@
 
-`import Util  from '../util/Util.js'`
-`import UI    from '../ui/UI.js'`
-`import Vis   from '../vis/Vis.js'`
-`import Dom   from '../ui/Dom.js'`
-`import Base  from '../ui/Base.js'`
-`import Wheel from '../jitter/Wheel.js'`
+import Util  from '../util/Util.js'
+import UI    from '../ui/UI.js'
+import Dom   from '../ui/Dom.js'
+import Base  from '../ui/Base.js'
+import Wheel from '../jitter/Wheel.js'
 
 class Flavor extends Base
 
@@ -12,6 +11,7 @@ class Flavor extends Base
     super(      stream, ui, name )
     @wheel = new Wheel( @publish, Dom.opacity )
     @prevRegion = null
+    console.log( @prevRegion ) if false
 
   # Passed as a callback to Wheel and called when Wheel makes a choice to be published
   publish:( add, flavor, roast ) =>
@@ -74,5 +74,5 @@ class Flavor extends Base
     @onWheel( addDel, flavor ) if Util.isStr(flavor )
     return
 
-`export default Flavor`
+export default Flavor
 

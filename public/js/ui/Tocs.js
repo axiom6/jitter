@@ -1,25 +1,28 @@
-import Util from '../util/Util.js';
-import UI   from '../ui/UI.js';
 var Tocs,
   hasProp = {}.hasOwnProperty;
 
+import Util from '../util/Util.js';
+
+import UI from '../ui/UI.js';
+
+import Dom from '../ui/Dom.js';
+
 Tocs = (function() {
   class Tocs {
-    constructor(ui, stream, practices1) {
+    constructor(ui, stream, practices) {
       this.onSelect = this.onSelect.bind(this);
       this.ui = ui;
       this.stream = stream;
-      this.practices = practices1;
+      this.practices = practices;
       [this.specs, this.stack] = this.createTocsSpecs(this.practices);
-      //@infoSpecs() #
       this.htmlIdApp = this.ui.getHtmlId('Tocs', '');
       this.classPrefix = Util.isStr(this.practices.css) ? this.practices.css : 'tocs';
       this.last = this.specs[0];
       this.speed = 400;
     }
 
-    createTocsSpecs(practices) {
-      var hasChild, keyPrac, keyStudy, practice, spec0, specN, specs, stack, study;
+    createTocsSpecs(practs) {
+      var keyPract, keyStudy, keyTopic, pract, spec0, specN, specs, stack, study, topic;
       spec0 = {
         level: 0,
         name: "Beg",
@@ -29,19 +32,26 @@ Tocs = (function() {
       stack[0] = spec0;
       specs = [];
       specs.push(spec0);
-      for (keyPrac in practices) {
-        if (!hasProp.call(practices, keyPrac)) continue;
-        practice = practices[keyPrac];
-        if (!(Util.isChild(keyPrac))) {
+      for (keyPract in practs) {
+        if (!hasProp.call(practs, keyPract)) continue;
+        pract = practs[keyPract];
+        if (!(this.isToc(keyPract, pract))) {
           continue;
         }
-        hasChild = this.hasChild(practice);
-        this.enrichSpec(keyPrac, practice, specs, 1, spec0, hasChild, true);
-        for (keyStudy in practice) {
-          if (!hasProp.call(practice, keyStudy)) continue;
-          study = practice[keyStudy];
-          if (hasChild && Util.isChild(keyStudy)) {
-            this.enrichSpec(keyStudy, study, specs, 2, practice, false, false);
+        this.enrichSpec(keyPract, pract, specs, 1, spec0);
+        for (keyStudy in pract) {
+          if (!hasProp.call(pract, keyStudy)) continue;
+          study = pract[keyStudy];
+          if (!(this.isToc(keyStudy, study))) {
+            continue;
+          }
+          this.enrichSpec(keyStudy, study, specs, 2, pract);
+          for (keyTopic in study) {
+            if (!hasProp.call(study, keyTopic)) continue;
+            topic = study[keyTopic];
+            if (this.isToc(keyTopic, topic)) {
+              this.enrichSpec(keyTopic, topic, specs, 3, study);
+            }
           }
         }
       }
@@ -54,8 +64,15 @@ Tocs = (function() {
       return [specs, stack];
     }
 
+    isToc(key, obj) {
+      return Util.isChild(key) && !((obj['toc'] != null) && !obj['toc']);
+    }
+
     hasChild(spec) {
       var child, key;
+      if (spec.level >= 3) {
+        return false;
+      }
       for (key in spec) {
         if (!hasProp.call(spec, key)) continue;
         child = spec[key];
@@ -75,19 +92,19 @@ Tocs = (function() {
       }
     }
 
-    enrichSpec(key, spec, specs, level, parent, hasChild, isRow) {
+    enrichSpec(key, spec, specs, level, parent) {
       //console.log( 'Tocs', key, spec )
       spec.level = level;
       spec.parent = parent;
       spec.name = spec.name != null ? spec.name : key; // Need to learn why this is needed
       spec.on = false;
-      spec.hasChild = hasChild;
-      spec.isRow = isRow;
+      spec.hasChild = this.hasChild(spec);
       specs.push(spec);
     }
 
+    // console.log( Util.indent(spec.level*2), spec.name )
     ready() {
-      var j, len, ref, select, spec;
+      var j, len, ref, select, spec, subject;
       this.$tocs = $(this.html());
       this.$tocp = $('#' + this.htmlIdApp);
       this.$tocp.append(this.$tocs);
@@ -100,23 +117,40 @@ Tocs = (function() {
         spec.$elem = spec.hasChild ? $('#' + spec.ulId) : $('#' + spec.liId);
         spec.$li = $('#' + spec.liId);
         select = this.toSelect(spec);
-        this.stream.publish('Select', select, spec.$li, 'click', spec.liId);
+        subject = (spec.type != null) && spec.type === 'plane' ? 'Plane' : this.ui.okPub(spec) ? 'Select' : 'SelectToc';
+        this.stream.event(subject, select, Dom.element(spec.$li), 'click');
       }
       this.subscribe();
     }
 
     toSelect(spec) {
-      var intent;
-      if (spec.level === 2) { // Study
+      var select;
+      if ((spec.type != null) && spec.type === 'plane') {
+        return UI.toTopic(this.ui.toKey(spec.name), 'Tocs', UI.SelectPack);
+      } else if ((spec.type != null) && spec.type === 'pack') {
+        select = this.ui.okPub(spec) ? UI.SelectPack : UI.SelectView;
+        return UI.toTopic(spec.name, 'Tocs', select);
+      } else if ((spec.type != null) && spec.type === 'menu') {
+        return UI.toTopic(spec.name, 'Tocs', UI.SelectMenu);
+      } else if ((spec.type != null) && spec.type === 'item') {
+        return UI.toTopic(spec.name, 'Tocs', UI.SelectItem);
+      } else if (spec.column != null) {
+        return UI.toTopic(spec.name, 'Tocs', UI.SelectPane);
+      } else if (spec.dir) { // Study
         return UI.toTopic(spec.parent.name, 'Tocs', UI.SelectStudy, spec.parent[spec.name]);
+      } else if (spec.name === 'View') { // View - not used now
+        return UI.toTopic(spec.name, 'Tocs', UI.SelectView);
       } else {
-        intent = spec.name === 'View' ? UI.SelectView : UI.SelectPane;
-        return UI.toTopic(spec.name, 'Tocs', intent);
+        console.error('Toc.toSelect() unable to determine spec type or level', spec);
+        return UI.toTopic(spec.name, 'Tocs', UI.SelectPane); // Pane
       }
     }
 
     subscribe() {
       this.stream.subscribe('Select', 'Tocs', (select) => {
+        return this.onSelect(select);
+      });
+      this.stream.subscribe('SelectToc', 'Tocs', (select) => {
         return this.onSelect(select);
       });
     }
@@ -229,6 +263,7 @@ Tocs = (function() {
 
     onSelect(select) {
       var spec;
+      // console.log( 'Toc.onSelect()', select )
       UI.verifyTopic(select, 'Tocs');
       spec = this.getSpec(select, true); // spec null ok not all Tocs available for views
       if (spec != null) {

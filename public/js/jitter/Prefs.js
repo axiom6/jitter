@@ -1,7 +1,7 @@
-import Util  from '../util/Util.js';
-import UI    from '../ui/UI.js';
 var Prefs,
   hasProp = {}.hasOwnProperty;
+
+import UI from '../ui/UI.js';
 
 Prefs = class Prefs {
   constructor(stream) {
@@ -189,54 +189,39 @@ Prefs = class Prefs {
     };
   }
 
-  toSchema() {
-    var schema;
-    schema = {};
-    schema.id = this.id;
-    schema.name = this.name;
-    schema.email = this.email;
-    schema.meta = this.toMeta();
-    return schema;
-  }
-
-  toMeta() {
-    var choice, i, key, len, meta, ref, ref1, value;
-    meta = {}; // Need to see if meta object is correct
-    ref = this.choices;
-    for (key in ref) {
-      if (!hasProp.call(ref, key)) continue;
-      choice = ref[key];
-      meta[key] = [];
-      ref1 = choice.array;
-      for (i = 0, len = ref1.length; i < len; i++) {
-        value = ref1[i];
-        meta[key].push(value);
-      }
-    }
-    return meta;
-  }
-
-  fromSchema(schema) {
-    var prefs;
-    prefs = {};
-    prefs.id = schema.id;
-    prefs.name = schema.name;
-    prefs.choices = this.fromMeta(schema.meta);
-    prefs.schema = schema; // For reviewing data
-    return prefs;
-  }
-
-  fromMeta(metas) {
-    var choices, key, meta;
-    choices = {};
-    for (key in metas) {
-      if (!hasProp.call(metas, key)) continue;
-      meta = metas[key];
-      choices[meta.key] = meta.key;
-    }
-    return choices;
-  }
-
 };
 
+/*
+
+toMeta:() ->
+meta = {} # Need to see if meta object is correct
+for own key, choice of @choices
+meta[key] = []
+for value in choice.array
+  meta[key].push( value )
+meta
+
+fromMeta:( metas ) ->
+choices = {}
+for own key, meta of metas
+choices[meta.key] = meta.key
+choices
+
+toSchema:() ->
+schema       = {}
+schema.id    = @id
+schema.name  = @name
+schema.email = @email
+schema.meta  = @toMeta()
+schema
+
+fromSchema:( schema ) ->
+prefs         = {}
+prefs.id      = schema.id
+prefs.name    = schema.name
+prefs.choices = @fromMeta( schema.meta )
+prefs.schema  = schema      # For reviewing data
+prefs
+
+*/
 export default Prefs;

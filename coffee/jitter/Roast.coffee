@@ -1,10 +1,10 @@
 
 
-`import Util  from '../util/Util.js'`
-`import Vis   from '../vis/Vis.js'`
-`import UI    from '../ui/UI.js'`
-`import Dom   from '../ui/Dom.js'`
-`import Base  from '../ui/Base.js'`
+import Util  from '../util/Util.js'
+import Vis   from '../vis/Vis.js'
+import UI    from '../ui/UI.js'
+import Dom   from '../ui/Dom.js'
+import Base  from '../ui/Base.js'
 
 class Roast extends Base
 
@@ -19,7 +19,7 @@ class Roast extends Base
     "8":{ color:"#40250d", img:"8d.png", name:"French",   value:75, style:"French"         },
     "9":{ color:"#2f1c09", img:"9d.png", name:"Black",    value:85, style:"Black"          } }
 
-  constructor:( stream, ui, @pubValue ) ->
+  constructor:( stream, ui ) ->
     super(      stream, ui, 'Roast' )
     @max  = 90
     @data = Roast.Table
@@ -37,7 +37,7 @@ class Roast extends Base
     style  = """position:absolute; left:2%; top:5%; width:9%; height:90%; """
     style += """text-align:center; background:#{@data["5"].color}; """
     style += """border:black solid 2px; font-size:3vmin; font-weight:bold; display:table; opacity:#{Dom.opacity}"""
-    spanc  = """position:absolute; left:0; top:2%; width:100%; height:12%; color:yellow; font-size:2vmin; z-index:4;""" # background-color:black;
+    spanc  = """position:absolute; left:0; top:2%; width:100%; height:12%; color:yellow; font-size:2vmin; z-index:4;"""
     spanr  = """display:table-cell; vertical-align:middle; line-height:normal; """
     $p.append("""<div id="RoastColor" style="#{style}">
       <div style="#{spanc}" id="RoastName">#{@data["5"].name}</div>
@@ -73,6 +73,10 @@ class Roast extends Base
     n  = 9
     s  = @max / n
     p  = Math.min( Math.ceil(v/s), n )
+    m  = 0
+    p1 = 0
+    p2 = 0
+    r  = 0
     [p,m] = if p < 1 then [1,s/2] else [p,(p-0.5)*s]
     [p1,p2,r] =
       if      v >= m and p < n-1 then [ p,  p+1,   (v-m)/n ]
@@ -111,4 +115,4 @@ class Roast extends Base
     console.error( "Roast.getValue() roast #{name} missing return average value of 45" )
     45
 
-`export default Roast`
+export default Roast

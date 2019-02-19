@@ -1,7 +1,7 @@
 
-`import Util from '../util/Util.js'`
-`import Dom  from '../ui/Dom.js'`
-`import Base from '../ui/Base.js'`
+import Util from '../util/Util.js'
+import Dom  from '../ui/Dom.js'
+import Base from '../ui/Base.js'
 
 class Brew extends Base
 
@@ -18,6 +18,6 @@ class Brew extends Base
     Dom.onChoice( choice, 'Brew', @ )
     return
 
-`export default Brew`
+export default Brew
 
 

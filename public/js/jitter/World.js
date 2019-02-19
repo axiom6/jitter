@@ -1,11 +1,16 @@
-import Util from '../util/Util.js';
-import Data from '../util/Data.js';
-import UI    from '../ui/UI.js';
-import Dom   from '../ui/Dom.js';
-import Base  from '../ui/Base.js';
 var World,
   hasProp = {}.hasOwnProperty,
   boundMethodCheck = function(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new Error('Bound instance method accessed before binding'); } };
+
+import Util from '../util/Util.js';
+
+import Data from '../util/Data.js';
+
+import UI from '../ui/UI.js';
+
+import Dom from '../ui/Dom.js';
+
+import Base from '../ui/Base.js';
 
 World = class World extends Base {
   constructor(stream, ui) {
@@ -36,6 +41,7 @@ World = class World extends Base {
     };
     //console.log( "Region Data", region )
     Data.asyncJSON("json/region.json", callback);
+    Util.noop(this.$img);
   }
 
   subscribe() {}

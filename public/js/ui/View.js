@@ -1,9 +1,15 @@
-import Util  from '../util/Util.js';
-import UI    from '../ui/UI.js';
-import Pane  from '../ui/Pane.js';
-import Pack from '../ui/Pack.js';
 var View,
   hasProp = {}.hasOwnProperty;
+
+import Util from '../util/Util.js';
+
+import UI from '../ui/UI.js';
+
+import Dom from '../ui/Dom.js';
+
+import Pane from '../ui/Pane.js';
+
+import Pack from '../ui/Pack.js';
 
 View = class View {
   constructor(ui, stream, specs1) {
@@ -18,12 +24,15 @@ View = class View {
     this.nrow = UI.nrow;
     this.classPrefix = Util.isStr(this.specs.css) ? this.spec.css : 'ui-view';
     [this.wpane, this.hpane, this.wview, this.hview, this.wscale, this.hscale] = this.percents(this.nrow, this.ncol, this.margin);
-    [this.packs, this.panes] = UI.hasPack ? this.createPacks(this.specs) : this.createPanes(this.specs);
+    [this.packs, this.panes] = this.createPacksPanes(this.specs);
     this.sizeCallback = null;
     this.paneCallback = null;
-    this.lastPaneName = '';
     this.$empty = UI.$empty; // Empty jQuery singleton for intialization
+    this.wpx = 0;
+    this.hpx = 0;
+    this.lastPaneName = 'None';
     this.allCells = [1, this.ncol, 1, this.nrow];
+    Util.noop(this.lastPaneName, this.allCells, this.hPanes, this.wPanes, this.positionpx, this.positionPane);
   }
 
   ready() {
@@ -38,6 +47,7 @@ View = class View {
       pane.ready();
     }
     this.subscribe();
+    [this.wpx, this.hpx] = this.size();
   }
 
   subscribe() {
@@ -85,20 +95,33 @@ View = class View {
     return n * this.hpane + (n - 1) * this.margin.height / this.hscale;
   }
 
-  widthpx() {
-    return this.$view.innerWidth(); // Use @viewp because
-  }
-
-  heightpx() {
-    return this.$view.innerHeight(); // Use @viewp because @$view
+  size() {
+    var hpx, isViewHidden, wpx;
+    isViewHidden = Dom.isHidden(this.$view);
+    if (isViewHidden) {
+      this.show();
+    }
+    wpx = 0;
+    hpx = 0;
+    [wpx, hpx] = [this.$view.innerWidth(), this.$view.innerHeight()];
+    if (Util.isNum(wpx) && Util.isNum(hpx)) {
+      [this.wpx, this.hpx] = [wpx, hpx];
+    } else {
+      console.error("View.size() wpx hpx undefined and kept at ready size");
+      console.trace();
+    }
+    if (isViewHidden) {
+      this.hide();
+    }
+    return [this.wpx, this.hpx];
   }
 
   wPanes() {
-    return this.wview * this.widthpx();
+    return this.wview * this.wpx;
   }
 
   hPanes() {
-    return this.hview * this.heightpx();
+    return this.hview * this.hpx;
   }
 
   north(top, height, h, scale = 1.0, dy = 0) {
@@ -127,6 +150,14 @@ View = class View {
 
   positionUnionPane(unionCells, paneCells, spec, xscale = 1.0, yscale = 1.0) {
     var ip, iu, jp, ju, mp, mu, np, nu;
+    ju = 0;
+    mu = 0;
+    iu = 0;
+    nu = 0;
+    jp = 0;
+    mp = 0;
+    ip = 0;
+    np = 0;
     [ju, mu, iu, nu] = this.jmin(unionCells);
     [jp, mp, ip, np] = this.jmin(paneCells);
     return this.position((jp - ju) * this.ncol / mu, mp * this.ncol / mu, (ip - iu) * this.nrow / nu, np * this.nrow / nu, spec, xscale, yscale);
@@ -134,13 +165,11 @@ View = class View {
 
   positionPack(packCells, spec, xscale = 1.0, yscale = 1.0) {
     var i, j, m, n;
+    j = 0;
+    m = 0;
+    i = 0;
+    n = 0;
     [j, m, i, n] = this.jmin(packCells);
-    return this.position(j, m, i, n, spec, xscale, yscale);
-  }
-
-  positionPane(paneCells, spec, xscale = 1.0, yscale = 1.0) {
-    var i, j, m, n;
-    [j, m, i, n] = this.jmin(paneCells);
     return this.position(j, m, i, n, spec, xscale, yscale);
   }
 
@@ -155,10 +184,25 @@ View = class View {
     return [left, top, width, height];
   }
 
+  positionPane(paneCells, spec, xscale = 1.0, yscale = 1.0) {
+    var i, j, m, n;
+    j = 0;
+    m = 0;
+    i = 0;
+    n = 0;
+    [j, m, i, n] = this.jmin(paneCells);
+    return this.position(j, m, i, n, spec, xscale, yscale);
+  }
+
+  // Should only be called when view is fully visible
   positionpx(j, m, i, n, spec) {
     var height, left, top, width;
+    left = 0;
+    top = 0;
+    width = 0;
+    height = 0;
     [left, top, width, height] = this.position(j, m, i, n, spec, this.wscale, this.hscale);
-    return [width * this.widthpx() / 100, height * this.heightpx() / 100];
+    return [width * this.wpx / 100, height * this.hpx / 100];
   }
 
   reset(select) {
@@ -166,7 +210,6 @@ View = class View {
     ref = this.panes;
     for (k = 0, len = ref.length; k < len; k++) {
       pane = ref[k];
-      pane.intent = select.intent;
       pane.reset(select);
     }
   }
@@ -199,13 +242,11 @@ View = class View {
     this.$view.hide();
   }
 
-  showAll() {
-    var k, len, pane, ref;
+  showAll(panes) {
+    var k, len, pane;
     this.$view.hide();
-    ref = this.panes;
-    for (k = 0, len = ref.length; k < len; k++) {
-      pane = ref[k];
-      //@reset( @selectView )
+    for (k = 0, len = panes.length; k < len; k++) {
+      pane = panes[k];
       pane.show();
     }
     this.$view.show(this.speed, () => {
@@ -222,7 +263,7 @@ View = class View {
     intent = select.intent;
     switch (intent) {
       case UI.SelectView:
-        this.expandAllPanes(select);
+        this.expandView(select);
         break;
       case UI.SelectPack:
         this.expandPack(select, this.getPane(name));
@@ -233,34 +274,51 @@ View = class View {
       case UI.SelectStudy:
         this.expandStudy(select, this.getPane(name));
         break;
+      case UI.SelectMenu:
+        Util.noop();
+        break;
+      case UI.SelectItem:
+        Util.noop();
+        break;
       default:
         console.error('UI.View.onSelect() name not processed for intent', name, select);
     }
   }
 
-  expandAllPanes(select) {
+  expandView(select) {
     this.hideAll();
     this.reset(select);
-    return this.showAll();
+    return this.showAll(this.panes);
   }
 
   expandPack(select, pack, callback = null) {
     var height, k, left, len, pane, ref, top, width;
+    // console.log( 'View.expandPack()', pack.name, @ui.okPub(pack.spec) )
     this.hideAll('Interact');
     if (pack.panes != null) {
       ref = pack.panes;
       for (k = 0, len = ref.length; k < len; k++) {
         pane = ref[k];
+        if (!(this.inPack(pane))) {
+          continue;
+        }
         pane.show();
-        [left, top, width, height] = this.positionPane(pane.cells, pane.spec, this.wscale, this.hscale);
-        pane.intent = select.intent;
+        left = 0;
+        top = 0;
+        width = 0;
+        height = 0;
+        [left, top, width, height] = this.positionUnionPane(pack.cells, pane.cells, pane.spec, this.wscale, this.hscale);
         pane.animate(left, top, width, height, select, true, callback);
       }
-    } else {
-      console.error('View.expandPack pack.panes null');
     }
+    // else
+    //   console.error( 'View.expandPack pack.panes null' )
     this.show();
-    this.lastPaneName = 'None';
+  }
+
+  // @lastPaneName  = 'None'
+  inPack(pane) {
+    return pane.classPrefix !== 'ui-plane'; // bad condition for determining that pane is in pack
   }
 
   expandPane(select, pane, callback = null) {
@@ -273,12 +331,11 @@ View = class View {
     this.hideAll();
     pane.resetStudiesDir(true);
     pane.show();
-    pane.intent = select.intent;
     pane.animate(this.margin.west, this.margin.north, 100 * this.wview, 100 * this.hview, select, true, paneCallback);
     this.show();
-    this.lastPaneName = pane.name;
   }
 
+  // @lastPaneName   = pane.name
   expandStudy(select, pane, callback = null) {
     this.expandPane(select, pane, callback);
     if (this.stream.isInfo('Select')) {
@@ -293,82 +350,65 @@ View = class View {
     pane.resetStudyDir(true, true, select.study.dir); // Expand selected
   }
 
-  getPane(key, issueError = true) {
+  getPane(name, issueError = true) {
     var k, l, len, len1, pack, pane, ref, ref1;
-    if (Util.isObj(key)) {
-      return key;
+    if (Util.isObj(name)) {
+      return name;
     }
     ref = this.panes;
     for (k = 0, len = ref.length; k < len; k++) {
       pane = ref[k];
-      if (pane.name === key) {
+      if (pane.name === name) {
         return pane;
       }
     }
     ref1 = this.packs;
     for (l = 0, len1 = ref1.length; l < len1; l++) {
       pack = ref1[l];
-      if (pack.name === key) {
+      if (pack.name === name) {
         return pack;
       }
     }
     if (issueError) {
-      console.error('UI.View.getPane() null for key ', key);
+      console.error('View.getPane() null for key ', name);
     }
+    console.log({
+      packs: this.packs,
+      panes: this.panes
+    });
     return null;
   }
 
-  createPanes(specs) {
-    var pane, panes, pkey, pspec;
-    panes = [];
-// and not ( pspec.show? and not pspec.show )
-    for (pkey in specs) {
-      if (!hasProp.call(specs, pkey)) continue;
-      pspec = specs[pkey];
-      if (!(Util.isChild(pkey))) {
-        continue;
-      }
-      pane = new Pane(this.ui, this.stream, this, pspec);
-      panes.push(pane);
-    }
-    //console.log( 'View.createPanes()', panes )
-    if (UI.hasPack) {
-      return panes;
-    } else {
-      return [[], panes];
-    }
-  }
-
-  createPacks(specs) {
-    var gkey, gpanes, gspec, pack, packs, panes;
+  createPacksPanes(specs) {
+    var key, pack, packs, pane, panes, pey, ppec, spec;
+    // console.log( 'View.createPackPanes() ------')
     packs = [];
     panes = [];
-    for (gkey in specs) {
-      if (!hasProp.call(specs, gkey)) continue;
-      gspec = specs[gkey];
-      if (!(Util.isChild(gkey))) {
-        continue;
+    for (key in specs) {
+      if (!hasProp.call(specs, key)) continue;
+      spec = specs[key];
+      if (Util.isChild(key)) {
+        if (spec.type === 'pack') {
+          // console.log( '  Pack', key )
+          pack = new Pack(this.ui, this.stream, this, spec);
+          packs.push(pack);
+          for (pey in spec) {
+            if (!hasProp.call(spec, pey)) continue;
+            ppec = spec[pey];
+            if (!(Util.isChild(pey) && ppec.type === 'pane')) {
+              continue;
+            }
+            // console.log( '    Pane', pey )
+            pane = new Pane(this.ui, this.stream, this, ppec);
+            pack.panes.push(pane);
+            panes.push(pane);
+          }
+        } else if (spec.type === 'pane') {
+          panes.push(new Pane(this.ui, this.stream, this, spec));
+        }
       }
-      gpanes = this.createPanes(gspec);
-      pack = new Pack(this.ui, this.stream, this, gspec, gpanes);
-      packs.push(pack);
-      Array.prototype.push.apply(panes, gpanes);
     }
     return [packs, panes];
-  }
-
-  paneInUnion(paneCells, unionCells) {
-    var ip, iu, jp, ju, mp, mu, np, nu;
-    [jp, mp, ip, np] = this.jmin(paneCells);
-    [ju, mu, iu, nu] = this.jmin(unionCells);
-    return ju <= jp && jp + mp <= ju + mu && iu <= ip && ip + np <= iu + nu;
-  }
-
-  expandCells(unionCells, allCells) { // Not Implemented
-    var ia, iu, ja, ju, ma, mu, na, nu;
-    [ju, mu, iu, nu] = this.jmin(unionCells);
-    [ja, ma, ia, na] = this.jmin(allCells);
-    return [(ju - ja) * ma / mu, ma, (iu - ia) * na / nu, na];
   }
 
   jmin(cells) {
@@ -378,24 +418,32 @@ View = class View {
     return [cells[0] - 1, cells[1], cells[2] - 1, cells[3]];
   }
 
-  toCells(jmin) {
-    return [jmin[0] + 1, jmin[1], jmin[2] + 1, jmin[3]];
-  }
-
-  unionCells(cells1, cells2) {
-    var i1, i2, j1, j2, m1, m2, n1, n2;
-    [j1, m1, i1, n1] = UI.jmin(cells1);
-    [j2, m2, i2, n2] = UI.jmin(cells2);
-    return [Math.min(j1, j2) + 1, Math.max(j1 + m1, j2 + m2) - Math.min(j1, j2), Math.min(i1, i2) + 1, Math.max(i1 + n1, i2 + n2) - Math.min(i1, i2)];
-  }
-
-  intersectCells(cells1, cells2) {
-    var i1, i2, j1, j2, m1, m2, n1, n2;
-    [j1, m1, i1, n1] = UI.jmin(cells1);
-    [j2, m2, i2, n2] = UI.jmin(cells2);
-    return [Math.max(j1, j2) + 1, Math.min(j1 + m1, j2 + m2), Math.max(i1, i2) + 1, Math.min(i1 + n1, i2 + n2)];
-  }
-
 };
 
+/*
+
+paneInUnion:( paneCells, unionCells ) ->
+[jp,mp,ip,np] = @jmin(  paneCells )
+[ju,mu,iu,nu] = @jmin( unionCells )
+ju <= jp and jp+mp <= ju+mu and iu <= ip and ip+np <= iu+nu
+
+expandCells:( unionCells, allCells ) ->  # Not Implemented
+[ju,mu,iu,nu] = @jmin( unionCells )
+[ja,ma,ia,na] = @jmin(   allCells )
+[ (ju-ja)*ma/mu, ma, (iu-ia)*na/nu, na ]
+
+toCells:( jmin ) ->
+[ jmin[0]+1,jmin[1],jmin[2]+1,jmin[3] ]
+
+unionCells:( cells1, cells2 ) ->
+[j1,m1,i1,n1] = UI.jmin( cells1 )
+[j2,m2,i2,n2] = UI.jmin( cells2 )
+[ Math.min(j1,j2)+1, Math.max(j1+m1,j2+m2)-Math.min(j1,j2), Math.min(i1,i2)+1, Math.max(i1+n1,i2+n2)-Math.min(i1,i2) ]
+
+intersectCells:( cells1, cells2 ) ->
+[j1,m1,i1,n1] = UI.jmin( cells1 )
+[j2,m2,i2,n2] = UI.jmin( cells2 )
+[ Math.max(j1,j2)+1, Math.min(j1+m1,j2+m2), Math.max(i1,i2)+1, Math.min(i1+n1,i2+n2) ]
+
+*/
 export default View;

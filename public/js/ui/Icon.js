@@ -1,14 +1,15 @@
-import Util from '../util/Util.js';
-import Vis  from '../vis/Vis.js';
 var Icon;
 
+import Util from '../util/Util.js';
+
+import Vis from '../vis/Vis.js';
+
 Icon = class Icon {
-  constructor(stream, ui, pane, page) {
+  constructor(stream, ui, pane) {
     this.stream = stream;
     this.ui = ui;
     this.pane = pane;
-    this.page = page;
-    this.name = this.page.name;
+    this.name = this.pane.name;
     this.spec = this.pane.spec;
   }
 

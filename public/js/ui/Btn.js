@@ -1,6 +1,9 @@
-import UI     from '../ui/UI.js';
 var Btn,
   hasProp = {}.hasOwnProperty;
+
+import UI from '../ui/UI.js';
+
+import Dom from '../ui/Dom.js';
 
 Btn = class Btn {
   constructor(ui, stream, pane, spec, contents1) {
@@ -59,7 +62,7 @@ Btn = class Btn {
       }
       content.$btn = $('#' + content.btnId);
       msg = UI.content(content.name, 'Btn', UI.SelectStudy, this.pane.name);
-      this.stream.publish('Content', msg, content.$btn, 'click');
+      this.stream.event('Content', msg, Dom.element(content.$btn), 'click');
     }
   }
 

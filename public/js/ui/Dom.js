@@ -1,12 +1,38 @@
-import Util    from '../util/Util.js';
-import UI      from '../ui/UI.js';
 var Dom,
+  indexOf = [].indexOf,
   hasProp = {}.hasOwnProperty;
+
+import Util from '../util/Util.js';
+
+import UI from '../ui/UI.js';
 
 Dom = (function() {
   class Dom {
     constructor() {
-      this.dummy = "";
+      this.choiceColor = "yellow";
+      this.hoverColor = "wheat";
+      this.basisColor = "black";
+      Util.noop(Dom.onChoice, Dom.horz, Dom.vertBtns, Dom.hasJQueryPlugin);
+    }
+
+    static element($elem) {
+      // console.log( 'Dom.element()', $elem, Dom.isJQueryElem( $elem ) )
+      if (Dom.isJQueryElem($elem)) {
+        return $elem.get(0);
+      } else if (Util.isStr($elem)) {
+        return $($elem).get(0);
+      } else {
+        console.error('Dom.domElement( $elem )', typeof $elem, $elem, '$elem is neither jQuery object nor selector');
+        return $().get(0);
+      }
+    }
+
+    static isJQueryElem($elem) {
+      return (typeof $ !== "undefined" && $ !== null) && ($elem != null) && ($elem instanceof $ || indexOf.call(Object($elem), 'jquery') >= 0);
+    }
+
+    static isEmptyElem($elem) {
+      return ($elem != null ? $elem.length : void 0) === 0;
     }
 
     // ------ Tag Attributes ------
@@ -53,10 +79,6 @@ Dom = (function() {
     // ------ Html Constructs ------
     static panel(x, y, w, h, align = "center") {
       return `class="panel" style="position:relative; left:${x}%; top:${y}%; width:${w}%; height:${h}%; text-align:${align};" `;
-    }
-
-    static panel1(x, y, w, h, align = "center") {
-      return `<div ${Dom.klass("panel")(Dom.style(Dom.position(x, y, w, h, "relative"), `text-align:${align};`))} </div>`;
     }
 
     static label(x, y, w, h, klass = "label") {
@@ -324,15 +346,13 @@ Dom = (function() {
       $.css(Util.toPositionPc(array));
     }
 
+    static isHidden($e) {
+      return $e.css('display') === 'none';
+    }
+
   };
 
-  Dom.choiceColor = "yellow";
-
-  Dom.hoverColor = "wheat";
-
-  Dom.basisColor = "black";
-
-  Dom.opacity = 0.6;
+  Dom.opacity = 1.0;
 
   return Dom;
 

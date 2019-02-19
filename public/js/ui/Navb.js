@@ -1,5 +1,8 @@
-import Util from '../util/Util.js';
 var Navb;
+
+import Util from '../util/Util.js';
+
+import Dom from '../ui/Dom.js';
 
 Navb = class Navb {
   constructor(ui, stream, navbSpecs) {
@@ -42,7 +45,7 @@ Navb = class Navb {
         spec.$ = $('#' + spec.htmlId);
         eventType = spec.subject === 'Submit' ? 'keyup' : 'click';
         if (spec.topic != null) {
-          this.stream.publish(spec.subject, spec.topic, spec.$, eventType);
+          this.stream.event(spec.subject, spec.topic, Dom.element(spec.$), eventType);
         }
       }
       if (spec.items != null) {
@@ -54,7 +57,7 @@ Navb = class Navb {
           }
           item.$ = $('#' + item.htmlId);
           if (item.topic != null) {
-            this.stream.publish(item.subject, item.topic, item.$, 'click');
+            this.stream.event(item.subject, item.topic, Dom.element(item.$), 'click');
           }
         }
       }

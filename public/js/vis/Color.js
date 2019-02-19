@@ -811,6 +811,16 @@ Color = class Color {
 };
 
 /*
+dec2hex:( i ) ->
+result = "0x000000"
+if      i >= 0     and i <=      15 then result = "0x00000" + i.toString(16)
+else if i >= 16    and i <=     255 then result = "0x0000" + i.toString(16)
+else if i >= 256   and i <=    4095 then result = "0x000" + i.toString(16)
+else if i >= 4096  and i <=   65535 then result = "0x00" + i.toString(16)
+else if i >= 65535 and i <= 1048575 then result = "0x0" + i.toString(16)
+else if i >= 1048575                then result = "0x" + i.toString(16)
+result
+
 var setCursor = function (icon) {
 var tempElement = document.createElement("i");
 tempElement.className = icon;

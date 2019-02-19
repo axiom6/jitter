@@ -1,7 +1,7 @@
 
-`import Util from '../util/Util.js'`
-`import Dom  from '../ui/Dom.js'`
-`import Base from '../ui/Base.js'`
+import Util from '../util/Util.js'
+import Dom  from '../ui/Dom.js'
+import Base from '../ui/Base.js'
 
 class Body extends Base
 
@@ -18,4 +18,4 @@ class Body extends Base
     Dom.onChoice( choice, 'Body', @ )
     return
 
-`export default Body`
+export default Body

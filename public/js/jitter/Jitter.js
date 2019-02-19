@@ -1,24 +1,41 @@
-import Util     from '../util/Util.js';
-import Data   from '../util/Data.js';
-import Stream   from '../util/Stream.js';
-import UI       from '../ui/UI.js';
-import Flavor   from '../jitter/Flavor.js';
-import Interact from '../jitter/Interact.js';
-import Summary  from '../jitter/Summary.js';
-import Roast    from '../jitter/Roast.js';
-import Drink    from '../jitter/Drink.js';
-import Body     from '../jitter/Body.js';
-import Brew     from '../jitter/Brew.js';
-import World    from '../jitter/World.js';
-import Region   from '../jitter/Region.js';
-import User     from '../jitter/User.js';
-import Prefs    from '../jitter/Prefs.js';
 var Jitter;
+
+import Util from '../util/Util.js';
+
+import Data from '../util/Data.js';
+
+import Build from '../prac/Build.js';
+
+import Stream from '../util/StreamPs.js';
+
+import UI from '../ui/UI.js';
+
+import Flavor from '../jitter/Flavor.js';
+
+import Interact from '../jitter/Interact.js';
+
+import Summary from '../jitter/Summary.js';
+
+import Roast from '../jitter/Roast.js';
+
+import Drink from '../jitter/Drink.js';
+
+import Body from '../jitter/Body.js';
+
+import Brew from '../jitter/Brew.js';
+
+import World from '../jitter/World.js';
+
+import Region from '../jitter/Region.js';
+
+import User from '../jitter/User.js';
+
+import Prefs from '../jitter/Prefs.js';
 
 Jitter = (function() {
   class Jitter {
     static init(data) {
-      Jitter.Tocs = Data.createPacks(data);
+      Jitter.Tocs = Build.createPacks(data);
       UI.hasPack = true;
       UI.hasTocs = false;
       UI.hasLays = false;
@@ -55,6 +72,7 @@ Jitter = (function() {
       this.summarym = new Summary(this.stream, this.ui, "Summarym");
       this.user = new User(this.stream, this);
       this.prefs = new Prefs(this.stream);
+      Util.noop(this.summaryt, this.summaryp, this.summarym, this.prefs, Jitter.SpecInteract, Jitter.NavbSubjects, Jitter.NavbSpecs);
     }
 
     onReady() {

@@ -1,6 +1,10 @@
-import Util from '../util/Util.js';
-import UI   from '../ui/UI.js';
 var Pane;
+
+import Util from '../util/Util.js';
+
+import UI from '../ui/UI.js';
+
+import Dom from '../ui/Dom.js';
 
 Pane = class Pane {
   constructor(ui, stream, view, spec) {
@@ -13,6 +17,10 @@ Pane = class Pane {
     this.spec = spec;
     this.spec.pane = this;
     this.cells = this.spec.cells;
+    j = 0;
+    m = 0;
+    i = 0;
+    n = 0;
     [j, m, i, n] = this.view.jmin(this.cells);
     [this.left, this.top, this.width, this.height] = this.view.position(j, m, i, n, this.spec);
     this.name = this.spec.name;
@@ -22,7 +30,9 @@ Pane = class Pane {
     this.hscale = this.view.hscale;
     this.margin = this.view.margin;
     this.speed = this.view.speed;
-    this.geo = null; // reset by geom() when onContent() dispatches to page
+    this.wpx = 0;
+    this.hpx = 0;
+    Util.noop(this.toVmin, this.xcente2, this.northPane, this.southPane, this.eastPane, this.westPane);
   }
 
   ready() {
@@ -32,62 +42,63 @@ Pane = class Pane {
     this.hide();
     this.adjacentPanes();
     this.$.css(this.scaleReset());
-    this.geo = this.geom();
     this.show();
+    [this.wpx, this.hpx] = this.size();
   }
 
-  geom() {
-    var ex, geo, h, hi, hp, hv, i, j, m, n, r, s, sx, sy, w, wi, wp, wv, x0, y0;
-    [j, m, i, n] = this.view.jmin(this.spec.cells);
-    [wp, hp] = this.view.positionpx(j, m, i, n, this.spec); // Pane size in AllPage usually 3x3 View
-    wi = this.$.innerWidth();
-    hi = this.$.innerHeight();
-    w = Math.max(wi, wp); // wp from positionpx
-    h = Math.max(hi, hp); // hp from positionpx
-    wv = this.view.wPanes();
-    hv = this.view.hPanes();
-    r = Math.min(w, h) * 0.2; // Use for hexagons
-    x0 = w * 0.5;
-    y0 = h * 0.5;
-    sx = w / wp;
-    sy = h / hp;
-    s = Math.min(sx, sy);
-    ex = wv * 0.9 < w && w < wv * 1.1;
-    geo = {
-      w: w,
-      h: h,
-      wi: wi,
-      hi: hi,
-      wp: wp,
-      hp: hp,
-      wv: wv,
-      hv: hv,
-      r: r,
-      x0: x0,
-      y0: y0,
-      sx: sx,
-      sy: sy,
-      s: s,
-      ex: ex
-    };
-    //console.log( 'Pane.geom()', @name, geo )
-    if (wp === 0 || hp === 0) {
-      console.error('Pane.geom()', {
-        name: this.name,
-        spec: this.spec,
-        vw: this.view.widthpx(),
-        vh: this.view.heightpx(),
-        geo: geo
-      });
+  size() {
+    var hpx, isPaneHidden, isViewHidden, wpx;
+    isViewHidden = Dom.isHidden(this.view.$view);
+    isPaneHidden = Dom.isHidden(this.$);
+    if (isViewHidden) {
+      this.view.show();
+    }
+    if (isPaneHidden) {
+      this.show();
+    }
+    wpx = 0;
+    hpx = 0;
+    [wpx, hpx] = [this.$.innerWidth(), this.$.innerHeight()];
+    if (Util.isNum(wpx) && Util.isNum(hpx)) {
+      [this.wpx, this.hpx] = [wpx, hpx];
+    } else {
+      console.error("Pane.size() wpx hpx undefined and kept at ready size");
       console.trace();
     }
-    return geo;
+    if (isPaneHidden) {
+      this.hide();
+    }
+    if (isViewHidden) {
+      this.view.hide();
+    }
+    return [this.wpx, this.hpx];
+  }
+
+  geom(cells = this.spec.cells, wgpx, hgpx) {
+    var g, height, left, top, width;
+    wgpx = wgpx != null ? wgpx : this.wpx;
+    hgpx = hgpx != null ? hgpx : this.hpx;
+    g = {};
+    g.name = this.name;
+    [g.j, g.m, g.i, g.n] = this.view.jmin(cells);
+    [left, top, width, height] = this.view.position(g.j, g.m, g.i, g.n, this.spec, this.view.wscale, this.view.hscale);
+    [g.w, g.h] = this.size(); // @view.positionpx( g.j,g.m,g.i,g.n, @spec ) # Pane size in AllPage usually 3x3 View
+    g.r = Math.min(g.w, g.h) * 0.2; // Use for hexagons
+    g.x0 = g.w * 0.5;
+    g.y0 = g.h * 0.5;
+    g.sx = g.w / wgpx;
+    g.sy = g.h / hgpx;
+    g.s = Math.min(g.sx, g.sy);
+    g.fontSize = this.toVh(5) + 'vh';
+    g.iconSize = this.toVh(5) + 'vh';
+    // console.log( "Pane.geom()", { wgpx:wgpx, hgpx:hgpx }, g )
+    return g;
   }
 
   // Converts a pane percent to vmin unit by determining the correct pane scaling factor
   toVmin(pc) {
     var sc;
-    sc = this.view.widthpx() > this.view.heightpx() ? this.height : this.width;
+    sc = this.view.wpx > this.view.hpx ? this.hpx : this.wpx;
     return Util.toFixed(sc * pc * 0.01, 2);
   }
 
@@ -157,11 +168,19 @@ Pane = class Pane {
 
   adjacentPanes() {
     var i, ip, j, jp, k, len, m, mp, n, np, pane, ref;
+    jp = 0;
+    mp = 0;
+    ip = 0;
+    np = 0;
     [jp, mp, ip, np] = this.view.jmin(this.cells);
     [this.northPane, this.southPane, this.eastPane, this.westPane] = [UI.$empty, UI.$empty, UI.$empty, UI.$empty];
     ref = this.view.panes;
     for (k = 0, len = ref.length; k < len; k++) {
       pane = ref[k];
+      j = 0;
+      m = 0;
+      i = 0;
+      n = 0;
       [j, m, i, n] = this.view.jmin(pane.cells);
       if (j === jp && m === mp && i === ip - n) {
         this.northPane = pane;
@@ -260,14 +279,15 @@ Pane = class Pane {
   reset(select) {
     this.resetStudiesDir(true);
     this.$.css(this.scaleReset());
-    this.onContent(select);
+    //@onContent( select )
+    Util.noop(select);
   }
 
-  css(left, top, width, height, select) {
+  css(left, top, width, height) {
     this.$.css(this.scaleParam(left, top, width, height));
-    this.onContent(select);
   }
 
+  //@onContent( select )
   animate(left, top, width, height, select, aniLinks = false, callback = null) {
     this.$.show().animate(this.scaleParam(left, top, width, height), this.view.speed, () => {
       return this.animateCall(callback, select);
@@ -311,8 +331,7 @@ Pane = class Pane {
 
   onContent(select) {
     var content;
-    this.geo = this.geom();
-    if (this.stream.hasBundle('Content')) {
+    if (this.stream.hasSubject('Content')) {
       content = UI.toTopic(select.name, 'Pane', select.intent);
       this.stream.publish('Content', content);
     }

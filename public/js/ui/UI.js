@@ -1,20 +1,26 @@
-import Util from '../util/Util.js';
-import Navb from '../ui/Navb.js';
-import Tocs from '../ui/Tocs.js';
-import View from '../ui/View.js';
-import Vis  from '../vis/Vis.js';
 var UI,
   hasProp = {}.hasOwnProperty;
 
+import Util from '../util/Util.js';
+
+import Navb from '../ui/Navb.js';
+
+import Tocs from '../ui/Tocs.js';
+
+import View from '../ui/View.js';
+
 UI = (function() {
   class UI {
-    constructor(stream, specs, navbs = null) {
+    constructor(stream, specs, planeName, navbs = null) {
       this.pagesReady = this.pagesReady.bind(this);
       this.resize = this.resize.bind(this);
       this.stream = stream;
       this.specs = specs;
+      this.planeName = planeName;
       this.navbs = navbs;
       this.pages = {};
+      this.cname = 'Study';
+      this.$text = UI.$empty;
       if (this.navbs != null) {
         this.navb = new Navb(this, this.stream, this.navbs);
       }
@@ -43,6 +49,7 @@ UI = (function() {
 
     pagesReady(cname, append = true) {
       var name, page, pane, ref;
+      this.cname = cname;
       ref = this.pages;
       for (name in ref) {
         if (!hasProp.call(ref, name)) continue;
@@ -58,11 +65,12 @@ UI = (function() {
             pane.$.append(page.$pane);
           }
         } else {
-          page.ready(cname);
+          page.$pane = page.ready(cname);
         }
       }
     }
 
+    // console.log( 'UI.pagesReady()', name )
     html() {
       var htm;
       htm = "";
@@ -71,9 +79,6 @@ UI = (function() {
       }
       if (UI.hasLays || (this.navbs != null)) {
         htm += `<div class="layout-corp"      id="${this.htmlId('Corp')}"></div>`;
-      }
-      if (UI.hasLays && UI.dims) {
-        htm += `<div class="layout-dims"      id="${this.htmlId('Dims')}"></div>`;
       }
       if (UI.hasLays) {
         htm += `<div class="layout-find"      id="${this.htmlId('Find')}"></div>`;
@@ -132,10 +137,25 @@ UI = (function() {
       return ($elem != null) && ($elem.length != null) && $elem.length > 0;
     }
 
-    static nrowncol(data) {
-      Util.noop(data);
-      UI.nrow = 4; // if data.nrow? then data.nrow else UI.nrow
-      return UI.ncol = 3; // if data.ncol? then data.ncol else UI.ncol
+    okPub(spec) {
+      return !((spec['pub'] != null) && !spec['pub']);
+    }
+
+    toKey(name) {
+      switch (name) {
+        case 'Information':
+          return 'Info';
+        case 'Knowledge':
+          return 'Know';
+        case 'Wisdom':
+          return 'Wise';
+        case "3D Cube":
+          return 'Cube';
+        case "DataScience":
+          return 'Data';
+        default:
+          return name;
+      }
     }
 
     static toTopic(name, source, intent, study = null) {
@@ -171,8 +191,6 @@ UI = (function() {
 
   };
 
-  UI.hasPack = true;
-
   UI.hasTocs = true;
 
   UI.hasLays = true;
@@ -183,21 +201,22 @@ UI = (function() {
 
   UI.nrow = 36;
 
-  UI.dims = false;
-
   UI.margin = {
     width: 1,
     height: 1,
-    west: 2,
+    west: 1,
     north: 1,
-    east: 2,
-    south: 2,
+    east: 1,
+    south: 1,
     wStudy: 0.5,
     hStudy: 0.5
   };
 
-  //I.margin  =  { width:0.00, height:0.00, west:0.5, north :0, east :0.5, south:0, wStudy:0.5, hStudy:0.5 }
+  UI.SelectPlane = 'SelectPlane';
+
   UI.SelectView = 'SelectView';
+
+  UI.SelectPack = 'SelectPack';
 
   UI.SelectPane = 'SelectPane';
 
@@ -207,17 +226,19 @@ UI = (function() {
 
   UI.SelectItems = 'SelectItems';
 
+  UI.SelectMenu = 'SelectMenu';
+
+  UI.SelectItem = 'SelectItem';
+
   UI.SelectRow = 'SelectRow';
 
   UI.SelectCol = 'SelectCol';
-
-  UI.SelectPack = 'SelectPack';
 
   UI.AddChoice = 'AddChoice';
 
   UI.DelChoice = 'DelChoice';
 
-  UI.intents = [UI.SelectPane, UI.SelectView, UI.SelectStudy, UI.SelectRow, UI.SelectCol, UI.SelectPack, UI.AddChoice, UI.DelChoice];
+  UI.intents = [UI.SelectPlane, UI.SelectPane, UI.SelectPack, UI.SelectView, UI.SelectStudy, UI.SelectTopic, UI.SelectItems, UI.SelectMenu, UI.SelectItem, UI.SelectRow, UI.SelectCol, UI.AddChoice, UI.DelChoice];
 
   return UI;
 

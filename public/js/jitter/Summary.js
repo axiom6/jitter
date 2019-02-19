@@ -1,9 +1,13 @@
-import Util from '../util/Util.js';
-import UI   from '../ui/UI.js';
-import Dom  from '../ui/Dom.js';
-import Base from '../ui/Base.js';
 var Summary,
   boundMethodCheck = function(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new Error('Bound instance method accessed before binding'); } };
+
+import Util from '../util/Util.js';
+
+import UI from '../ui/UI.js';
+
+import Dom from '../ui/Dom.js';
+
+import Base from '../ui/Base.js';
 
 Summary = class Summary extends Base {
   constructor(stream, ui, name) {

@@ -1,17 +1,20 @@
-import Util from '../util/Util.js';
-import UI   from '../ui/UI.js';
 var User;
+
+import Util from '../util/Util.js';
+
+import UI from '../ui/UI.js';
 
 User = class User {
   constructor(stream, jitter) {
     this.onPrefs = this.onPrefs.bind(this);
     this.stream = stream;
     this.jitter = jitter;
-    this.testUrl = "http://demo.wp-api.org/wp-json/wp/v2/users";
+    //@testUrl = "http://demo.wp-api.org/wp-json/wp/v2/users"
     this.jittUrl = "https://jitterbox.co/wp-json/wp/v2/users";
     this.baseUrl = this.jittUrl;
     this.root = window.location.origin + '/wp-json/';
     this.subscribe();
+    Util.noop(this.getUrl, this.listUsers, this.postPrefs);
   }
 
   subscribe() {
@@ -24,6 +27,15 @@ User = class User {
     if (this.stream.isInfo('Prefs')) {
       console.info('User.onPrefs()', prefs);
     }
+  }
+
+  getPrefs() {
+    var callback, url;
+    url = this.baseUrl + '/1';
+    callback = (schema) => {
+      this.stream.publish("Prefs", this.jitter.schemaToPrefs(schema));
+    };
+    this.ajax(url, "GET", callback);
   }
 
   getUrl(email, method) {
@@ -39,15 +51,6 @@ User = class User {
     url = this.baseUrl;
     callback = (list) => {
       this.console.log("User.listUsers()", list);
-    };
-    this.ajax(url, "GET", callback);
-  }
-
-  getPrefs() {
-    var callback, url;
-    url = this.baseUrl + '/1';
-    callback = (schema) => {
-      this.stream.publish("Prefs", this.jitter.schemaToPrefs(schema));
     };
     this.ajax(url, "GET", callback);
   }

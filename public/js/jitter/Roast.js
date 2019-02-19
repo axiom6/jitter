@@ -1,20 +1,24 @@
-import Util  from '../util/Util.js';
-import Vis   from '../vis/Vis.js';
-import UI    from '../ui/UI.js';
-import Dom   from '../ui/Dom.js';
-import Base  from '../ui/Base.js';
 var Roast,
   hasProp = {}.hasOwnProperty,
   boundMethodCheck = function(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new Error('Bound instance method accessed before binding'); } };
 
+import Util from '../util/Util.js';
+
+import Vis from '../vis/Vis.js';
+
+import UI from '../ui/UI.js';
+
+import Dom from '../ui/Dom.js';
+
+import Base from '../ui/Base.js';
+
 Roast = (function() {
   class Roast extends Base {
-    constructor(stream, ui, pubValue) {
+    constructor(stream, ui) {
       super(stream, ui, 'Roast');
       this.doInputEvent = this.doInputEvent.bind(this);
       this.doInput = this.doInput.bind(this);
       this.onChoice = this.onChoice.bind(this);
-      this.pubValue = pubValue;
       this.max = 90;
       this.data = Roast.Table;
       this.stream.subscribe('Choice', 'Roast', (choice) => {
@@ -36,7 +40,7 @@ Roast = (function() {
       style = "position:absolute; left:2%; top:5%; width:9%; height:90%; ";
       style += `text-align:center; background:${this.data["5"].color}; `;
       style += `border:black solid 2px; font-size:3vmin; font-weight:bold; display:table; opacity:${Dom.opacity}`;
-      spanc = "position:absolute; left:0; top:2%; width:100%; height:12%; color:yellow; font-size:2vmin; z-index:4;"; // background-color:black;
+      spanc = "position:absolute; left:0; top:2%; width:100%; height:12%; color:yellow; font-size:2vmin; z-index:4;";
       spanr = "display:table-cell; vertical-align:middle; line-height:normal; ";
       $p.append(`<div id="RoastColor" style="${style}">\n<div style="${spanc}" id="RoastName">${this.data["5"].name}</div>\n<div style="${spanr}">Roast</div></div>`);
       $r = $(`<div ${Dom.label(13, 5, 84, 90, "roast")}></div>`);
@@ -83,6 +87,10 @@ Roast = (function() {
       n = 9;
       s = this.max / n;
       p = Math.min(Math.ceil(v / s), n);
+      m = 0;
+      p1 = 0;
+      p2 = 0;
+      r = 0;
       [p, m] = p < 1 ? [1, s / 2] : [p, (p - 0.5) * s];
       [p1, p2, r] = v >= m && p < n - 1 ? [p, p + 1, (v - m) / n] : v < m && p >= 2 ? [p - 1, p, 1 - (m - v) / n] : [p, p, 1];
       h1 = Vis.cssHex(this.data[p1].color);

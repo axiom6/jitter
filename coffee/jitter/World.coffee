@@ -1,9 +1,9 @@
 
-`import Util from '../util/Util.js'`
-`import Data from '../util/Data.js'`
-`import UI    from '../ui/UI.js'`
-`import Dom   from '../ui/Dom.js'`
-`import Base  from '../ui/Base.js'`
+import Util  from '../util/Util.js'
+import Data  from '../util/Data.js'
+import UI    from '../ui/UI.js'
+import Dom   from '../ui/Dom.js'
+import Base  from '../ui/Base.js'
 
 class World extends Base
 
@@ -24,6 +24,7 @@ class World extends Base
         region.source = 'World'
         #console.log( "Region Data", region )
     Data.asyncJSON( "json/region.json", callback )
+    Util.noop( @$img )
 
   subscribe:() ->
     #@stream.subscribe( 'Choice', (choice) => @onChoice(choice) )
@@ -72,4 +73,4 @@ class World extends Base
     @showRegion( region )
     return
 
-`export default World`
+export default World

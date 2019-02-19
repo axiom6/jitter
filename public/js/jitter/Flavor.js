@@ -1,11 +1,15 @@
-import Util  from '../util/Util.js';
-import UI    from '../ui/UI.js';
-import Vis   from '../vis/Vis.js';
-import Dom   from '../ui/Dom.js';
-import Base  from '../ui/Base.js';
-import Wheel from '../jitter/Wheel.js';
 var Flavor,
   boundMethodCheck = function(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new Error('Bound instance method accessed before binding'); } };
+
+import Util from '../util/Util.js';
+
+import UI from '../ui/UI.js';
+
+import Dom from '../ui/Dom.js';
+
+import Base from '../ui/Base.js';
+
+import Wheel from '../jitter/Wheel.js';
 
 Flavor = class Flavor extends Base {
   constructor(stream, ui, name) {
@@ -17,6 +21,9 @@ Flavor = class Flavor extends Base {
     this.onChoice = this.onChoice.bind(this);
     this.wheel = new Wheel(this.publish, Dom.opacity);
     this.prevRegion = null;
+    if (false) {
+      console.log(this.prevRegion);
+    }
   }
 
   publish(add, flavor, roast) {

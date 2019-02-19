@@ -1,6 +1,8 @@
-import Util     from '../util/Util.js';
-import FaLookup from '../vis/FaLookup.js';
 var Vis;
+
+import Util from '../util/Util.js';
+
+import FaLookup from '../vis/FaLookup.js';
 
 Vis = class Vis {
   static translate(x0, y0) {
@@ -16,7 +18,7 @@ Vis = class Vis {
       sx: sx,
       sy: sy
     });
-    return ` scale( ${sx}, ${sx} )`;
+    return ` scale( ${sx}, ${sy} )`;
   }
 
   static rotate(a, x, y) {

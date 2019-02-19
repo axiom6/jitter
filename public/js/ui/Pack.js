@@ -1,16 +1,22 @@
-import Util    from '../util/Util.js';
-import UI      from '../ui/UI.js';
-import Pane    from '../ui/Pane.js';
 var Pack;
 
+import Util from '../util/Util.js';
+
+import UI from '../ui/UI.js';
+
+import Dom from '../ui/Dom.js';
+
+import Pane from '../ui/Pane.js';
+
 Pack = class Pack extends Pane {
-  constructor(ui, stream, view, spec, panes) {
+  constructor(ui, stream, view, spec) {
     super(ui, stream, view, spec);
-    this.panes = panes;
+    this.panes = []; // Created and pushed by view.createPacksPanes()
     this.margin = this.view.margin;
     this.icon = this.spec.icon;
     this.css = Util.isStr(this.spec.css) ? this.spec.css : 'ui-pack';
     this.$ = UI.$empty;
+    Util.noop(this.animateIcon, this.unionPanes, this.fillPanes);
   }
 
   id(name, ext) {
@@ -19,35 +25,34 @@ Pack = class Pack extends Pane {
 
   ready() {
     var select;
+    if (this.spec.type === "pack3by3") {
+      return;
+    }
     this.htmlId = this.id(this.name, 'Pack');
     this.$icon = this.createIcon();
     this.view.$view.append(this.$icon);
     select = UI.toTopic(this.name, 'Pack', this.spec.intent);
-    return this.stream.publish('Select', select, this.$icon, 'click');
+    this.stream.event('Select', select, Dom.element(this.$icon), 'click');
   }
 
   static show() {
-    var i, len, pane, ref, results;
-    super.show();
+    var i, len, pane, ref;
+    this.$.show();
     ref = this.panes;
-    results = [];
     for (i = 0, len = ref.length; i < len; i++) {
       pane = ref[i];
-      results.push(pane.show());
+      pane.show();
     }
-    return results;
   }
 
   static hide() {
-    var i, len, pane, ref, results;
-    super.hide();
+    var i, len, pane, ref;
+    this.$.hide();
     ref = this.panes;
-    results = [];
     for (i = 0, len = ref.length; i < len; i++) {
       pane = ref[i];
-      results.push(pane.hide());
+      pane.hide();
     }
-    return results;
   }
 
   createIcon() {
@@ -100,6 +105,10 @@ Pack = class Pack extends Pane {
 
   positionPack() {
     var height, left, top, width;
+    left = 0;
+    top = 0;
+    width = 0;
+    height = 0;
     [left, top, width, height] = this.view.positionPack(this.cells, this.spec);
     return this.$.css({
       left: this.xs(left),
@@ -111,12 +120,20 @@ Pack = class Pack extends Pane {
 
   positionPackIcon() {
     var height, left, top, width;
+    left = 0;
+    top = 0;
+    width = 0;
+    height = 0;
     [left, top, width, height] = this.view.positionPack(this.cells, this.spec);
     return [left + 20, top + 20, 20, 20];
   }
 
   animateIcon($icon) {
     var height, left, top, width;
+    left = 0;
+    top = 0;
+    width = 0;
+    height = 0;
     [left, top, width, height] = this.positionIcon();
     return $icon.animate({
       left: this.xs(left),
@@ -129,10 +146,18 @@ Pack = class Pack extends Pane {
   unionPanes() {
     var gpanes, i, ig, ip, jg, jp, len, mg, mp, ng, np, pane, ref;
     gpanes = [];
+    jg = 0;
+    mg = 0;
+    ig = 0;
+    ng = 0;
     [jg, mg, ig, ng] = UI.jmin(this.cells);
     ref = this.view.panes;
     for (i = 0, len = ref.length; i < len; i++) {
       pane = ref[i];
+      jp = 0;
+      mp = 0;
+      ip = 0;
+      np = 0;
       [jp, mp, ip, np] = UI.jmin(pane.cells);
       if (jg <= jp && jp + mp <= jg + mg && ig <= ip && ip + np <= ig + ng) {
         gpanes.push(pane);

@@ -13,7 +13,7 @@
       "Drink":    { "name":"Drink",  "type":"study" },
       "Body":     { "name":"Body",   "type":"study" } },
     "Arrow":{ "name":"ArrowFwdPrepare","type":"pane",  "cells":[33,4, 1,36], "toc":false, "show":true, "fwd":"Prepare" } },
-  "Prepare":    { "name":"Taste",    "type":"pack", "cells":[ 1,36, 1,36], "toc":false, "show":true,
+  "Prepare":    { "name":"Prepare",    "type":"pack", "cells":[ 1,36, 1,36], "toc":false, "show":true,
     "Roast": { "name":"Roast",    "type":"pane",    "cells":[ 1,36, 1, 8], "toc":false, "show":true,
       "Blonde": { "name": "Blonde", "type":"study", "img":"Blonde.png", "min": 0, "max": 9 },
       "Light":  { "name": "Light",  "type":"study", "img":"Light.png",  "min":10, "max":19 },
