@@ -19,16 +19,16 @@ Build = class Build {
   }
 
   static createPacks(data) {
-    var gkey, group;
-    for (gkey in data) {
-      group = data[gkey];
-      if (!(Util.isChild(gkey))) {
+    var key, pack;
+    for (key in data) {
+      pack = data[key];
+      if (!(Util.isChild(key))) {
         continue;
       }
-      if (group['name'] == null) {
-        group['name'] = gkey;
+      if (pack['name'] == null) {
+        pack['name'] = key;
       }
-      Build.createPracs(group);
+      Build.createPracs(pack);
     }
     return data;
   }
@@ -82,42 +82,30 @@ Build = class Build {
     return data;
   }
 
-  static colPractices(batch, justCore = false) {
-    var col, cols, i, j, key, len, len1, pln, prin, prinPln, ref, ref1, ref2, std;
-    prin = batch.Cols.data['Cols'];
+  static colPractices(batch) {
+    var cols, i, len, plane, ref;
+    cols = batch.Cols.data['Cols'];
     ref = ['Info', 'Know', 'Wise'];
     for (i = 0, len = ref.length; i < len; i++) {
-      pln = ref[i];
-      cols = batch[pln].data['Cols'] = Build.copyAtt(prin, {});
-      prinPln = justCore ? 'Core' : pln;
-      ref1 = ['Embrace', 'Innovate', 'Encourage'];
-      for (j = 0, len1 = ref1.length; j < len1; j++) {
-        col = ref1[j];
-        cols[col] = Build.copyAtt(prin[col], prin[col][prinPln]);
-        ref2 = prin[col][prinPln];
-        for (key in ref2) {
-          std = ref2[key];
-          if (Util.isChild(key)) {
-            cols[col][key] = Build.copyAtt(prin[col]['dirs'][std.dir], std);
-          }
-        }
-      }
+      plane = ref[i];
+      batch[plane].data['Cols'] = cols;
     }
   }
 
   static rowPractices(batch) {
-    var i, len, pln, prin, ref;
-    prin = batch.Rows.data['Rows'];
+    var i, len, plane, ref, rows;
+    rows = batch.Rows.data['Rows'];
     ref = ['Info', 'Know', 'Wise'];
     for (i = 0, len = ref.length; i < len; i++) {
-      pln = ref[i];
-      batch[pln].data['Rows'] = prin;
+      plane = ref[i];
+      batch[plane].data['Rows'] = rows;
     }
   }
 
   static copyAtt(src, des) {
     var key, obj;
     for (key in src) {
+      if (!hasProp.call(src, key)) continue;
       obj = src[key];
       if (!Util.isChild(key)) {
         des[key] = obj;
@@ -394,13 +382,25 @@ Build = class Build {
     }
   }
 
-  connectName(practice, dir) {
+  connectName(practice, dir, reverse) {
     var adjacent;
     adjacent = this.adjacentPractice(practice, dir);
     if (adjacent.name !== 'None') {
-      return [practice.name, adjacent.name];
+      return this.centerBegEnd(practice.name, adjacent.name, reverse);
     } else {
-      return ['None', 'None'];
+      return 'None' + '\n' + 'None';
+    }
+  }
+
+  centerBegEnd(beg, end, reverse) {
+    var b, e;
+    b = end.length > beg.length ? Util.indent((end.length - beg.length) / 2) + beg : beg;
+    e = beg.length > end.length ? Util.indent((beg.length - end.length) / 2) + end : end;
+    // console.log( 'Build.centerBegEnd()', { beg:beg, end:end, blen:beg.length, elen:end.length, b:b, e:e,be:b+'\n'+e })
+    if (!reverse) {
+      return b + '\n' + e;
+    } else {
+      return e + '\n' + b;
     }
   }
 
@@ -461,20 +461,22 @@ Build = class Build {
     return null;
   }
 
-  getPrin(col, pln, dir) {
-    var colPln, key;
-    colPln = this.batch.Cols.data['Cols'][col][pln];
-    for (key in colPln) {
-      col = colPln[key];
-      if (col.dir === dir) {
-        return key;
+  getDim(cname, dir) {
+    var col, dim, key;
+    col = this.getCol(cname);
+    for (key in col) {
+      dim = col[key];
+      if (Util.isChild(skey)) {
+        if (dim.dir === dir) {
+          return key;
+        }
       }
     }
     return this.None;
   }
 
-  getCol(col) {
-    return this.batch.Cols.data['Cols'][col]['Core'];
+  getCol(cname) {
+    return this.batch.Cols.data['Cols'][cname];
   }
 
   logPlanes() {
@@ -588,28 +590,27 @@ Build = class Build {
   }
 
   logByColumn() {
-    var col, dir, doit, dprac, i, j, k, learn, len, len1, len2, lprac, pln, prin, ref, ref1, ref2, share, sprac;
+    var cname, dim, dir, doit, dprac, i, j, k, learn, len, len1, len2, lprac, plane, ref, ref1, ref2, share, sprac;
     console.log('----- Beg Log By Column  ------');
     ref = ['Embrace', 'Innovate', 'Encourage'];
     for (i = 0, len = ref.length; i < len; i++) {
-      col = ref[i];
-      console.log(col);
+      cname = ref[i];
+      console.log(cname);
       ref1 = ['west', 'north', 'east', 'south'];
       for (j = 0, len1 = ref1.length; j < len1; j++) {
         dir = ref1[j];
-        prin = this.getPrin(col, 'Core', dir);
-        console.log('  ', dir, prin, 'Learn', 'Do', 'Share');
+        dim = this.getDim(cname, dir);
+        console.log('  ', dir, dim.name, 'Learn', 'Do', 'Share');
         ref2 = ['Info', 'Know', 'Wise'];
         for (k = 0, len2 = ref2.length; k < len2; k++) {
-          pln = ref2[k];
-          prin = this.getPrin(col, pln, dir);
-          lprac = this.getPractice('Learn', col, pln);
-          dprac = this.getPractice('Do', col, pln);
-          sprac = this.getPractice('Share', col, pln);
+          plane = ref2[k];
+          lprac = this.getPractice('Learn', cname, plane);
+          dprac = this.getPractice('Do', cname, plane);
+          sprac = this.getPractice('Share', cname, plane);
           learn = this.getDir(lprac, dir);
           doit = this.getDir(dprac, dir);
           share = this.getDir(sprac, dir);
-          console.log('    ', pln + ':', prin, learn.name, doit.name, share.name);
+          console.log('    ', plane + ':', dim.name, learn.name, doit.name, share.name);
         }
       }
     }
@@ -617,29 +618,28 @@ Build = class Build {
   }
 
   logAsTable() {
-    var col, dir, doit, dprac, i, j, k, learn, len, len1, len2, lprac, obj, pln, prin, ref, ref1, ref2, share, sprac;
+    var cname, dim, dir, doit, dprac, i, j, k, learn, len, len1, len2, lprac, obj, plane, ref, ref1, ref2, share, sprac;
     console.log('----- Beg Log As Table  ------');
     ref = ['Embrace', 'Innovate', 'Encourage'];
     for (i = 0, len = ref.length; i < len; i++) {
-      col = ref[i];
+      cname = ref[i];
       console.log(col);
       obj = {};
       ref1 = ['west', 'north', 'east', 'south'];
       for (j = 0, len1 = ref1.length; j < len1; j++) {
         dir = ref1[j];
-        prin = this.getPrin(col, 'Core', dir);
+        dim = this.getDim(cname, dir);
         ref2 = ['Info', 'Know', 'Wise'];
         for (k = 0, len2 = ref2.length; k < len2; k++) {
-          pln = ref2[k];
-          prin = this.getPrin(col, pln, dir);
-          lprac = this.getPractice('Learn', col, pln);
-          dprac = this.getPractice('Do', col, pln);
-          sprac = this.getPractice('Share', col, pln);
+          plane = ref2[k];
+          lprac = this.getPractice('Learn', cname, plane);
+          dprac = this.getPractice('Do', cname, plane);
+          sprac = this.getPractice('Share', cname, plane);
           learn = this.getDir(lprac, dir);
           doit = this.getDir(dprac, dir);
           share = this.getDir(sprac, dir);
-          obj[pln] = {
-            Principle: prin,
+          obj[plane] = {
+            Dimension: dim.name,
             Learn: learn.name,
             Do: doit.name,
             Share: share.name
@@ -654,7 +654,7 @@ Build = class Build {
   }
 
   saveAsHtml(name) {
-    var col, dir, doit, dprac, htm, i, j, k, learn, len, len1, len2, lprac, pln, prin, ref, ref1, ref2, share, sprac;
+    var col, dim, dir, doit, dprac, htm, i, j, k, learn, len, len1, len2, lprac, plane, ref, ref1, ref2, share, sprac;
     htm = `<!DOCTYPE html>\n<html lang="en">\n  <head><meta charset="utf-8">\n    <title>${name}</title>`;
     htm += `\n    <link href="${name}.css" rel="stylesheet" type="text/css"/>\n  </head>\n  <body>\n`;
     ref = ['Embrace', 'Innovate', 'Encourage'];
@@ -664,20 +664,19 @@ Build = class Build {
       ref1 = ['west', 'north', 'east', 'south'];
       for (j = 0, len1 = ref1.length; j < len1; j++) {
         dir = ref1[j];
-        prin = this.getPrin(col, 'Core', dir);
+        dim = this.getDim(col, dir);
         htm += "    <table>\n      <thead>\n        ";
-        htm += `<tr><th>Plane</th><th>${prin}</th><th>Learn</th><th>Do</th><th>Share</th></tr>\n      </thead>\n      <tbody>\n`;
+        htm += `<tr><th>Plane</th><th>${dim}</th><th>Learn</th><th>Do</th><th>Share</th></tr>\n      </thead>\n      <tbody>\n`;
         ref2 = ['Info', 'Know', 'Wise'];
         for (k = 0, len2 = ref2.length; k < len2; k++) {
-          pln = ref2[k];
-          prin = this.getPrin(col, pln, dir);
-          lprac = this.getPractice('Learn', col, pln);
-          dprac = this.getPractice('Do', col, pln);
-          sprac = this.getPractice('Share', col, pln);
+          plane = ref2[k];
+          lprac = this.getPractice('Learn', col, plane);
+          dprac = this.getPractice('Do', col, plane);
+          sprac = this.getPractice('Share', col, plane);
           learn = this.getDir(lprac, dir);
           doit = this.getDir(dprac, dir);
           share = this.getDir(sprac, dir);
-          htm += `        <tr><td>${pln}:</td><td>${prin}</td><td>${learn.name}</td><td>${doit.name}</td><td>${share.name}</td></tr>\n`;
+          htm += `        <tr><td>${plane}:</td><td>${dim}</td><td>${learn.name}</td><td>${doit.name}</td><td>${share.name}</td></tr>\n`;
         }
         htm += "      </tbody>\n    </table>\n";
       }

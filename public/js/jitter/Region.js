@@ -25,7 +25,7 @@ Region = class Region extends Base {
   ready(cname) {
     var $p, src;
     Util.noop(cname);
-    src = "img/region/Ethiopia.png";
+    src = "../img/region/Ethiopia.png";
     $p = $(`  ${Dom.image(src, 90, 96, "Ethopia", "24px")}`);
     this.$image = $p.find('.dom-image');
     this.$label = $p.find('.dom-label');
@@ -49,7 +49,7 @@ Region = class Region extends Base {
       });
     }
     if ((region.img != null) && region.img) {
-      src = `img/region/${region.name}.png`;
+      src = `../img/region/${region.name}.png`;
       this.$label.hide();
       this.$image.attr('src', src).show();
     } else {

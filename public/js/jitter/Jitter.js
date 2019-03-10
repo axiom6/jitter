@@ -6,7 +6,7 @@ import Data from '../util/Data.js';
 
 import Build from '../prac/Build.js';
 
-import Stream from '../util/StreamPs.js';
+import Stream from '../util/Stream.js';
 
 import UI from '../ui/UI.js';
 
@@ -45,7 +45,7 @@ Jitter = (function() {
         infoSpec = {
           subscribe: false,
           publish: false,
-          subjects: ["Select", "Choice", "Region", "Prefs", "Test"]
+          subjects: subjects
         };
         Jitter.stream = new Stream(subjects, infoSpec);
         Jitter.ui = new UI(Jitter.stream, Jitter.Tocs);
@@ -72,7 +72,7 @@ Jitter = (function() {
       this.summarym = new Summary(this.stream, this.ui, "Summarym");
       this.user = new User(this.stream, this);
       this.prefs = new Prefs(this.stream);
-      Util.noop(this.summaryt, this.summaryp, this.summarym, this.prefs, Jitter.SpecInteract, Jitter.NavbSubjects, Jitter.NavbSpecs);
+      Util.noop(this.drink, this.brew, this.summaryt, this.summaryp, this.summarym, this.prefs, Jitter.SpecInteract, Jitter.NavbSubjects, Jitter.NavbSpecs);
     }
 
     onReady() {
@@ -94,11 +94,11 @@ Jitter = (function() {
 
   };
 
-  Data.local = "http://localhost:63342/jitter/public/";
+  Data.local = "http://localhost:63342/muse/public/";
 
   Data.hosted = "https://ui-48413.firebaseapp.com/";
 
-  Data.asyncJSON("json/toc.json", Jitter.init);
+  Data.asyncJSON("json/jitter/toc.json", Jitter.init);
 
   Jitter.SpecInteract = {
     Taste: {

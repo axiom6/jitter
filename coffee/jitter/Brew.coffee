@@ -12,7 +12,7 @@ class Brew extends Base
 
   ready:( cname ) =>
     Util.noop( cname )
-    Dom.vertBtns( @stream, @spec, @, 'img/brew/', 80, 10, 12 )
+    Dom.vertBtns( @stream, @spec, @, '../img/brew/', 80, 10, 12 )
 
   onChoice:( choice ) =>
     Dom.onChoice( choice, 'Brew', @ )

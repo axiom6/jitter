@@ -59,6 +59,10 @@ Data = (function() {
       $.ajax(settings);
     }
 
+    static planeData(batch, plane) {
+      return batch[plane].data[plane];
+    }
+
     static baseUrl() {
       if (window.location.href.includes('localhost')) {
         return Data.local;
@@ -96,16 +100,20 @@ Data = (function() {
       $.ajax(settings);
     }
 
-    // @syncJSON:( path ) ->
-    //  return {} if Util.jQueryHasNotBeenLoaded()
-    //  jqxhr = $.ajax( { type:"GET", url:path, dataType:'json', cache:false, async:false } )
-    //  jqxhr['responseJSON']
-
-    // @pracJSON:( path ) ->
-    //   Data.createPracs( Data.syncJSON(path) )
-
-    // @packJSON:( path ) ->
-    //   Data.createPacks( Data.syncJSON(path) )
+    static syncJSON(path) {
+      var jqxhr;
+      if (Util.jQueryHasNotBeenLoaded()) {
+        return {};
+      }
+      jqxhr = $.ajax({
+        type: "GET",
+        url: path,
+        dataType: 'json',
+        cache: false,
+        async: false
+      });
+      return jqxhr['responseJSON'];
+    }
 
     // ------ Quick JSON read ------
     static read(url, doJson) {
@@ -154,11 +162,9 @@ Data = (function() {
       $.ajax(settings);
     }
 
-    static saveHtml(name, html) {
-      var downloadLink, fileName, htmlBlob, htmlData, htmlUrl;
-      fileName = name + '.html';
-      htmlData = html;
-      htmlBlob = new Blob([htmlData], {
+    static saveFile(data, fileName) {
+      var downloadLink, htmlBlob, htmlUrl;
+      htmlBlob = new Blob([data], {
         type: "text/html;charset=utf-8"
       });
       htmlUrl = window['URL'].createObjectURL(htmlBlob);
@@ -178,7 +184,7 @@ Data = (function() {
 
   Data.localJSON = "http://localhost:63342/muse/public/json";
 
-  Util.noop(Data.hosted, Data.packJSON, Data.expandStudys);
+  Util.noop(Data.hosted, Data.expandStudys, Data.syncJSON);
 
   Data.Databases = {
     color: {

@@ -21,7 +21,7 @@ Drink = class Drink extends Base {
   ready(cname) {
     boundMethodCheck(this, Drink);
     Util.noop(cname);
-    return Dom.vertBtns(this.stream, this.spec, this, 'img/drink/', 80, 10, 12);
+    return Dom.vertBtns(this.stream, this.spec, this, '../img/drink/', 80, 10, 12);
   }
 
   onChoice(choice) {

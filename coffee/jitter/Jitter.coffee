@@ -2,7 +2,7 @@
 import Util     from '../util/Util.js'
 import Data     from '../util/Data.js'
 import Build    from '../prac/Build.js'
-import Stream   from '../util/StreamPs.js'
+import Stream   from '../util/Stream.js'
 import UI       from '../ui/UI.js'
 import Flavor   from '../jitter/Flavor.js'
 import Interact from '../jitter/Interact.js'
@@ -18,9 +18,9 @@ import Prefs    from '../jitter/Prefs.js'
 
 class Jitter
 
-  Data.local  = "http://localhost:63342/jitter/public/"
+  Data.local  = "http://localhost:63342/muse/public/"
   Data.hosted = "https://ui-48413.firebaseapp.com/"
-  Data.asyncJSON( "json/toc.json", Jitter.init )
+  Data.asyncJSON( "json/jitter/toc.json", Jitter.init )
 
   @init = ( data ) ->
     Jitter.Tocs = Build.createPacks( data )
@@ -29,7 +29,7 @@ class Jitter
     UI.hasLays  = false
     Util.ready ->
       subjects      = ["Ready","Select","Choice","Roast","Region","Prefs","Test"]
-      infoSpec      = { subscribe:false, publish:false, subjects:["Select","Choice","Region","Prefs","Test"]}
+      infoSpec      = { subscribe:false, publish:false, subjects:subjects }
       Jitter.stream = new Stream( subjects, infoSpec )
       Jitter.ui     = new UI( Jitter.stream, Jitter.Tocs )
       jitter        = new Jitter( Jitter.stream, Jitter.ui )
@@ -57,7 +57,7 @@ class Jitter
     @summarym = new Summary(  @stream, @ui, "Summarym"   )
     @user     = new User(     @stream, @ )
     @prefs    = new Prefs(    @stream )
-    Util.noop( @summaryt, @summaryp, @summarym, @prefs, Jitter.SpecInteract, Jitter.NavbSubjects, Jitter.NavbSpecs )
+    Util.noop( @drink, @brew, @summaryt, @summaryp, @summarym, @prefs, Jitter.SpecInteract, Jitter.NavbSubjects, Jitter.NavbSpecs )
     #@stream.subscribe( "Ready", "Jitter", () => @onReady() )
 
   onReady:() =>

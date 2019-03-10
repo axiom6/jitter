@@ -29,7 +29,7 @@ Roast = (function() {
     ready(cname) {
       var $p, $r, dx, key, n, ref, roast, spanc, spanr, src, style, x;
       Util.noop(cname);
-      src = "img/roast/RoastsBig.png";
+      src = "../img/roast/RoastsBig.png";
       n = Util.lenObject(this.data);
       x = 0;
       dx = 100 / n; // - 0.07

@@ -27,7 +27,7 @@ class Roast extends Base
 
   ready:( cname ) ->
     Util.noop( cname )
-    src = "img/roast/RoastsBig.png"
+    src = "../img/roast/RoastsBig.png"
     n   = Util.lenObject( @data )
     x   = 0
     dx  = 100 / n # - 0.07

@@ -40,7 +40,7 @@ World = class World extends Base {
       return results;
     };
     //console.log( "Region Data", region )
-    Data.asyncJSON("json/region.json", callback);
+    Data.asyncJSON("json/jitter/region.json", callback);
     Util.noop(this.$img);
   }
 
@@ -50,7 +50,7 @@ World = class World extends Base {
   ready(cname) {
     var $p, src;
     Util.noop(cname);
-    src = "img/region/WorldBelt.png";
+    src = "../img/region/WorldBelt.png";
     $p = $(`  ${Dom.image(src, 90, 96, "", "24px")}`);
     this.$img = $p.find('img');
     this.$img.click((event) => {

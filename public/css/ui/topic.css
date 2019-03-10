@@ -1,0 +1,123 @@
+.topic-ul-core {
+  list-style: none;
+  margin: 0;
+  line-height: 0.8;
+  text-align: left;
+}
+.topic-ul-c1 {
+  list-style: none;
+  margin: 0;
+  line-height: 0.8;
+  text-align: left;
+  font-size: 2.5vh;
+  position: absolute;
+  left: 5%;
+  top: 33%;
+  width: 30%;
+  height: 10%;
+  padding-left: 0;
+}
+.topic-ul-c2 {
+  list-style: none;
+  margin: 0;
+  line-height: 0.8;
+  text-align: left;
+  font-size: 2.5vh;
+  position: absolute;
+  left: 35%;
+  top: 33%;
+  width: 30%;
+  height: 10%;
+  padding-left: 0;
+}
+.topic-ul-c3 {
+  list-style: none;
+  margin: 0;
+  line-height: 0.8;
+  text-align: left;
+  font-size: 2.5vh;
+  position: absolute;
+  left: 65%;
+  top: 33%;
+  width: 30%;
+  height: 10%;
+  padding-left: 0;
+}
+.topic-ul-nw {
+  list-style: none;
+  margin: 0;
+  line-height: 0.8;
+  text-align: left;
+  font-size: 2.5vh;
+  position: absolute;
+  left: 5%;
+  top: 10%;
+  width: 40%;
+  height: 30%;
+  padding-left: 0;
+}
+.topic-ul-sw {
+  list-style: none;
+  margin: 0;
+  line-height: 0.8;
+  text-align: left;
+  font-size: 2.5vh;
+  position: absolute;
+  left: 5%;
+  top: 40%;
+  width: 40%;
+  height: 30%;
+  padding-left: 0;
+}
+.topic-ul-ne {
+  list-style: none;
+  margin: 0;
+  line-height: 0.8;
+  text-align: left;
+  font-size: 2.5vh;
+  position: absolute;
+  left: 50%;
+  top: 10%;
+  width: 40%;
+  height: 30%;
+  padding-left: 0;
+}
+.topic-ul-se {
+  list-style: none;
+  margin: 0;
+  line-height: 0.8;
+  text-align: left;
+  font-size: 2.5vh;
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  width: 40%;
+  height: 30%;
+  padding-left: 0;
+}
+.topic-ul-5t {
+  list-style: none;
+  margin: 0;
+  line-height: 0.8;
+  text-align: left;
+  font-size: 2.5vh;
+  position: absolute;
+  left: 5%;
+  top: 70%;
+  width: 40%;
+  height: 30%;
+  padding-left: 0;
+}
+.topic-ul-6t {
+  list-style: none;
+  margin: 0;
+  line-height: 0.8;
+  text-align: left;
+  font-size: 2.5vh;
+  position: absolute;
+  left: 50%;
+  top: 70%;
+  width: 40%;
+  height: 30%;
+  padding-left: 0;
+}

@@ -464,7 +464,7 @@ Util = (function() {
     // ------ Html ------------
     static getHtmlId(name, type = '', ext = '') {
       var id;
-      id = name + type + ext;
+      id = name + type + ext + Util.uniqueIdExt;
       return id.replace(/[ \.]/g, "");
     }
 
@@ -985,6 +985,8 @@ Util = (function() {
   Util.logStackMax = 100;
 
   Util.fills = {};
+
+  Util.uniqueIdExt = '';
 
   return Util;
 

@@ -12,7 +12,7 @@ class Body extends Base
 
   ready:( cname ) =>
     Util.noop( cname )
-    Dom.vertBtns( @stream, @spec, @, 'img/body/', 70, 15, 12 )
+    Dom.vertBtns( @stream, @spec, @, '../img/body/', 70, 15, 12 )
 
   onChoice:( choice ) =>
     Dom.onChoice( choice, 'Body', @ )

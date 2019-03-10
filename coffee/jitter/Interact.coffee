@@ -6,7 +6,7 @@ import Base  from '../ui/Base.js'
 class Interact extends Base
 
   constructor:( stream, ui, name, @specs ) ->
-    super(      stream, ui, name, @specs )
+    super(      stream, ui, name, 'Interact')
     @lastSelect = ""
     @stream.subscribe( 'Select', 'Interact', (select) => @onSelect(select) )
     console.log( @specs, @lastSelect ) if false

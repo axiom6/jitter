@@ -1,5 +1,6 @@
 
 import Util  from '../util/Util.js'
+import Data  from '../util/Data.js'
 import UI    from '../ui/UI.js'
 import Dom   from '../ui/Dom.js'
 import Base  from '../ui/Base.js'
@@ -28,7 +29,7 @@ class Flavor extends Base
 
   ready:( cname ) ->
     Util.noop( cname )
-    url   = "json/flavor.choice.json"
+    url   = Data.local + "json/jitter/flavor.choice.json"
     scale = 1.1
     divId = @ui.getHtmlId( "Wheel", @pane.name )
     $w =    $( """<div #{Dom.panel( 0, 5,100, 95)} id="#{divId}"></div>""" )

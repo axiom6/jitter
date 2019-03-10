@@ -21,7 +21,7 @@ Body = class Body extends Base {
   ready(cname) {
     boundMethodCheck(this, Body);
     Util.noop(cname);
-    return Dom.vertBtns(this.stream, this.spec, this, 'img/body/', 70, 15, 12);
+    return Dom.vertBtns(this.stream, this.spec, this, '../img/body/', 70, 15, 12);
   }
 
   onChoice(choice) {

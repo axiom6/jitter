@@ -23,7 +23,7 @@ class World extends Base
         region.chosen = false
         region.source = 'World'
         #console.log( "Region Data", region )
-    Data.asyncJSON( "json/region.json", callback )
+    Data.asyncJSON( "json/jitter/region.json", callback )
     Util.noop( @$img )
 
   subscribe:() ->
@@ -32,7 +32,7 @@ class World extends Base
 
   ready:( cname ) ->
     Util.noop( cname )
-    src   = "img/region/WorldBelt.png"
+    src   = "../img/region/WorldBelt.png"
     $p    = $( """  #{Dom.image(src,90,96,"","24px")}""" )
     @$img = $p.find('img')
     @$img.click( (event) => @onClick(event) )
@@ -73,4 +73,4 @@ class World extends Base
     @showRegion( region )
     return
 
-export default World
+`export default World`

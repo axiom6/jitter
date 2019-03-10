@@ -6,13 +6,11 @@ import Util from '../util/Util.js';
 
 import UI from '../ui/UI.js';
 
-import Dom from '../ui/Dom.js';
-
 import Base from '../ui/Base.js';
 
 Interact = class Interact extends Base {
   constructor(stream, ui, name, specs) {
-    super(stream, ui, name);
+    super(stream, ui, name, 'Interact');
     this.ready = this.ready.bind(this);
     this.onSelect = this.onSelect.bind(this);
     this.onEvents = this.onEvents.bind(this);
@@ -23,6 +21,9 @@ Interact = class Interact extends Base {
     this.stream.subscribe('Select', 'Interact', (select) => {
       return this.onSelect(select);
     });
+    if (false) {
+      console.log(this.specs, this.lastSelect);
+    }
   }
 
   ready(cname) {

@@ -3,6 +3,8 @@ var Flavor,
 
 import Util from '../util/Util.js';
 
+import Data from '../util/Data.js';
+
 import UI from '../ui/UI.js';
 
 import Dom from '../ui/Dom.js';
@@ -51,7 +53,7 @@ Flavor = class Flavor extends Base {
   ready(cname) {
     var $w, divId, scale, url;
     Util.noop(cname);
-    url = "json/flavor.choice.json";
+    url = Data.local + "json/jitter/flavor.choice.json";
     scale = 1.1;
     divId = this.ui.getHtmlId("Wheel", this.pane.name);
     $w = $(`<div ${Dom.panel(0, 5, 100, 95)} id="${divId}"></div>`);

@@ -16,7 +16,7 @@ class Region  extends Base
 
   ready:( cname ) ->
     Util.noop( cname )
-    src   = "img/region/Ethiopia.png"
+    src   = "../img/region/Ethiopia.png"
     $p    = $( """  #{Dom.image(src,90,96,"Ethopia","24px")}""" )
     @$image = $p.find('.dom-image')
     @$label = $p.find('.dom-label')
@@ -32,7 +32,7 @@ class Region  extends Base
        console.info( 'Region.onRegion()', { name:region.name, chosen:region.chosen, flavors:region.flavors } )
 
     if region.img? and region.img
-      src = "img/region/#{region.name}.png"
+      src = "../img/region/#{region.name}.png"
       @$label.hide()
       @$image.attr( 'src', src ).show()
     else
